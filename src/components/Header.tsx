@@ -14,9 +14,11 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm transition-all duration-300 border-b border-blue-500/20">
+    <header className="sticky top-0 z-50 w-full bg-background/70 backdrop-blur-md transition-all duration-300 border-b border-blue-500/20">
       <div className="container mx-auto flex justify-between items-center py-4 px-4">
-        <div className="text-lg font-bold text-primary">My Portfolio</div>
+        <div className="text-lg font-bold bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent">
+          Dalton Ousley
+        </div>
         <nav>
           <ul className="flex space-x-4 md:space-x-6">
             {navItems.map((item) => (

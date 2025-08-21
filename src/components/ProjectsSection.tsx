@@ -1,7 +1,7 @@
 import React from 'react';
 import SectionHeader from './SectionHeader';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/Card';
-import { Github, ExternalLink } from 'lucide-react';
+import { Github, ExternalLink, Code } from 'lucide-react';
 import { Button } from './ui/Button';
 import Image from 'next/image';
 
