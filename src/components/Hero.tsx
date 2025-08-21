@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/Button";
 import React from 'react';
 import { ArrowDownToLine, Rocket } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
+import Image from 'next/image';
 
 const Hero: React.FC = () => {
   return (
@@ -15,6 +16,17 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="relative z-10 px-4 max-w-6xl mx-auto">
+        <div className="mb-8">
+          <div className="w-50 h-50 rounded-full mx-auto overflow-hidden border-4 border-primary shadow-xl shadow-primary/20">
+            <Image
+              src="/dalton-ousley-profile-pic.webp"
+              alt="Dalton Ousley"
+              width={150}
+              height={150}
+              className="object-cover h-full w-full"
+            />
+          </div>
+        </div>
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
           Hi, I'm <span className="gradient-text">Dalton</span>
         </h1>
