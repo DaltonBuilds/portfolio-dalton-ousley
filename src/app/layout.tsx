@@ -1,10 +1,13 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+});
 
 export const metadata = {
   title: 'Dalton Ousley - Cloud-focused Engineer',
@@ -13,12 +16,19 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Header />
-          <main>{children}</main>
-          <Footer />
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${poppins.className} bg-background text-foreground`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="relative flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>

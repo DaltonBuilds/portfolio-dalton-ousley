@@ -1,44 +1,43 @@
 import { Button } from "@/components/ui/Button";
 import React from 'react';
 import { ArrowDownToLine, Rocket } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
-interface HeroProps {
-  name: string;
-  role: string;
-  tagline: string;
-}
-
-const Hero: React.FC<HeroProps> = ({ name, role, tagline }) => {
+const Hero: React.FC = () => {
   return (
     <section 
       id="hero" 
-      className="relative flex flex-col items-center justify-center text-center py-20 md:py-32 min-h-screen bg-gradient-to-br from-blue-500/5 to-orange-500/5 overflow-hidden animate-fade-in-up"
+      className="relative flex flex-col items-center justify-center text-center py-20 md:py-32 min-h-screen overflow-hidden"
     >
-      {/* Background pattern - subtle circles and squares */}
-      <div className="absolute inset-0 z-0 opacity-10">
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-blue-500 blur-2xl"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-48 h-48 rounded-lg bg-orange-500 blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 w-24 h-24 rounded-full bg-orange-500 blur-xl animate-pulse"></div>
+      <div className="absolute top-0 left-0 w-full h-full z-0">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-secondary/10 rounded-full filter blur-3xl opacity-30 animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl opacity-30 animate-pulse animation-delay-200"></div>
       </div>
 
-      <div className="relative z-10 px-4 max-w-4xl">
-        <h1 className="text-5xl md:text-7xl font-extrabold text-primary mb-4 leading-tight animate-fade-in-up">
-          Hi, I&apos;m <span className="text-secondary"> {name}</span>
+      <div className="relative z-10 px-4 max-w-6xl mx-auto">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6">
+          Hi, I'm <span className="gradient-text">Dalton</span>
         </h1>
-        <h2 className="text-2xl md:text-3xl text-foreground mb-6 font-semibold animate-fade-in-up animation-delay-200">
-          {role}
+        <h2 className="text-2xl md:text-4xl font-semibold text-foreground/80 mb-8">
+          Cloud Architect & DevOps Engineer
         </h2>
-        <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-prose mx-auto animate-fade-in-up animation-delay-400">
-          {tagline}
+        <p className="text-lg md:text-xl text-foreground/60 mb-12 max-w-3xl mx-auto">
+          Building innovative cloud solutions and scalable architectures that drive business transformation.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-600">
-          <Button className="bg-orange-500 hover:bg-orange-600 text-white shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50" size="lg">
-            <ArrowDownToLine className="mr-2 h-5 w-5" /> Download Resume
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button size="lg" className="text-lg px-8 py-6">
+            <ArrowDownToLine className="mr-2 h-5 w-5" /> Download CV
           </Button>
-          <Button variant="outline" className="text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50" size="lg">
-            <Rocket className="mr-2 h-5 w-5" /> View Projects
+          <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+            <Rocket className="mr-2 h-5 w-5" /> Let's Build Together
           </Button>
         </div>
+      </div>
+      
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2">
+        <span className="text-sm text-foreground/60">Scroll to explore</span>
+        <ChevronDown className="w-6 h-6 text-foreground/60 animate-bounce" />
       </div>
     </section>
   );

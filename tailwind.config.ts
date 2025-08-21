@@ -3,10 +3,8 @@ import type { Config } from "tailwindcss";
 const config = {
   darkMode: "class",
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
+    './src/app/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
   ],
   prefix: "",
   theme: {
@@ -25,12 +23,12 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "var(--color-primary)",
-          foreground: "var(--color-primary-foreground)",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "var(--color-secondary)",
-          foreground: "var(--color-secondary-foreground)",
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -51,12 +49,6 @@ const config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-        },
-        blue: {
-          500: "#005f99", // Deep blue
-        },
-        orange: {
-          500: "#ff6600", // Warm orange
         },
       },
       borderRadius: {
