@@ -28,7 +28,7 @@ const Hero: React.FC = () => {
           </div>
         </div>
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          Hi, I'm <span className="gradient-text">Dalton</span>
+          Hi, I&apos;m <span className="gradient-text">Dalton</span>
         </h1>
         <h2 className="text-2xl md:text-4xl font-semibold text-foreground/80 mb-8">
           Cloud Architect & DevOps Engineer
@@ -42,7 +42,7 @@ const Hero: React.FC = () => {
             <ArrowDownToLine className="mr-2 h-5 w-5" /> Download CV
           </Button>
           <Button variant="outline" size="lg" className="text-lg px-8 py-6">
-            <Rocket className="mr-2 h-5 w-5" /> Let's Build Together
+            <Rocket className="mr-2 h-5 w-5" /> Let&apos;s Build Together
           </Button>
         </div>
       </div>

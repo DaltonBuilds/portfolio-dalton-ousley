@@ -29,16 +29,12 @@ const BentoCard = ({
   background,
   Icon,
   description,
-  href,
-  cta,
 }: {
   name: string;
   className: string;
   background: ReactNode;
-  Icon: any;
+  Icon: React.ComponentType<{ className?: string }>;
   description: string;
-  href: string;
-  cta: string;
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
 

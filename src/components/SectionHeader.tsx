@@ -4,12 +4,14 @@ import { LucideIcon } from 'lucide-react';
 
 interface SectionHeaderProps {
   title: string;
+  subtitle?: string;
   icon?: LucideIcon;
   className?: string;
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
   title,
+  subtitle,
   icon: Icon,
   className,
 }) => {
@@ -20,6 +22,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         {title}
         <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-secondary rounded-full"></span>
       </h2>
+      {subtitle && <p className="mt-4 text-lg text-muted-foreground">{`> ${subtitle}`}</p>}
     </div>
   );
 };

@@ -3,7 +3,6 @@ import { IBM_Plex_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import FooterSecondary from '@/components/FooterSecondary';
 import { SmoothCursor } from '@/components/ui/smooth-cursor';
 
 const ibmPlexMono = IBM_Plex_Mono({

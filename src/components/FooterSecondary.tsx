@@ -53,7 +53,7 @@ const FooterSecondary: React.FC = () => {
 
         </div>
         <div className="mt-12 text-center text-gray-500 text-sm">
-          <p>A visual representation of this portfolio's structure.</p>
+          <p>A visual representation of this portfolio&apos;s structure.</p>
           <p>&copy; {new Date().getFullYear()} Dalton Ousley. All rights reserved.</p>
         </div>
       </div>
