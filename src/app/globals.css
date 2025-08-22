@@ -298,3 +298,36 @@ html {
   vertical-align: middle;
   transform: translateY(-0.05em);
 }
+
+.dark .interactive-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    400px circle at var(--mouse-x) var(--mouse-y),
+    var(--color-primary),
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 0;
+}
+
+.dark .interactive-border:hover::before {
+  opacity: 1;
+}
+
+.dark .interactive-border::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: #111111;
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.dark .interactive-border > * {
+  z-index: 1;
+  position: relative;
+}
