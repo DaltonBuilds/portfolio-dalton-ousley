@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
           </div>
           <div className="flex space-x-6">
             <Link href="/" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">home</Link>
-            <Link href="/#about" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">about</Link>
+            <Link href="/about" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">about</Link>
             <Link href="/#projects" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">projects</Link>
             <Link href="/#blog" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">blog</Link>
           </div>
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
             <span className="text-gray-200">ls -a social</span>
           </div>
           <div className="flex space-x-6">
-            <a href="https://github.com/Dalton-Ousley" target="_blank" rel="noopener noreferrer" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">github</a>
+            <a href="https://github.com/DaltonBuilds" target="_blank" rel="noopener noreferrer" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">github</a>
             <a href="https://linkedin.com/in/daltonousley" target="_blank" rel="noopener noreferrer" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">linkedin</a>
             <a href="https://twitter.com/DaltonOusley" target="_blank" rel="noopener noreferrer" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">twitter</a>
           </div>
