@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import ApproachSection from "@/components/ApproachSection";
 import ServicesSection from "@/components/ServicesSection";
 import { InteractiveSkillsSection } from "@/components/InteractiveSkillsSection";
+import { CertificationsSection } from "@/components/CertificationsSection";
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <Hero />
       <ServicesSection />
       <InteractiveSkillsSection />
+      <CertificationsSection />
       <ApproachSection />
     </div>
   );
