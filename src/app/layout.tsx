@@ -3,7 +3,6 @@ import { IBM_Plex_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { SmoothCursor } from '@/components/ui/smooth-cursor';
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -25,7 +24,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           enableSystem
           disableTransitionOnChange
         >
-          <SmoothCursor />
           <div className="relative flex flex-col min-h-screen">
             <Header />
             <main className="flex-grow">{children}</main>

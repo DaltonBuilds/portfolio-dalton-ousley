@@ -60,12 +60,12 @@ const BentoCard = ({
       )}
       onMouseMove={onMouseMove}
     >
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-full bg-gradient-to-br from-white/20 to-white/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-full bg-gradient-to-br from-primary/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       <div>{background}</div>
       <div className="pointer-events-none z-10 flex transform-gpu flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-6">
-        <Icon className="h-12 w-12 origin-left transform-gpu text-neutral-100 transition-all duration-300 ease-in-out group-hover:scale-75" />
-        <h3 className="text-xl font-semibold text-neutral-300">{name}</h3>
-        <p className="max-w-lg text-neutral-400">{description}</p>
+        <Icon className="h-12 w-12 origin-left transform-gpu text-foreground transition-all duration-300 ease-in-out group-hover:scale-75" />
+        <h3 className="text-xl font-semibold text-foreground">{name}</h3>
+        <p className="max-w-lg text-muted-foreground">{description}</p>
       </div>
       <div
         className={cn(

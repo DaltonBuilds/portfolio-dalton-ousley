@@ -3,7 +3,7 @@
 import React, { forwardRef, useRef } from 'react';
 import SectionHeader from './SectionHeader';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
-import { GitBranch, Shield, Layers, Cloud, Settings, BrainCircuit, Monitor, Brain } from 'lucide-react';
+import { GitBranch, Shield, ShipWheel, Cloud, Settings, BrainCircuit, Monitor, Brain } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { AnimatedBeam } from '@/components/magicui/animated-beam';
 
@@ -30,7 +30,7 @@ const skillsData = {
         title: 'Kubernetes & Orchestration',
         description: 'K8s cluster management, service mesh, auto-scaling, and cloud-native application deployment.',
         category: 'Infrastructure',
-        Icon: Layers,
+        Icon: ShipWheel,
     },
     'sre': {
         title: 'Site Reliability Engineering',

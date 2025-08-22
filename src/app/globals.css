@@ -216,7 +216,7 @@
 
 @layer base {
   button, a, [role="button"] {
-    cursor: none;
+    cursor: pointer;
   }
   * {
     border-color: hsl(var(--border));
@@ -299,7 +299,8 @@ html {
   transform: translateY(-0.05em);
 }
 
-.dark .interactive-border::before {
+/* Light mode interactive border */
+.interactive-border::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -314,20 +315,25 @@ html {
   z-index: 0;
 }
 
-.dark .interactive-border:hover::before {
+.interactive-border:hover::before {
   opacity: 1;
 }
 
-.dark .interactive-border::after {
+.interactive-border::after {
   content: "";
   position: absolute;
   inset: 1px;
-  background: #111111;
+  background: hsl(var(--card));
   border-radius: inherit;
   z-index: 0;
 }
 
-.dark .interactive-border > * {
+.interactive-border > * {
   z-index: 1;
   position: relative;
+}
+
+/* Dark mode interactive border overrides */
+.dark .interactive-border::after {
+  background: #111111;
 }
