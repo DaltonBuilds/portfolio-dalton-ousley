@@ -23,12 +23,12 @@ const Header: React.FC = () => {
           <span className="font-bold text-lg">Dalton Ousley</span>
         </Link>
         <nav className="hidden md:flex">
-          <ul className="flex items-center space-x-6 text-sm font-medium">
+          <ul className="flex items-center space-x-6 text-md font-medium">
             {navItems.map((item) => (
               <li key={item.name}>
                 <Link
                   href={item.href}
-                  className={`transition-colors hover:text-foreground/80 ${
+                  className={`relative terminal-cursor-hover transition-colors hover:text-foreground/80 ${
                     pathname === item.href ? 'text-foreground' : 'text-foreground/60'
                   }`}
                 >

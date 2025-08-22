@@ -47,10 +47,12 @@ const Hero: React.FC = () => {
         </div>
       </div>
       
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2">
-        <span className="text-sm text-foreground/60">Scroll to explore</span>
-        <ChevronDown className="w-6 h-6 text-foreground/60 animate-bounce" />
-      </div>
+      <a href="#services">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2">
+          <span className="text-sm text-foreground/60">Scroll to explore</span>
+          <ChevronDown className="w-6 h-6 text-foreground/60 animate-bounce" />
+        </div>
+      </a>
     </section>
   );
 };

@@ -3,6 +3,7 @@
   --color-primary-foreground: #ffffff;
   --color-secondary: #3b82f6; /* Blue */
   --color-secondary-foreground: #ffffff;
+  --color-tertiary:#b5b5b5;
 
   --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
@@ -41,6 +42,7 @@
   --color-primary-foreground: #ffffff;
   --color-secondary: #3b82f6; /* Blue */
   --color-secondary-foreground: #ffffff;
+  --color-tertiary:#b5b5b5;
 
   --background: 240 10% 3.9%;
   --foreground: 0 0% 98%;
@@ -70,6 +72,11 @@
   --input: 240 3.7% 15.9%;
   --ring: 240 4.9% 83.9%;
   --grid-color: rgba(255, 255, 255, 0.03);
+}
+
+::selection {
+  background: var(--color-secondary);
+  color: var(--color-secondary-foreground);
 }
 
 @import "tailwindcss";
@@ -191,7 +198,7 @@
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -199,15 +206,18 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.3);
-  border-radius: 4px;
+  background: hsla(var(--foreground), 0.3);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.5);
+  background: hsla(var(--foreground), 0.5);
 }
 
 @layer base {
+  button, a, [role="button"] {
+    cursor: none;
+  }
   * {
     border-color: hsl(var(--border));
   }
@@ -265,4 +275,26 @@ html {
 
 .section-header {
   @apply text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-center;
+}
+
+/* Blinking cursor animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+.terminal-cursor-hover:hover::after {
+  content: '';
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  background-color: currentColor;
+  margin-left: 0.25rem;
+  animation: blink 1s infinite;
+  vertical-align: middle;
+  transform: translateY(-0.05em);
 }
