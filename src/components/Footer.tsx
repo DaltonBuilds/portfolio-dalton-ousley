@@ -16,6 +16,7 @@ const Footer: React.FC = () => {
           <div className="flex space-x-6">
             <Link href="/" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">home</Link>
             <Link href="/about" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">about</Link>
+            <Link href="/experience" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">experience</Link>
             <Link href="/projects" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">projects</Link>
             <Link href="/#blog" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">blog</Link>
           </div>

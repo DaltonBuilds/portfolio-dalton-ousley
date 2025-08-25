@@ -76,4 +76,24 @@ const BentoCard = ({
   );
 };
 
-export { BentoCard, BentoGrid };
+const TimelineBentoCard = ({
+    className,
+    background,
+    }: {
+    className?: string;
+    background: ReactNode;
+    }) => {
+    return (
+        <div
+        className={cn(
+            "group relative flex flex-col justify-between overflow-hidden rounded-xl",
+            "bg-white dark:bg-[#111111]",
+            className,
+        )}
+        >
+        {background}
+        </div>
+    );
+};
+
+export { BentoCard, BentoGrid, TimelineBentoCard };

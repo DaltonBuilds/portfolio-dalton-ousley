@@ -5,6 +5,8 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { Button } from '@/components/ui/Button';
 import SectionHeader from '@/components/SectionHeader';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Timeline } from '@/components/ui/timeline';
+import { BentoGrid, TimelineBentoCard } from "@/components/ui/bento-grid";
 
 export const metadata = {
   title: 'Projects | Dalton Ousley — Cloud, Automation, DevOps',
@@ -129,49 +131,109 @@ function ProjectCard({
   );
 }
 
-function TimelineItem({ title, period, children }: { title: string; period?: string; children: React.ReactNode }) {
-  return (
-    <li className="relative pl-6">
-      <span className="absolute left-0 top-2 h-3 w-3 rounded-full bg-orange-500 shadow-[0_0_0_3px] shadow-orange-500/20" />
-      <div className="flex flex-col gap-1">
-        <p className="text-lg font-semibold text-primary">{title}</p>
-        {period && <p className="text-sm text-muted-foreground">{period}</p>}
-        <div className="text-foreground/90">{children}</div>
+const timelineData = [
+  {
+    title: "Digital Marketing → Technical Curiosity",
+    content: (
+      <div>
+        <p className="mb-8 text-xs font-normal text-muted-foreground md:text-sm">
+          Moved from campaigns to <strong>tracking, CRMs, and data</strong>.
+        </p>
       </div>
-    </li>
-  );
-}
-
-const TIMELINE = [
-  {
-    period: 'Phase 1',
-    title: 'Marketing → Technical Foundations',
-    keywords: ['tracking', 'CRMs', 'analytics'],
-    highlights: ['Implemented tracking code', 'Learned CRM data models', 'Bridged marketing <> engineering'],
+    ),
   },
   {
-    period: 'Phase 2',
-    title: 'Automation & Integrations',
-    keywords: ['Zapier', 'APIs', 'compliance'],
-    highlights: ['Standardized onboarding flows', 'Built API/webhook bridges', 'Introduced auditability'],
+    title: "Automation & Integrations",
+    content: (
+      <div>
+        <p className="mb-8 text-xs font-normal text-muted-foreground md:text-sm">
+          Built <strong>Zapier + API</strong> bridges; standardized onboarding;
+          compliance-aware workflows.
+        </p>
+      </div>
+    ),
   },
   {
-    period: 'Phase 3',
-    title: 'AI-Augmented Systems',
-    keywords: ['LLMs', 'chatbots', 'lead scoring'],
-    highlights: ['Automated triage', 'Faster time-to-first-response', 'Improved activation'],
+    title: "AI-Augmented Systems",
+    content: (
+      <div>
+        <p className="mb-8 text-xs font-normal text-muted-foreground md:text-sm">
+          Added <strong>chatbots and lead scoring</strong> to improve activation
+          and support.
+        </p>
+      </div>
+    ),
   },
   {
-    period: 'Phase 4',
-    title: 'Cloud & DevOps',
-    keywords: ['Kubernetes', 'observability', 'VPN'],
-    highlights: ['K8s cluster in home lab', 'Grafana/Prometheus dashboards', 'Secure remote networking'],
+    title: "Cloud & DevOps",
+    content: (
+      <div>
+        <p className="mb-8 text-xs font-normal text-muted-foreground md:text-sm">
+          Building a <strong>Kubernetes-based</strong> home lab with{" "}
+          <strong>observability</strong> and <strong>secure networking</strong>.
+        </p>
+        <BentoGrid className="grid-cols-1 auto-rows-[10rem] md:auto-rows-[12rem] lg:auto-rows-[15rem] md:grid-cols-2 gap-4">
+            <TimelineBentoCard
+                className="md:col-span-2"
+                background={
+                    <Image
+                        src="/dalton-ousley-profile-pic.webp"
+                        alt="Home Lab"
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-xl"
+                    />
+                }
+            />
+            <TimelineBentoCard
+                background={
+                    <Image
+                        src="/dalton-ousley-profile-pic.webp"
+                        alt="Home Lab"
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-xl"
+                    />
+                }
+            />
+            <TimelineBentoCard
+                background={
+                    <Image
+                        src="/dalton-ousley-profile-pic.webp"
+                        alt="Home Lab"
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-xl"
+                    />
+                }
+            />
+        </BentoGrid>
+      </div>
+    ),
   },
   {
-    period: 'Phase 5',
-    title: 'Full-Stack Delivery',
-    keywords: ['Next.js', 'TypeScript', 'SQL'],
-    highlights: ['Portfolio & case studies', 'Reusable UI patterns', 'SEO-aware content'],
+    title: "Full-Stack Delivery",
+    content: (
+      <div>
+        <p className="mb-8 text-xs font-normal text-muted-foreground md:text-sm">
+          Shipping a <strong>Next.js</strong> platform with case studies and
+          blogs.
+        </p>
+        <BentoGrid className="grid-cols-1 auto-rows-[10rem] md:auto-rows-[12rem] lg:auto-rows-[15rem] gap-4">
+            <TimelineBentoCard
+                background={
+                    <Image
+                        src="/dalton-ousley-profile-pic.webp"
+                        alt="Home Lab"
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-xl"
+                    />
+                }
+            />
+        </BentoGrid>
+      </div>
+    ),
   },
 ];
 
@@ -269,60 +331,6 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* Past Projects */}
-      <section>
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10">
-          <SectionHeader title="Past Projects" subtitle="Brief case studies coming with screenshots & diagrams" />
-          <Card>
-            <CardContent className="pt-6">
-              <ul className="list-disc space-y-2 pl-5 text-foreground/90">
-                <li>
-                  <strong>CRM Implementation & Onboarding</strong> — Deployed automation in GHL & Zapier; supported
-                  <strong> 1,500+ client onboardings</strong>; built adoption playbooks.
-                </li>
-                <li>
-                  <strong>LMS Development</strong> — Launched a learning platform with <strong>payment gateway</strong> integration; improved learner UX and course analytics.
-                </li>
-                <li>
-                  <strong>AI-Powered CRM Chatbot</strong> — Automated lead scoring and triage; reduced manual workload for sales; increased time-to-first-response.
-                </li>
-                <li>
-                  <strong>Compliance Automation</strong> — Designed workflows for <strong>health & life insurance</strong>; aligned with policy requirements and audit trails.
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Project Categories */}
-      <section>
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10">
-          <SectionHeader title="Project Categories" subtitle="Quick filters for exploration" />
-          <div className="flex flex-wrap gap-3">
-            <Badge>Cloud & DevOps</Badge>
-            <Badge>Automation</Badge>
-            <Badge>Full-Stack</Badge>
-            <Badge>AI & Emerging Tech</Badge>
-          </div>
-        </div>
-      </section>
-
-      {/* Case Studies Coming Soon */}
-      <section>
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10">
-          <SectionHeader title="Case Studies (Coming Soon)" subtitle="Problem → constraints → architecture → implementation → impact → lessons" />
-          <Card>
-            <CardContent className="pt-6">
-              <p className="text-foreground/90">
-                I’ll be publishing short, high-signal write-ups including architecture diagrams (Mermaid/SVG), before/after metrics,
-                stack badges, and risks & mitigations. Where possible, I’ll reference open-source components used.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
       {/* Metrics & Outcomes */}
       <section>
         <div className="container mx-auto max-w-screen-2xl px-6 md:px-10">
@@ -350,46 +358,11 @@ export default function ProjectsPage() {
 
       {/* Project Timeline */}
       <section className="pb-16 md:pb-24">
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10">
-          <SectionHeader title="Project Timeline" subtitle="Narrative + machine-readable data" />
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>Narrative</CardTitle>
-                <CardDescription>How the work evolved</CardDescription>
-              </CardHeader>
-              <CardContent className="pt-2">
-                <ol className="relative space-y-8 border-l border-blue-500/40 pl-6">
-                  <TimelineItem title="Digital Marketing → Technical Curiosity">
-                    Moved from campaigns to <strong>tracking, CRMs, and data</strong>.
-                  </TimelineItem>
-                  <TimelineItem title="Automation & Integrations">
-                    Built <strong>Zapier + API</strong> bridges; standardized onboarding; compliance-aware workflows.
-                  </TimelineItem>
-                  <TimelineItem title="AI-Augmented Systems">
-                    Added <strong>chatbots and lead scoring</strong> to improve activation and support.
-                  </TimelineItem>
-                  <TimelineItem title="Cloud & DevOps">
-                    Building a <strong>Kubernetes-based</strong> home lab with <strong>observability</strong> and <strong>secure networking</strong>.
-                  </TimelineItem>
-                  <TimelineItem title="Full-Stack Delivery">
-                    Shipping a <strong>Next.js</strong> platform with case studies and blogs.
-                  </TimelineItem>
-                </ol>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Machine-Readable Data</CardTitle>
-                <CardDescription>Can be consumed by UI components</CardDescription>
-              </CardHeader>
-              <CardContent className="pt-2">
-                <pre className="whitespace-pre-wrap break-words text-sm text-muted-foreground">{JSON.stringify({ timeline: TIMELINE }, null, 2)}</pre>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+        <Timeline 
+            data={timelineData}
+            title="Project Timeline"
+            description="How the work evolved"
+        />
       </section>
     </div>
   );
