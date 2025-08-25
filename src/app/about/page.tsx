@@ -34,7 +34,7 @@ function TimelineItem({ title, period, children }: { title: string; period?: str
 
 function StackIcon({ label, src }: { label: string; src?: string }) {
   return (
-    <span className="inline-flex items-center gap-2 text-foreground/80 grayscale hover:grayscale-0 transition">
+    <span className="inline-flex items-center gap-2 text-foreground/80">
       {src ? (
         <Image src={src} alt={label} width={28} height={28} className="h-7 w-7 md:h-8 md:w-8" />
       ) : (
@@ -81,20 +81,7 @@ n8n     automation  4         2025-01-01 12:00    deployed n8n-0.21.0</pre>
 export default function AboutPage() {
   return (
     <div className="relative w-full">
-      {/* Background grid / glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 opacity-40"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(59,130,246,0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(59,130,246,0.12) 1px, transparent 1px)",
-          backgroundSize: '28px 28px',
-          backgroundPosition: 'center',
-        }}
-      />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(255,106,0,0.10),transparent_60%)]" />
-      {/* Hero */}
-      <section className="relative border-b border-border/40 bg-gradient-to-b from-blue-950/20 to-transparent">
+
         <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 py-16 md:py-20">
           <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[1.1fr_.9fr]">
             <div>
@@ -132,18 +119,17 @@ export default function AboutPage() {
 
           {/* Stack icons */}
           <div className="mt-12">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground">Tooling comfort zone</p>
-            <div className="mt-3 flex flex-wrap items-center gap-6 opacity-90">
+            <p className="text-xs uppercase tracking-widest ">Tooling comfort zone</p>
+            <div className="mt-3 flex flex-wrap items-center gap-6 text-muted-foreground opacity-90">
               <StackIcon label="Kubernetes" src="/Kubernetes_logo_without_workmark.svg" />
               <StackIcon label="GCP" src="/google_cloud-icon.svg" />
               <StackIcon label="Linux" src="/linux.svg" />
               <StackIcon label="Python" src="/Python-logo-notext.svg" />
               <StackIcon label="React" src="/React-icon.svg" />
-              <StackIcon label="TypeScript" />
+              <StackIcon label="TypeScript" src="/TypeScript.svg" />
             </div>
           </div>
         </div>
-      </section>
 
       {/* Introduction */}
       <section>
