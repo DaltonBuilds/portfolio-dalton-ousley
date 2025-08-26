@@ -96,9 +96,7 @@ const TimelineBentoCard = ({
     );
 };
 
-export { BentoCard, BentoGrid, TimelineBentoCard, BentoGridItem };
-
-export const BentoGridItem = ({
+const BentoGridItem = ({
     title,
     description,
     header,
@@ -128,3 +126,5 @@ export const BentoGridItem = ({
         </div>
     );
 };
+
+export { BentoCard, BentoGrid, TimelineBentoCard, BentoGridItem };

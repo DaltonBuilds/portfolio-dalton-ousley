@@ -1,22 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { Briefcase, Zap, Rocket, Award, Target, Code } from 'lucide-react';
+import { Briefcase, Zap, Rocket, Target, Code } from 'lucide-react';
 
 import SectionHeader from '@/components/SectionHeader';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid';
 import ExperienceHero from '@/components/experience/ExperienceHero';
 import { Timeline } from '@/components/ui/timeline';
-import GoogleCloudIcon from '@/components/icons/GoogleCloudIcon';
-import KubernetesIcon from '@/components/icons/KubernetesIcon';
-import LinuxIcon from '@/components/icons/LinuxIcon';
-import ReactIcon from '@/components/icons/ReactIcon';
-import { Cloud, GitBranch, Shield, Gauge } from 'lucide-react';
 import { CommandCenterDashboard } from '@/components/CommandCenterDashboard';
 import { InteractiveSkillsGrid } from '@/components/InteractiveSkillsGrid';
 import { TerminalPhilosophy } from '@/components/TerminalPhilosophy';
+import ArchitecturesSection from '@/components/experience/ArchitecturesSection';
 
 export const metadata = {
   title: 'Experience — Dalton Ousley',
@@ -70,38 +64,7 @@ const roles = [
     },
   ];
 
-const accomplishments = [
-  {
-    icon: <Rocket className="mb-2 h-8 w-8 text-primary" />,
-    title: '1,500+ Clients Onboarded',
-    description: 'Improved product adoption and reduced time-to-value for over 1,500 clients on SaaS platforms.',
-    className: 'md:col-span-1',
-  },
-  {
-    icon: <Zap className="mb-2 h-8 w-8 text-primary" />,
-    title: 'AI-Powered CRM',
-    description: 'Built an AI-driven CRM with chatbots and automated lead scoring, reducing manual sales workload.',
-    className: 'md:col-span-1',
-  },
-  {
-    icon: <Award className="mb-2 h-8 w-8 text-primary" />,
-    title: 'Automated Compliance',
-    description: 'Engineered automated compliance workflows for health and life insurance industries.',
-    className: 'md:col-span-1',
-  },
-  {
-    icon: <Target className="mb-2 h-8 w-8 text-primary" />,
-    title: 'Improved Retention',
-    description: 'Designed customer-centric onboarding strategies that significantly reduced churn.',
-    className: 'md:col-span-1',
-  },
-];
 
-const skills = {
-    'Programming & Frameworks': ['JavaScript', 'TypeScript', 'Python', 'SQL', 'React', 'Next.js'],
-    'Cloud & DevOps': ['Kubernetes (K8s)', 'Docker', 'CI/CD', 'Grafana', 'Prometheus'],
-    'Automation & SaaS': ['GoHighLevel (GHL)', 'HubSpot', 'Zapier', 'API Integrations', 'Webhooks'],
-  };
 
 export default function ExperiencePage() {
   const timelineData = [
@@ -221,57 +184,8 @@ export default function ExperiencePage() {
         </div>
       </section>
       
-      {/* Architecture Highlights (Bento) */}
-      <section>
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 py-16">
-          <SectionHeader
-            title="Architectures in Production"
-            subtitle="Systems I built or owned — with outcomes"
-          />
-          <BentoGrid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <BentoGridItem
-              title="GKE + Istio Platform"
-              description={
-                <div className="space-y-3">
-                  <p>Blue/green rollouts, HPA, error-budget alerts. Cost down 22%.</p>
-                  <div className="flex gap-2 items-center text-xs">
-                    <KubernetesIcon className="h-5 w-5" />
-                    <GoogleCloudIcon className="h-5 w-5" />
-                    <LinuxIcon className="h-5 w-5" />
-                  </div>
-                </div>
-              }
-              header={<div className="h-16 w-16 rounded-lg bg-primary/10 flex items-center justify-center">🧭</div>}
-            />
-            <BentoGridItem
-              title="CI/CD Pipeline"
-              description={
-                <div className="space-y-3">
-                  <p>Commit → build → test → deploy → observe. Lead time -70%.</p>
-                  <div className="flex gap-2 items-center text-xs">
-                    <ReactIcon className="h-5 w-5" />
-                    <LinuxIcon className="h-5 w-5" />
-                  </div>
-                </div>
-              }
-              header={<div className="h-16 w-16 rounded-lg bg-primary/10 flex items-center justify-center">🚀</div>}
-            />
-            {accomplishments.map((item, i) => (
-              <BentoGridItem
-                key={`acc-${i}`}
-                title={item.title}
-                description={item.description}
-                header={
-                  <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-primary/10">
-                    {item.icon}
-                  </div>
-                }
-                className={item.className}
-              />
-            ))}
-          </BentoGrid>
-        </div>
-      </section>
+            {/* Architecture Highlights (Bento) */}
+      <ArchitecturesSection />
 
       {/* Experience Timeline */}
       <section>

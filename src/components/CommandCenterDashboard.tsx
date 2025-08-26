@@ -128,7 +128,7 @@ const systemComponents: SystemComponent[] = [
     id: 'k8s-cluster',
     name: 'Kubernetes Clusters',
     status: 'optimal',
-    uptime: '99.98%',
+    uptime: '99.99%',
     load: 67,
     description: 'Multi-region K8s with auto-scaling',
     icon: <Server className="w-5 h-5" />,
@@ -168,7 +168,7 @@ const systemComponents: SystemComponent[] = [
     id: 'data-pipeline',
     name: 'Data Pipelines',
     status: 'online',
-    uptime: '99.89%',
+    uptime: '99.99%',
     load: 78,
     description: 'Real-time data processing',
     icon: <Database className="w-5 h-5" />,
@@ -178,7 +178,7 @@ const systemComponents: SystemComponent[] = [
     id: 'api-gateway',
     name: 'API Gateway',
     status: 'optimal',
-    uptime: '99.96%',
+    uptime: '99.99%',
     load: 56,
     description: 'Rate limiting & load balancing',
     icon: <Network className="w-5 h-5" />,
@@ -498,7 +498,7 @@ export function CommandCenterDashboard() {
             <div className="text-xs text-gray-400">Requests/Hour</div>
           </div>
           <div>
-            <div className="text-lg font-bold text-orange-400">99.95%</div>
+            <div className="text-lg font-bold text-orange-400">99.99%</div>
             <div className="text-xs text-gray-400">Uptime SLA</div>
           </div>
           <div>
