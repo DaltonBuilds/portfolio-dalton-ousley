@@ -7,24 +7,19 @@ import {
   Shield, 
   DollarSign, 
   Zap, 
-  TrendingUp, 
   AlertTriangle,
   CheckCircle2,
   Clock,
-  Users,
   Server,
   Database,
   Network,
   Monitor,
-  Lock,
   GitBranch,
-  Cloud,
   Gauge,
-  BarChart3,
   Eye,
-  Settings,
   Target,
-  Brain
+  Brain,
+  Settings
 } from 'lucide-react';
 
 interface MetricData {

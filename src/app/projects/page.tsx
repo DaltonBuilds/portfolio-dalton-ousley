@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { cva, type VariantProps } from 'class-variance-authority';
+
 import { Button } from '@/components/ui/Button';
 import SectionHeader from '@/components/SectionHeader';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -31,37 +31,7 @@ function Badge({ children }: { children: React.ReactNode }) {
   );
 }
 
-const statusBadgeVariants = cva(
-  'inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold',
-  {
-    variants: {
-      status: {
-        Completed:
-          'text-emerald-700 border-emerald-400 dark:bg-emerald-900/30 dark:text-emerald-200 dark:border-emerald-700',
-        'In Progress':
-          'text-amber-800 border-amber-400 dark:bg-amber-900/30 dark:text-amber-200 dark:border-amber-700',
-        'Not Started':
-          'text-slate-700 border-slate-400 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700',
-      },
-    },
-    defaultVariants: {
-      status: 'Not Started',
-    },
-  }
-);
 
-const statusDotVariants = cva('h-2 w-2 rounded-full', {
-  variants: {
-    status: {
-      Completed: 'bg-emerald-500',
-      'In Progress': 'bg-amber-500',
-      'Not Started': 'bg-slate-400',
-    },
-  },
-  defaultVariants: {
-    status: 'Not Started',
-  },
-});
 
 type ProjectStatus = 'Not Started' | 'In Progress' | 'Completed';
 

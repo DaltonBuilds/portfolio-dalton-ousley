@@ -157,7 +157,7 @@ function TerminalLine({
 
 export function TerminalPhilosophy() {
   const [activeTab, setActiveTab] = useState(0);
-  const [showNextTab, setShowNextTab] = useState(false);
+
 
   const handleTabComplete = () => {
     if (activeTab < philosophyPoints.length - 1) {
@@ -188,7 +188,7 @@ export function TerminalPhilosophy() {
               Welcome to my development philosophy terminal
             </div>
             <div className="text-gray-400">
-              Type 'help' for available commands
+              Type &apos;help&apos; for available commands
             </div>
             <div className="border-b border-gray-700 pb-2"></div>
             

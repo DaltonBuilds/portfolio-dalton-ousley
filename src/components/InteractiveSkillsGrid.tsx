@@ -8,13 +8,10 @@ import {
   Code2, 
   Cloud, 
   Zap, 
-  Shield, 
   GitBranch, 
   Monitor, 
   Database,
-  Cpu,
-  Network,
-  Settings
+  Network
 } from 'lucide-react';
 
 interface Skill {

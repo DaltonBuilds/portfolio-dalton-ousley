@@ -20,7 +20,7 @@ interface ExperienceHeroProps {
 export const ExperienceHero: React.FC<ExperienceHeroProps> = ({ heading, subheading, stats }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sourceRef = useRef<HTMLDivElement>(null);
-  const statRefs = stats.map(() => useRef<HTMLDivElement>(null));
+  const statRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   return (
     <section className="relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
@@ -39,7 +39,7 @@ export const ExperienceHero: React.FC<ExperienceHeroProps> = ({ heading, subhead
           {stats.map((s, i) => (
             <div
               key={s.label}
-              ref={statRefs[i]}
+              ref={(el) => { statRefs.current[i] = el; }}
               className="glass rounded-xl p-5 text-center hover:shadow-xl transition"
               aria-label={s.ariaLabel ?? `${s.label} ${s.value}`}
             >
@@ -54,13 +54,12 @@ export const ExperienceHero: React.FC<ExperienceHeroProps> = ({ heading, subhead
         </div>
 
         {/* Beams */}
-        {statRefs.map((ref, i) => (
+        {stats.map((_, i) => (
           <AnimatedBeam
-            // eslint-disable-next-line react/no-array-index-key
             key={`beam-${i}`}
             containerRef={containerRef}
             fromRef={sourceRef}
-            toRef={ref}
+            toRef={{ current: statRefs.current[i] }}
             pathColor="#64748b"
             pathWidth={2}
             pathOpacity={0.25}
