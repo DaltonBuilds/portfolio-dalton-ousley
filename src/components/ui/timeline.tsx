@@ -7,6 +7,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
  
 interface TimelineEntry {
+  id: string;
   title: string;
   content: React.ReactNode;
 }
@@ -48,7 +49,7 @@ export const Timeline = ({ data, title, description }: { data: TimelineEntry[], 
       <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
         {data.map((item, index) => (
           <div
-            key={`timeline-item-${index}`}
+            key={item.id}
             className="flex justify-start pt-10 md:pt-40 md:gap-10"
           >
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">

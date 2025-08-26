@@ -69,6 +69,7 @@ const roles = [
 export default function ExperiencePage() {
   const timelineData = [
     {
+      id: 'solutions-architect-cleancore',
       title: 'Software Solutions Architect — CleanCore',
       content: (
         <Card className="bg-card/60">
@@ -87,6 +88,7 @@ export default function ExperiencePage() {
       ),
     },
     {
+      id: 'tech-consultant-pioneering',
       title: 'Systems & Technology Consultant — Pioneering Clean',
       content: (
         <Card className="bg-card/60">
@@ -105,6 +107,7 @@ export default function ExperiencePage() {
       ),
     },
     {
+      id: 'entrepreneur-freelancer',
       title: 'Entrepreneur & Freelancer — Self-Employed',
       content: (
         <Card className="bg-card/60">

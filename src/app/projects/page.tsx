@@ -103,6 +103,7 @@ function ProjectCard({
 
 const timelineData = [
   {
+    id: "digital-marketing",
     title: "Digital Marketing → Technical Curiosity",
     content: (
       <div>
@@ -113,6 +114,7 @@ const timelineData = [
     ),
   },
   {
+    id: "automation-integrations",
     title: "Automation & Integrations",
     content: (
       <div>
@@ -124,6 +126,7 @@ const timelineData = [
     ),
   },
   {
+    id: "ai-systems",
     title: "AI-Augmented Systems",
     content: (
       <div>
@@ -135,6 +138,7 @@ const timelineData = [
     ),
   },
   {
+    id: "cloud-devops",
     title: "Cloud & DevOps",
     content: (
       <div>
@@ -182,6 +186,7 @@ const timelineData = [
     ),
   },
   {
+    id: "full-stack",
     title: "Full-Stack Delivery",
     content: (
       <div>
