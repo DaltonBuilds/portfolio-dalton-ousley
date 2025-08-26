@@ -8,7 +8,6 @@ import { ThemeToggle } from './ThemeToggle';
 const Header: React.FC = () => {
   const pathname = usePathname();
   const navItems = [
-    { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Experience', href: '/experience' },
     { name: 'Projects', href: '/projects' },

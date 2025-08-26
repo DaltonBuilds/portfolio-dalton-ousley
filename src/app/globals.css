@@ -163,8 +163,8 @@
   background-clip: text;
 }
 
-.gradient-text-purple-blue {
-  background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+.gradient-text-orange-blue {
+  background: linear-gradient(135deg, var( --color-primary) 0%, var(--color-secondary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -187,13 +187,13 @@
 .glass {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Use theme border color so Tailwind tokens control light/dark appearance */
+  border: 1px solid hsl(var(--border));
 }
 
 .dark .glass {
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Custom scrollbar */
