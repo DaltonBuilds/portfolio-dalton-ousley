@@ -12,6 +12,18 @@ const ibmPlexMono = IBM_Plex_Mono({
 export const metadata = {
   title: 'Dalton Ousley - Cloud-focused Engineer',
   description: 'Personal portfolio of Dalton Ousley, a cloud-focused engineer passionate about DevOps, Kubernetes, and cloud-native solutions.',
+  icons: {
+    icon: [
+      { url: '/favicon/favicon.ico' },
+      { url: '/favicon/icon1.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon/web-app-manifest-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/favicon/web-app-manifest-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/favicon/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/favicon/manifest.json',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
