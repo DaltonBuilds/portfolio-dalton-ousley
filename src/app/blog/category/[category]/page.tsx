@@ -19,8 +19,9 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+  const { category: categorySlug } = await params
   const categoryList = categories[0]?.categories || []
-  const category = categoryList.find((cat) => cat.slug === params.category)
+  const category = categoryList.find((cat) => cat.slug === categorySlug)
 
   if (!category) {
     return {}
@@ -37,9 +38,10 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   }
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const { category: categorySlug } = await params
   const categoryList = categories[0]?.categories || []
-  const category = categoryList.find((cat) => cat.slug === params.category)
+  const category = categoryList.find((cat) => cat.slug === categorySlug)
 
   if (!category) {
     notFound()
