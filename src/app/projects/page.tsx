@@ -220,7 +220,7 @@ export default function ProjectsPage() {
         <div className="container mx-auto max-w-screen-2xl py-16 md:py-20">
           <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-[1.2fr_.8fr]">
             <div>
-              <h1 className="text-4xl font-extrabold tracking-tight text-primary sm:text-5xl">Projects</h1>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary">Projects</h1>
               <p className="mt-4 text-lg text-muted-foreground">
                 This page highlights selected projects across <strong>cloud engineering</strong>, <strong>DevOps</strong>, <strong>automation</strong>, and
                 <strong> full-stack development</strong>. Each project is chosen for its <strong>real-world impact</strong>, <strong>technical depth</strong>, and

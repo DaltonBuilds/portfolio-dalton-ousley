@@ -45,7 +45,7 @@ const components = {
   h1: ({ children, id, ...props }: React.ComponentProps<'h1'>) => (
     <h1 
       id={id}
-      className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 group"
+      className="scroll-m-20 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 group break-words"
       {...props}
     >
       {children}
@@ -55,17 +55,17 @@ const components = {
   h2: ({ children, id, ...props }: React.ComponentProps<'h2'>) => (
     <h2 
       id={id}
-      className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight mb-6 mt-10 group"
+      className="scroll-m-20 border-b pb-2 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight mb-6 mt-10 group break-words"
       {...props}
     >
       {children}
     </h2>
   ),
   
-  h3: ({ children, id, ...props }: React.ComponentProps<'h3'>) => (
-    <h3 
+    h3: ({ children, id, ...props }: React.ComponentProps<'h3'>) => (
+    <h3
       id={id}
-      className="scroll-m-20 text-2xl font-semibold tracking-tight mb-4 mt-8 group"
+      className="scroll-m-20 text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight mb-4 mt-8 group break-words"
       {...props}
     >
       {children}

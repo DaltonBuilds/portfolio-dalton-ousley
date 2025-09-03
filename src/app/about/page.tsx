@@ -49,27 +49,27 @@ function StackIcon({ label, src }: { label: string; src?: string }) {
 
 function TerminalWidget() {
   return (
-    <div className="mt-8 w-full max-w-3xl md:max-w-4xl overflow-hidden overflow-x-auto rounded-lg border border-blue-500/50 bg-[#0b1220] text-gray-200 shadow-xl shadow-blue-500/20">
+    <div className="mt-8 w-full max-w-3xl md:max-w-4xl overflow-hidden rounded-lg border border-blue-500/50 bg-[#0b1220] text-gray-200 shadow-xl shadow-blue-500/20">
       <div className="flex items-center justify-between border-b border-blue-500/30 bg-[#0d1526] px-4 py-2">
         <div className="flex items-center gap-2">
           <span className="h-3 w-3 rounded-full bg-red-500/80" />
           <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
           <span className="h-3 w-3 rounded-full bg-green-500/80" />
         </div>
-        <span className="text-xs text-blue-200/70">dalton@homelab:~</span>
+        <span className="text-xs text-blue-200/70 truncate">dalton@homelab:~</span>
       </div>
-      <div className="px-4 py-3 font-mono text-[13px] md:text-sm">
-        <div className="text-blue-300">$ kubectl get pods -n observability</div>
-        <pre className="mt-1 text-blue-100/90 whitespace-pre-wrap break-words md:whitespace-pre">NAME                        READY   STATUS    RESTARTS   AGE
+      <div className="px-2 sm:px-4 py-3 font-mono text-xs sm:text-[13px] md:text-sm overflow-x-auto">
+        <div className="text-blue-300 whitespace-nowrap">$ kubectl get pods -n observability</div>
+        <pre className="mt-1 text-blue-100/90 text-xs overflow-x-auto whitespace-pre">NAME                        READY   STATUS    RESTARTS   AGE
 grafana-6c9dbbd666-ck9v2   1/1     Running   0          3d
 prometheus-768b9b9f7c-z2s4q 2/2     Running   1          3d</pre>
-        <div className="mt-3 text-blue-300">$ helm ls -n automation</div>
-        <pre className="mt-1 text-blue-100/90 whitespace-pre-wrap break-words md:whitespace-pre">NAME    NAMESPACE   REVISION  UPDATED             STATUS   CHART
+        <div className="mt-3 text-blue-300 whitespace-nowrap">$ helm ls -n automation</div>
+        <pre className="mt-1 text-blue-100/90 text-xs overflow-x-auto whitespace-pre">NAME    NAMESPACE   REVISION  UPDATED             STATUS   CHART
 n8n     automation  4         2025-01-01 12:00    deployed n8n-0.21.0</pre>
-        <div className="mt-3 text-blue-300">$ terraform plan</div>
-        <pre className="mt-1 text-green-300/90 whitespace-pre-wrap break-words md:whitespace-pre">Plan: 3 to add, 0 to change, 0 to destroy</pre>
+        <div className="mt-3 text-blue-300 whitespace-nowrap">$ terraform plan</div>
+        <pre className="mt-1 text-green-300/90 text-xs overflow-x-auto whitespace-pre">Plan: 3 to add, 0 to change, 0 to destroy</pre>
         <div className="mt-3 flex items-center gap-2 text-orange-300">
-          <span className="text-blue-200/70">dalton@homelab</span>
+          <span className="text-blue-200/70 truncate">dalton@homelab</span>
           <span className="text-blue-200/50">$</span>
           <span className="inline-block h-4 w-1 bg-blue-100 animate-blink" />
         </div>
@@ -85,7 +85,7 @@ export default function AboutPage() {
         <div className="container mx-auto max-w-screen-2xl py-16 md:py-20">
           <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[1.1fr_.9fr]">
             <div>
-              <h1 className="text-4xl font-extrabold tracking-tight text-primary sm:text-5xl">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary">
                 About Dalton Ousley
               </h1>
               <p className="mt-4 text-lg text-muted-foreground">

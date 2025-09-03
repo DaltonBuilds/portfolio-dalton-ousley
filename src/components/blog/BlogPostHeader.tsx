@@ -32,13 +32,13 @@ export function BlogPostHeader({ post, author }: BlogPostHeaderProps) {
           )}
 
           {/* Title */}
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6 text-foreground">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-foreground break-words">
             {post.title}
           </h1>
 
           {/* Description */}
           {post.description && (
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-lg sm:text-xl text-muted-foreground mb-8 leading-relaxed">
               {post.description}
             </p>
           )}

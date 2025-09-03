@@ -362,9 +362,9 @@ export function CommandCenterDashboard() {
             <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
               <Brain className="w-5 h-5 text-green-400" />
             </div>
-            <div>
-              <h2 className="text-lg font-bold text-white">Cloud Architecture Command Center</h2>
-              <p className="text-xs text-gray-400">Enterprise Infrastructure Management Console</p>
+            <div className="min-w-0 flex-1">
+              <h2 className="text-base sm:text-lg font-bold text-white break-words">Cloud Architecture Command Center</h2>
+              <p className="text-xs text-gray-400 break-words">Enterprise Infrastructure Management Console</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -379,19 +379,19 @@ export function CommandCenterDashboard() {
         </div>
         
         {/* Tab Navigation */}
-        <div className="flex gap-1 bg-black/40 rounded-lg p-1">
+        <div className="flex flex-wrap gap-1 bg-black/40 rounded-lg p-1">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-3 py-2 rounded-md text-xs transition-all ${
+              className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md text-xs transition-all ${
                 activeTab === tab.id
                   ? 'bg-green-500/20 text-green-400 border border-green-500/30'
                   : 'text-gray-400 hover:text-white hover:bg-white/5'
               }`}
             >
               {tab.icon}
-              {tab.label}
+              <span className="hidden sm:inline">{tab.label}</span>
             </button>
           ))}
         </div>

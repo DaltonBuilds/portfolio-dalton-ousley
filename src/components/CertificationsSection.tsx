@@ -171,6 +171,7 @@ export function CertificationsSection() {
                 <SectionHeader
                     title="cat /var/log/certifications.log"
                     subtitle="A timeline of my ongoing and completed technical certifications."
+                    className="px-4"
                 />
                 <div
                     className="relative mt-20 flex w-full flex-col items-center justify-center"

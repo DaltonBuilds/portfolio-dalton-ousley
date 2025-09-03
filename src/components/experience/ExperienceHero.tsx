@@ -29,7 +29,7 @@ export const ExperienceHero: React.FC<ExperienceHeroProps> = ({ heading, subhead
           <h1 className="section-header gradient-text-orange-blue mb-4">
             {heading}
           </h1>
-          <p className="mt-2 text-lg md:text-xl text-muted-foreground">
+          <p className="mt-2 text-base sm:text-lg md:text-xl text-muted-foreground px-4">
             {subheading}
           </p>
           <div ref={sourceRef} className="mx-auto mt-8 h-3 w-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 shadow-[0_0_0_6px_rgba(99,102,241,0.15)]" aria-hidden="true" />
@@ -43,7 +43,7 @@ export const ExperienceHero: React.FC<ExperienceHeroProps> = ({ heading, subhead
               className="glass rounded-xl p-5 text-center hover:shadow-xl transition"
               aria-label={s.ariaLabel ?? `${s.label} ${s.value}`}
             >
-              <div className="text-3xl md:text-4xl font-extrabold text-primary">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary">
                 {s.value}
               </div>
               <div className="mt-2 text-sm text-muted-foreground">
