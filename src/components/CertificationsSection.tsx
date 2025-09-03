@@ -29,7 +29,7 @@ const certificationsData: Record<string, Certification> = {
         status: 'In Progress',
         Icon: GoogleCloudIcon,
         imageSrc: '/google_cloud-icon.svg',
-        progress: 95,
+        progress: 98,
     },
     'cka': {
         title: 'Certified Kubernetes Administrator',
@@ -43,7 +43,7 @@ const certificationsData: Record<string, Certification> = {
         status: 'In Progress',
         Icon: LinuxIcon,
         imageSrc: '/linux.svg',
-        progress: 15,
+        progress: 20,
     },
     'seo': {
         title: 'Advanced SEO Certification',
@@ -58,13 +58,13 @@ const certificationsData: Record<string, Certification> = {
         link: 'https://www.linkedin.com/in/dalton-ousley/',
     },
     'javascript': {
-        title: 'Modern JavaScript (ES6+)',
+        title: 'Modern JavaScript',
         status: 'Completed',
         Icon: JavaScriptIcon,
         link: 'https://www.linkedin.com/in/dalton-ousley/',
     },
     'react': {
-        title: 'Meta Front-End Developer',
+        title: 'React Developer',
         status: 'Completed',
         Icon: ReactIcon,
         link: 'https://www.linkedin.com/in/dalton-ousley/',

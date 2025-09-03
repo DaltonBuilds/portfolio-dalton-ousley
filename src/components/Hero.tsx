@@ -6,10 +6,21 @@ import Image from 'next/image';
 
 const Hero: React.FC = () => {
   return (
-    <section 
-      id="hero" 
-      className="relative flex flex-col items-center justify-center text-center py-20 md:py-32 min-h-screen overflow-hidden"
-    >
+    <>
+      {/* Skip to main content link for screen readers */}
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-primary-foreground px-4 py-2 rounded-md z-50"
+      >
+        Skip to main content
+      </a>
+      
+      <section 
+        id="hero" 
+        className="relative flex flex-col items-center justify-center text-center py-20 md:py-32 min-h-screen overflow-hidden"
+        aria-labelledby="hero-heading"
+        role="banner"
+      >
       <div className="absolute top-0 left-0 w-full h-full z-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-secondary/10 rounded-full filter blur-3xl opacity-30 animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl opacity-30 animate-pulse animation-delay-200"></div>
@@ -29,7 +40,7 @@ const Hero: React.FC = () => {
             />
           </div>
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6">
+        <h1 id="hero-heading" className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6">
           Hi, I&apos;m <span className="gradient-text">Dalton</span>
         </h1>
         <h2 className="text-xl sm:text-2xl md:text-4xl font-semibold text-foreground/80 mb-8">
@@ -40,22 +51,25 @@ const Hero: React.FC = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="text-lg px-8 py-6">
-            <ArrowDownToLine className="mr-2 h-5 w-5" /> Download CV
+          <Button size="lg" className="text-lg px-8 py-6" aria-label="Download Dalton Ousley's CV">
+            <ArrowDownToLine className="mr-2 h-5 w-5" aria-hidden="true" /> Download CV
           </Button>
-          <Button variant="outline" size="lg" className="text-lg px-8 py-6">
-            <Rocket className="mr-2 h-5 w-5" /> Let&apos;s Build Together
+          <Button variant="outline" size="lg" className="text-lg px-8 py-6" aria-label="Contact Dalton for collaboration">
+            <Rocket className="mr-2 h-5 w-5" aria-hidden="true" /> Let&apos;s Build Together
           </Button>
         </div>
       </div>
       
-      <a href="#services" className="hidden sm:block">
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2">
-          <span className="text-sm text-foreground/60">Scroll to explore</span>
-          <ChevronDown className="w-6 h-6 text-foreground/60 animate-bounce" />
-        </div>
+      <a 
+        href="#services" 
+        className="hidden sm:block absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg p-2"
+        aria-label="Scroll down to services section"
+      >
+        <span className="text-sm text-foreground/60">Scroll to explore</span>
+        <ChevronDown className="w-6 h-6 text-foreground/60 animate-bounce" aria-hidden="true" />
       </a>
-    </section>
+      </section>
+    </>
   );
 };
 

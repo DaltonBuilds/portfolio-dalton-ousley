@@ -198,8 +198,18 @@ function SkillCard({ skill, isActive, onClick }: {
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
       className="cursor-pointer"
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      aria-pressed={isActive}
+      aria-label={`${skill.name} skill details. ${isActive ? 'Expanded' : 'Collapsed'}`}
     >
-      <Card className={`h-full transition-all duration-300 ${
+      <Card className={`h-full transition-all duration-300 focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 ${
         isActive 
           ? 'border-primary/60 shadow-lg shadow-primary/10 bg-primary/5' 
           : 'hover:border-primary/40 hover:shadow-md'
@@ -207,13 +217,13 @@ function SkillCard({ skill, isActive, onClick }: {
         <CardContent className="p-4 space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary" aria-hidden="true">
                 {skill.icon}
               </div>
               <h3 className="font-semibold text-sm">{skill.name}</h3>
             </div>
             <Badge className={`text-xs ${categoryColors[skill.category]}`}>
-              {categoryIcons[skill.category]}
+              <span aria-hidden="true">{categoryIcons[skill.category]}</span>
               <span className="ml-1">{skill.category}</span>
             </Badge>
           </div>
@@ -272,11 +282,13 @@ export function InteractiveSkillsGrid() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setSelectedCategory(null)}
-          className={`px-4 py-2 rounded-lg border transition-colors ${
+          className={`px-4 py-2 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
             selectedCategory === null
               ? 'bg-primary text-primary-foreground border-primary'
               : 'bg-background hover:bg-muted border-border'
           }`}
+          aria-pressed={selectedCategory === null}
+          aria-label="Show all skills"
         >
           All Skills
         </motion.button>
@@ -286,13 +298,15 @@ export function InteractiveSkillsGrid() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setSelectedCategory(category)}
-            className={`px-4 py-2 rounded-lg border transition-colors flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-lg border transition-colors flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
               selectedCategory === category
                 ? 'bg-primary text-primary-foreground border-primary'
                 : 'bg-background hover:bg-muted border-border'
             }`}
+            aria-pressed={selectedCategory === category}
+            aria-label={`Filter skills by ${category}`}
           >
-            {categoryIcons[category]}
+            <span aria-hidden="true">{categoryIcons[category]}</span>
             {category}
           </motion.button>
         ))}

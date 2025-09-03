@@ -43,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           <div className="relative flex flex-col min-h-screen">
             <Header />
-            <main className="flex-grow">{children}</main>
+            <main id="main-content" className="flex-grow" role="main">{children}</main>
             <Footer />
           </div>
         </ThemeProvider>
