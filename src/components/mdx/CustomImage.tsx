@@ -10,6 +10,7 @@ interface CustomImageProps {
   height?: number
   className?: string
   caption?: string
+  sizes?: string
 }
 
 export function CustomImage({ 
@@ -19,6 +20,7 @@ export function CustomImage({
   height, 
   className = '',
   caption,
+  sizes,
   ...props 
 }: CustomImageProps) {
   const [isLoading, setIsLoading] = useState(true)
@@ -40,7 +42,7 @@ export function CustomImage({
           className={`w-full h-auto transition-opacity duration-300 ${
             isLoading ? 'opacity-0' : 'opacity-100'
           } ${className}`}
-          sizes={(props as any)?.sizes || "(max-width: 800px) 100vw, 800px"}
+          sizes={sizes || "(max-width: 800px) 100vw, 800px"}
           onLoad={() => setIsLoading(false)}
           {...props}
         />
