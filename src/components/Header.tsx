@@ -1,25 +1,29 @@
 'use client';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import { Menu } from 'lucide-react';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { Button } from "@/components/ui/Button";
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './ThemeToggle';
 
 const Header: React.FC = () => {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
   const navItems = [
     { name: 'About', href: '/about' },
     { name: 'Experience', href: '/experience' },
     { name: 'Projects', href: '/projects' },
     { name: 'Blog', href: '/blog' },
   ];
+
+  const handleLinkClick = () => {
+    setIsOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -50,23 +54,58 @@ const Header: React.FC = () => {
             Get in Touch
           </Button>
           <div className="md:hidden">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
                 <Button variant="outline" size="icon" aria-label="Open menu">
                   <Menu className="h-5 w-5" />
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {navItems.map((item) => (
-                  <DropdownMenuItem key={item.name} asChild>
-                    <Link href={item.href}>{item.name}</Link>
-                  </DropdownMenuItem>
-                ))}
-                <DropdownMenuItem asChild>
-                  <Link href="mailto:example@gmail.com">Get in Touch</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[280px] sm:w-[320px] p-0">
+                <div className="flex flex-col h-full">
+                  {/* Header */}
+                  <div className="flex items-center justify-between p-6 border-b">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-6 h-6 bg-primary rounded-full" />
+                      <span className="font-bold text-lg">Menu</span>
+                    </div>
+                  </div>
+                  
+                  {/* Navigation */}
+                  <nav className="flex-1 p-6">
+                    <div className="flex flex-col gap-2">
+                      {navItems.map((item) => (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          onClick={handleLinkClick}
+                          className={`flex items-center rounded-lg px-4 py-3 text-base font-medium transition-all duration-200 hover:bg-accent hover:text-accent-foreground min-h-[44px] ${
+                            pathname === item.href
+                              ? 'bg-accent text-accent-foreground shadow-sm'
+                              : 'text-foreground/70 hover:text-foreground'
+                          }`}
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </nav>
+                  
+                  {/* Footer */}
+                  <div className="p-6 border-t bg-muted/30">
+                    <Link
+                      href="mailto:example@gmail.com"
+                      onClick={handleLinkClick}
+                      className="flex items-center justify-center rounded-lg bg-primary text-primary-foreground px-4 py-3 text-base font-medium transition-colors hover:bg-primary/90 min-h-[44px]"
+                    >
+                      Get in Touch
+                    </Link>
+                    <div className="mt-4 flex justify-center">
+                      <ThemeToggle />
+                    </div>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </div>
