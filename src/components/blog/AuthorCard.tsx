@@ -33,7 +33,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
             {/* Social Links */}
             <div className="flex flex-wrap gap-2">
               {author.website && (
-                <Button variant="outline" size="sm" asChild>
+                <Button variant="outline" size="default" asChild>
                   <Link href={author.website} target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="w-4 h-4 mr-1" />
                     Website
@@ -42,7 +42,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
               )}
 
               {author.social?.github && (
-                <Button variant="outline" size="sm" asChild>
+                <Button variant="outline" size="default" asChild>
                   <Link 
                     href={`https://github.com/${author.social.github}`} 
                     target="_blank" 
@@ -55,7 +55,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
               )}
 
               {author.social?.linkedin && (
-                <Button variant="outline" size="sm" asChild>
+                <Button variant="outline" size="default" asChild>
                   <Link 
                     href={`https://linkedin.com/in/${author.social.linkedin}`} 
                     target="_blank" 
@@ -68,7 +68,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
               )}
 
               {author.social?.twitter && (
-                <Button variant="outline" size="sm" asChild>
+                <Button variant="outline" size="default" asChild>
                   <Link 
                     href={`https://twitter.com/${author.social.twitter}`} 
                     target="_blank" 
@@ -81,7 +81,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
               )}
 
               {author.email && (
-                <Button variant="outline" size="sm" asChild>
+                <Button variant="outline" size="default" asChild>
                   <Link href={`mailto:${author.email}`}>
                     <ExternalLink className="w-4 h-4 mr-1" />
                     Email

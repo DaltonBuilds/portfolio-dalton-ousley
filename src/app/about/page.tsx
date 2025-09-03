@@ -315,7 +315,7 @@ export default function AboutPage() {
 
       {/* What's Next */}
       <section className="pb-16 md:pb-24">
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10">
+        <div className="container mx-auto max-w-screen-2xl">
           <SectionHeader title="What’s Next" subtitle="Where I’m excited to add value" />
           <Card>
             <CardContent className="flex flex-col items-start gap-6 pt-6 md:flex-row md:items-center md:justify-between">

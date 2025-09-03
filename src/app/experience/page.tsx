@@ -258,7 +258,7 @@ export default function ExperiencePage() {
 
       {/* Terminal Philosophy */}
       <section>
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 py-16">
+        <div className="container mx-auto max-w-screen-2xl py-16">
             <SectionHeader
                 title="Development Philosophy"
                 subtitle="My approach to building systems that work in the real world"

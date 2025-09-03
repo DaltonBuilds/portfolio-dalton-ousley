@@ -409,7 +409,7 @@ export function CommandCenterDashboard() {
               className="space-y-6"
             >
               {/* Key Metrics Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {dashboardMetrics.slice(0, 4).map((metric, index) => (
                   <MetricCard key={metric.id} metric={metric} delay={index * 0.1} />
                 ))}
@@ -483,7 +483,7 @@ export function CommandCenterDashboard() {
 
       {/* Footer Stats */}
       <div className="relative z-10 mt-8 pt-4 border-t border-gray-700">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <div>
             <div className="text-lg font-bold text-green-400">847</div>
             <div className="text-xs text-gray-400">Services Monitored</div>

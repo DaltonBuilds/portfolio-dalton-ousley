@@ -17,13 +17,15 @@ const Hero: React.FC = () => {
 
       <div className="relative z-10 px-4 max-w-6xl mx-auto">
         <div className="mb-8">
-          <div className="w-50 h-50 rounded-full mx-auto overflow-hidden border-4 border-primary shadow-xl shadow-primary/20">
+          <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-50 md:h-50 rounded-full mx-auto overflow-hidden border-4 border-primary shadow-xl shadow-primary/20">
             <Image
               src="/dalton-ousley-profile-pic.webp"
               alt="Dalton Ousley"
               width={150}
               height={150}
               className="object-cover h-full w-full"
+              sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 200px"
+              priority
             />
           </div>
         </div>
@@ -33,7 +35,7 @@ const Hero: React.FC = () => {
         <h2 className="text-xl sm:text-2xl md:text-4xl font-semibold text-foreground/80 mb-8">
           Cloud Architect & DevOps Engineer
         </h2>
-        <p className="text-lg md:text-xl text-foreground/60 mb-12 max-w-3xl mx-auto">
+        <p className="text-base sm:text-lg md:text-xl text-foreground/60 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
           Building innovative cloud solutions and scalable architectures that drive business transformation.
         </p>
         
@@ -47,8 +49,8 @@ const Hero: React.FC = () => {
         </div>
       </div>
       
-      <a href="#services">
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 sm:flex hidden flex-col items-center space-y-2">
+      <a href="#services" className="hidden sm:block">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2">
           <span className="text-sm text-foreground/60">Scroll to explore</span>
           <ChevronDown className="w-6 h-6 text-foreground/60 animate-bounce" />
         </div>
