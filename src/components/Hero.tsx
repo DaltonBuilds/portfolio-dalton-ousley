@@ -27,10 +27,10 @@ const Hero: React.FC = () => {
             />
           </div>
         </div>
-        <h1 className="text-5xl md:text-7xl font-bold mb-6">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6">
           Hi, I&apos;m <span className="gradient-text">Dalton</span>
         </h1>
-        <h2 className="text-2xl md:text-4xl font-semibold text-foreground/80 mb-8">
+        <h2 className="text-xl sm:text-2xl md:text-4xl font-semibold text-foreground/80 mb-8">
           Cloud Architect & DevOps Engineer
         </h2>
         <p className="text-lg md:text-xl text-foreground/60 mb-12 max-w-3xl mx-auto">
@@ -48,7 +48,7 @@ const Hero: React.FC = () => {
       </div>
       
       <a href="#services">
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 sm:flex hidden flex-col items-center space-y-2">
           <span className="text-sm text-foreground/60">Scroll to explore</span>
           <ChevronDown className="w-6 h-6 text-foreground/60 animate-bounce" />
         </div>

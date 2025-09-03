@@ -18,7 +18,7 @@ export function BlogPostHeader({ post, author }: BlogPostHeaderProps) {
 
   return (
     <header className="border-b border-gray-200 dark:border-gray-800">
-      <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 py-16 md:py-24">
+      <div className="container mx-auto max-w-screen-2xl py-16 md:py-24">
         <div className="max-w-4xl mx-auto">
           {/* Categories */}
           {post.categories.length > 0 && (
@@ -82,6 +82,8 @@ export function BlogPostHeader({ post, author }: BlogPostHeaderProps) {
                 width={800}
                 height={384}
                 className="w-full h-64 md:h-96 object-cover"
+                sizes="(max-width: 768px) 100vw, 800px"
+                priority
               />
             </div>
           )}

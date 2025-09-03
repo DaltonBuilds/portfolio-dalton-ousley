@@ -219,7 +219,7 @@ export function MDXContent({ code }: MDXContentProps) {
 
   return (
     <MDXProvider components={components}>
-      <div className="prose prose-gray dark:prose-invert max-w-none">
+      <div className="prose prose-gray dark:prose-invert max-w-none prose-sm sm:prose-base md:prose-lg">
         <MDXComponent components={components} />
       </div>
     </MDXProvider>

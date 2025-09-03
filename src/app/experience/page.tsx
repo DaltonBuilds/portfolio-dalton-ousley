@@ -141,7 +141,7 @@ export default function ExperiencePage() {
 
       {/* Professional Background */}
       <section>
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 py-16">
+        <div className="container mx-auto max-w-screen-2xl py-16">
           <SectionHeader
             title="Professional Background"
             subtitle="Bridging business needs with technical execution"
@@ -161,7 +161,7 @@ export default function ExperiencePage() {
       
       {/* Roles & Contributions */}
       <section>
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 py-16">
+        <div className="container mx-auto max-w-screen-2xl py-16">
           <SectionHeader
             title="Roles & Contributions"
             subtitle="Hands-on experience in diverse technical roles"
@@ -192,7 +192,7 @@ export default function ExperiencePage() {
 
       {/* Experience Timeline */}
       <section>
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 py-16">
+        <div className="container mx-auto max-w-screen-2xl py-16">
           <Timeline
             title="Impact Over Time"
             description="Problem → approach → outcome across roles"
@@ -203,7 +203,7 @@ export default function ExperiencePage() {
 
       {/* Career Goals */}
       <section >
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 py-16">
+        <div className="container mx-auto max-w-screen-2xl py-16">
           <SectionHeader
             title="Career Goals"
             subtitle="Targeting roles that leverage my unique skill set"
@@ -236,7 +236,7 @@ export default function ExperiencePage() {
 
       {/* Command Center Dashboard */}
       <section className="pb-16 md:pb-24">
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 py-16">
+        <div className="container mx-auto max-w-screen-2xl py-16">
           <SectionHeader
             title="Mission Control Center"
             subtitle="Real-time monitoring and management of enterprise cloud infrastructure"
@@ -247,7 +247,7 @@ export default function ExperiencePage() {
 
       {/* Interactive Skills Grid */}
       <section className="pb-16 md:pb-24">
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 py-16">
+        <div className="container mx-auto max-w-screen-2xl py-16">
           <SectionHeader
             title="Skills & Expertise"
             subtitle="Interactive skill showcase with proficiency levels and project experience"
@@ -269,7 +269,7 @@ export default function ExperiencePage() {
 
       {/* CTA */}
       <section className="pb-16 md:pb-24">
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 text-center">
+        <div className="container mx-auto max-w-screen-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-primary">Design review or migration chat?</h2>
           <p className="mt-4 text-lg text-muted-foreground">TAM, Cloud Engineer, or Solutions Architect — I can help accelerate outcomes.</p>
           <div className="mt-6 flex items-center justify-center gap-4">

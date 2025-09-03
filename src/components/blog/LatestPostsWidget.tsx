@@ -42,7 +42,7 @@ export function LatestPostsWidget({
 
   return (
     <section className={`py-16 ${className}`}>
-      <div className="container mx-auto max-w-6xl px-6 md:px-10">
+      <div className="container mx-auto max-w-6xl">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl font-bold text-foreground">{title}</h2>
           <Button variant="outline" asChild>
@@ -80,6 +80,8 @@ export function LatestPostsWidget({
                         className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${
                           isFeatured ? 'h-48' : 'h-32'
                         }`}
+                        sizes="(max-width: 768px) 100vw, 400px"
+                        loading="lazy"
                       />
                       {isFeatured && (
                         <Badge 

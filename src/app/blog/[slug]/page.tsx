@@ -80,7 +80,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <BlogPostHeader post={post} author={author} />
 
       {/* Post Content */}
-      <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 py-16">
+      <div className="container mx-auto max-w-screen-2xl py-16">
         <div className="max-w-4xl mx-auto">
           <BlogPostContent post={post} />
 

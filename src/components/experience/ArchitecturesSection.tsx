@@ -19,7 +19,7 @@ import ReactIcon from '@/components/icons/ReactIcon';
 export default function ArchitecturesSection() {
   return (
     <section>
-      <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 py-16">
+      <div className="container mx-auto max-w-screen-2xl py-16">
         <SectionHeader
           title="Architectures in Production"
           subtitle="Systems I built or owned — with outcomes"

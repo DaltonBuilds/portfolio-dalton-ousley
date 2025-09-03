@@ -40,6 +40,7 @@ export function CustomImage({
           className={`w-full h-auto transition-opacity duration-300 ${
             isLoading ? 'opacity-0' : 'opacity-100'
           } ${className}`}
+          sizes={(props as any)?.sizes || "(max-width: 800px) 100vw, 800px"}
           onLoad={() => setIsLoading(false)}
           {...props}
         />

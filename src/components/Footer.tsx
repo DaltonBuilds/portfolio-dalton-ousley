@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
             <span className="text-gray-400">$ </span>
             <span className="text-gray-200">ls -a pages</span>
           </div>
-          <div className="flex space-x-6">
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
             <Link href="/" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">home</Link>
             <Link href="/about" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">about</Link>
             <Link href="/experience" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">experience</Link>
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
             <span className="text-gray-400">$ </span>
             <span className="text-gray-200">ls -a social</span>
           </div>
-          <div className="flex space-x-6">
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
             <a href="https://github.com/DaltonBuilds" target="_blank" rel="noopener noreferrer" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">github</a>
             <a href="https://linkedin.com/in/dalton-ousley" target="_blank" rel="noopener noreferrer" className="text-white hover:text-orange-400 transition-colors duration-200 terminal-cursor-hover">linkedin</a>
           </div>

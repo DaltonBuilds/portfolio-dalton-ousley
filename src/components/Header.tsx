@@ -1,6 +1,13 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
+import { Menu } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Button } from "@/components/ui/Button";
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './ThemeToggle';
@@ -39,9 +46,28 @@ const Header: React.FC = () => {
         </nav>
         <div className="flex items-center space-x-4">
           <ThemeToggle />
-          <Button>
+          <Button className="hidden sm:inline-flex">
             Get in Touch
           </Button>
+          <div className="md:hidden">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon" aria-label="Open menu">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {navItems.map((item) => (
+                  <DropdownMenuItem key={item.name} asChild>
+                    <Link href={item.href}>{item.name}</Link>
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuItem asChild>
+                  <Link href="mailto:example@gmail.com">Get in Touch</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
     </header>

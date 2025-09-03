@@ -71,7 +71,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
     <div className="min-h-screen bg-background">
       {/* Author Header */}
       <section className="border-b border-gray-200 dark:border-gray-800">
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10 py-16 md:py-24">
+        <div className="container mx-auto max-w-screen-2xl py-16 md:py-24">
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
               {/* Author Avatar */}
@@ -173,7 +173,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
 
       {/* Main Content */}
       <section className="py-16">
-        <div className="container mx-auto max-w-screen-2xl px-6 md:px-10">
+        <div className="container mx-auto max-w-screen-2xl">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Posts */}
             <div className="lg:col-span-3">
