@@ -24,7 +24,7 @@ export const ExperienceHero: React.FC<ExperienceHeroProps> = ({ heading, subhead
 
   return (
     <section className="relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
-      <div ref={containerRef} className="relative container mx-auto max-w-screen-2xl py-16 md:py-24">
+      <div ref={containerRef} className="relative container mx-auto max-w-screen-2xl py-16 md:py-24 px-4 sm:px-6 lg:px-8">
         <div className="relative z-10 text-center max-w-4xl mx-auto">
           <h1 className="section-header gradient-text-orange-blue mb-4">
             {heading}

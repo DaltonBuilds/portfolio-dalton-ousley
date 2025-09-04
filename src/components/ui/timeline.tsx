@@ -53,8 +53,8 @@ export const Timeline = ({ data, title, description }: { data: TimelineEntry[], 
             className="flex justify-start pt-10 md:pt-40 md:gap-10"
           >
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-              <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-gray-100 dark:bg-black flex items-center justify-center">
-                <div className="h-4 w-4 rounded-full bg-muted border border-muted-foreground/50 p-2" />
+              <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-background border-2 border-primary/20 shadow-lg flex items-center justify-center">
+                <div className="h-4 w-4 rounded-full bg-primary ring-2 ring-primary/20 ring-offset-2 ring-offset-background" />
               </div>
               <h3 className="hidden md:block text-2xl md:pl-20 md:text-4xl lg:text-5xl xl:text-6xl font-bold text-muted-foreground/50 break-words">
                 {item.title}

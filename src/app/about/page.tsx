@@ -82,7 +82,7 @@ export default function AboutPage() {
   return (
     <div className="relative w-full">
 
-        <div className="container mx-auto max-w-screen-2xl py-16 md:py-20">
+        <div className="container mx-auto max-w-screen-2xl py-16 md:py-20 px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[1.1fr_.9fr]">
             <div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary">
@@ -133,7 +133,7 @@ export default function AboutPage() {
 
       {/* Introduction */}
       <section>
-        <div className="container mx-auto max-w-screen-2xl">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="Introduction"
             subtitle="A cross-functional path from marketing to solutions engineering"
@@ -158,7 +158,7 @@ export default function AboutPage() {
 
       {/* Career Journey */}
       <section>
-        <div className="container mx-auto max-w-screen-2xl">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader title="Career Journey" subtitle="Hands-on delivery across roles and industries" />
           <Card>
             <CardContent className="pt-6">
@@ -190,7 +190,7 @@ export default function AboutPage() {
 
       {/* Skills & Expertise */}
       <section>
-        <div className="container mx-auto max-w-screen-2xl">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader title="Skills & Expertise" subtitle="Breadth across the stack with a DevOps core" />
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <Card>
@@ -250,7 +250,7 @@ export default function AboutPage() {
 
       {/* Current Projects */}
       <section>
-        <div className="container mx-auto max-w-screen-2xl">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader title="Current Projects" subtitle="Learning by building and operating" />
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <Card>
@@ -285,7 +285,7 @@ export default function AboutPage() {
 
       {/* Certifications & Learning Path */}
       <section>
-        <div className="container mx-auto max-w-screen-2xl">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader title="Certifications & Learning Path" subtitle="Bias for action and hands-on learning" />
           <Card>
             <CardContent className="pt-6">
@@ -315,7 +315,7 @@ export default function AboutPage() {
 
       {/* What's Next */}
       <section className="pb-16 md:pb-24">
-        <div className="container mx-auto max-w-screen-2xl">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader title="What’s Next" subtitle="Where I’m excited to add value" />
           <Card>
             <CardContent className="flex flex-col items-start gap-6 pt-6 md:flex-row md:items-center md:justify-between">

@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { 
-  Menu, 
+  AlignJustify, 
   User, 
   Briefcase, 
   FolderOpen, 
@@ -37,7 +37,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" role="banner">
-      <div className="container mx-auto flex h-16 max-w-screen-2xl items-center justify-between">
+      <div className="container mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center space-x-2" aria-label="Dalton Ousley - Home">
           <div className="w-6 h-6 bg-primary rounded-full" aria-hidden="true" />
           <span className="font-bold text-lg">Dalton Ousley</span>
@@ -68,7 +68,7 @@ const Header: React.FC = () => {
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon" aria-label="Open menu">
-                  <Menu className="h-5 w-5" />
+                  <AlignJustify className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
               <SheetContent 

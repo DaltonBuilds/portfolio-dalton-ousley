@@ -217,7 +217,7 @@ export default function ProjectsPage() {
     <div className="relative w-full">
       {/* Hero / Intro */}
       <section>
-        <div className="container mx-auto max-w-screen-2xl py-16 md:py-20">
+        <div className="container mx-auto max-w-screen-2xl py-16 md:py-20 px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-[1.2fr_.8fr]">
             <div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary">Projects</h1>
@@ -267,7 +267,7 @@ export default function ProjectsPage() {
 
       {/* Current Projects */}
       <section>
-        <div className="container mx-auto max-w-screen-2xl">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader title="Current Projects" subtitle="Modern, modular cards (image, tags, short blurb, metrics)" />
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             <ProjectCard
@@ -308,7 +308,7 @@ export default function ProjectsPage() {
 
       {/* Metrics & Outcomes */}
       <section>
-        <div className="container mx-auto max-w-screen-2xl">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader title="Metrics & Outcomes" subtitle="Examples to model" />
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <Card>
