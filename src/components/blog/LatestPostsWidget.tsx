@@ -41,19 +41,20 @@ export function LatestPostsWidget({
   }
 
   return (
-    <section className={`py-16 ${className}`}>
-      <div className="container mx-auto max-w-6xl">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold text-foreground">{title}</h2>
-          <Button variant="outline" asChild>
+    <section className={`py-12 sm:py-16 ${className}`}>
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground">{title}</h2>
+          <Button variant="outline" asChild className="shrink-0 self-start sm:self-auto">
             <Link href="/blog" className="flex items-center gap-2">
-              View All Posts
+              <span className="hidden sm:inline">View All Posts</span>
+              <span className="sm:hidden">View All</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {displayPosts.map((post) => {
             const isFeatured = featuredPosts.includes(post)
             const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
@@ -66,7 +67,7 @@ export function LatestPostsWidget({
               <Card 
                 key={post.slug} 
                 className={`group hover:shadow-lg transition-all duration-300 ${
-                  isFeatured ? 'md:col-span-2 lg:col-span-2 border-primary/20' : ''
+                  isFeatured ? 'sm:col-span-full md:col-span-2 lg:col-span-2 border-primary/20' : ''
                 }`}
               >
                 <Link href={post.permalink}>
@@ -78,15 +79,15 @@ export function LatestPostsWidget({
                         width={400}
                         height={isFeatured ? 192 : 128}
                         className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${
-                          isFeatured ? 'h-48' : 'h-32'
+                          isFeatured ? 'h-40 sm:h-48' : 'h-32 sm:h-36'
                         }`}
-                        sizes="(max-width: 768px) 100vw, 400px"
+                        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 400px"
                         loading="lazy"
                       />
                       {isFeatured && (
                         <Badge 
                           variant="secondary" 
-                          className="absolute top-4 left-4 bg-primary text-primary-foreground"
+                          className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-primary text-primary-foreground text-xs"
                         >
                           Featured
                         </Badge>
@@ -94,8 +95,8 @@ export function LatestPostsWidget({
                     </div>
                   )}
                   
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
+                  <CardHeader className="p-4 sm:p-6 pb-2 sm:pb-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-2">
                       <div className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
                         {formattedDate}
@@ -107,13 +108,13 @@ export function LatestPostsWidget({
                     </div>
                     
                     <CardTitle className={`group-hover:text-primary transition-colors line-clamp-2 ${
-                      isFeatured ? 'text-xl' : 'text-lg'
+                      isFeatured ? 'text-lg sm:text-xl' : 'text-base sm:text-lg'
                     }`}>
                       {post.title}
                     </CardTitle>
                   </CardHeader>
 
-                  <CardContent className="pt-0">
+                  <CardContent className="p-4 sm:p-6 pt-0">
                     {post.description && (
                       <p className={`text-muted-foreground mb-4 ${
                         isFeatured ? 'line-clamp-3' : 'line-clamp-2'
@@ -122,19 +123,19 @@ export function LatestPostsWidget({
                       </p>
                     )}
 
-                    <div className="flex flex-wrap gap-2">
-                      {post.categories.slice(0, 2).map((category) => (
-                        <Badge key={category} variant="outline" className="text-xs">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      {post.categories.slice(0, isFeatured ? 2 : 1).map((category) => (
+                        <Badge key={category} variant="outline" className="text-xs px-2 py-1">
                           {category}
                         </Badge>
                       ))}
                       {post.tags.slice(0, isFeatured ? 3 : 2).map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
+                        <Badge key={tag} variant="secondary" className="text-xs px-2 py-1">
                           #{tag}
                         </Badge>
                       ))}
-                      {(post.categories.length > 2 || post.tags.length > (isFeatured ? 3 : 2)) && (
-                        <Badge variant="secondary" className="text-xs">
+                      {(post.categories.length > (isFeatured ? 2 : 1) || post.tags.length > (isFeatured ? 3 : 2)) && (
+                        <Badge variant="secondary" className="text-xs px-2 py-1">
                           +more
                         </Badge>
                       )}
