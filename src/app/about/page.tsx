@@ -123,7 +123,7 @@ export default function AboutPage() {
             <div className="mt-3 flex flex-wrap items-center gap-6 text-muted-foreground opacity-90">
               <StackIcon label="Kubernetes" src="/Kubernetes_logo_without_workmark.svg" />
               <StackIcon label="GCP" src="/google_cloud-icon.svg" />
-              <StackIcon label="Linux" src="/linux.svg" />
+              <StackIcon label="Linux" src="/Linux.svg" />
               <StackIcon label="Python" src="/Python-logo-notext.svg" />
               <StackIcon label="React" src="/React-icon.svg" />
               <StackIcon label="TypeScript" src="/TypeScript.svg" />

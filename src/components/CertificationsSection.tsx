@@ -42,7 +42,7 @@ const certificationsData: Record<string, Certification> = {
         title: 'LPIC-1: Linux Administrator',
         status: 'In Progress',
         Icon: LinuxIcon,
-        imageSrc: '/linux.svg',
+        imageSrc: '/Linux.svg',
         progress: 20,
     },
     'seo': {
