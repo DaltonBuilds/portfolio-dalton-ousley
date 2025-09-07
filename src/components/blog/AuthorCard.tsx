@@ -44,7 +44,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
               {author.social?.github && (
                 <Button variant="outline" size="default" asChild>
                   <Link 
-                    href={`https://github.com/${author.social.github}`} 
+                    href={author.social.github} 
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
@@ -57,7 +57,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
               {author.social?.linkedin && (
                 <Button variant="outline" size="default" asChild>
                   <Link 
-                    href={`https://linkedin.com/in/${author.social.linkedin}`} 
+                    href={author.social.linkedin} 
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
@@ -70,7 +70,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
               {author.social?.twitter && (
                 <Button variant="outline" size="default" asChild>
                   <Link 
-                    href={`https://twitter.com/${author.social.twitter}`} 
+                    href={author.social.twitter} 
                     target="_blank" 
                     rel="noopener noreferrer"
                   >

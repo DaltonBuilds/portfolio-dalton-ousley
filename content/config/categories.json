@@ -35,6 +35,12 @@
       "slug": "tutorials",
       "description": "Step-by-step guides and hands-on tutorials",
       "color": "#06b6d4"
+    },
+    {
+      "name": "Journey",
+      "slug": "journey",
+      "description": "Personal experiences, career stories, and learning journeys",
+      "color": "#ec4899"
     }
   ]
 }

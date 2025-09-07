@@ -14,11 +14,13 @@ interface ProjectProps {
   tags: string[];
 }
 
+import { PATHS } from '@/config/constants'
+
 const projects: ProjectProps[] = [
   {
     title: "E-commerce Platform",
     description: "A full-stack e-commerce solution with user authentication, product catalog, and payment integration.",
-    image: "/dalton-ousley-profile-pic.webp", // Placeholder image
+    image: PATHS.PROFILE_IMAGE, // Placeholder image
     githubLink: "#",
     liveLink: "#",
     tags: ["Next.js", "Tailwind CSS", "Stripe", "PostgreSQL"],
@@ -26,7 +28,7 @@ const projects: ProjectProps[] = [
   {
     title: "Real-time Chat Application",
     description: "A real-time chat application with group chat functionality and direct messaging.",
-    image: "/dalton-ousley-profile-pic.webp", // Placeholder image
+    image: PATHS.PROFILE_IMAGE, // Placeholder image
     githubLink: "#",
     liveLink: "#",
     tags: ["React", "Node.js", "Socket.io", "MongoDB"],
@@ -34,7 +36,7 @@ const projects: ProjectProps[] = [
   {
     title: "Portfolio Website",
     description: "My personal portfolio website showcasing my projects and skills.",
-    image: "/dalton-ousley-profile-pic.webp", // Placeholder image
+    image: PATHS.PROFILE_IMAGE, // Placeholder image
     githubLink: "#",
     liveLink: "#",
     tags: ["Next.js", "TypeScript", "ShadCN UI", "Tailwind CSS"],
@@ -42,7 +44,7 @@ const projects: ProjectProps[] = [
   {
     title: "Task Management App",
     description: "A simple and intuitive task management application to boost productivity.",
-    image: "/dalton-ousley-profile-pic.webp", // Placeholder image
+    image: PATHS.PROFILE_IMAGE, // Placeholder image
     githubLink: "#",
     liveLink: "#",
     tags: ["Vue.js", "Firebase", "Vuetify"],

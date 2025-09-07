@@ -4,6 +4,9 @@ import { ArrowDownToLine, Rocket } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 
+import { siteConfig } from '@/config/site.config'
+import { PATHS } from '@/config/constants'
+
 const Hero: React.FC = () => {
   return (
     <>
@@ -30,8 +33,8 @@ const Hero: React.FC = () => {
         <div className="mb-8">
           <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-50 md:h-50 rounded-full mx-auto overflow-hidden border-4 border-primary shadow-xl shadow-primary/20">
             <Image
-              src="/dalton-ousley-profile-pic.webp"
-              alt="Dalton Ousley"
+              src={PATHS.PROFILE_IMAGE}
+              alt={siteConfig.name}
               width={150}
               height={150}
               className="object-cover h-full w-full"
@@ -41,10 +44,10 @@ const Hero: React.FC = () => {
           </div>
         </div>
         <h1 id="hero-heading" className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6">
-          Hi, I&apos;m <span className="gradient-text">Dalton</span>
+          Hi, I&apos;m <span className="gradient-text">{siteConfig.name.split(' ')[0]}</span>
         </h1>
         <h2 className="text-xl sm:text-2xl md:text-4xl font-semibold text-foreground/80 mb-8">
-          Cloud Architect & DevOps Engineer
+          {siteConfig.professional.role}
         </h2>
         <p className="text-base sm:text-lg md:text-xl text-foreground/60 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
           Building innovative cloud solutions and scalable architectures that drive business transformation.

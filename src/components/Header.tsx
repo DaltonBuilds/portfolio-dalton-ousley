@@ -21,14 +21,16 @@ import { Button } from "@/components/ui/Button";
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './ThemeToggle';
 
+import { siteConfig } from '@/config/site.config'
+
 const Header: React.FC = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const navItems = [
-    { name: 'About', href: '/about', icon: User },
-    { name: 'Experience', href: '/experience', icon: Briefcase },
-    { name: 'Projects', href: '/projects', icon: FolderOpen },
-    { name: 'Blog', href: '/blog', icon: PenTool },
+    { name: 'About', href: siteConfig.nav.about, icon: User },
+    { name: 'Experience', href: siteConfig.nav.experience, icon: Briefcase },
+    { name: 'Projects', href: siteConfig.nav.projects, icon: FolderOpen },
+    { name: 'Blog', href: siteConfig.nav.blog, icon: PenTool },
   ];
 
   const handleLinkClick = () => {
