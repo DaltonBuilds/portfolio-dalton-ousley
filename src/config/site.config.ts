@@ -2,7 +2,7 @@ export const siteConfig = {
   name: 'Dalton Ousley',
   title: 'Dalton Ousley - DevOps Engineer & Cloud Architect',
   description: 'DevOps Engineer and Cloud Architect specializing in Kubernetes, cloud infrastructure, and automation.',
-  url: 'https://daltonousley.com',
+  url: 'https://daltonousley.com/',
   
   // Social links
   social: {
@@ -19,7 +19,7 @@ export const siteConfig = {
   // Professional details
   professional: {
     role: 'DevOps Engineer',
-    location: 'Kansas City, Missouri',
+    location: 'Fort Collins, Colorado',
     company: 'Freelance DevOps Consultant',
   },
 
