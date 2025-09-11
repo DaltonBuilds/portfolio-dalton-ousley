@@ -7,6 +7,7 @@ import SectionHeader from '@/components/SectionHeader';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Timeline } from '@/components/ui/timeline';
 import { BentoGrid, TimelineBentoCard } from "@/components/ui/bento-grid";
+import { siteConfig } from '@/config/site.config';
 
 export const metadata = {
   title: 'Projects | Dalton Ousley — Cloud, Automation, DevOps',
@@ -210,10 +211,10 @@ export default function ProjectsPage() {
                 <span className="font-semibold">Tip:</span> Scan the Categories to filter quickly, or jump into the Timeline to see how my work has evolved.
               </blockquote>
               <div className="mt-6 flex gap-3">
-                <Link href="mailto:example@gmail.com" className="underline decoration-orange-500/60 decoration-2 underline-offset-4">
+                <Link href={`mailto:${siteConfig.contact.email}`} className="underline decoration-orange-500/60 decoration-2 underline-offset-4">
                   Get in touch
                 </Link>
-                <Link href="https://www.linkedin.com/in/dalton-ousley/" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href={siteConfig.social.linkedin} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
                   LinkedIn
                 </Link>
               </div>
