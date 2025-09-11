@@ -147,8 +147,9 @@ const timelineData = [
           <strong>observability</strong> and <strong>secure networking</strong>.
         </p>
         <BentoGrid className="grid-cols-1 auto-rows-[10rem] md:auto-rows-[12rem] lg:auto-rows-[15rem] md:grid-cols-2 gap-4">
+            {[...Array(3)].map((_, i) => (
             <TimelineBentoCard
-                className="md:col-span-2"
+                key={`bento-card-${i}`}
                 background={
                     <Image
                         src="/dalton-ousley-profile-pic.webp"
@@ -159,28 +160,7 @@ const timelineData = [
                     />
                 }
             />
-            <TimelineBentoCard
-                background={
-                    <Image
-                        src="/dalton-ousley-profile-pic.webp"
-                        alt="Home Lab"
-                        layout="fill"
-                        objectFit="cover"
-                        className="rounded-xl"
-                    />
-                }
-            />
-            <TimelineBentoCard
-                background={
-                    <Image
-                        src="/dalton-ousley-profile-pic.webp"
-                        alt="Home Lab"
-                        layout="fill"
-                        objectFit="cover"
-                        className="rounded-xl"
-                    />
-                }
-            />
+            ))}
         </BentoGrid>
       </div>
     ),

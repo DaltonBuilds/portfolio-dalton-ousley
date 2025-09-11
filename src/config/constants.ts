@@ -39,3 +39,4 @@ export const SEO_DEFAULTS = {
   defaultTitle: 'Dalton Ousley - DevOps Engineer & Cloud Architect',
   defaultDescription: 'DevOps Engineer and Cloud Architect specializing in Kubernetes, cloud infrastructure, and automation.',
 } as const
+

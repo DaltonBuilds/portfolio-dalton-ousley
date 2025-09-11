@@ -169,8 +169,9 @@ export function CertificationsSection() {
         <section id="certifications" className="py-20 sm:py-32">
             <div className="container mx-auto px-4">
                 <SectionHeader
-                    title="cat /var/log/certifications.log"
+                    title="Certifications"
                     subtitle="A timeline of my ongoing and completed technical certifications."
+                    command="cat /var/log/certifications.log"
                     className="px-4"
                 />
                 <div

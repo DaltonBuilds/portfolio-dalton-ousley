@@ -112,8 +112,9 @@ export function InteractiveSkillsSection() {
         <section id="skills" className="py-20 sm:py-32">
             <div className="container mx-auto px-4">
                 <SectionHeader
-                    title="./skills --list --verbose"
+                    title="Skills"
                     subtitle="A comprehensive arsenal of modern DevOps, SRE, and AI/ML infrastructure tools"
+                    command="./skills --list --verbose"
                 />
                 <div
                     className="relative mt-20 flex w-full items-center justify-center"

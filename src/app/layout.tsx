@@ -34,7 +34,7 @@ export const viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${ibmPlexMono.className} bg-background text-foreground`}>
+      <body suppressHydrationWarning className={`${ibmPlexMono.className} bg-background text-foreground`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
