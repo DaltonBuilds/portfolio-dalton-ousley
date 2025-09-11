@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Briefcase, Zap, Rocket, Target, Code } from 'lucide-react';
+import { Briefcase, Zap, Rocket, Target, Code, Cloud, Settings, GitBranch } from 'lucide-react';
 
 import SectionHeader from '@/components/SectionHeader';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
@@ -130,7 +130,7 @@ export default function ExperiencePage() {
     <div className="relative w-full">
       <ExperienceHero
         heading="Designing resilient cloud platforms that ship faster and fail safer"
-        subheading="Outcome-driven work across Cloud, DevOps, and Platform Engineering — positioned for TAM, Cloud Engineer, or Solutions Architect roles."
+        subheading="Outcome-driven work across Cloud, DevOps, and Platform Engineering — positioned for Cloud Engineer, Site Reliability Engineer, or DevOps Engineer roles."
         stats={[
           { label: 'Availability', value: '99.95%' },
           { label: 'MTTR Reduction', value: '-63%' },
@@ -211,25 +211,25 @@ export default function ExperiencePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <Card>
                 <CardContent className="pt-6">
-                    <Target className="h-8 w-8 mx-auto mb-2 text-primary" />
-                    <h3 className="text-lg font-semibold">Technical Account Manager</h3>
-                </CardContent>
-            </Card>
-            <Card>
-                <CardContent className="pt-6">
-                    <Code className="h-8 w-8 mx-auto mb-2 text-primary" />
+                    <Cloud className="h-8 w-8 mx-auto mb-2 text-primary" />
                     <h3 className="text-lg font-semibold">Cloud Engineer</h3>
                 </CardContent>
             </Card>
             <Card>
                 <CardContent className="pt-6">
-                    <Briefcase className="h-8 w-8 mx-auto mb-2 text-primary" />
-                    <h3 className="text-lg font-semibold">Solutions Architect</h3>
+                    <Settings className="h-8 w-8 mx-auto mb-2 text-primary" />
+                    <h3 className="text-lg font-semibold">Site Reliability Engineer</h3>
+                </CardContent>
+            </Card>
+            <Card>
+                <CardContent className="pt-6">
+                    <GitBranch className="h-8 w-8 mx-auto mb-2 text-primary" />
+                    <h3 className="text-lg font-semibold">DevOps Engineer</h3>
                 </CardContent>
             </Card>
           </div>
           <p className="mt-6 text-center text-muted-foreground max-w-3xl mx-auto">
-            These roles allow me to combine my customer-first mindset, cloud and DevOps expertise, and automation experience to deliver business impact at scale.
+            These roles leverage my expertise in cloud infrastructure, automation, and reliability engineering to build scalable systems that deliver business value and operational excellence.
           </p>
         </div>
       </section>
@@ -271,7 +271,7 @@ export default function ExperiencePage() {
       <section className="pb-16 md:pb-24">
         <div className="container mx-auto max-w-screen-2xl text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold tracking-tight text-primary">Design review or migration chat?</h2>
-          <p className="mt-4 text-lg text-muted-foreground">TAM, Cloud Engineer, or Solutions Architect — I can help accelerate outcomes.</p>
+          <p className="mt-4 text-lg text-muted-foreground">Cloud Engineer, Site Reliability Engineer, or DevOps Engineer — I can help accelerate outcomes.</p>
           <div className="mt-6 flex items-center justify-center gap-4">
             <Button asChild size="lg">
               <Link href="mailto:example@gmail.com">Request a review</Link>
