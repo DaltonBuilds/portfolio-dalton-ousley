@@ -291,7 +291,7 @@ export default function AboutPage() {
             <CardContent className="pt-6">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h3 className="text-xl font-semibold">In Progress</h3>
+                  <h3 className="text-xl font-semibold">Completed</h3>
                   <ul className="mt-2 list-disc space-y-1 pl-5">
                     <li>Google Professional Cloud Architect (PCA)</li>
                   </ul>

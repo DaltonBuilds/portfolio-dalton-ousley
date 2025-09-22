@@ -26,10 +26,10 @@ type Certification = {
 const certificationsData: Record<string, Certification> = {
     'pca': {
         title: 'Google Professional Cloud Architect',
-        status: 'In Progress',
+        status: 'Completed',
         Icon: GoogleCloudIcon,
         imageSrc: '/google_cloud-icon.svg',
-        progress: 98,
+        link: 'https://www.linkedin.com/in/dalton-ousley/',
     },
     'cka': {
         title: 'Certified Kubernetes Administrator',
@@ -43,7 +43,7 @@ const certificationsData: Record<string, Certification> = {
         status: 'In Progress',
         Icon: LinuxIcon,
         imageSrc: '/Linux.svg',
-        progress: 20,
+        progress: 25,
     },
     'seo': {
         title: 'Advanced SEO Certification',
@@ -52,7 +52,7 @@ const certificationsData: Record<string, Certification> = {
         link: 'https://www.linkedin.com/in/dalton-ousley/',
     },
     'python': {
-        title: 'Python for Everybody Specialization',
+        title: 'Python Fundamentals',
         status: 'Completed',
         Icon: PythonIcon,
         link: 'https://www.linkedin.com/in/dalton-ousley/',
@@ -92,7 +92,7 @@ const CertificationNode = forwardRef<HTMLDivElement, CertificationNodeProps>(({ 
             viewport={{ once: true, amount: 0.5 }}
             className={`group relative flex justify-center items-center ${className}`}
         >
-            <Card className={`bg-background/80 backdrop-blur-sm border-border/40 w-full max-w-sm h-full transition-all duration-300 group-hover:border-primary/80 group-hover:scale-105 ${isInProgress ? 'border-dashed' : ''}`}>
+            <Card className={`bg-background/80 backdrop-blur-sm border-border/40 w-80 h-full transition-all duration-300 group-hover:border-primary/80 group-hover:scale-105 ${isInProgress ? 'border-dashed' : ''}`}>
                 <CardHeader>
                     <div className="flex justify-between items-center mb-2">
                         <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${isInProgress ? (imageSrc ? '' : 'bg-amber-500/10 text-amber-500') : 'bg-primary/10 text-primary'}`}>
@@ -182,7 +182,6 @@ export function CertificationsSection() {
                         {/* In Progress Column */}
                         <div className="flex flex-col items-center gap-y-10">
                             <CategoryNode ref={inProgressRef} title="In Progress" icon={CircleDashed} />
-                            <CertificationNode id="pca" ref={pcaRef} />
                             <CertificationNode id="cka" ref={ckaRef} />
                             <CertificationNode id="lpic1" ref={lpic1Ref} />
                         </div>
@@ -190,6 +189,7 @@ export function CertificationsSection() {
                         {/* Completed Column */}
                         <div className="flex flex-col items-center gap-y-10">
                             <CategoryNode ref={completedRef} title="Completed" icon={BadgeCheck} />
+                            <CertificationNode id="pca" ref={pcaRef} />
                             <CertificationNode id="seo" ref={seoRef} />
                             <CertificationNode id="python" ref={pythonRef} />
                             <CertificationNode id="javascript" ref={javascriptRef} />
@@ -198,14 +198,14 @@ export function CertificationsSection() {
                     </div>
 
                     {/* Beams connecting categories to certifications */}
-                    <AnimatedBeam containerRef={containerRef} fromRef={inProgressRef} toRef={pcaRef} duration={3} delay={0.5} pathOpacity={0.2} />
-                    <AnimatedBeam containerRef={containerRef} fromRef={inProgressRef} toRef={ckaRef} duration={3} delay={0.7} pathOpacity={0.2} />
-                    <AnimatedBeam containerRef={containerRef} fromRef={inProgressRef} toRef={lpic1Ref} duration={3} delay={0.9} pathOpacity={0.2} />
+                    <AnimatedBeam containerRef={containerRef} fromRef={inProgressRef} toRef={ckaRef} duration={3} delay={0.5} pathOpacity={0.2} />
+                    <AnimatedBeam containerRef={containerRef} fromRef={inProgressRef} toRef={lpic1Ref} duration={3} delay={0.7} pathOpacity={0.2} />
                     
-                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={seoRef} duration={3} delay={0.6} pathOpacity={0.2} />
-                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={pythonRef} duration={3} delay={0.8} pathOpacity={0.2} />
-                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={javascriptRef} duration={3} delay={1.0} pathOpacity={0.2} />
-                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={reactRef} duration={3} delay={1.2} pathOpacity={0.2} />
+                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={pcaRef} duration={3} delay={0.6} pathOpacity={0.2} />
+                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={seoRef} duration={3} delay={0.8} pathOpacity={0.2} />
+                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={pythonRef} duration={3} delay={1.0} pathOpacity={0.2} />
+                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={javascriptRef} duration={3} delay={1.2} pathOpacity={0.2} />
+                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={reactRef} duration={3} delay={1.4} pathOpacity={0.2} />
                 </div>
             </div>
         </section>

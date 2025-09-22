@@ -43,7 +43,7 @@ I started in **digital marketing**, but quickly discovered my passion for the te
 ---
 
 ## Certifications & Learning Path
-- **In Progress**: Google Professional Cloud Architect (PCA)  
+- **Completed**: Google Professional Cloud Architect (PCA)  
 - **Next Steps**: LPIC-1, Certified Kubernetes Administrator (CKA), and additional DevOps/Cloud certifications  
 
 I believe in Stephen Covey’s principle: *“To learn and not do is not to learn; to learn and then do is to learn.”* My approach is always **hands-on learning** — building, breaking, and fixing systems to deepen my understanding.  
