@@ -102,7 +102,7 @@ const CertificationNode = forwardRef<HTMLDivElement, CertificationNodeProps>(({ 
                                 <Icon className="w-6 h-6" />
                             )}
                         </div>
-                        <span className={`text-xs font-mono px-2 py-1 rounded-full ${isInProgress ? 'bg-amber-500/20 text-amber-600' : 'bg-primary/20 text-primary-foreground'}`}>
+                        <span className={`text-xs font-mono px-2 py-1 rounded-full ${isInProgress ? 'bg-amber-500/20 text-amber-600' : 'bg-green-500/20 text-green-600'}`}>
                             {cert.status}
                         </span>
                     </div>
