@@ -1,0 +1,440 @@
+---
+title: "Google Professional Cloud Architect Exam Prep – How I Passed (and What I Learned)"
+slug: "google-professional-cloud-architect-exam-prep"
+description: "I just passed the Google PCA exam! Here’s my full study strategy, resources, and lessons learned to help you prepare for your own success."
+date: "2025-09-28"
+lastModified: "2025-09-28"
+published: true
+featured: true
+author: "dalton-ousley"
+categories: ["journey"]
+tags: ["journey", "learning", "devops", "career"]
+image:
+  src: "/blog/images/dalton-ousley-google-pca-exam-prep.webp"
+  alt: "Google Professional Cloud Architect learning journey"
+seo:
+  keywords: ["Google Cloud certification", "PCA exam prep", "cloud engineer career", "how to pass PCA exam"]
+  ogImage: "/blog/images/dalton-ousley-google-pca-exam-prep.webp"
+---
+
+# Google Professional Cloud Architect Exam Prep – How I Passed (and What I Learned)
+
+## Introduction: Why the PCA Exam Matters
+
+I just passed the **Google Professional Cloud Architect (PCA) exam** last week — and for me, it was more than just earning a certification. It was a milestone in a career pivot that’s been years in the making.
+
+Five years ago, I started freelancing in digital marketing. My world was copywriting, SEO, and paid ads. That journey gave me invaluable business skills — skills that, honestly, were worth more than the MBA I earned before it. I had to design systems, build client-acquisition funnels, sell services, and then deliver real results. I held the line for a couple of years, but along the way, something else clicked: I loved **building the systems** behind the business more than managing the sales or operations.
+
+That realization pulled me deeper into the technical side of things — funnel design, automations, integrations with tools like Zapier and GoHighLevel, and eventually, APIs. I found myself spending hours tinkering, not because I had to, but because I was fascinated. It wasn’t long before I wanted to build my own applications, which led me into programming earlier this year. And as I was writing code, I stumbled on a bigger question: *how does this code actually get to end users?* That rabbit hole introduced me to cloud engineering, cloud architecture, and DevOps. It was a true “aha” moment — everything I had done as a freelancer had led me here.
+
+That’s why the PCA exam mattered to me: it’s a direct step into the world I want to grow in, a way to validate my skills, and a credential that recruiters actually respect when hiring for Cloud Engineer and DevOps-related roles.
+
+### What is the Google Professional Cloud Architect Certification?
+
+For anyone unfamiliar, the PCA is a Google Cloud certification designed to test whether you can **design, secure, and manage scalable, reliable solutions on Google Cloud Platform (GCP)**. Unlike some certifications that focus heavily on *memorizing services*, the PCA emphasizes *realistic architectural scenarios*. You’ll be tested through case studies and problem-solving questions that mirror what a Cloud Engineer or Architect would face on the job — things like choosing the right database, balancing cost and performance, or designing for hybrid and multi-cloud environments.
+
+That’s one big reason I chose PCA over alternatives like the AWS Solutions Architect: it felt less like a memory game and more like a true test of cloud skills. And as someone pivoting careers, I wanted a certification that would both accelerate my learning and stand out on my resume. *In all honesty, I will likely get my AWS Solutions Architect certification down the road just to diversify my skills in the cloud.*
+
+### Why This Article Exists
+
+If you’re considering this path, you’re probably wondering: *what does it take to prepare, how do you avoid overwhelm, and what resources are actually relevant in 2026?* That’s exactly what I’ll share in this article. My full study strategy, the tools and resources I used, what worked (and what didn’t), plus lessons learned along the way. My hope is that this not only helps you pass the PCA exam with confidence, but also excites you about starting your own cloud journey.
+
+## Understanding the PCA Exam
+
+Before diving into how I studied, let’s first break down what this certification actually is, who it’s for, and why it’s considered one of the more challenging cloud exams out there.
+
+### What the PCA Exam Measures
+
+At its core, the **Google Professional Cloud Architect exam** evaluates whether you can **design, secure, and manage scalable, reliable solutions on Google Cloud Platform (GCP)**. This isn’t just about memorizing services or acronyms — it’s about understanding trade-offs:
+
+- When to choose **Cloud SQL vs. Spanner**
+- How to balance **cost vs. performance**
+- Designing for **security and compliance**
+- Planning for **hybrid or multi-cloud scenarios**
+- Ensuring **availability and disaster recovery**
+
+Security in particular was everywhere on the exam. Every architectural choice seemed to carry an underlying question of: *how do you protect this system while keeping it usable and cost-effective?*
+
+### Exam Format & Difficulty
+
+The exam is multiple choice, but not in the straightforward “A, B, C, or D” way you might expect. For me, the case study questions hit me immediately — back-to-back at the very beginning. My two were **TerramEarth** and **MountKirk Games**, both of which are infamous in the PCA community.
+
+Here’s the twist: I didn’t read the case studies in advance, and I didn’t even read them fully during the exam. Instead, I relied on the **questions themselves** (and the answer choices) to derive the correct solution. Risky? Maybe! But it worked for me.
+
+What really threw me was the structure of the answers. Instead of a single line, each option looked like this:
+
+```
+A. A possible approach
+    1. Sub-step that forces deeper consideration
+    2. Additional process or caveat
+    3. Another trade-off to weigh
+B. Another approach, slightly tweaked
+    1. ...
+    2. ...
+    3. ...
+
+```
+
+That format was unexpected and sent a chill down my spine for about a second (since none of the practice exams I went through modeled this format) — but once I realized it was just testing depth of understanding, I regained focus. It pushed me to think through **entire processes**, not just isolated services.
+
+The bottom line: the exam is **difficult, but fair**. It’s less about rote memory and more about whether you can think like an architect. I didn't get the sense that Google was just trying to *trick* me, although some questions certainly made me pause and even guess at times because at least 2 possible answers sounded like they were correct!
+
+### Who the Exam Is For
+
+Google recommends it for roles like:
+
+- **Cloud Engineers**
+- **Solutions Architects**
+- **DevOps Engineers**
+- **Technical Account Managers (TAMs)**
+- Even experienced developers who want to move into system-level thinking
+
+Basically, if your job involves **designing systems, making trade-offs, and aligning technical solutions with business goals**, the PCA is relevant.
+
+### Do You Need Prerequisites?
+
+Here’s where I differ a bit from the “official” guidance: **I don’t think you need years of cloud experience to start this journey**. Could you begin as a complete beginner? Yes — but it will take longer.
+
+When I started preparing, I only had:
+
+- Beginner-level programming skills (Basic Python, JavaScript and React)
+- A surface understanding of APIs (I’d used them in client projects)
+- Very basic terminal knowledge (mostly just enough to push commits from VS Code to GitHub)
+
+That’s it. I didn’t have a deep Linux background, and I wasn’t fluent in cloud networking or distributed systems. But studying for the PCA *forced* me to close those gaps. The terminal commands I used to blindly copy/paste finally started to make sense. Linux went from being intimidating to becoming a daily tool. And concepts like frontend vs. backend, microservices, and app architecture clicked in new ways because the exam demanded it.
+
+If you already have some basic Linux skills, understand how the terminal works, and can explain the difference between a frontend, backend, and microservices, then you’ll have an easier time. But even if you don’t, the PCA can serve as a structured roadmap to get you there.
+
+## My Motivation & Starting Point
+
+When I first started looking seriously at Cloud Engineering as a career path, I already had a unique foundation — but not the traditional one. My background wasn’t computer science or IT; it was freelancing. For years I lived and breathed digital marketing: SEO, paid ads, website & funnel design, client acquisition, copywriting, content creation, and system build-outs. It was a crash course in business skills that honestly, as I said before, taught me more than my MBA ever did.
+
+But what I loved most wasn’t selling or scaling a marketing business — it was **building the systems behind the scenes**. I thrived when I was knee-deep in tools like GoHighLevel, connecting APIs, or gluing together different apps with Zapier. That curiosity bled into programming (learning Python, JavaScript and React) and eventually opened up an even bigger question: *how does this code get into the hands of end users at scale?* That question led me into the worlds of Cloud Engineering, Cloud Architecture, and DevOps — and once I found that rabbit hole, I didn’t want to climb back out.
+
+### Why the PCA Was My First Step
+
+At that stage, I was deep into what is commonly known as **meta learning** — learning *how* to learn (more on this later). I leaned heavily on AI research, YouTube videos, and community advice (Skool, forums, etc.) to build a roadmap. One overwhelming recommendation came through loud and clear: **start with a cloud certification.**
+
+Now, let’s be clear — no one should think that passing one certification (or multiple for that matter) is enough to land a Cloud Engineer role. But the PCA had two things going for it that made it the right first step:
+
+1. **Resume credibility.** It looks strong on LinkedIn, your website, and in the eyes of recruiters who are scanning dozens of profiles.
+2. **Structured learning.** Instead of endless “tutorial hell” on YouTube, the PCA exam forced me to learn in an organized way:
+3. 
+    - Command line basics
+    - Cloud services (compute, storage, databases, networking)
+    - Deployments and pipelines
+    - Real business problems like cost, compliance, security, and scalability
+
+That structured learning gave me a foundation I could immediately build on. Every concept I studied for the exam became something I could later apply to a real project.
+
+### The Human Side of It
+
+Here’s the funny part: before I committed to studying for the PCA, I was *overflowing* with confidence. I thought, *how hard could this be?* Then reality hit. Networking concepts, Kubernetes, IAM policies — they humbled me quickly. My confidence dipped, and it didn’t start to recover until I had taken multiple practice exams and scored numerous passing marks.
+
+But that discomfort turned out to be the best part of the journey. The process of struggling through the material and piecing it all together is what transformed fuzzy concepts into solid knowledge.
+
+In fact, working on my personal **Cortex second brain project** at the same time was what tied it all together. Deploying Cortex on GCP meant wrestling with Terraform, IAM, Service Accounts, IAP, and Cloud Build to name a few — the EXACT same topics that showed up on the real exam. By applying what I was studying to something I cared about, the concepts finally clicked.
+
+So yes, the PCA was a first step for my resume. But more importantly, it was a **first step in learning to think like a Cloud Engineer** — a foundation I’ll continue building on with projects and hands-on work.
+
+## Study Strategy: How I Prepared
+
+When I committed to the PCA, I knew I didn’t want to just “get through the material.” I wanted to come out of the process with knowledge that stuck — the kind you can actually use on the job. For me, that meant building a study plan that combined **timeline, tools, and hands-on practice** in a way that fit my career pivot.
+
+### Timeline Overview
+
+I studied consistently for several weeks, pacing myself so I wouldn’t burn out. My rhythm was simple: daily study sessions broken into smaller blocks, with time carved out to apply what I was learning directly to a real project. This wasn’t about cramming; it was about building lasting skills.
+
+In fact, I believe that *going slow* (or so it felt) was actually the *fastest* way to get through this material in a way that actually stuck.
+
+### Learn by Doing (with AI as My Tutor)
+
+My single biggest piece of advice? **Use AI as your learning assistant.**
+
+Whenever I hit a concept I didn’t fully understand — IAM roles, Kubernetes clusters, persistent disk snapshots — I didn’t just rewatch the video or reread the doc. I took it to ChatGPT or Claude and asked for:
+
+- A deeper explanation (in plain language)
+- Analogies that made sense in my context
+- How this concept would apply to *my own project*
+
+This extra step was powerful. Instead of short-term memorization, I was having back-and-forth conversations that clarified the “why” and the “how.” The result: I walked away with a solid understanding, not just a keyword match strategy.
+
+👉 Pro tip: If you don’t have a project you’re working on, make one up. It could be a simple app idea or a workflow that excites you. Then, when you’re studying, tie every concept back to that “project.” Some LLMs even let you build persistent context — meaning they can remember your baseline project details and keep referencing them as you learn.
+
+I also leaned on YouTube’s AI “Ask” feature. Instead of sitting through 2–4 hour videos, I’d have it summarize key PCA-relevant concepts. I’d then take that summary into ChatGPT or Claude and unpack it further. This saved me hours while giving me even more clarity than the video itself.
+
+### Reinforcing with Projects
+
+Hands-on practice is what locked everything in. My **Cortex second brain project** became my live lab. When something broke, I was forced to solve real-world problems:
+
+- IAM issues
+- Terraform misconfigurations
+- Container image bugs in Cloud Run
+
+One example still sticks with me. I ran into trouble using the `latest` tag for my Docker images in Terraform (`main.tf`). AI explained that best practice was to use **commit hashes** as image tags for immutability and traceability. A couple of weeks later, that *exact scenario* appeared on my exam — and I confidently picked *commit hashes* as the right answer!
+
+That’s the power of learning by doing.
+
+### Balancing Theory and Hands-On
+
+I won’t discount theory. Understanding the “why” behind services and architectural patterns gave me a mental map of GCP. But I made sure not to stop there. Every time I learned a new concept in theory, I reinforced it by **doing something with it** — whether that was spinning up a mini project, running a Terraform deploy, or knocking out another 10 practice exam questions.
+
+The balance looked something like this:
+
+- **Theory:** Establish the foundation, understand trade-offs.
+- **Hands-on:** Reinforce by actually building, breaking, and fixing.
+
+### Breadth vs. Depth
+
+The PCA demands both. You need enough **breadth** to be comfortable across dozens of GCP services, but also enough **depth** to reason about trade-offs in architecture. I approached it like this:
+
+- Get a broad lay of the land with the Udemy course I selected.
+- Go deeper where concepts intersected with real architecture (IAM, networking, storage, security).
+- Prove my understanding through practice exams (**pro tip:** DON'T take the PCA exam without doing a handful of practice exams first)!
+
+That combination helped me feel confident when the exam forced me to think holistically about solutions.
+
+## Resources That Helped Me Succeed
+
+There are endless study resources out there for the PCA — so many, in fact, that it’s easy to get overwhelmed or waste time. Here’s what I actually used, what worked, and what I’d recommend to anyone following a similar path.
+
+### Official Google Training
+
+I skimmed some of [Google’s official documentation for GCP services](https://www.cloudskillsboost.google/paths/12), which is worth doing for familiarity, but I didn’t invest too much time here. The docs are excellent references when you need them, but they’re not designed to guide you through a structured exam prep journey.
+
+### Online Courses
+
+I enrolled in a highly rated [**Udemy course**](https://www.udemy.com/share/104ulQ3@qxkp9WR7uwOU62aF6RvxJmWeWSGNegEqhthPA4xIQqglFkHDNGGW5Rx5PsCcgx3P/). While it was helpful in giving me a structured overview of the exam topics, parts of it felt slightly outdated — which dented my confidence a bit. Still, it gave me the “big picture” understanding I needed. Once I had that framework, I took individual concepts deeper using AI and other resources.
+
+Takeaway: Online courses are valuable for structure, not as a one-stop solution.
+
+### Community Resources
+
+I leaned heavily on free community resources:
+
+- **YouTube**: Playlists like [Go Cloud Architects](https://www.youtube.com/watch?v=LkjnDtKXu1o&list=PL0azhNeBK66Ib5bdokWTyNyx3srkrzbUo) and content from [**freeCodeCamp**](https://www.youtube.com/watch?v=u43gJJrVa1I&t=551s&pp=ygUPZ29vZ2xlIHBjYSBwcmVw) were excellent for breaking down key concepts.
+- **Reddit threads**: Semi-helpful for identifying which practice exams people were finding most relevant and up-to-date.
+
+These resources aren’t always consistent, but they’re great for filling gaps or getting alternate explanations.
+
+### Practice Exams
+
+This was one of the most important parts of my prep. I used the [**Udemy PCA practice exam course**](https://www.udemy.com/course/google-professional-cloud-architect-gcp-pca-exams/) (6 full exams). The flexibility was great:
+
+- **Practice mode:** untimed, with immediate feedback.
+- **Exam mode:** timed, no feedback (closely modeling the real test).
+
+Not every question matched Google’s real exam format, but the **concepts were solid** and helped me build confidence. I’ve heard that Whizlabs may offer practice exams closer to the real exam format, though I didn’t purchase those myself.
+
+Takeaway: Even if the question formats don’t match perfectly, practice exams are crucial for getting comfortable with the breadth of topics and learning how to manage time.
+
+### Cutting Through the Noise
+
+One important lesson: unless you have unlimited time and budget, you need to be selective. Free resources like YouTube can be great, but they can also lead you into “content grazing” without much progress. Paid resources (courses, practice exams) tend to cut through the fluff, giving you more structured value for your time.
+
+And don’t stress too much about courses being slightly outdated. Cloud services evolve quickly, but the **core concepts remain the same**. If you’re using AI as a study companion, it can quickly tell you when a resource is deprecated and what the current best practices are.
+
+## Case Study Strategy (or Lack Thereof)
+
+Let’s talk about the part of the PCA exam that intimidates a lot of people: the case studies. If you’ve read any prep guides, you’ve probably seen advice like *“study TerramEarth and MountKirk Games until you can recite them in your sleep.”*
+
+Here’s the truth: **I didn’t study a single case study**. Not before the exam. Not during the exam.
+
+Nothing!
+
+When the test started and those infamous case study questions popped up, I simply read the questions carefully and leaned on the **answer choices themselves** to guide me. The multiple-choice options included all the context I needed — enough to reason through the problem and pick the best architectural trade-off.
+
+👉 Pro tip: You'll find that reading through the answer choices themselves is a strategy in-and-of itself. Often, I would find blatantly terrible options that I could immediately rule out, leading me to the correct answer faster and easier than imagined.
+
+Was NOT reading a single case study a risky approach? Absolutely! But for me, it worked.
+
+The takeaway here isn’t that you should ignore the case studies completely (though I clearly did) — it’s that the exam isn’t testing your ability to memorize TerramEarth’s fictional business model. It’s testing your ability to **apply cloud architecture principles to real-world scenarios**. If you understand GCP’s core services and trade-offs, you can survive (and even thrive) without pouring hours into case study flashcards or case study breakdown videos on YouTube.
+
+## What Worked Best for Me
+
+Everyone’s study journey looks different, but here are the two things that made the biggest difference for me: **project-based learning** and **AI-powered tutoring**.
+
+### Hands-On GCP Project (Cortex)
+
+Without question, the most valuable part of my prep was building my own project: **Cortex**, my personal “second brain” app (inspired by the '[Building a Second Brain](https://www.buildingasecondbrain.com/)' book). This wasn’t just a toy project — it served three purposes at once:
+
+1. **Exam prep:** It forced me to work with real GCP services in context, not just theory.
+2. **Portfolio piece:** It’s something I can showcase to recruiters to prove I can design, deploy, and manage cloud applications.
+3. **Personal utility:** I actually use it, which kept me motivated to keep refining it (I'm still refining it and will release it publicly on my [GitHub](https://github.com/DaltonBuilds) account soon).
+
+Deploying Cortex on [**Cloud Run**](https://cloud.google.com/run) pulled me into nearly every corner of GCP that the PCA exam cares about:
+
+- **IAM** and **Service Accounts** for access control
+- **IAP** (Identity-Aware Proxy) for authentication
+- **Firestore** as my database
+- **Artifact Registry** for storing Docker images
+- **Cloud Build** to push those images (and eventually expand into full CI/CD pipelines)
+- **Secret Manager** for securely storing my API keys to LLMs like ChatGPT and Claude
+
+Every bug, every deployment hiccup, every Terraform misconfiguration turned into a learning opportunity. This is why I recommend **project-based learning** above all else. If your end goal is to work as a Cloud Engineer, the PCA shouldn’t just be about passing an exam — **it should be about building the skills that will land you the job**.
+
+### Leveraging AI as My Tutor
+
+The second game-changer was how I used AI. Whenever I hit a tricky concept, I didn’t just read about it — I talked it through with ChatGPT or Claude. My process usually looked like this:
+
+1. **Ask for a deeper explanation** until I felt I understood.
+2. **Request an analogy** that made it easier to visualize.
+3. **Map it to my project** (“How does this concept show up in Cortex?”).
+4. **Teach it back**: I’d write out my understanding and ask the AI, *“Am I on track or off the rails?”*
+
+That last step was critical. It’s so easy to move forward with a half-baked understanding and not realize it. By forcing myself to explain concepts back, I got immediate confirmation (or correction). That turned fuzzy knowledge into solid understanding I could actually recall under exam pressure.
+
+## What I’d Do Differently (Mistakes to Avoid)
+
+No prep journey is perfect. I’m glad to say that most of what I studied showed up on the exam, but there were still a few surprises — and some lessons I’d pass on to anyone preparing for the PCA.
+
+### The Curveballs (Like gcloud Commands)
+
+One question I’ll never forget involved choosing the correct **gcloud command** for a situation. Here’s the problem: I don’t have a catalog of gcloud commands memorized (and honestly, I doubt many professionals do). The options listed included commands I had never even heard of. I was forced to guess.
+
+That was frustrating because I’m not sure how you can realistically study for every single command — there are too many. Even the ones I used while deploying my Cortex project didn’t prepare me for that exact scenario. I almost certainly tanked that question. But here’s the thing: the exam isn’t about perfection. You can miss questions and still pass comfortably.
+
+### Common Traps: “Best Answer” Syndrome
+
+Google doesn’t design the PCA exam to trick you. But you will run into questions where multiple answers seem technically correct. That’s where the dreaded **“best answer”** wording comes in.
+
+Sometimes the exam specifically says: *“According to Google best practices, what should you do?”* That’s your cue: don’t just look for what works, look for what aligns with Google’s philosophy.
+
+My advice: **read carefully, then re-read if you’re unsure.** I personally flagged about 12 questions during my exam, came back to them at the end, and changed 2–3 of my answers after catching small keywords I missed the first time. One single word in the question can flip the answer.
+
+### Avoiding Burnout (The Long Game)
+
+Burnout is a sneaky enemy when you’re studying for a big cert. Thankfully, freelancing taught me how to manage my schedule after a few hard lessons in the past. Here’s what worked for me:
+
+- **Plan your days.** I ran everything through my Google Calendar with dedicated blocks for work, learning, and even family time (dad life is real). I paired that with a simple desk notepad for my 3–5 “needle-moving” tasks of the day. Writing it down and checking it off gave me a mental win that carried me forward.
+- **Exercise + outdoors.** I keep basic equipment at home and made it a point to hike at least once a week. Living in Colorado makes this easier, but even a long walk can reset your brain. Fresh air and just moving your body is seriously underrated!
+- **Let content lead you.** I didn’t force myself into arbitrary “lessons per day.” Some days I’d spend hours wrestling with Kubernetes, even though it only showed up as 1–2 questions on the exam. Why? Because my goal wasn’t just to pass — it was to *actually learn cloud architecture* in a way I can apply on the job.
+- **Sleep like it’s your job.** I can’t overstate this. I used to brag about working 12–15 hour days. Now, I sleep 8 hours, feel amazing, and still get more done in less time. If you need convincing, read [*Why We Sleep* by Matthew Walker](https://www.amazon.com/Why-We-Sleep-Unlocking-Dreams/dp/1501144316). As one quote puts it: *“The best bridge between despair and hope is a good night’s sleep.”*
+
+The truth is, passing the PCA isn’t just about raw study hours. It’s about **sustaining your energy, keeping your brain sharp, and avoiding the kind of burnout that derails your momentum**.
+
+I went into the exam thinking that 120 minutes was going to make things tough but I was surprised to see that I was ready to submit my exam with nearly 50 minutes of time remaining!
+
+That's the power of proper preparation (wow, try saying that 5 times fast)!
+
+## Exam Day Experience
+
+After weeks of studying, practice exams, and project work, it all comes down to exam day. The content of the test is one thing — but honestly, the *logistics* were almost the bigger stressor. Here’s exactly what to expect if you’re taking the PCA online like I did.
+
+### Registration & Setup
+
+First, you’ll need to create an account. Google uses single sign-on, which is nice once you’re in the groove, but a little clunky the first time. Start here: [Register for the PCA exam](https://cloud.google.com/learn/certification/cloud-architect). That link will drop you into CertMetrics ([cp.certmetrics.com](https://cp.certmetrics.com/google/en/login)), where you’ll either log in or register as a new candidate.
+
+<Image 
+  src="/blog/images/google-cpcertmetrics-dashboard.webp" 
+  alt="Google CertMetrics dashboard showing exam registration" 
+  width={800}
+  height={600}
+/>
+
+From there, you’ll click **“Schedule/Launch an Exam”**, and Google will guide you to create a **Kryterion/Webassessor account** (this is the system that handles online proctoring). It’s straightforward — until you get to the *photo upload*.
+
+No joke, the hardest part of the entire PCA process for me was getting Kryterion to accept my photo. Somehow the lighting was *always* wrong. I retook it well over 20 times until the system finally gave me a green check. So yeah — if you want a stress test before the real exam, try passing the Kryterion photo requirements (pro tip: do NOT wait until the day of the exam to do the pre-exam checklist items)!
+
+Once you’re in Webassessor, you’ll see the catalog of exams. I selected **“Google Cloud Certified – Professional Cloud Architect (English)”**, chose the proctored online option, and booked a date/time.
+
+<Image 
+  src="/blog/images/google-register-for-an-exam.webp" 
+  alt="Kryterion/Webassessor platform showing list of Google exams to choose from" 
+  width={800}
+  height={600}
+/>
+
+<Image 
+  src="/blog/images/select-google-professional-cloud-architect-exam.webp" 
+  alt="select Google Professional Cloud Architect online proctored exam" 
+  width={800}
+  height={600}
+/>
+
+### Day-Before Prep
+
+If you’re taking the online exam, your computer has to be locked down by their secure browser. Apps like Chrome, VS Code, Slack, or Messages can block you from starting the session. The testing software will close most things for you, but I recommend shutting everything down a day in advance and doing a system test: [Kryterion Online Testing Requirements](https://kryterion.my.site.com/support/s/article/Online-Testing-Requirements?language=en_US).
+
+Also, plan to start early. You can usually launch the exam about 10 minutes before your scheduled time. I recommend using that buffer to handle inevitable delays — whether that’s waiting on your proctor, fighting with background apps, or whatever may arise. I needed almost the entire grace period before my proctor let me in.
+
+### Game Time
+
+Once everything was finally ready, I clicked “Start Exam.” The first question appeared, and I closed my eyes, took a long, slow breath, exhaled through my mouth, and reset. Then it was go time.
+
+### Format Surprise
+
+I mentioned this earlier, but this was the moment the **answer format** caught me off guard. Instead of the simple multiple-choice I had trained on, each answer option was expanded into a *mini process* with multiple sub-steps. That moment sent a quick jolt of panic through me — but only for a second. I reminded myself: *the concepts are the same, just packaged differently.* And once I adjusted, it wasn’t a blocker.
+
+The biggest lesson? **Expect the unexpected.** Even if the exam doesn’t look exactly like your practice tests, the underlying knowledge is what counts.
+
+## Life After Passing: Next Steps
+
+When I saw that “PASS” message at the end of my PCA exam, the first wave was relief — and then excitement. Not only had I passed a notoriously tough certification, but I had also proved to myself that the countless hours of learning, building, and problem-solving were worth it.
+
+### Immediate Impact
+
+Passing the PCA instantly gave me a boost of confidence. More importantly, it gave me credibility in the eyes of recruiters. Certifications alone don’t land you jobs, but they do open doors, especially when paired with real projects. Now, on my LinkedIn and portfolio, the PCA acts as a signal: I’ve invested the time, energy, and discipline to master cloud fundamentals.
+
+It also validated my study approach — project-based learning paired with AI guidance — which I’ll continue using as I move forward.
+
+### Building Momentum
+
+Even after passing, I didn’t stop learning. In fact, the PCA laid the foundation for what comes next:
+
+- **Terraform:** I’m currently building infrastructure with Terraform (both in GCP and on a small AWS mini-project). It’s been eye-opening to see how Infrastructure as Code ties everything together.
+- **Kubernetes (K8s):** My next big step is building a **home lab** to get daily hands-on practice. I’ll be hosting open-source apps like n8n, experimenting with security, networking, and autoscaling, and diving into observability with Prometheus and Grafana.
+- **Certifications:** On the horizon, I plan to pursue the **CKA (Certified Kubernetes Administrator)** and **LPIC-1** to strengthen my Linux and container orchestration skills.
+
+This isn’t just about collecting certifications. It’s about building a strong technical backbone that lets me grow into a Cloud Engineer, DevOps Engineer, or maybe other Architect roles.
+
+### The Long-Term Trajectory
+
+My goal is clear: land a Cloud Engineer role as the next step, soak up as much knowledge as possible, and continue building projects that showcase my skills. Longer term, I see myself moving deeper into DevOps (really combining the two roles since it's where I think the industry is heading) and cloud architecture, blending my love for system design with hands-on engineering.
+
+The PCA was step one — but the road ahead is wide open.
+
+### An Encouragement to Future Candidates
+
+If you’re reading this and feeling overwhelmed, you’re not alone. I know exactly how heavy it feels staring at this mountain of concepts — IAM, Kubernetes, networking, Terraform, security, the list goes on. But here’s my best advice: **just get started.**
+
+This isn’t a race. Ignore the noise from YouTube videos that claim you can become a Cloud Engineer or DevOps pro in “3 months flat.” That’s not realistic, and it sets people up for disappointment. Instead:
+
+- Give yourself time.
+- Work a side job or freelance like I did if you need breathing room.
+- Focus on building small wins that connect the dots.
+
+The magic happens when concepts begin to overlap: when Linux commands start making sense because you see them in GCP, when cloud services click because you realize they’re just abstracted data centers, when networking ties it all together so everything can communicate securely.
+
+This stuff isn’t “basic.” There’s a reason these roles carry titles like *Engineer* and *Architect.* But with persistence and curiosity, it *does* start to flow. And when it does, it’s one of the most rewarding learning journeys you can take.
+
+## Resources & Links (Quick Reference)
+
+Here’s a curated list of the resources I found most valuable while preparing for the **Google Professional Cloud Architect (PCA) exam**. Bookmark these and use them as a starting point for your own study plan.
+
+### Official
+
+- **Google Cloud Certification Overview:** [cloud.google.com/learn/certification/cloud-architect](https://cloud.google.com/learn/certification/cloud-architect)
+- **CertMetrics Candidate Portal:** [cp.certmetrics.com](https://cp.certmetrics.com/google/en/login)
+- **Kryterion System Test Requirements:** [Online Testing Requirements](https://kryterion.my.site.com/support/s/article/Online-Testing-Requirements?language=en_US)
+
+### Online Courses
+
+- **Udemy [PCA Prep Course](https://udemy.com/course/google-cloud-professional-cloud-architect-certification/):** Helpful for structure and broad exposure (though slightly outdated in places).
+
+### Community Resources
+
+- **YouTube – Go Cloud Architects PCA Playlist:** [Watch here](https://www.youtube.com/watch?v=LkjnDtKXu1o&list=PL0azhNeBK66Ib5bdokWTyNyx3srkrzbUo)
+- **YouTube – [freeCodeCamp](https://www.youtube.com/watch?v=u43gJJrVa1I&t=551s&pp=ygUPZ29vZ2xlIHBjYSBwcmVw) Cloud Content:** Great for additional GCP deep dives.
+- **Reddit – GCP Certification Threads:** Useful for spotting which practice exams are currently most relevant.
+
+### Practice Exams
+
+- **Udemy [PCA Practice Exams](https://www.udemy.com/course/gcp-professional-cloud-architect-exam-practice-tests-2024/):** (This one appears to be more updated)
+- **Whizlabs [PCA Practice Exams](https://www.whizlabs.com/google-cloud-certified-professional-cloud-architect/):** Reported by others to more closely model the actual exam format (I didn’t personally use them but will for future certs).
+
+### Bonus Tools & Techniques
+
+- **AI Tutors (ChatGPT, Claude):** For deeper explanations, analogies, and project tie-ins.
+- **YouTube’s AI “Ask” Feature:** Summarize long videos and extract PCA-relevant concepts.
+- **Hands-On Projects:** Build something (anything!) in GCP and use it as your “learning sandbox.” I would also explore [Whizlabs](https://www.whizlabs.com/google-cloud-hands-on-learning/) for their Video Courses, Hands-on Labs, and Cloud Sandbox.
