@@ -2,11 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 
 import { siteConfig } from '@/config/site.config'
+import CredlyBadge from './CredlyBadge';
 
 const Footer: React.FC = () => {
   return (
     <footer className="w-full bg-[#0d1117] text-white font-mono p-8 mt-12 rounded-t-lg border-t-2 border-[#30363d]" role="contentinfo">
       <div className="container mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-start">
         <div className="flex flex-col space-y-4">
           <div>
             <span className="text-green-400">dalton@portfolio</span>
@@ -47,6 +49,19 @@ const Footer: React.FC = () => {
             <span className="inline-block w-2 h-5 bg-white animate-blink"></span>
           </div>
         </div>
+        
+        {/* Certifications Section */}
+        <div className="flex flex-col items-center lg:items-end space-y-3">
+
+          <div className="flex flex-wrap gap-3 justify-center lg:justify-end">
+            <CredlyBadge width={90} height={90} />
+            {/* Future certifications will go here */}
+            {/* <CKABadge width={90} height={90} /> */}
+            {/* <LPIC1Badge width={90} height={90} /> */}
+          </div>
+        </div>
+        </div>
+        
         <div className="mt-8 text-center text-gray-500 text-sm">
           <p>&copy; {new Date().getFullYear()} Dalton Ousley. All rights reserved.</p>
         </div>

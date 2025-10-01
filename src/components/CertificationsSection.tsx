@@ -13,6 +13,7 @@ import ReactIcon from './icons/ReactIcon';
 import GoogleCloudIcon from './icons/GoogleCloudIcon';
 import KubernetesIcon from './icons/KubernetesIcon';
 import LinuxIcon from './icons/LinuxIcon';
+import CredlyBadge from './CredlyBadge';
 
 type Certification = {
     title: string;
@@ -82,6 +83,7 @@ const CertificationNode = forwardRef<HTMLDivElement, CertificationNodeProps>(({ 
     const { Icon, progress, link } = cert;
     const imageSrc = cert.imageSrc;
     const isInProgress = cert.status === 'In Progress';
+    const isPCA = id === 'pca';
 
     const content = (
         <motion.div
@@ -108,6 +110,14 @@ const CertificationNode = forwardRef<HTMLDivElement, CertificationNodeProps>(({ 
                     </div>
                     <CardTitle className="text-lg">{cert.title}</CardTitle>
                 </CardHeader>
+                {isPCA && (
+                    <CardContent className="flex justify-center pb-4">
+                        <CredlyBadge 
+                            width={180}
+                            height={180}
+                        />
+                    </CardContent>
+                )}
                 {isInProgress && progress !== undefined && (
                     <CardContent>
                         <div className="w-full bg-secondary/30 rounded-full h-2.5">

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import SectionHeader from '@/components/SectionHeader';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import CredlyBadge from '@/components/CredlyBadge';
 
 export const metadata = {
   title: 'About — Dalton Ousley',
@@ -291,10 +292,16 @@ export default function AboutPage() {
             <CardContent className="pt-6">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <h3 className="text-xl font-semibold">Completed</h3>
+                  <h3 className="text-xl font-semibold mb-4">Completed</h3>
                   <ul className="mt-2 list-disc space-y-1 pl-5">
                     <li>Google Professional Cloud Architect (PCA)</li>
                   </ul>
+                  <div className="mt-6 flex justify-center md:justify-start">
+                    <CredlyBadge 
+                      width={200}
+                      height={200}
+                    />
+                  </div>
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Next Steps</h3>
@@ -306,7 +313,7 @@ export default function AboutPage() {
                 </div>
               </div>
               <blockquote className="mt-6 border-l-4 border-orange-500/60 pl-4 italic text-muted-foreground">
-                “To learn and not do is not to learn; to learn and then do is to learn.” — Stephen Covey
+                &ldquo;To learn and not do is not to learn; to learn and then do is to learn.&rdquo; — Stephen Covey
               </blockquote>
             </CardContent>
           </Card>
