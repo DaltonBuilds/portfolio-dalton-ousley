@@ -74,7 +74,12 @@ function ProjectCard({
   return (
     <Card id={id} className="overflow-hidden">
       <div className="relative h-48 w-full">
-        <Image src={image} alt={title} layout="fill" objectFit="cover" />
+        <Image 
+          src={image} 
+          alt={title} 
+          fill 
+          className="object-cover"
+        />
       </div>
       <CardHeader className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
@@ -155,9 +160,8 @@ const timelineData = [
                     <Image
                         src="/dalton-ousley-profile-pic.webp"
                         alt="Home Lab"
-                        layout="fill"
-                        objectFit="cover"
-                        className="rounded-xl"
+                        fill
+                        className="object-cover rounded-xl"
                     />
                 }
             />
@@ -181,9 +185,8 @@ const timelineData = [
                     <Image
                         src="/dalton-ousley-profile-pic.webp"
                         alt="Home Lab"
-                        layout="fill"
-                        objectFit="cover"
-                        className="rounded-xl"
+                        fill
+                        className="object-cover rounded-xl"
                     />
                 }
             />
