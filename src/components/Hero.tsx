@@ -65,11 +65,11 @@ const Hero: React.FC = () => {
       
       <a 
         href="#services" 
-        className="hidden sm:block absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg p-2"
+        className="hidden sm:flex absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg p-2 transition-all hover:gap-3"
         aria-label="Scroll down to services section"
       >
-        <span className="text-sm text-foreground/60">Scroll to explore</span>
-        <ChevronDown className="w-6 h-6 text-foreground/60 animate-bounce" aria-hidden="true" />
+        <span className="text-sm font-medium text-foreground/70 tracking-wide">Scroll to explore</span>
+        <ChevronDown className="w-6 h-6 text-foreground/70 animate-bounce" aria-hidden="true" />
       </a>
       </section>
     </>

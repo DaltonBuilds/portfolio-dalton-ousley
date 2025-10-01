@@ -85,7 +85,50 @@ const CertificationNode = forwardRef<HTMLDivElement, CertificationNodeProps>(({ 
     const isInProgress = cert.status === 'In Progress';
     const isPCA = id === 'pca';
 
-    const content = (
+    const cardContent = (
+        <Card className={`bg-background/80 backdrop-blur-sm border-border/40 w-80 h-full transition-all duration-300 group-hover:border-primary/80 group-hover:scale-105 ${isInProgress ? 'border-dashed' : ''}`}>
+            <CardHeader>
+                <div className="flex justify-between items-center mb-2">
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${isInProgress ? (imageSrc ? '' : 'bg-amber-500/10 text-amber-500') : 'bg-primary/10 text-primary'}`}>
+                        {imageSrc ? (
+                            <Image src={imageSrc} alt={`${cert.title} logo`} width={24} height={24} className="w-6 h-6" />
+                        ) : (
+                            <Icon className="w-6 h-6" />
+                        )}
+                    </div>
+                    <span className={`text-xs font-mono px-2 py-1 rounded-full ${isInProgress ? 'bg-amber-500/20 text-amber-600' : 'bg-green-500/20 text-green-600'}`}>
+                        {cert.status}
+                    </span>
+                </div>
+                <CardTitle className="text-lg">{cert.title}</CardTitle>
+            </CardHeader>
+            {isPCA && (
+                <CardContent className="flex justify-center pb-4">
+                    <CredlyBadge 
+                        width={90}
+                        height={90}
+                        disableLink={!!link}
+                    />
+                </CardContent>
+            )}
+            {isInProgress && progress !== undefined && (
+                <CardContent>
+                    <div className="w-full bg-secondary/30 rounded-full h-2.5">
+                        <motion.div
+                            className="bg-amber-500 h-2.5 rounded-full"
+                            initial={{ width: "0%" }}
+                            whileInView={{ width: `${progress}%` }}
+                            transition={{ duration: 1.5, ease: "easeInOut" }}
+                            viewport={{ once: true, amount: 0.8 }}
+                        />
+                    </div>
+                    <p className="text-right text-sm text-muted-foreground mt-1 font-mono">{progress}% complete</p>
+                </CardContent>
+            )}
+        </Card>
+    );
+
+    return (
         <motion.div
             ref={ref}
             initial={{ opacity: 0, scale: 0.9 }}
@@ -94,57 +137,15 @@ const CertificationNode = forwardRef<HTMLDivElement, CertificationNodeProps>(({ 
             viewport={{ once: true, amount: 0.5 }}
             className={`group relative flex justify-center items-center ${className}`}
         >
-            <Card className={`bg-background/80 backdrop-blur-sm border-border/40 w-80 h-full transition-all duration-300 group-hover:border-primary/80 group-hover:scale-105 ${isInProgress ? 'border-dashed' : ''}`}>
-                <CardHeader>
-                    <div className="flex justify-between items-center mb-2">
-                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${isInProgress ? (imageSrc ? '' : 'bg-amber-500/10 text-amber-500') : 'bg-primary/10 text-primary'}`}>
-                            {imageSrc ? (
-                                <Image src={imageSrc} alt={`${cert.title} logo`} width={24} height={24} className="w-6 h-6" />
-                            ) : (
-                                <Icon className="w-6 h-6" />
-                            )}
-                        </div>
-                        <span className={`text-xs font-mono px-2 py-1 rounded-full ${isInProgress ? 'bg-amber-500/20 text-amber-600' : 'bg-green-500/20 text-green-600'}`}>
-                            {cert.status}
-                        </span>
-                    </div>
-                    <CardTitle className="text-lg">{cert.title}</CardTitle>
-                </CardHeader>
-                {isPCA && (
-                    <CardContent className="flex justify-center pb-4">
-                        <CredlyBadge 
-                            width={180}
-                            height={180}
-                        />
-                    </CardContent>
-                )}
-                {isInProgress && progress !== undefined && (
-                    <CardContent>
-                        <div className="w-full bg-secondary/30 rounded-full h-2.5">
-                            <motion.div
-                                className="bg-amber-500 h-2.5 rounded-full"
-                                initial={{ width: "0%" }}
-                                whileInView={{ width: `${progress}%` }}
-                                transition={{ duration: 1.5, ease: "easeInOut" }}
-                                viewport={{ once: true, amount: 0.8 }}
-                            />
-                        </div>
-                        <p className="text-right text-sm text-muted-foreground mt-1 font-mono">{progress}% complete</p>
-                    </CardContent>
-                )}
-            </Card>
+            {link ? (
+                <a href={link} target="_blank" rel="noopener noreferrer" className="w-full">
+                    {cardContent}
+                </a>
+            ) : (
+                cardContent
+            )}
         </motion.div>
     );
-
-    if (link) {
-        return (
-            <a href={link} target="_blank" rel="noopener noreferrer" className="w-full">
-                {content}
-            </a>
-        );
-    }
-
-    return content;
 });
 CertificationNode.displayName = 'CertificationNode';
 
