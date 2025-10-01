@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Briefcase, Zap, Rocket, Target, Code, Cloud, Settings, GitBranch } from 'lucide-react';
+import { Briefcase, Zap, Rocket, Cloud, Settings, GitBranch } from 'lucide-react';
 
 import SectionHeader from '@/components/SectionHeader';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';

@@ -10,6 +10,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://daltonousley.dev'),
   title: 'Dalton Ousley - Cloud-focused Engineer',
   description: 'Personal portfolio of Dalton Ousley, a cloud-focused engineer passionate about DevOps, Kubernetes, and cloud-native solutions.',
   icons: {
