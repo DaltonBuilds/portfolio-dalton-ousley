@@ -605,11 +605,11 @@ lambda/email-notifier/
 - Include token in form submission
 
 **Acceptance Criteria:**
-- [ ] Turnstile widget renders in form
-- [ ] Token captured on challenge completion
-- [ ] Token included in API request
-- [ ] Form cannot submit without valid token
-- [ ] No linting or type errors
+- [x] Turnstile widget renders in form
+- [x] Token captured on challenge completion
+- [x] Token included in API request
+- [x] Form cannot submit without valid token
+- [x] No linting or type errors
 
 ---
 

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2, Send } from "lucide-react"
 import { toast } from "sonner"
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile"
 
 import {
   Dialog,
@@ -28,6 +29,7 @@ interface ContactFormModalProps {
 export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) {
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [turnstileToken, setTurnstileToken] = React.useState<string>("")
+  const turnstileRef = React.useRef<TurnstileInstance | null>(null)
 
   const {
     register,
@@ -72,6 +74,7 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
       // Reset form and close modal
       reset()
       setTurnstileToken("")
+      turnstileRef.current?.reset()
       onOpenChange(false)
     } catch (error) {
       // Log error for debugging (no PII)
@@ -79,6 +82,10 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
 
       // Get user-friendly error message
       const errorMessage = getErrorMessage(error)
+      
+      // Reset Turnstile on error (user needs to complete challenge again)
+      turnstileRef.current?.reset()
+      setTurnstileToken("")
       
       // Show specific error message if available
       if (isLeadSubmissionError(error)) {
@@ -111,17 +118,40 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
     }
   }
 
-  // Simulate turnstile token for now (will be replaced with actual Turnstile in Task 4.1)
+  // Reset form when modal closes
   React.useEffect(() => {
-    if (open) {
-      // Simulate getting a turnstile token
-      setTurnstileToken("placeholder-turnstile-token")
-    } else {
-      // Reset form when modal closes
+    if (!open) {
       reset()
       setTurnstileToken("")
+      turnstileRef.current?.reset()
     }
   }, [open, reset])
+
+  // Handle Turnstile success
+  const handleTurnstileSuccess = (token: string) => {
+    setTurnstileToken(token)
+  }
+
+  // Handle Turnstile error
+  const handleTurnstileError = () => {
+    setTurnstileToken("")
+    toast.error("Security challenge failed", {
+      description: "Please try again or refresh the page.",
+    })
+  }
+
+  // Handle Turnstile expiration
+  const handleTurnstileExpire = () => {
+    setTurnstileToken("")
+  }
+
+  // Get Turnstile site key from environment
+  const turnsiteSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+
+  // Check if Turnstile is configured
+  if (!turnsiteSiteKey) {
+    console.error("NEXT_PUBLIC_TURNSTILE_SITE_KEY is not configured")
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -234,11 +264,28 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
             )}
           </div>
 
-          {/* Turnstile Placeholder */}
+          {/* Cloudflare Turnstile */}
           <div className="py-2">
-            <div className="rounded-md border border-dashed border-slate-300 dark:border-slate-600 p-4 text-center text-sm text-slate-500 dark:text-slate-400">
-              🔒 Cloudflare Turnstile will be added here in Task 4.1
-            </div>
+            <Label className="text-slate-700 dark:text-slate-300 mb-2 block">
+              Security Check <span className="text-destructive">*</span>
+            </Label>
+            {turnsiteSiteKey ? (
+              <Turnstile
+                ref={turnstileRef}
+                siteKey={turnsiteSiteKey}
+                onSuccess={handleTurnstileSuccess}
+                onError={handleTurnstileError}
+                onExpire={handleTurnstileExpire}
+                options={{
+                  theme: "auto",
+                  size: "normal",
+                }}
+              />
+            ) : (
+              <div className="rounded-md border border-destructive bg-destructive/10 p-4 text-sm text-destructive">
+                ⚠️ Turnstile is not configured. Please set NEXT_PUBLIC_TURNSTILE_SITE_KEY in your environment variables.
+              </div>
+            )}
           </div>
 
           {/* Submit Button */}
@@ -254,7 +301,7 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
             </Button>
             <Button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || !turnstileToken}
               className="flex-1"
             >
               {isSubmitting ? (
