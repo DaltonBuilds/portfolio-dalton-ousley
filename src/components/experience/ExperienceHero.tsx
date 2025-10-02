@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import Link from "next/link";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 import { Button } from "@/components/ui/Button";
+import { useContactModal } from "@/contexts/ContactModalContext";
 
 type Stat = {
   label: string;
@@ -21,6 +22,7 @@ export const ExperienceHero: React.FC<ExperienceHeroProps> = ({ heading, subhead
   const containerRef = useRef<HTMLDivElement>(null);
   const sourceRef = useRef<HTMLDivElement>(null);
   const statRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const { openContactModal } = useContactModal();
 
   return (
     <section className="relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
@@ -69,8 +71,8 @@ export const ExperienceHero: React.FC<ExperienceHeroProps> = ({ heading, subhead
         ))}
 
         <div className="relative z-10 mt-10 flex items-center justify-center gap-4">
-          <Button asChild size="lg">
-            <Link href="mailto:example@gmail.com">Get in Touch</Link>
+          <Button size="lg" onClick={openContactModal}>
+            Get in Touch
           </Button>
           <Button asChild variant="secondary" size="lg">
             <Link href="/projects">See Projects</Link>

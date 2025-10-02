@@ -20,12 +20,14 @@ import {
 import { Button } from "@/components/ui/Button";
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './ThemeToggle';
+import { useContactModal } from '@/contexts/ContactModalContext';
 
 import { siteConfig } from '@/config/site.config'
 
 const Header: React.FC = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const { openContactModal } = useContactModal();
   const navItems = [
     { name: 'About', href: siteConfig.nav.about, icon: User },
     { name: 'Experience', href: siteConfig.nav.experience, icon: Briefcase },
@@ -63,7 +65,11 @@ const Header: React.FC = () => {
         </nav>
         <div className="flex items-center space-x-4">
           <ThemeToggle />
-          <Button className="hidden sm:inline-flex" aria-label="Contact Dalton Ousley">
+          <Button 
+            className="hidden sm:inline-flex" 
+            aria-label="Contact Dalton Ousley"
+            onClick={openContactModal}
+          >
             Get in Touch
           </Button>
           <div className="md:hidden">
@@ -139,15 +145,17 @@ const Header: React.FC = () => {
                   
                   {/* Footer */}
                   <div className="p-6 space-y-4">
-                    <Link
-                      href="mailto:example@gmail.com"
-                      onClick={handleLinkClick}
-                      className="flex items-center justify-center space-x-2 rounded-xl bg-white/20 text-white px-4 py-4 text-base font-medium transition-all duration-200 hover:bg-white/30 min-h-[56px] focus:outline-none focus:ring-2 focus:ring-white/50 backdrop-blur-sm border border-white/30"
-                      aria-label="Contact Dalton Ousley via email"
+                    <button
+                      onClick={() => {
+                        handleLinkClick();
+                        openContactModal();
+                      }}
+                      className="flex items-center justify-center space-x-2 rounded-xl bg-white/20 text-white px-4 py-4 text-base font-medium transition-all duration-200 hover:bg-white/30 min-h-[56px] focus:outline-none focus:ring-2 focus:ring-white/50 backdrop-blur-sm border border-white/30 w-full"
+                      aria-label="Contact Dalton Ousley"
                     >
                       <Mail className="h-5 w-5" />
                       <span>Get in Touch</span>
-                    </Link>
+                    </button>
                     
                     {/* Theme toggle and footer links */}
                     <div className="flex flex-col space-y-3 pt-4 border-t border-white/20">

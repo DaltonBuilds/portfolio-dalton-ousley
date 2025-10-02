@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/Button";
 import React from 'react';
 import { ArrowDownToLine, Rocket } from 'lucide-react';
@@ -6,8 +8,10 @@ import Image from 'next/image';
 
 import { siteConfig } from '@/config/site.config'
 import { PATHS } from '@/config/constants'
+import { useContactModal } from '@/contexts/ContactModalContext'
 
 const Hero: React.FC = () => {
+  const { openContactModal } = useContactModal()
   return (
     <>
       {/* Skip to main content link for screen readers */}
@@ -57,7 +61,13 @@ const Hero: React.FC = () => {
           <Button size="lg" className="text-lg px-8 py-6" aria-label="Download Dalton Ousley's CV">
             <ArrowDownToLine className="mr-2 h-5 w-5" aria-hidden="true" /> Download CV
           </Button>
-          <Button variant="outline" size="lg" className="text-lg px-8 py-6" aria-label="Contact Dalton for collaboration">
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="text-lg px-8 py-6" 
+            aria-label="Contact Dalton for collaboration"
+            onClick={openContactModal}
+          >
             <Rocket className="mr-2 h-5 w-5" aria-hidden="true" /> Let&apos;s Build Together
           </Button>
         </div>

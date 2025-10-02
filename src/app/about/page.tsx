@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -5,12 +7,7 @@ import SectionHeader from '@/components/SectionHeader';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import CredlyBadge from '@/components/CredlyBadge';
-
-export const metadata = {
-  title: 'About — Dalton Ousley',
-  description:
-    'Learn about Dalton Ousley — a technologist blending DevOps, cloud, and customer success to build practical solutions.',
-};
+import { useContactModal } from '@/contexts/ContactModalContext';
 
 function Badge({ children }: { children: React.ReactNode }) {
   return (
@@ -80,6 +77,8 @@ n8n     automation  4         2025-01-01 12:00    deployed n8n-0.21.0</pre>
 }
 
 export default function AboutPage() {
+  const { openContactModal } = useContactModal();
+  
   return (
     <div className="relative w-full">
 
@@ -97,9 +96,9 @@ export default function AboutPage() {
                 <Link href="https://www.linkedin.com/in/dalton-ousley/" target="_blank" rel="noreferrer">
                   <Button variant="secondary">Connect on LinkedIn</Button>
                 </Link>
-                <Link href="mailto:example@gmail.com">
-                  <Button variant="outline">Email Dalton</Button>
-                </Link>
+                <Button variant="outline" onClick={openContactModal}>
+                  Contact Dalton
+                </Button>
               </div>
               <TerminalWidget />
             </div>
@@ -332,9 +331,9 @@ export default function AboutPage() {
                 require both technical depth and business alignment.
               </p>
               <div className="flex gap-3">
-                <Link href="mailto:example@gmail.com">
-                  <Button>Get in Touch</Button>
-                </Link>
+                <Button onClick={openContactModal}>
+                  Get in Touch
+                </Button>
                 <Link href="https://www.linkedin.com/in/dalton-ousley/" target="_blank" rel="noreferrer">
                   <Button variant="outline">View LinkedIn</Button>
                 </Link>

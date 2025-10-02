@@ -3,6 +3,8 @@ import { IBM_Plex_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { Toaster } from 'sonner';
+import { ContactModalProvider } from '@/contexts/ContactModalContext';
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -42,11 +44,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           enableSystem={false}
           disableTransitionOnChange
         >
-          <div className="relative flex flex-col min-h-screen">
-            <Header />
-            <main id="main-content" className="flex-grow" role="main">{children}</main>
-            <Footer />
-          </div>
+          <ContactModalProvider>
+            <div className="relative flex flex-col min-h-screen">
+              <Header />
+              <main id="main-content" className="flex-grow" role="main">{children}</main>
+              <Footer />
+            </div>
+            <Toaster richColors position="top-right" />
+          </ContactModalProvider>
         </ThemeProvider>
       </body>
     </html>
