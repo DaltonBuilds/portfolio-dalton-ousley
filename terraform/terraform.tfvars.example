@@ -1,0 +1,62 @@
+# Terraform Variables Example
+# Copy this file to terraform.tfvars and fill in your values
+
+# ==============================================================================
+# Required Variables
+# ==============================================================================
+
+# Your email address for infrastructure ownership tagging
+owner_email = "example@gmail.com"
+
+# Email address to receive lead notifications
+notification_email = "example@gmail.com"
+
+# Verified sender email in Resend (must be verified domain)
+notification_from_email = "example@gmail.com"
+
+# ==============================================================================
+# Optional Variables (defaults are production-ready)
+# ==============================================================================
+
+# AWS region
+# aws_region = "us-east-1"
+
+# Environment name
+# environment = "prod"
+
+# Project name
+# project_name = "portfolio-leads"
+
+# Allowed CORS origins
+# allowed_origins = [
+#   "https://daltonousley.com",
+#   "https://www.daltonousley.com",
+#   "http://localhost:3000"
+# ]
+
+# DynamoDB TTL (days to retain leads for PII hygiene)
+# dynamodb_ttl_days = 548  # 18 months
+
+# Lambda configuration
+# lambda_memory_size = 256
+# lambda_timeout = 10
+# lambda_log_retention_days = 30
+
+# API Gateway throttling
+# api_throttle_burst_limit = 10
+# api_throttle_rate_limit = 5
+
+# WAF rate limiting
+# waf_rate_limit = 100
+# enable_waf = true
+
+# ==============================================================================
+# Secrets (Optional - will be auto-generated if not provided)
+# ==============================================================================
+
+# HMAC server secret (leave empty to auto-generate)
+# hmac_server_secret = ""
+
+# Note: Turnstile and Resend secrets are managed in AWS Secrets Manager
+# You'll need to populate them manually after terraform apply
+
