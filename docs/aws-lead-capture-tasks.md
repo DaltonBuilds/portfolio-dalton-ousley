@@ -219,10 +219,10 @@ The site is currently hosted on **Cloudflare Pages** (evidenced by `@cloudflare/
 - Secret will be a public "client secret" (different from server secret)
 
 **Acceptance Criteria:**
-- [ ] HMAC signature generation function
-- [ ] Timestamp included in signature
-- [ ] Properly typed
-- [ ] No linting or type errors
+- [x] HMAC signature generation function
+- [x] Timestamp included in signature
+- [x] Properly typed
+- [x] No linting or type errors
 
 ---
 
@@ -241,13 +241,13 @@ The site is currently hosted on **Cloudflare Pages** (evidenced by `@cloudflare/
 - Retry logic for network errors (optional but good practice)
 
 **Acceptance Criteria:**
-- [ ] API client function created
-- [ ] HMAC signature included in request
-- [ ] Idempotency-Key generated and included
-- [ ] Proper error handling
-- [ ] TypeScript types for request/response
-- [ ] No 'any' types
-- [ ] No linting or type errors
+- [x] API client function created
+- [x] HMAC signature included in request
+- [x] Idempotency-Key generated and included
+- [x] Proper error handling
+- [x] TypeScript types for request/response
+- [x] No 'any' types
+- [x] No linting or type errors
 
 ---
 
@@ -267,10 +267,10 @@ NEXT_PUBLIC_TURNSTILE_SITE_KEY=<cloudflare-turnstile-key>
 ```
 
 **Acceptance Criteria:**
-- [ ] `.env.local.example` created with all required vars
-- [ ] `.gitignore` includes `.env.local`
-- [ ] Documentation in example file
-- [ ] No secrets committed to git
+- [x] `docs/environment-variables.md` created with all required vars
+- [x] `.gitignore` includes `.env*` (already configured)
+- [x] Comprehensive documentation created
+- [x] No secrets committed to git
 
 ---
 

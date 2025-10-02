@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { leadFormSchema, type LeadFormData } from "@/lib/validations/lead-form"
+import { submitLead, getErrorMessage, isLeadSubmissionError } from "@/lib/api/lead-client"
 
 interface ContactFormModalProps {
   open: boolean
@@ -45,8 +46,7 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
   })
 
   const onSubmit = async (data: LeadFormData) => {
-    // TODO: Implement Turnstile token validation
-    // For now, we'll use a placeholder token
+    // Validate Turnstile token
     if (!turnstileToken) {
       toast.error("Please complete the security challenge")
       return
@@ -55,25 +55,57 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
     setIsSubmitting(true)
 
     try {
-      // TODO: Replace with actual API call in Phase 2
-      // This is a placeholder for now
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      // Submit lead to AWS Lambda via API Gateway
+      const result = await submitLead({
+        ...data,
+        turnstileToken,
+      })
 
-      // Simulate success
-      console.log("Form submitted:", { ...data, turnstileToken })
-      
+      // Success! Show confirmation message
       toast.success("Message sent successfully!", {
         description: "Thanks for reaching out! I'll get back to you soon.",
       })
 
+      // Log success for debugging (no PII)
+      console.log("Lead submitted successfully:", { leadId: result.leadId })
+
       // Reset form and close modal
       reset()
+      setTurnstileToken("")
       onOpenChange(false)
     } catch (error) {
+      // Log error for debugging (no PII)
       console.error("Form submission error:", error)
-      toast.error("Failed to send message", {
-        description: "Please try again or contact me directly via email.",
-      })
+
+      // Get user-friendly error message
+      const errorMessage = getErrorMessage(error)
+      
+      // Show specific error message if available
+      if (isLeadSubmissionError(error)) {
+        // Handle specific error codes
+        if (error.code === "CONFIG_ERROR") {
+          toast.error("Configuration Error", {
+            description: "The contact form is not properly configured. Please try again later or contact me directly.",
+          })
+        } else if (error.code === "TIMEOUT_ERROR") {
+          toast.error("Request Timeout", {
+            description: "The request took too long. Please check your connection and try again.",
+          })
+        } else if (error.statusCode === 429) {
+          toast.error("Too Many Requests", {
+            description: "Please wait a moment before trying again.",
+          })
+        } else {
+          toast.error("Failed to send message", {
+            description: errorMessage,
+          })
+        }
+      } else {
+        // Generic error fallback
+        toast.error("Failed to send message", {
+          description: "Please try again or contact me directly via email.",
+        })
+      }
     } finally {
       setIsSubmitting(false)
     }
