@@ -5,6 +5,7 @@
 *.tfstate.*
 *.tfvars
 !terraform.tfvars.example
+backend.hcl
 
 # Crash logs
 crash.log

@@ -21,6 +21,7 @@ NC='\033[0m' # No Color
 build_lambda() {
   local lambda_name=$1
   local lambda_dir=$2
+  local original_dir=$(pwd)
   
   echo -e "${BLUE}Building ${lambda_name}...${NC}"
   
@@ -56,7 +57,7 @@ build_lambda() {
     rm -rf zod
   fi
   
-  cd ../..
+  cd "$original_dir"
   
   echo -e "${GREEN}✅ ${lambda_name} built successfully${NC}"
   echo

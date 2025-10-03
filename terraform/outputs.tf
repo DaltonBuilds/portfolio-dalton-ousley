@@ -98,7 +98,8 @@ output "configuration_summary" {
     region             = var.aws_region
     api_endpoint       = aws_apigatewayv2_stage.prod.invoke_url
     dynamodb_table     = aws_dynamodb_table.leads.name
-    waf_enabled        = var.enable_waf
+    waf_created        = var.enable_waf
+    waf_note           = "WAF created but not associated (HTTP API limitation). Use CloudFront for WAF protection."
     notification_email = var.notification_email
   }
 }
@@ -135,8 +136,9 @@ output "next_steps" {
     
     5. Monitor:
        - CloudWatch Logs: /aws/lambda/${aws_lambda_function.lead_processor.function_name}
-       - WAF Dashboard: ${var.enable_waf ? "Enabled" : "Disabled"}
-       - API Gateway Metrics: CloudWatch Console
+       - WAF: Created but not associated (HTTP API limitation - use CloudFront for WAF)
+       - API Gateway: Has rate limiting (10 req/sec burst, 5 steady-state)
+       - Metrics: CloudWatch Console
     
   EOT
 }

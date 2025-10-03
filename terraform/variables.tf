@@ -14,6 +14,11 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "aws_profile" {
+  type    = string
+  default = "dalton-portfolio"
+}
+
 variable "environment" {
   description = "Environment name (dev, staging, prod)"
   type        = string

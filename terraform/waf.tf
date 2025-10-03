@@ -125,18 +125,26 @@ resource "aws_wafv2_web_acl" "api" {
   )
 }
 
-# Associate WAF with API Gateway
-resource "aws_wafv2_web_acl_association" "api" {
-  count = var.enable_waf ? 1 : 0
-
-  resource_arn = aws_apigatewayv2_stage.prod.arn
-  web_acl_arn  = aws_wafv2_web_acl.api[0].arn
-
-  depends_on = [
-    aws_apigatewayv2_stage.prod,
-    aws_wafv2_web_acl.api
-  ]
-}
+# Note: API Gateway HTTP API (v2) does not support direct WAF association
+# Only REST APIs (v1) support WAF. For HTTP APIs, you need CloudFront in front.
+# We're keeping the WAF rules created for future CloudFront integration if needed.
+# The API Gateway still has rate limiting (10 req/sec burst, 5 steady-state).
+#
+# To enable WAF protection later:
+# 1. Add CloudFront distribution in front of API Gateway
+# 2. Associate WAF with CloudFront instead
+#
+# resource "aws_wafv2_web_acl_association" "api" {
+#   count = var.enable_waf ? 1 : 0
+#
+#   resource_arn = aws_apigatewayv2_stage.prod.arn
+#   web_acl_arn  = aws_wafv2_web_acl.api[0].arn
+#
+#   depends_on = [
+#     aws_apigatewayv2_stage.prod,
+#     aws_wafv2_web_acl.api
+#   ]
+# }
 
 # CloudWatch Alarm for WAF Block Rate
 resource "aws_cloudwatch_metric_alarm" "waf_blocked_requests" {

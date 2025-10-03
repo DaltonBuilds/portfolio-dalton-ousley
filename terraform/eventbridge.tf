@@ -38,7 +38,8 @@ resource "aws_cloudwatch_event_target" "email_notifier" {
   arn            = aws_lambda_function.email_notifier.arn
 
   retry_policy {
-    maximum_retry_attempts = 2
+    maximum_retry_attempts       = 2
+    maximum_event_age_in_seconds = 3600 # 1 hour
   }
 
   dead_letter_config {
