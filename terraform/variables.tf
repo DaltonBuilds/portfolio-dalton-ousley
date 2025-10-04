@@ -196,5 +196,11 @@ variable "hmac_server_secret" {
   sensitive   = true
 }
 
+variable "hmac_client_secret" {
+  description = "HMAC client secret used by frontend to sign requests and by Lambda to verify."
+  type        = string
+  sensitive   = true
+}
+
 # Note: Turnstile and Resend secrets should be set via terraform.tfvars or environment variables
 

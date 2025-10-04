@@ -27,6 +27,14 @@ export function verifyHMACSignature(
   signature: string,
   timestamp: string
 ): boolean {
+  // Debug logging
+  console.log("🔐 HMAC Debug - Server Side:")
+  console.log("  Secret length:", secret.length)
+  console.log("  Timestamp:", timestamp)
+  console.log("  Payload length:", payload.length)
+  console.log("  Received signature:", signature)
+  console.log("  Message to verify:", `${timestamp}:${payload.substring(0, 50)}...`)
+  
   // Validate timestamp is recent (prevent replay attacks)
   const requestTime = new Date(timestamp).getTime()
   const currentTime = Date.now()
@@ -49,6 +57,9 @@ export function verifyHMACSignature(
   const hmac = createHmac("sha256", secret)
   hmac.update(message)
   const expectedSignature = hmac.digest("hex")
+  
+  console.log("  Expected signature:", expectedSignature)
+  console.log("  Signatures match:", signature === expectedSignature)
 
   // Timing-safe comparison to prevent timing attacks
   try {
@@ -70,18 +81,19 @@ export function verifyHMACSignature(
  * Validates HMAC request
  * 
  * @param secret - HMAC server secret
- * @param payload - Request payload
+ * @param payload - Request payload (raw string or object)
  * @param signature - HMAC signature
  * @param timestamp - Request timestamp
  * @throws Error if validation fails
  */
 export function validateHMACRequest(
   secret: string,
-  payload: unknown,
+  payload: string | unknown,
   signature: string,
   timestamp: string
 ): void {
-  const payloadString = JSON.stringify(payload)
+  // Use raw string if provided, otherwise stringify the object
+  const payloadString = typeof payload === "string" ? payload : JSON.stringify(payload)
   const isValid = verifyHMACSignature(secret, payloadString, signature, timestamp)
 
   if (!isValid) {

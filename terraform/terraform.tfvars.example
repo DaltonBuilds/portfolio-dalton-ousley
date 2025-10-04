@@ -51,11 +51,15 @@ notification_from_email = "example@gmail.com"
 # enable_waf = true
 
 # ==============================================================================
-# Secrets (Optional - will be auto-generated if not provided)
+# Secrets
 # ==============================================================================
 
 # HMAC server secret (leave empty to auto-generate)
 # hmac_server_secret = ""
+
+# HMAC client secret used by the frontend to sign requests and by Lambda to
+# verify the signature. Generate with: `openssl rand -hex 32`
+# hmac_client_secret = ""
 
 # Note: Turnstile and Resend secrets are managed in AWS Secrets Manager
 # You'll need to populate them manually after terraform apply

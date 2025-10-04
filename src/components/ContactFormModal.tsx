@@ -36,6 +36,7 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<LeadFormData>({
     resolver: zodResolver(leadFormSchema),
     defaultValues: {
@@ -48,12 +49,18 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
   })
 
   const onSubmit = async (data: LeadFormData) => {
+    console.log("🚀 Form submission started")
+    console.log("📝 Form data:", { ...data, message: data.message.substring(0, 20) + "..." })
+    console.log("🔐 Turnstile token present:", !!turnstileToken)
+    
     // Validate Turnstile token
     if (!turnstileToken) {
+      console.error("❌ Turnstile token missing")
       toast.error("Please complete the security challenge")
       return
     }
 
+    console.log("✅ Starting submission to API...")
     setIsSubmitting(true)
 
     try {
@@ -62,6 +69,8 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
         ...data,
         turnstileToken,
       })
+      
+      console.log("✅ Submission successful!", result)
 
       // Success! Show confirmation message
       toast.success("Message sent successfully!", {
@@ -123,18 +132,25 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
     if (!open) {
       reset()
       setTurnstileToken("")
+      setValue("turnstileToken", "")
       turnstileRef.current?.reset()
     }
-  }, [open, reset])
+  }, [open, reset, setValue])
 
   // Handle Turnstile success
   const handleTurnstileSuccess = (token: string) => {
+    console.log("✅ Turnstile challenge completed successfully")
+    console.log("🔑 Token length:", token.length)
     setTurnstileToken(token)
+    // IMPORTANT: Also update the form field value for validation
+    setValue("turnstileToken", token, { shouldValidate: true })
   }
 
   // Handle Turnstile error
   const handleTurnstileError = () => {
+    console.error("❌ Turnstile challenge failed")
     setTurnstileToken("")
+    setValue("turnstileToken", "", { shouldValidate: true })
     toast.error("Security challenge failed", {
       description: "Please try again or refresh the page.",
     })
@@ -142,7 +158,9 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
 
   // Handle Turnstile expiration
   const handleTurnstileExpire = () => {
+    console.warn("⚠️ Turnstile token expired")
     setTurnstileToken("")
+    setValue("turnstileToken", "", { shouldValidate: true })
   }
 
   // Get Turnstile site key from environment
@@ -152,6 +170,16 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
   if (!turnsiteSiteKey) {
     console.error("NEXT_PUBLIC_TURNSTILE_SITE_KEY is not configured")
   }
+
+  // Debug: Log button state
+  React.useEffect(() => {
+    console.log("🎯 Submit button state:", {
+      isSubmitting,
+      hasTurnstileToken: !!turnstileToken,
+      tokenLength: turnstileToken?.length || 0,
+      buttonDisabled: isSubmitting || !turnstileToken
+    })
+  }, [isSubmitting, turnstileToken])
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -165,7 +193,13 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-4">
+        <form 
+          onSubmit={(e) => {
+            console.log("📋 Form submit event triggered")
+            handleSubmit(onSubmit)(e)
+          }} 
+          className="space-y-4 mt-4"
+        >
           {/* Name Field */}
           <div className="space-y-2">
             <Label htmlFor="name" className="text-slate-700 dark:text-slate-300">
@@ -182,7 +216,7 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
             {errors.name && (
               <p
                 id="name-error"
-                className="text-sm text-destructive"
+                className="text-sm text-red-600 dark:text-red-400 font-medium"
                 role="alert"
               >
                 {errors.name.message}
@@ -207,7 +241,7 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
             {errors.email && (
               <p
                 id="email-error"
-                className="text-sm text-destructive"
+                className="text-sm text-red-600 dark:text-red-400 font-medium"
                 role="alert"
               >
                 {errors.email.message}
@@ -231,7 +265,7 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
             {errors.company && (
               <p
                 id="company-error"
-                className="text-sm text-destructive"
+                className="text-sm text-red-600 dark:text-red-400 font-medium"
                 role="alert"
               >
                 {errors.company.message}
@@ -256,7 +290,7 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
             {errors.message && (
               <p
                 id="message-error"
-                className="text-sm text-destructive"
+                className="text-sm text-red-600 dark:text-red-400 font-medium"
                 role="alert"
               >
                 {errors.message.message}

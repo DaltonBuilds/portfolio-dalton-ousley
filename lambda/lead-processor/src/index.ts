@@ -18,7 +18,7 @@ import { validateHMACRequest } from "./hmac"
 import { validateTurnstileToken } from "./turnstile"
 import { checkIdempotency, storeLead } from "./dynamodb"
 import { publishLeadSubmittedEvent } from "./eventbridge"
-import { getHMACServerSecret, getTurnstileSecret } from "./secrets"
+import { getHMACServerSecret, getTurnstileSecret, getHMACClientSecret } from "./secrets"
 import type { APIResponse, SuccessResponse, ErrorResponse, LeadSubmission } from "./types"
 
 // Environment variables
@@ -126,16 +126,17 @@ export async function handler(
     }
 
     // 5. Get secrets
-    const [hmacServerSecret, turnstileSecret] = await Promise.all([
+    const [hmacServerSecret, hmacClientSecret, turnstileSecret] = await Promise.all([
       getHMACServerSecret(),
+      getHMACClientSecret(),
       getTurnstileSecret(),
     ])
 
-    // 6. Verify HMAC signature
+    // 6. Verify HMAC signature (use raw body string, not parsed object)
     try {
       validateHMACRequest(
-        hmacServerSecret,
-        requestBody,
+        hmacClientSecret,
+        event.body, // Use raw body string for signature verification
         headers["x-hmac-signature"],
         headers["x-hmac-timestamp"]
       )

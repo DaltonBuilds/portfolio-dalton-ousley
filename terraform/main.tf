@@ -20,6 +20,9 @@ locals {
   # Use provided secret or generated one
   hmac_server_secret = var.hmac_server_secret != "" ? var.hmac_server_secret : random_password.hmac_server_secret[0].result
 
+  # Expose client secret via locals for clarity (value comes directly from var)
+  hmac_client_secret = var.hmac_client_secret
+
   # Common tags for all resources
   common_tags = {
     Project     = var.project_name

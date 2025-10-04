@@ -121,11 +121,21 @@ export async function signRequest(
   // Serialize payload to JSON (canonical format)
   const payloadString = JSON.stringify(payload)
 
-  return generateHMACSignature({
+  console.log("🔐 HMAC Debug - Client Side:")
+  console.log("  Secret length:", secret.length)
+  console.log("  Timestamp:", timestamp)
+  console.log("  Payload length:", payloadString.length)
+  console.log("  Message to sign:", `${timestamp}:${payloadString.substring(0, 50)}...`)
+
+  const result = await generateHMACSignature({
     secret,
     payload: payloadString,
     timestamp,
   })
+
+  console.log("  Generated signature:", result.signature)
+  
+  return result
 }
 
 /**
