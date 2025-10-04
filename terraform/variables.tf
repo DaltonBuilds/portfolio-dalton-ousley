@@ -51,7 +51,8 @@ variable "allowed_origins" {
   default = [
     "https://daltonousley.com",
     "https://www.daltonousley.com",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "http://localhost:3001"
   ]
 }
 
