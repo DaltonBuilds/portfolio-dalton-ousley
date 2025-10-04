@@ -30,6 +30,12 @@ export function verifyHMACSignature(
   // Debug logging
   console.log("🔐 HMAC Debug - Server Side:")
   console.log("  Secret length:", secret.length)
+  try {
+    const fp = createHashFingerprint(secret)
+    console.log("  Secret fingerprint:", fp)
+  } catch {
+    // no-op
+  }
   console.log("  Timestamp:", timestamp)
   console.log("  Payload length:", payload.length)
   console.log("  Received signature:", signature)
@@ -99,5 +105,10 @@ export function validateHMACRequest(
   if (!isValid) {
     throw new Error("Invalid HMAC signature")
   }
+}
+
+function createHashFingerprint(secret: string): string {
+  const hash = createHmac("sha256", "diag").update(secret).digest("hex")
+  return `${hash.slice(0, 6)}...${hash.slice(-6)}`
 }
 
