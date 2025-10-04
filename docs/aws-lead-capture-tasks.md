@@ -611,6 +611,13 @@ lambda/email-notifier/
 - [x] Form cannot submit without valid token
 - [x] No linting or type errors
 
+**Status:** ✅ **COMPLETE** (October 4, 2025)
+- Turnstile fully integrated in ContactFormModal.tsx
+- Using @marsidev/react-turnstile package
+- Environment variable `.env.local` created with test key
+- **Action Required:** Restart dev server to see Turnstile widget
+- **Action Required:** Populate AWS Secrets Manager with production Turnstile secret
+
 ---
 
 ### Task 4.2: End-to-End Testing - Local Development
