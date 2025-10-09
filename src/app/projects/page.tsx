@@ -196,12 +196,14 @@ export default function ProjectsPage() {
             <div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary">Projects</h1>
               <p className="mt-4 text-lg text-muted-foreground">
-                This page highlights selected projects across <strong>cloud engineering</strong>, <strong>DevOps</strong>, <strong>automation</strong>, and
-                <strong> full-stack development</strong>. Each project is chosen for its <strong>real-world impact</strong>, <strong>technical depth</strong>, and
-                alignment with roles like <strong>Technical Account Manager (TAM)</strong>, <strong>Cloud Engineer</strong>, and <strong>Solutions Architect</strong>.
+                This page showcases production-ready projects demonstrating <strong>AWS cloud architecture</strong>, <strong>infrastructure as code</strong>, 
+                <strong> DevOps practices</strong>, and <strong>full-stack development</strong>. Each project emphasizes <strong>security-first design</strong>, 
+                <strong> cost optimization</strong>, and <strong>operational excellence</strong>—aligned with roles like <strong>Cloud Engineer</strong>, 
+                <strong> Solutions Architect</strong>, and <strong>Technical Account Manager (TAM)</strong>.
               </p>
               <blockquote className="mt-6 border-l-4 border-orange-500/60 pl-4 italic text-muted-foreground">
-                <span className="font-semibold">Tip:</span> Scan the Categories to filter quickly, or jump into the Timeline to see how my work has evolved.
+                <span className="font-semibold">Featured:</span> The Serverless Lead Capture System below demonstrates end-to-end AWS architecture with 
+                multi-layer security, event-driven design, and full IaC automation.
               </blockquote>
               <div className="mt-6 flex gap-3">
                 <button 
@@ -221,6 +223,12 @@ export default function ProjectsPage() {
                 <CardDescription>Common tools referenced across projects</CardDescription>
               </CardHeader>
               <CardContent className="flex flex-wrap gap-2">
+                <Badge>AWS Lambda</Badge>
+                <Badge>API Gateway</Badge>
+                <Badge>DynamoDB</Badge>
+                <Badge>EventBridge</Badge>
+                <Badge>CloudWatch</Badge>
+                <Badge>Terraform</Badge>
                 <Badge>Kubernetes</Badge>
                 <Badge>Docker</Badge>
                 <Badge>Next.js</Badge>
@@ -246,7 +254,18 @@ export default function ProjectsPage() {
       <section>
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader title="Current Projects" subtitle="Modern, modular cards (image, tags, short blurb, metrics)" />
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <ProjectCard
+              id="aws-lead-capture"
+              title="Serverless Lead Capture System"
+              category="Cloud Engineering"
+              description="Production-ready event-driven serverless architecture on AWS with security best practices, IaC, and multi-layer protection."
+              tags={["AWS Lambda", "DynamoDB", "API Gateway", "Terraform", "EventBridge", "WAF"]}
+              status="Completed"
+              href="/projects#aws-lead-capture"
+              image="/aws-lead-capture-cloud-project-dalton-ousley.webp"
+            />
+
             <ProjectCard
               id="home-lab"
               title="Personal Cloud Home Lab"
@@ -279,6 +298,198 @@ export default function ProjectsPage() {
               href="/projects#portfolio-platform"
               image="/dalton-ousley-profile-pic.webp"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Project Showcase: AWS Lead Capture System */}
+      <section id="aws-lead-capture" className="scroll-mt-20">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+          <SectionHeader 
+            title="Serverless Lead Capture System" 
+            subtitle="Event-Driven AWS Architecture with Multi-Layer Security" 
+          />
+          
+          <div className="space-y-6">
+            {/* Overview Card */}
+            <Card className="border-blue-500/30">
+              <CardHeader>
+                <CardTitle className="text-2xl">Project Overview</CardTitle>
+                <CardDescription>Production-ready serverless lead capture integrated with this portfolio</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-foreground/90">
+                  Designed and deployed a fully serverless, event-driven lead capture system on AWS that processes form submissions 
+                  from this portfolio site. The architecture demonstrates cloud engineering best practices including security-first design, 
+                  infrastructure as code, idempotency, and comprehensive observability.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge>AWS Lambda</Badge>
+                  <Badge>API Gateway</Badge>
+                  <Badge>DynamoDB</Badge>
+                  <Badge>EventBridge</Badge>
+                  <Badge>Terraform</Badge>
+                  <Badge>WAF</Badge>
+                  <Badge>Secrets Manager</Badge>
+                  <Badge>CloudWatch</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Architecture & Implementation */}
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Architecture Highlights</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3 text-sm">
+                    <li className="flex gap-2">
+                      <span className="text-blue-500 font-bold">→</span>
+                      <span><strong>API Gateway HTTP API</strong> with CORS, throttling, and custom domain support</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-blue-500 font-bold">→</span>
+                      <span><strong>Lambda Functions (Node 20)</strong> for lead processing and email notifications</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-blue-500 font-bold">→</span>
+                      <span><strong>DynamoDB</strong> with GSI for efficient queries and TTL for PII hygiene</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-blue-500 font-bold">→</span>
+                      <span><strong>EventBridge</strong> custom event bus for decoupled, event-driven processing</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-blue-500 font-bold">→</span>
+                      <span><strong>CloudWatch</strong> alarms for errors, throttling, and cost monitoring</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Security & Best Practices</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3 text-sm">
+                    <li className="flex gap-2">
+                      <span className="text-green-500 font-bold">✓</span>
+                      <span><strong>HMAC request signing</strong> for client authentication</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-green-500 font-bold">✓</span>
+                      <span><strong>Cloudflare Turnstile</strong> bot protection with server-side verification</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-green-500 font-bold">✓</span>
+                      <span><strong>AWS WAF</strong> with rate limiting and managed rule sets</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-green-500 font-bold">✓</span>
+                      <span><strong>Secrets Manager</strong> for credential storage (zero hardcoded secrets)</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-green-500 font-bold">✓</span>
+                      <span><strong>Idempotency keys</strong> to prevent duplicate submissions</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-green-500 font-bold">✓</span>
+                      <span><strong>Least-privilege IAM</strong> roles with resource-level permissions</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Metrics & Technical Details */}
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Infrastructure as Code</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm space-y-2">
+                  <p>Fully automated with <strong>Terraform</strong>:</p>
+                  <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
+                    <li>10+ modules organized by service</li>
+                    <li>Parameterized with variables</li>
+                    <li>Environment-agnostic configuration</li>
+                    <li>Comprehensive documentation</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Performance</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm space-y-2">
+                  <ul className="space-y-2">
+                    <li><strong>Cold start:</strong> &lt;1 second</li>
+                    <li><strong>Warm Lambda:</strong> &lt;200ms</li>
+                    <li><strong>Email delivery:</strong> &lt;5 seconds</li>
+                    <li><strong>Package size:</strong> 66KB (lead processor)</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Cost Efficiency</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm space-y-2">
+                  <p className="text-2xl font-bold text-green-500">~$7/month</p>
+                  <p className="text-muted-foreground">
+                    Estimated for 100 leads/month. Most services eligible for AWS Free Tier.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Key Learnings */}
+            <Card className="bg-gradient-to-br from-blue-500/5 to-orange-500/5 border-blue-500/20">
+              <CardHeader>
+                <CardTitle>Key Learnings & Technical Decisions</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                <div>
+                  <strong className="text-blue-500">Event-Driven Architecture:</strong>
+                  <p className="text-muted-foreground mt-1">
+                    Using EventBridge as a central event bus allows for loose coupling between services. Adding new functionality 
+                    (like Slack notifications or CRM sync) requires only a new event rule—no changes to the lead processor.
+                  </p>
+                </div>
+                <div>
+                  <strong className="text-blue-500">Defense in Depth:</strong>
+                  <p className="text-muted-foreground mt-1">
+                    Multi-layer security (WAF → HMAC → Turnstile → Zod validation) ensures robust protection. 
+                    Even if one layer fails, others provide redundancy.
+                  </p>
+                </div>
+                <div>
+                  <strong className="text-blue-500">PII Hygiene:</strong>
+                  <p className="text-muted-foreground mt-1">
+                    DynamoDB TTL automatically removes records after 18 months. CloudWatch logs exclude PII entirely. 
+                    This demonstrates compliance-aware design for regulated industries.
+                  </p>
+                </div>
+                <div>
+                  <strong className="text-blue-500">Documentation:</strong>
+                  <p className="text-muted-foreground mt-1">
+                    Comprehensive README files in terraform/ and lambda/ directories serve as operational runbooks. 
+                    <a 
+                      href="https://github.com/daltonousley/portfolio-dalton-ousley/blob/main/docs/aws-lead-capture-README.md" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-blue-500 hover:underline ml-1"
+                    >
+                      View detailed documentation →
+                    </a>
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
