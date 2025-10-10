@@ -32,7 +32,7 @@ const components = {
     if (!className) {
       return (
         <code 
-          className="px-1.5 py-0.5 rounded-md bg-muted text-muted-foreground font-mono text-sm" 
+          className="px-2 py-1 rounded-md bg-orange-50 dark:bg-orange-950/30 text-orange-700 dark:text-orange-300 font-mono text-sm border border-orange-200 dark:border-orange-900/50" 
           {...props}
         >
           {children}
