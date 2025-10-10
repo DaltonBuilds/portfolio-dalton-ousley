@@ -85,15 +85,24 @@ If a Mermaid diagram fails to render (e.g., due to syntax errors), an error mess
 
 ## Technical Implementation
 
-The implementation includes:
+The implementation includes three key pieces:
 
-1. **Mermaid.tsx** - A client-side React component that:
+1. **remark-mermaid.ts** - A custom Remark plugin that:
+   - Runs during the MDX compilation phase (BEFORE rehype plugins)
+   - Transforms Mermaid code blocks into custom `<Mermaid>` JSX components
+   - Prevents `rehype-pretty-code` from processing Mermaid blocks as regular code
+
+2. **Mermaid.tsx** - A client-side React component that:
    - Detects the current theme (light/dark)
    - Initializes Mermaid with theme-specific configuration
    - Renders diagrams with proper error handling
    - Re-renders when the theme changes
 
-2. **MDXContent.tsx** - Updated to detect `mermaid` code blocks and render them using the Mermaid component instead of the regular CodeBlock component
+3. **MDXContent.tsx** - Updated to include the Mermaid component in the available components for MDX
+
+### Why the Remark Plugin?
+
+Initially, the Mermaid diagrams weren't rendering because `rehype-pretty-code` (used for syntax highlighting) was processing ALL code blocks before they could reach the React components. The remark plugin solves this by transforming Mermaid blocks into JSX components during the MDX compilation phase, which happens before syntax highlighting.
 
 ## Resources
 

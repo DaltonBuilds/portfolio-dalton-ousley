@@ -13,6 +13,7 @@ const components = {
   CodeBlock,
   Callout,
   Image: CustomImage,
+  Mermaid, // Make Mermaid available to MDX
   
   // Override default elements
   pre: ({ children, ...props }: React.ComponentProps<'pre'>) => {
@@ -21,12 +22,6 @@ const components = {
     if (child?.props?.children && typeof child.props.children === 'string') {
       const code = child.props.children
       const language = child.props.className?.replace('language-', '') || 'text'
-      
-      // Handle Mermaid diagrams
-      if (language === 'mermaid') {
-        return <Mermaid chart={code} />
-      }
-      
       return <CodeBlock language={language} code={code} {...props} />
     }
     return <pre {...props}>{children}</pre>

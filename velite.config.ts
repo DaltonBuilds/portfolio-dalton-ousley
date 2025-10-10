@@ -3,6 +3,7 @@ import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import readingTime from 'reading-time'
+import { remarkMermaid } from './lib/remark-mermaid'
 
 // Define the blog post collection
 const posts = defineCollection({
@@ -112,6 +113,6 @@ export default defineConfig({
         },
       ],
     ],
-    remarkPlugins: [],
+    remarkPlugins: [remarkMermaid],
   },
 })
