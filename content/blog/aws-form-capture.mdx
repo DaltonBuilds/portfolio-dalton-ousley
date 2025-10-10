@@ -236,7 +236,14 @@ For example, I could later add:
 - A Slack notification function
 - A data pipeline for analytics (I will likely do this in the future)
 
-Right now, the only consumer is the **Email Notifier Lambda**, which listens for `ContactSubmitted` and sends a formatted email through **Resend**, a transactional email service. The Resend API key is stored securely in **AWS Secrets Manager**, ensuring no credentials are hard-coded.
+Right now, the only consumer is the **Email Notifier Lambda**, which listens for `ContactSubmitted` and sends a formatted email through **Resend**, a transactional email service. 
+
+<Image 
+  src="/blog/images/resend-email-success-dalton-ousley-portfolio-site.webp" 
+  alt="successful email sent to admin from Resend" 
+/>
+
+The Resend API key is stored securely in **AWS Secrets Manager**, ensuring no credentials are hard-coded.
 
 ---
 
