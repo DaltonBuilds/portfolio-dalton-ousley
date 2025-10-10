@@ -263,7 +263,7 @@ export default function ProjectsPage() {
               tags={["AWS Lambda", "DynamoDB", "API Gateway", "Terraform", "EventBridge", "WAF"]}
               status="Completed"
               href="/projects#aws-lead-capture"
-              image="/aws-lead-capture-cloud-project-dalton-ousley.webp"
+              image="/blog/images/aws-lead-capture-cloud-project-dalton-ousley.webp"
             />
 
             <ProjectCard
