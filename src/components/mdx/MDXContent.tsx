@@ -6,6 +6,7 @@ import { Fragment, jsx, jsxs } from 'react/jsx-runtime'
 import { CodeBlock } from './CodeBlock'
 import { Callout } from './Callout'
 import { CustomImage } from './CustomImage'
+import { Mermaid } from './Mermaid'
 
 const components = {
   // Custom components
@@ -20,6 +21,12 @@ const components = {
     if (child?.props?.children && typeof child.props.children === 'string') {
       const code = child.props.children
       const language = child.props.className?.replace('language-', '') || 'text'
+      
+      // Handle Mermaid diagrams
+      if (language === 'mermaid') {
+        return <Mermaid chart={code} />
+      }
+      
       return <CodeBlock language={language} code={code} {...props} />
     }
     return <pre {...props}>{children}</pre>
