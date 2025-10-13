@@ -2,14 +2,18 @@
  * Lead Submission API Client
  * 
  * Handles communication with the AWS Lambda backend for lead capture.
- * Implements HMAC request signing, idempotency, and comprehensive error handling.
+ * Implements idempotency and comprehensive error handling.
+ * 
+ * Security is provided by:
+ * - Cloudflare Turnstile (server-side bot protection)
+ * - Request validation
+ * - Rate limiting (API Gateway + WAF)
  * 
  * @module lead-client
  */
 
 import { v4 as uuidv4 } from "uuid"
 import type { LeadSubmission } from "@/lib/validations/lead-form"
-import { signRequest } from "./hmac"
 
 /**
  * Configuration for the API client
@@ -17,8 +21,6 @@ import { signRequest } from "./hmac"
 interface APIConfig {
   /** API Gateway endpoint URL */
   apiUrl: string
-  /** HMAC client secret for request signing */
-  hmacSecret: string
   /** Request timeout in milliseconds */
   timeout?: number
   /** Maximum number of retry attempts */
@@ -78,13 +80,6 @@ function validateAPIConfig(): void {
       "CONFIG_ERROR"
     )
   }
-
-  if (!process.env.NEXT_PUBLIC_HMAC_CLIENT_SECRET) {
-    throw new LeadSubmissionError(
-      "HMAC client secret not configured. Please set NEXT_PUBLIC_HMAC_CLIENT_SECRET.",
-      "CONFIG_ERROR"
-    )
-  }
 }
 
 /**
@@ -98,7 +93,6 @@ function getAPIConfig(): APIConfig {
 
   return {
     apiUrl: process.env.NEXT_PUBLIC_API_GATEWAY_URL!,
-    hmacSecret: process.env.NEXT_PUBLIC_HMAC_CLIENT_SECRET!,
     timeout: 30000, // 30 seconds
     maxRetries: 3,
     retryDelay: 1000, // 1 second base delay
@@ -204,10 +198,14 @@ async function fetchWithTimeout(
  * 
  * This function handles the complete lead submission flow:
  * 1. Generates idempotency key
- * 2. Signs request with HMAC
- * 3. Sends request to API Gateway
- * 4. Retries on transient failures
- * 5. Returns structured response
+ * 2. Sends request to API Gateway with Turnstile token
+ * 3. Retries on transient failures
+ * 4. Returns structured response
+ * 
+ * Security is handled server-side via:
+ * - Turnstile bot protection verification
+ * - Request validation
+ * - Rate limiting
  * 
  * @param leadData - Lead form data to submit
  * @returns Promise resolving to success response
@@ -240,17 +238,9 @@ export async function submitLead(
   // Attempt submission with retry logic
   for (let attempt = 0; attempt <= config.maxRetries!; attempt++) {
     try {
-      // Generate HMAC signature for this request
-      const { signature, timestamp } = await signRequest(
-        config.hmacSecret,
-        leadData
-      )
-
-      // Prepare request headers
+      // Prepare request headers (no HMAC - security via Turnstile + server-side validation)
       const headers: HeadersInit = {
         "Content-Type": "application/json",
-        "X-HMAC-Signature": signature,
-        "X-HMAC-Timestamp": timestamp,
         "X-Idempotency-Key": idempotencyKey,
         "X-Turnstile-Token": leadData.turnstileToken,
       }

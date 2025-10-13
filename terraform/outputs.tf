@@ -137,7 +137,6 @@ output "next_steps" {
     
     2. Update Frontend Environment Variables (.env.local):
        NEXT_PUBLIC_API_GATEWAY_URL=${aws_apigatewayv2_stage.prod.invoke_url}
-       NEXT_PUBLIC_HMAC_CLIENT_SECRET=<generate-with-openssl-rand-hex-32>
        NEXT_PUBLIC_TURNSTILE_SITE_KEY=<from-cloudflare-dashboard>
     
     3. Update Cloudflare Pages Environment Variables (Production):
