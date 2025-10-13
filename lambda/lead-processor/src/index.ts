@@ -34,7 +34,8 @@ function successResponse(data: SuccessResponse): APIResponse {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type,X-HMAC-Signature,X-HMAC-Timestamp,X-Idempotency-Key,X-Turnstile-Token",
+      "Access-Control-Allow-Headers": "Content-Type,X-Idempotency-Key,X-Turnstile-Token",
+      "Access-Control-Allow-Methods": "POST,OPTIONS",
     },
     body: JSON.stringify(data),
   }
@@ -61,7 +62,8 @@ function errorResponse(
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type,X-HMAC-Signature,X-HMAC-Timestamp,X-Idempotency-Key,X-Turnstile-Token",
+      "Access-Control-Allow-Headers": "Content-Type,X-Idempotency-Key,X-Turnstile-Token",
+      "Access-Control-Allow-Methods": "POST,OPTIONS",
     },
     body: JSON.stringify(response),
   }

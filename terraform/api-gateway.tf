@@ -15,8 +15,6 @@ resource "aws_apigatewayv2_api" "leads" {
     allow_methods = ["POST", "OPTIONS"]
     allow_headers = [
       "Content-Type",
-      "X-HMAC-Signature",
-      "X-HMAC-Timestamp",
       "X-Idempotency-Key",
       "X-Turnstile-Token"
     ]
