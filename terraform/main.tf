@@ -1,27 +1,16 @@
 /**
- * Main Terraform Configuration
+ * Main Terraform Configuration - SECURE VERSION
  * 
  * This file contains the primary resource definitions and
  * orchestrates the infrastructure components.
+ * 
+ * SECURITY: No secret generation or management here.
+ * Secrets are managed externally to keep them out of Terraform state.
  */
-
-# Generate a random HMAC server secret if not provided
-resource "random_password" "hmac_server_secret" {
-  count = var.hmac_server_secret == "" ? 1 : 0
-
-  length  = 64
-  special = true
-}
 
 # Local values for consistent naming and configuration
 locals {
   name_prefix = "${var.project_name}-${var.environment}"
-
-  # Use provided secret or generated one
-  hmac_server_secret = var.hmac_server_secret != "" ? var.hmac_server_secret : random_password.hmac_server_secret[0].result
-
-  # Expose client secret via locals for clarity (value comes directly from var)
-  hmac_client_secret = var.hmac_client_secret
 
   # Common tags for all resources
   common_tags = {

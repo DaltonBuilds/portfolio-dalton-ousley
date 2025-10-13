@@ -14,11 +14,10 @@
 import type { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda"
 import { ZodError } from "zod"
 import { validateLeadSubmission, validateRequestHeaders } from "./validators"
-import { validateHMACRequest } from "./hmac"
 import { validateTurnstileToken } from "./turnstile"
 import { checkIdempotency, storeLead } from "./dynamodb"
 import { publishLeadSubmittedEvent } from "./eventbridge"
-import { getHMACServerSecret, getTurnstileSecret, getHMACClientSecret } from "./secrets"
+import { getTurnstileSecret } from "./secrets"
 import type { APIResponse, SuccessResponse, ErrorResponse, LeadSubmission } from "./types"
 
 // Environment variables
@@ -125,27 +124,22 @@ export async function handler(
       throw error
     }
 
-    // 5. Get secrets
-    const [hmacServerSecret, hmacClientSecret, turnstileSecret] = await Promise.all([
-      getHMACServerSecret(),
-      getHMACClientSecret(),
-      getTurnstileSecret(),
-    ])
+    // 5. Get Turnstile secret for bot protection
+    const turnstileSecret = await getTurnstileSecret()
 
-    // 6. Verify HMAC signature (use raw body string, not parsed object)
-    try {
-      validateHMACRequest(
-        hmacClientSecret,
-        event.body, // Use raw body string for signature verification
-        headers["x-hmac-signature"],
-        headers["x-hmac-timestamp"]
-      )
-    } catch (error) {
-      console.error("HMAC verification failed:", error)
-      return errorResponse(401, "Invalid request signature", "INVALID_SIGNATURE")
-    }
+    // NOTE: HMAC client-side verification removed
+    // Previously verified client signatures, but provided no real security
+    // since the secret was embedded in public frontend code.
+    // 
+    // Security is now provided by:
+    // - Turnstile bot protection (proper server-side verification)
+    // - Request validation
+    // - Rate limiting (API Gateway + WAF)
+    //
+    // HMAC server secret is available in Secrets Manager if needed for
+    // future server-to-server authentication (getHMACServerSecret())
 
-    // 7. Verify Turnstile token
+    // 6. Verify Turnstile token
     const clientIp = event.requestContext.http.sourceIp
     try {
       await validateTurnstileToken(

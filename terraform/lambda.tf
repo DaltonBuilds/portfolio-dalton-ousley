@@ -33,11 +33,9 @@ resource "aws_lambda_function" "lead_processor" {
       DYNAMODB_TABLE_NAME     = aws_dynamodb_table.leads.name
       EVENTBRIDGE_BUS_NAME    = aws_cloudwatch_event_bus.leads.name
       HMAC_SERVER_SECRET_NAME = aws_secretsmanager_secret.hmac_server.name
-      # Client-side HMAC secret passed to Lambda for verifying signatures
-      HMAC_CLIENT_SECRET    = var.hmac_client_secret
-      TURNSTILE_SECRET_NAME = aws_secretsmanager_secret.turnstile.name
-      TTL_DAYS              = tostring(var.dynamodb_ttl_days)
-      NODE_OPTIONS          = "--enable-source-maps"
+      TURNSTILE_SECRET_NAME   = aws_secretsmanager_secret.turnstile.name
+      TTL_DAYS                = tostring(var.dynamodb_ttl_days)
+      NODE_OPTIONS            = "--enable-source-maps"
     }
   }
 

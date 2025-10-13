@@ -105,6 +105,20 @@ output "configuration_summary" {
 }
 
 # ============================================================================
+# Backend Infrastructure Outputs (when bootstrapping)
+# ============================================================================
+
+output "backend_configuration" {
+  description = "Backend infrastructure details (only when create_backend_infrastructure=true)"
+  value = var.create_backend_infrastructure ? {
+    bucket         = aws_s3_bucket.terraform_state[0].bucket
+    region         = aws_s3_bucket.terraform_state[0].region
+    dynamodb_table = aws_dynamodb_table.terraform_locks[0].name
+    kms_key_alias  = aws_kms_alias.terraform_state[0].name
+  } : null
+}
+
+# ============================================================================
 # Next Steps Instructions
 # ============================================================================
 
@@ -117,9 +131,9 @@ output "next_steps" {
     Next Steps:
     
     1. Populate Secrets in AWS Secrets Manager:
-       - HMAC Server Secret: Auto-generated (no action needed)
        - Turnstile Secret: aws secretsmanager put-secret-value --secret-id ${aws_secretsmanager_secret.turnstile.name} --secret-string "YOUR_TURNSTILE_SECRET"
        - Resend API Key: aws secretsmanager put-secret-value --secret-id ${aws_secretsmanager_secret.resend.name} --secret-string "YOUR_RESEND_API_KEY"
+       - HMAC Server Secret: openssl rand -hex 32 | aws secretsmanager put-secret-value --secret-id ${aws_secretsmanager_secret.hmac_server.name} --secret-string file:///dev/stdin
     
     2. Update Frontend Environment Variables (.env.local):
        NEXT_PUBLIC_API_GATEWAY_URL=${aws_apigatewayv2_stage.prod.invoke_url}

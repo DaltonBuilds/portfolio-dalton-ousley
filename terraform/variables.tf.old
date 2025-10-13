@@ -1,8 +1,7 @@
 /**
- * Terraform Input Variables - SECURE VERSION
+ * Terraform Input Variables
  * 
- * SECURITY CHANGE: Removed all secret-related variables.
- * Secrets should NEVER be passed as Terraform variables.
+ * Define all configurable parameters for the infrastructure
  */
 
 # ============================================================================
@@ -40,32 +39,6 @@ variable "project_name" {
 variable "owner_email" {
   description = "Email address of the infrastructure owner"
   type        = string
-}
-
-# ============================================================================
-# Backend Infrastructure (Bootstrap Only)
-# ============================================================================
-
-variable "create_backend_infrastructure" {
-  description = "Set to true ONLY when bootstrapping the S3 backend infrastructure"
-  type        = bool
-  default     = false
-}
-
-# ============================================================================
-# Secret Rotation
-# ============================================================================
-
-variable "enable_secret_rotation" {
-  description = "Enable automatic secret rotation (requires rotation Lambda)"
-  type        = bool
-  default     = false
-}
-
-variable "secret_rotation_lambda_arn" {
-  description = "ARN of Lambda function for secret rotation (required if enable_secret_rotation = true)"
-  type        = string
-  default     = ""
 }
 
 # ============================================================================
@@ -212,4 +185,23 @@ variable "notification_from_email" {
   description = "Email address to send notifications from (must be verified in Resend)"
   type        = string
 }
+
+# ============================================================================
+# Secrets Configuration
+# ============================================================================
+
+variable "hmac_server_secret" {
+  description = "HMAC server secret for request verification (leave empty to generate)"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "hmac_client_secret" {
+  description = "HMAC client secret used by frontend to sign requests and by Lambda to verify."
+  type        = string
+  sensitive   = true
+}
+
+# Note: Turnstile and Resend secrets should be set via terraform.tfvars or environment variables
 

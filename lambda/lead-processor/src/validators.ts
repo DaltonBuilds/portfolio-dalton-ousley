@@ -45,10 +45,11 @@ export const leadSubmissionSchema = z.object({
 
 /**
  * Schema for API Gateway event headers
+ * 
+ * Note: HMAC signature headers removed as part of security refactoring.
+ * Client-side HMAC provided no real security since the secret was public.
  */
 export const requestHeadersSchema = z.object({
-  "x-hmac-signature": z.string().min(1),
-  "x-hmac-timestamp": z.string().min(1),
   "x-idempotency-key": z.string().uuid(),
   "x-turnstile-token": z.string().min(1),
 })
