@@ -121,27 +121,11 @@ export async function signRequest(
   // Serialize payload to JSON (canonical format)
   const payloadString = JSON.stringify(payload)
 
-  console.log("🔐 HMAC Debug - Client Side:")
-  console.log("  Secret length:", secret.length)
-  try {
-    const fp = await secretFingerprint(secret)
-    console.log("  Secret fingerprint:", fp)
-  } catch {
-    // no-op
-  }
-  console.log("  Timestamp:", timestamp)
-  console.log("  Payload length:", payloadString.length)
-  console.log("  Message to sign:", `${timestamp}:${payloadString.substring(0, 50)}...`)
-
-  const result = await generateHMACSignature({
+  return await generateHMACSignature({
     secret,
     payload: payloadString,
     timestamp,
   })
-
-  console.log("  Generated signature:", result.signature)
-  
-  return result
 }
 
 /**
@@ -154,17 +138,6 @@ function bufferToHex(buffer: ArrayBuffer): string {
   return Array.from(new Uint8Array(buffer))
     .map((byte) => byte.toString(16).padStart(2, "0"))
     .join("")
-}
-
-/**
- * Computes a short, non-sensitive fingerprint of a secret for diagnostics.
- */
-async function secretFingerprint(secret: string): Promise<string> {
-  const encoder = new TextEncoder()
-  const data = encoder.encode(secret)
-  const digest = await crypto.subtle.digest("SHA-256", data)
-  const hex = bufferToHex(digest)
-  return `${hex.slice(0, 6)}...${hex.slice(-6)}`
 }
 
 /**

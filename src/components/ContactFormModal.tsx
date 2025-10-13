@@ -49,36 +49,26 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
   })
 
   const onSubmit = async (data: LeadFormData) => {
-    console.log("🚀 Form submission started")
-    console.log("📝 Form data:", { ...data, message: data.message.substring(0, 20) + "..." })
-    console.log("🔐 Turnstile token present:", !!turnstileToken)
-    
     // Validate Turnstile token
     if (!turnstileToken) {
-      console.error("❌ Turnstile token missing")
+      console.error("Turnstile token missing")
       toast.error("Please complete the security challenge")
       return
     }
 
-    console.log("✅ Starting submission to API...")
     setIsSubmitting(true)
 
     try {
       // Submit lead to AWS Lambda via API Gateway
-      const result = await submitLead({
+      await submitLead({
         ...data,
         turnstileToken,
       })
-      
-      console.log("✅ Submission successful!", result)
 
       // Success! Show confirmation message
       toast.success("Message sent successfully!", {
         description: "Thanks for reaching out! I'll get back to you soon.",
       })
-
-      // Log success for debugging (no PII)
-      console.log("Lead submitted successfully:", { leadId: result.leadId })
 
       // Reset form and close modal
       reset()
@@ -139,16 +129,13 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
 
   // Handle Turnstile success
   const handleTurnstileSuccess = (token: string) => {
-    console.log("✅ Turnstile challenge completed successfully")
-    console.log("🔑 Token length:", token.length)
     setTurnstileToken(token)
-    // IMPORTANT: Also update the form field value for validation
     setValue("turnstileToken", token, { shouldValidate: true })
   }
 
   // Handle Turnstile error
   const handleTurnstileError = () => {
-    console.error("❌ Turnstile challenge failed")
+    console.error("Turnstile challenge failed")
     setTurnstileToken("")
     setValue("turnstileToken", "", { shouldValidate: true })
     toast.error("Security challenge failed", {
@@ -158,7 +145,6 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
 
   // Handle Turnstile expiration
   const handleTurnstileExpire = () => {
-    console.warn("⚠️ Turnstile token expired")
     setTurnstileToken("")
     setValue("turnstileToken", "", { shouldValidate: true })
   }
@@ -170,16 +156,6 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
   if (!turnsiteSiteKey) {
     console.error("NEXT_PUBLIC_TURNSTILE_SITE_KEY is not configured")
   }
-
-  // Debug: Log button state
-  React.useEffect(() => {
-    console.log("🎯 Submit button state:", {
-      isSubmitting,
-      hasTurnstileToken: !!turnstileToken,
-      tokenLength: turnstileToken?.length || 0,
-      buttonDisabled: isSubmitting || !turnstileToken
-    })
-  }, [isSubmitting, turnstileToken])
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -194,10 +170,7 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
         </DialogHeader>
 
         <form 
-          onSubmit={(e) => {
-            console.log("📋 Form submit event triggered")
-            handleSubmit(onSubmit)(e)
-          }} 
+          onSubmit={handleSubmit(onSubmit)} 
           className="space-y-4 mt-4"
         >
           {/* Name Field */}
