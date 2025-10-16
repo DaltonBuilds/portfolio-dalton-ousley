@@ -27,19 +27,6 @@ export function verifyHMACSignature(
   signature: string,
   timestamp: string
 ): boolean {
-  // Debug logging
-  console.log("🔐 HMAC Debug - Server Side:")
-  console.log("  Secret length:", secret.length)
-  try {
-    const fp = createHashFingerprint(secret)
-    console.log("  Secret fingerprint:", fp)
-  } catch {
-    // no-op
-  }
-  console.log("  Timestamp:", timestamp)
-  console.log("  Payload length:", payload.length)
-  console.log("  Received signature:", signature)
-  console.log("  Message to verify:", `${timestamp}:${payload.substring(0, 50)}...`)
   
   // Validate timestamp is recent (prevent replay attacks)
   const requestTime = new Date(timestamp).getTime()
@@ -63,9 +50,6 @@ export function verifyHMACSignature(
   const hmac = createHmac("sha256", secret)
   hmac.update(message)
   const expectedSignature = hmac.digest("hex")
-  
-  console.log("  Expected signature:", expectedSignature)
-  console.log("  Signatures match:", signature === expectedSignature)
 
   // Timing-safe comparison to prevent timing attacks
   try {
@@ -78,7 +62,7 @@ export function verifyHMACSignature(
 
     return timingSafeEqual(signatureBuffer, expectedBuffer)
   } catch (error) {
-    // Invalid hex string
+    console.error("Error verifying HMAC signature", error)
     return false
   }
 }
@@ -105,10 +89,5 @@ export function validateHMACRequest(
   if (!isValid) {
     throw new Error("Invalid HMAC signature")
   }
-}
-
-function createHashFingerprint(secret: string): string {
-  const hash = createHmac("sha256", "diag").update(secret).digest("hex")
-  return `${hash.slice(0, 6)}...${hash.slice(-6)}`
 }
 

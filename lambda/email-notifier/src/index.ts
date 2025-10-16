@@ -12,11 +12,6 @@ import { sendLeadNotification } from "./resend-client"
  * Main Lambda handler
  */
 export async function handler(event: EventBridgeEvent): Promise<void> {
-  console.log("Event received", {
-    detailType: event["detail-type"],
-    source: event.source,
-    eventId: event.id,
-  })
 
   try {
     // Validate event type
@@ -34,12 +29,9 @@ export async function handler(event: EventBridgeEvent): Promise<void> {
     }
 
     // Send email notification
-    console.log("Processing lead notification", { leadId: lead.leadId })
     await sendLeadNotification(lead)
 
-    console.log("Lead notification sent successfully", { leadId: lead.leadId })
   } catch (error) {
-    // Log error (no PII)
     console.error("Failed to process event:", error)
     
     // Throw error to trigger Lambda retry

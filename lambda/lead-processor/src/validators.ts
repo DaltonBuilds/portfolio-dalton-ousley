@@ -45,9 +45,6 @@ export const leadSubmissionSchema = z.object({
 
 /**
  * Schema for API Gateway event headers
- * 
- * Note: HMAC signature headers removed as part of security refactoring.
- * Client-side HMAC provided no real security since the secret was public.
  */
 export const requestHeadersSchema = z.object({
   "x-idempotency-key": z.string().uuid(),
@@ -65,7 +62,7 @@ export function validateLeadSubmission(data: unknown) {
  * Validate request headers
  */
 export function validateRequestHeaders(headers: Record<string, string | undefined>) {
-  // Normalize header names to lowercase
+
   const normalizedHeaders = Object.keys(headers).reduce((acc, key) => {
     acc[key.toLowerCase()] = headers[key]
     return acc

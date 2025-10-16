@@ -4,8 +4,7 @@
  * Bundles TypeScript code into a single JavaScript file optimized for Lambda
  */
 
-const esbuild = require('esbuild');
-const path = require('path');
+import esbuild from 'esbuild';
 
 esbuild.build({
   entryPoints: ['src/index.ts'],
@@ -21,5 +20,8 @@ esbuild.build({
     '@aws-sdk/*'
   ],
   logLevel: 'info',
-}).catch(() => process.exit(1));
+}).catch((error) => {
+  console.error('Build failed:', error);
+  process.exit(1);
+});
 

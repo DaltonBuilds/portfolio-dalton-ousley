@@ -75,12 +75,6 @@ function errorResponse(
 export async function handler(
   event: APIGatewayProxyEventV2
 ): Promise<APIGatewayProxyResultV2> {
-  // Structured logging (no PII)
-  console.log("Request received", {
-    requestId: event.requestContext.requestId,
-    path: event.rawPath,
-    method: event.requestContext.http.method,
-  })
 
   try {
     // 1. Validate request method
@@ -129,18 +123,6 @@ export async function handler(
     // 5. Get Turnstile secret for bot protection
     const turnstileSecret = await getTurnstileSecret()
 
-    // NOTE: HMAC client-side verification removed
-    // Previously verified client signatures, but provided no real security
-    // since the secret was embedded in public frontend code.
-    // 
-    // Security is now provided by:
-    // - Turnstile bot protection (proper server-side verification)
-    // - Request validation
-    // - Rate limiting (API Gateway + WAF)
-    //
-    // HMAC server secret is available in Secrets Manager if needed for
-    // future server-to-server authentication (getHMACServerSecret())
-
     // 6. Verify Turnstile token
     const clientIp = event.requestContext.http.sourceIp
     try {
@@ -159,7 +141,6 @@ export async function handler(
     const existingLeadId = await checkIdempotency(DYNAMODB_TABLE_NAME, idempotencyKey)
 
     if (existingLeadId) {
-      console.log("Duplicate request detected", { idempotencyKey, existingLeadId })
       return successResponse({
         success: true,
         leadId: existingLeadId,
@@ -186,7 +167,6 @@ export async function handler(
     })
 
     // 11. Return success response
-    console.log("Lead processed successfully", { leadId: storedLead.leadId })
     return successResponse({
       success: true,
       leadId: storedLead.leadId,

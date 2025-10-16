@@ -28,5 +28,4 @@ export interface SecretsCache {
   lastFetch?: number
 }
 
-export const SECRETS_CACHE_TTL = 300000 // 5 minutes
-
+export const SECRETS_CACHE_TTL = 300000

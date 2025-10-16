@@ -196,7 +196,7 @@ export async function sendLeadNotification(lead: LeadSubmittedEvent): Promise<vo
   const resend = new Resend(apiKey)
 
   try {
-    const response = await resend.emails.send({
+    await resend.emails.send({
       from: FROM_EMAIL,
       to: NOTIFICATION_EMAIL,
       subject: `New Lead: ${lead.name}${lead.company ? ` from ${lead.company}` : ''}`,
@@ -209,10 +209,6 @@ export async function sendLeadNotification(lead: LeadSubmittedEvent): Promise<vo
       ],
     })
 
-    console.log("Email sent successfully", {
-      emailId: response.data?.id,
-      leadId: lead.leadId,
-    })
   } catch (error) {
     console.error("Failed to send email:", error)
     throw new Error("Failed to send email notification")

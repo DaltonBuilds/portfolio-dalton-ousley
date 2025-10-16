@@ -1,7 +1,7 @@
 {
   "name": "lead-processor",
   "version": "1.0.0",
-  "description": "AWS Lambda function for processing lead submissions",
+  "description": "AWS Lambda function for processing form submissions",
   "main": "dist/index.js",
   "scripts": {
     "build": "node esbuild.config.js",

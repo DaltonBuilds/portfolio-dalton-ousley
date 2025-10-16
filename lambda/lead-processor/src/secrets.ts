@@ -101,20 +101,6 @@ export async function getTurnstileSecret(): Promise<string> {
 }
 
 /**
- * REMOVED: HMAC client secret
- * 
- * Previously used for client-side request signing, but this provided
- * no real security since the secret was embedded in public frontend code.
- * 
- * We now rely on:
- * - Turnstile for bot protection (proper server-side verification)
- * - Request validation and rate limiting
- * - HMAC server secret for internal/server-to-server auth (if needed)
- * 
- * This function has been removed as part of security refactoring.
- */
-
-/**
  * Clears the secrets cache (useful for testing)
  */
 export function clearSecretsCache(): void {

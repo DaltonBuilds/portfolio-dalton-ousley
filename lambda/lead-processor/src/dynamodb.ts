@@ -80,7 +80,6 @@ export async function storeLead(
 
   try {
     await docClient.send(command)
-    console.log("Lead stored successfully", { leadId, createdAt })
     return lead
   } catch (error) {
     if (error instanceof Error && error.name === "ConditionalCheckFailedException") {

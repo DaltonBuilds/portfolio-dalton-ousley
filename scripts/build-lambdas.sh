@@ -1,78 +1,122 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
+# Bundle & package Lambda functions with esbuild
+# - Compiles TypeScript -> single CJS file (Node 20)
+# - Zips only dist/index.js (+ .map)
+# - Works per-lambda; easy to add more
+#
+# Requirements:
+#   - Node.js + npm
+#   - zip
+#   - esbuild in devDependencies (npm i -D esbuild typescript)
+#
+set -euo pipefail
+IFS=$'\n\t'
 
-##
-# Build Script for Lambda Functions
-# 
-# Builds both Lambda functions and creates deployment packages
-##
-
-set -e
-
-echo "🏗️  Building Lambda Functions..."
-echo
-
-# Colors for output
+# ---------- pretty output ----------
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 RED='\033[0;31m'
-NC='\033[0m' # No Color
+NC='\033[0m' # No color
 
-# Function to build a Lambda
+info()  { echo -e "${BLUE}$*${NC}"; }
+ok()    { echo -e "${GREEN}$*${NC}"; }
+err()   { echo -e "${RED}$*${NC}" >&2; }
+
+# ---------- prereq checks ----------
+command -v node >/dev/null || { err "Node.js not found"; exit 1; }
+command -v npm  >/dev/null || { err "npm not found"; exit 1; }
+command -v zip  >/dev/null || { err "zip not found"; exit 1; }
+
+# Try to resolve esbuild (via npx). This also fails if devDep is missing.
+if ! npx --yes esbuild --version >/dev/null 2>&1; then
+  err "esbuild not available. Run: npm i -D esbuild typescript"
+  exit 1
+fi
+
+# ---------- build helper ----------
+# build_lambda "<Friendly Name>" "<lambda_dir>" ["<entry_ts_relpath>"]
+# Defaults entry to "src/index.ts" inside the lambda_dir
 build_lambda() {
-  local lambda_name=$1
-  local lambda_dir=$2
-  local original_dir=$(pwd)
-  
-  echo -e "${BLUE}Building ${lambda_name}...${NC}"
-  
-  cd "$lambda_dir"
-  
-  # Install dependencies
-  if [ ! -d "node_modules" ]; then
-    echo "  📦 Installing dependencies..."
-    npm install --production=false
+  local name="$1"
+  local dir="$2"
+  local entry="${3:-src/index.ts}"
+  local original_dir
+  original_dir="$(pwd)"
+
+  info "Building ${name} …"
+  cd "$dir"
+
+  # Deterministic installs when lockfile exists
+  if [[ ! -d node_modules ]]; then
+    if [[ -f package-lock.json ]]; then
+      info "  📦 Installing dependencies with npm ci…"
+      npm ci
+    else
+      info "  📦 Installing dependencies with npm install…"
+      npm install
+    fi
   fi
-  
-  # Build with esbuild
-  echo "  🔨 Compiling TypeScript..."
-  npm run build
-  
-  # Create deployment package
-  echo "  📦 Creating deployment package..."
-  cd dist
-  zip -q -r lambda.zip index.js index.js.map
-  
-  # Add node_modules for non-AWS SDK dependencies
-  if [ -d "../node_modules/resend" ]; then
-    echo "  📦 Adding resend module..."
-    cp -r ../node_modules/resend .
-    zip -q -r lambda.zip resend
-    rm -rf resend
-  fi
-  
-  if [ -d "../node_modules/zod" ]; then
-    echo "  📦 Adding zod module..."
-    cp -r ../node_modules/zod .
-    zip -q -r lambda.zip zod
-    rm -rf zod
-  fi
-  
-  cd "$original_dir"
-  
-  echo -e "${GREEN}✅ ${lambda_name} built successfully${NC}"
+
+  # Prepare dist
+  mkdir -p dist
+  rm -f dist/lambda.zip dist/index.js dist/index.js.map
+
+  # Bundle TypeScript entry with esbuild
+  # - CommonJS output (Lambda Node.js 20.x default runtime)
+  # - platform=node ensures proper shimming
+  # - minify + sourcemap for small size + debuggability
+  # - external:@aws-sdk/* to exclude AWS SDK (available in Lambda runtime)
+  info "  🔨 Bundling ${entry} with esbuild…"
+  npx --yes esbuild "${entry}" \
+    --bundle \
+    --platform=node \
+    --target=node20 \
+    --format=cjs \
+    --outfile=dist/index.js \
+    --sourcemap \
+    --minify \
+    --external:@aws-sdk/*
+
+  # Sanity check
+  [[ -f dist/index.js ]] || { err "Build failed: dist/index.js not found"; exit 1; }
+
+  # Create the deployment zip
+  info "  📦 Creating deployment package…"
+  ( cd dist && zip -q -r lambda.zip index.js index.js.map )
+
+  ok "✅ ${name} built → ${dir}/dist/lambda.zip"
   echo
+
+  cd "$original_dir"
 }
 
-# Build lead processor
-build_lambda "Lead Processor" "lambda/lead-processor"
+info "🏗️  Building Lambda functions…"
+echo
 
-# Build email notifier
-build_lambda "Email Notifier" "lambda/email-notifier"
+# ---------- define your lambdas here ----------
+# Format: "Name|Directory|Entry"
+# Entry defaults to src/index.ts if omitted
+LAMBDAS=(
+  "Lead Processor|lambda/lead-processor|src/index.ts"
+  "Email Notifier|lambda/email-notifier|src/index.ts"
+)
 
-echo -e "${GREEN}✅ All Lambda functions built successfully!${NC}"
+for item in "${LAMBDAS[@]}"; do
+  IFS='|' read -r NAME DIR ENTRY <<< "$item"
+  build_lambda "$NAME" "$DIR" "$ENTRY"
+done
+
+ok "✅ All Lambda functions built successfully!"
 echo
 echo "📁 Deployment packages:"
-echo "  - lambda/lead-processor/dist/lambda.zip"
-echo "  - lambda/email-notifier/dist/lambda.zip"
+for item in "${LAMBDAS[@]}"; do
+  IFS='|' read -r NAME DIR ENTRY <<< "$item"
+  echo "  - ${DIR}/dist/lambda.zip"
+done
 echo
 
+# Notes:
+# - Set the Lambda handler to "index.handler" in AWS (or your IaC).
+# - If your entry lives at a different path, change the Entry field accordingly.
+# - If you need to externalize a native module, add: --external:<pkg>
