@@ -112,47 +112,11 @@ output "backend_configuration" {
   description = "Backend infrastructure details (only when create_backend_infrastructure=true)"
   value = var.create_backend_infrastructure ? {
     bucket         = aws_s3_bucket.terraform_state[0].bucket
-    region         = aws_s3_bucket.terraform_state[0].region
+    region         = var.aws_region
     dynamodb_table = aws_dynamodb_table.terraform_locks[0].name
     kms_key_alias  = aws_kms_alias.terraform_state[0].name
   } : null
 }
 
-# ============================================================================
-# Next Steps Instructions
-# ============================================================================
 
-output "next_steps" {
-  description = "Instructions for completing the setup"
-  value       = <<-EOT
-    
-    ✅ Infrastructure deployed successfully!
-    
-    Next Steps:
-    
-    1. Populate Secrets in AWS Secrets Manager:
-       - Turnstile Secret: aws secretsmanager put-secret-value --secret-id ${aws_secretsmanager_secret.turnstile.name} --secret-string "YOUR_TURNSTILE_SECRET"
-       - Resend API Key: aws secretsmanager put-secret-value --secret-id ${aws_secretsmanager_secret.resend.name} --secret-string "YOUR_RESEND_API_KEY"
-       - HMAC Server Secret: openssl rand -hex 32 | aws secretsmanager put-secret-value --secret-id ${aws_secretsmanager_secret.hmac_server.name} --secret-string file:///dev/stdin
-    
-    2. Update Frontend Environment Variables (.env.local):
-       NEXT_PUBLIC_API_GATEWAY_URL=${aws_apigatewayv2_stage.prod.invoke_url}
-       NEXT_PUBLIC_TURNSTILE_SITE_KEY=<from-cloudflare-dashboard>
-    
-    3. Update Cloudflare Pages Environment Variables (Production):
-       - Same variables as step 2
-    
-    4. Test the integration:
-       - Fill out contact form on your site
-       - Check DynamoDB for lead record
-       - Verify email notification received
-    
-    5. Monitor:
-       - CloudWatch Logs: /aws/lambda/${aws_lambda_function.lead_processor.function_name}
-       - WAF: Created but not associated (HTTP API limitation - use CloudFront for WAF)
-       - API Gateway: Has rate limiting (10 req/sec burst, 5 steady-state)
-       - Metrics: CloudWatch Console
-    
-  EOT
-}
 

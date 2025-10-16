@@ -12,24 +12,7 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.5"
-    }
   }
-
-  # Backend configuration for state management
-  # For initial setup, we'll use local backend
-  # In production, migrate to S3 + DynamoDB for state locking
-  # 
-  # To migrate to S3 backend later, uncomment and configure:
-  # backend "s3" {
-  #   bucket         = "your-terraform-state-bucket"
-  #   key            = "portfolio/lead-capture/terraform.tfstate"
-  #   region         = "us-east-1"
-  #   encrypt        = true
-  #   dynamodb_table = "terraform-state-locks"
-  # }
 }
 
 provider "aws" {

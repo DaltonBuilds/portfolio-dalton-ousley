@@ -73,40 +73,38 @@ resource "aws_cloudwatch_metric_alarm" "dynamodb_throttle" {
   alarm_name          = "${local.name_prefix}-dynamodb-throttle"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 1
-  metric_name         = "UserErrors"
-  namespace           = "AWS/DynamoDB"
-  period              = 300
-  statistic           = "Sum"
-  threshold           = 10
-  alarm_description   = "Alert when DynamoDB table experiences throttling"
+  threshold           = 0
   treat_missing_data  = "notBreaching"
-
-  dimensions = {
-    TableName = aws_dynamodb_table.leads.name
+  alarm_description   = "Alert when DynamoDB throttles reads/writes"
+  metric_query {
+    id          = "read"
+    return_data = false
+    metric {
+      namespace   = "AWS/DynamoDB"
+      metric_name = "ReadThrottleEvents"
+      period      = 300
+      stat        = "Sum"
+      dimensions  = { TableName = aws_dynamodb_table.leads.name }
+    }
   }
-
+  metric_query {
+    id          = "write"
+    return_data = false
+    metric {
+      namespace   = "AWS/DynamoDB"
+      metric_name = "WriteThrottleEvents"
+      period      = 300
+      stat        = "Sum"
+      dimensions  = { TableName = aws_dynamodb_table.leads.name }
+    }
+  }
+  metric_query {
+    id          = "total"
+    expression  = "read + write"
+    label       = "TotalThrottleEvents"
+    return_data = true
+  }
   tags = local.common_tags
 }
 
-# CloudWatch alarm for read/write capacity (if using provisioned billing)
-resource "aws_cloudwatch_metric_alarm" "dynamodb_read_capacity" {
-  count = var.dynamodb_billing_mode == "PROVISIONED" ? 1 : 0
-
-  alarm_name          = "${local.name_prefix}-dynamodb-read-capacity"
-  comparison_operator = "GreaterThanThreshold"
-  evaluation_periods  = 2
-  metric_name         = "ConsumedReadCapacityUnits"
-  namespace           = "AWS/DynamoDB"
-  period              = 300
-  statistic           = "Average"
-  threshold           = 80
-  alarm_description   = "Alert when read capacity exceeds 80%"
-  treat_missing_data  = "notBreaching"
-
-  dimensions = {
-    TableName = aws_dynamodb_table.leads.name
-  }
-
-  tags = local.common_tags
-}
 

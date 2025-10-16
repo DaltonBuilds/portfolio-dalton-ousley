@@ -11,20 +11,20 @@
 
 terraform {
   backend "s3" {
-    bucket         = "dalton-portfolio-terraform-state"
-    key            = "portfolio-leads/terraform.tfstate"
-    region         = "us-east-1"
-    profile        = "prod-admin"
-    
+    bucket  = "dalton-portfolio-terraform-state"
+    key     = "portfolio-leads/terraform.tfstate"
+    region  = "us-east-1"
+    profile = "prod-admin"
+
     # Security: Server-side encryption
-    encrypt        = true
-    kms_key_id     = "alias/terraform-state-key"
-    
+    encrypt    = true
+    kms_key_id = "alias/terraform-state-key"
+
     # State locking prevents concurrent modifications
     dynamodb_table = "terraform-state-locks"
-    
+
     # Access control
-    acl            = "private"
+    acl = "private"
   }
 }
 
@@ -138,9 +138,5 @@ resource "aws_dynamodb_table" "terraform_locks" {
   }
 }
 
-# ==============================================================================
-# Notes
-# ==============================================================================
 
-# Outputs for backend configuration are in outputs.tf for consistency
 

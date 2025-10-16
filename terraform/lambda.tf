@@ -25,6 +25,7 @@ resource "aws_lambda_function" "lead_processor" {
   runtime       = var.lambda_runtime
   timeout       = var.lambda_timeout
   memory_size   = var.lambda_memory_size
+  architectures = ["arm64"]
 
   source_code_hash = filebase64sha256("${path.module}/../lambda/lead-processor/dist/lambda.zip")
 
@@ -41,7 +42,7 @@ resource "aws_lambda_function" "lead_processor" {
 
   depends_on = [
     aws_cloudwatch_log_group.lead_processor,
-    aws_iam_role_policy.lead_processor_logs,
+    aws_iam_role_policy_attachment.lead_processor_logs_managed,
     aws_iam_role_policy.lead_processor_dynamodb,
     aws_iam_role_policy.lead_processor_eventbridge,
     aws_iam_role_policy.lead_processor_secrets,
@@ -83,9 +84,9 @@ resource "aws_cloudwatch_metric_alarm" "lead_processor_duration" {
   metric_name         = "Duration"
   namespace           = "AWS/Lambda"
   period              = 300
-  statistic           = "Average"
+  extended_statistic  = "p95"
   threshold           = 8000 # 8 seconds (80% of timeout)
-  alarm_description   = "Alert when lead processor duration exceeds 8 seconds"
+  alarm_description   = "p95 duration > 80% of timeout"
   treat_missing_data  = "notBreaching"
 
   dimensions = {
@@ -116,6 +117,7 @@ resource "aws_lambda_function" "email_notifier" {
   runtime       = var.lambda_runtime
   timeout       = var.lambda_timeout
   memory_size   = var.lambda_memory_size
+  architectures = ["arm64"]
 
   source_code_hash = filebase64sha256("${path.module}/../lambda/email-notifier/dist/lambda.zip")
 
@@ -130,7 +132,7 @@ resource "aws_lambda_function" "email_notifier" {
 
   depends_on = [
     aws_cloudwatch_log_group.email_notifier,
-    aws_iam_role_policy.email_notifier_logs,
+    aws_iam_role_policy_attachment.email_notifier_logs_managed,
     aws_iam_role_policy.email_notifier_secrets,
   ]
 

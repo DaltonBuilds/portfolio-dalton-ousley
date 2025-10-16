@@ -32,26 +32,16 @@ resource "aws_iam_role" "lead_processor" {
   )
 }
 
-# CloudWatch Logs policy for lead processor
-resource "aws_iam_role_policy" "lead_processor_logs" {
-  name = "cloudwatch-logs"
-  role = aws_iam_role.lead_processor.id
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ]
-        Resource = "arn:aws:logs:${var.aws_region}:*:log-group:/aws/lambda/${local.name_prefix}-lead-processor:*"
-      }
-    ]
-  })
+resource "aws_iam_role_policy_attachment" "lead_processor_logs_managed" {
+  role       = aws_iam_role.lead_processor.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
+
+resource "aws_iam_role_policy_attachment" "email_notifier_logs_managed" {
+  role       = aws_iam_role.email_notifier.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
 
 # DynamoDB policy for lead processor
 resource "aws_iam_role_policy" "lead_processor_dynamodb" {
@@ -146,26 +136,7 @@ resource "aws_iam_role" "email_notifier" {
   )
 }
 
-# CloudWatch Logs policy for email notifier
-resource "aws_iam_role_policy" "email_notifier_logs" {
-  name = "cloudwatch-logs"
-  role = aws_iam_role.email_notifier.id
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ]
-        Resource = "arn:aws:logs:${var.aws_region}:*:log-group:/aws/lambda/${local.name_prefix}-email-notifier:*"
-      }
-    ]
-  })
-}
 
 # Secrets Manager policy for email notifier
 resource "aws_iam_role_policy" "email_notifier_secrets" {
@@ -187,48 +158,24 @@ resource "aws_iam_role_policy" "email_notifier_secrets" {
 }
 
 # ============================================================================
-# EventBridge IAM Role for DLQ
+# SQS Queue Policy for Email Notifier DLQ
 # ============================================================================
 
-resource "aws_iam_role" "eventbridge_dlq" {
-  name = "${local.name_prefix}-eventbridge-dlq-role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "events.amazonaws.com"
-        }
-      }
-    ]
-  })
-
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.name_prefix}-eventbridge-dlq-role"
-    }
-  )
-}
-
-resource "aws_iam_role_policy" "eventbridge_dlq_sqs" {
-  name = "sqs-access"
-  role = aws_iam_role.eventbridge_dlq.id
-
+resource "aws_sqs_queue_policy" "email_notifier_dlq_policy" {
+  queue_url = aws_sqs_queue.email_notifier_dlq.id
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "sqs:SendMessage"
-        ]
-        Resource = aws_sqs_queue.email_notifier_dlq.arn
+    Version = "2012-10-17",
+    Statement = [{
+      Sid : "AllowEventBridgeToSendToDLQ",
+      Effect : "Allow",
+      Principal : { Service : "events.amazonaws.com" },
+      Action : "sqs:SendMessage",
+      Resource : aws_sqs_queue.email_notifier_dlq.arn,
+      Condition : {
+        ArnEquals : { "aws:SourceArn" : aws_cloudwatch_event_rule.lead_submitted.arn }
       }
-    ]
+    }]
   })
 }
+
 

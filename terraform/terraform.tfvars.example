@@ -6,13 +6,13 @@
 # ==============================================================================
 
 # Your email address for infrastructure ownership tagging
-owner_email = "example@gmail.com"
+owner_email = "example-email@gmail.com"
 
 # Email address to receive lead notifications
-notification_email = "example@gmail.com"
+notification_email = "example-email@gmail.com"
 
 # Verified sender email in Resend (must be verified domain)
-notification_from_email = "example@gmail.com"
+notification_from_email = "example-email@gmail.com"
 
 # ==============================================================================
 # Optional Variables (defaults are production-ready)
@@ -29,8 +29,8 @@ notification_from_email = "example@gmail.com"
 
 # Allowed CORS origins
 # allowed_origins = [
-#   "https://daltonousley.com",
-#   "https://www.daltonousley.com",
+#   "https://example.com",
+#   "https://www.example.com",
 #   "http://localhost:3000"
 # ]
 
@@ -57,10 +57,6 @@ notification_from_email = "example@gmail.com"
 # HMAC server secret (leave empty to auto-generate)
 # hmac_server_secret = ""
 
-# HMAC client secret used by the frontend to sign requests and by Lambda to
-# verify the signature. Generate with: `openssl rand -hex 32`
-# hmac_client_secret = ""
-
 # Note: Turnstile and Resend secrets are managed in AWS Secrets Manager
-# You'll need to populate them manually after terraform apply
+# You'll need to populate them manually after `terraform apply`
 

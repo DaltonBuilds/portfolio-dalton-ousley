@@ -1,10 +1,4 @@
 /**
- * Main Terraform Configuration - SECURE VERSION
- * 
- * This file contains the primary resource definitions and
- * orchestrates the infrastructure components.
- * 
- * SECURITY: No secret generation or management here.
  * Secrets are managed externally to keep them out of Terraform state.
  */
 
