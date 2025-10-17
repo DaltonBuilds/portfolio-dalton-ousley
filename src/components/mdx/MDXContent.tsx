@@ -16,6 +16,18 @@ const components = {
   Mermaid, // Make Mermaid available to MDX
   
   // Override default elements
+  a: ({ children, className, ...props }: React.ComponentProps<'a'>) => {
+    return (
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`text-orange-600 underline underline-offset-2 decoration-2 hover:text-orange-700 dark:text-orange-300 dark:hover:text-orange-200 transition-colors ${className ?? ''}`}
+        {...props}
+      >
+        {children}
+      </a>
+    )
+  },
   pre: ({ children, ...props }: React.ComponentProps<'pre'>) => {
     // Extract code block props from children if it's a code element
     const child = children as React.ReactElement<{ children: string; className?: string }>
