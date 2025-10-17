@@ -81,7 +81,7 @@ export default async function TagPage({ params }: TagPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-3">
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 {tagPosts.map((post) => (
                   <BlogPostCard key={post.slug} post={post} />
                 ))}

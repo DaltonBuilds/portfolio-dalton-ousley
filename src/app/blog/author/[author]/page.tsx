@@ -187,7 +187,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
               </div>
 
               {authorPosts.length > 0 ? (
-                <div className="grid grid-cols-1 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   {authorPosts.map((post) => (
                     <BlogPostCard key={post.slug} post={post} />
                   ))}

@@ -73,7 +73,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             {/* Main Content */}
             <div className="lg:col-span-3">
               {categoryPosts.length > 0 ? (
-                <div className="grid grid-cols-1 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   {categoryPosts.map((post) => (
                     <BlogPostCard key={post.slug} post={post} />
                   ))}

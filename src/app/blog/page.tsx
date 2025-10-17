@@ -63,8 +63,14 @@ export default function BlogPage() {
                   {featuredPosts.length > 0 ? 'Latest Posts' : 'All Posts'}
                 </h2>
                 {regularPosts.length > 0 ? (
-                  <div className="grid grid-cols-1 gap-4 sm:gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     {regularPosts.map((post) => (
+                      <BlogPostCard key={post.slug} post={post} />
+                    ))}
+                  </div>
+                ) : featuredPosts.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                    {featuredPosts.map((post) => (
                       <BlogPostCard key={post.slug} post={post} />
                     ))}
                   </div>
