@@ -16,18 +16,6 @@ const components = {
   Mermaid, // Make Mermaid available to MDX
   
   // Override default elements
-  a: ({ children, className, ...props }: React.ComponentProps<'a'>) => {
-    return (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`text-orange-600 underline underline-offset-2 decoration-2 hover:text-orange-700 dark:text-orange-300 dark:hover:text-orange-200 transition-colors ${className ?? ''}`}
-        {...props}
-      >
-        {children}
-      </a>
-    )
-  },
   pre: ({ children, ...props }: React.ComponentProps<'pre'>) => {
     // Extract code block props from children if it's a code element
     const child = children as React.ReactElement<{ children: string; className?: string }>
@@ -132,10 +120,10 @@ const components = {
   ),
 
   a: ({ children, href, className, ...props }: React.ComponentProps<'a'>) => {
-    // Handle anchor links specially
+    // Special case: heading anchor links from slug/autolink should not open new tabs or be underlined
     if (className === 'anchor') {
       return (
-        <a 
+        <a
           href={href}
           className="text-primary hover:text-primary/80 no-underline"
           {...props}
@@ -144,11 +132,13 @@ const components = {
         </a>
       )
     }
-    
+
     return (
-      <a 
+      <a
         href={href}
-        className="text-primary hover:text-primary/80 underline underline-offset-4"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`text-orange-600 underline underline-offset-2 decoration-2 hover:text-orange-700 dark:text-orange-300 dark:hover:text-orange-200 transition-colors ${className ?? ''}`}
         {...props}
       >
         {children}
