@@ -138,7 +138,7 @@ const components = {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className={`text-orange-600 underline underline-offset-2 decoration-2 hover:text-orange-700 dark:text-orange-300 dark:hover:text-orange-200 transition-colors ${className ?? ''}`}
+        className={`text-orange-800 underline underline-offset-2 decoration-2 hover:text-orange-900 dark:text-orange-800 dark:hover:text-orange-900 transition-colors ${className ?? ''}`}
         {...props}
       >
         {children}
