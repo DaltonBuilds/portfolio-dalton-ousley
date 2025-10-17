@@ -33,7 +33,7 @@ const components = {
     if (isInline) {
       return (
         <code
-          className={`not-prose before:content-none after:content-none inline-flex items-center rounded-md px-1.5 py-0.5 font-mono text-[0.9em] border bg-orange-50 text-orange-800 border-orange-200 dark:bg-orange-950/30 dark:text-orange-300 dark:border-orange-900/50 ${className ?? ''}`}
+          className={`inline-code not-prose before:content-none after:content-none inline-flex items-center rounded-md px-1.5 py-0.5 font-mono text-[0.9em] ${className ?? ''}`}
           {...props}
         >
           {children}

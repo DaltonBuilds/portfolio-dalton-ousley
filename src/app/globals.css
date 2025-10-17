@@ -35,6 +35,11 @@
 
   --radius: 0.5rem;
   --grid-color: rgba(0, 0, 0, 0.03);
+
+  /* Inline code tokens (light) */
+  --inline-code-bg: 24 100% 96%;      /* approx orange-50 */
+  --inline-code-text: 24 95% 35%;     /* approx orange-700 */
+  --inline-code-border: 24 94% 85%;   /* approx orange-200 */
 }
 
 .dark {
@@ -72,6 +77,11 @@
   --input: 240 3.7% 15.9%;
   --ring: 240 4.9% 83.9%;
   --grid-color: rgba(255, 255, 255, 0.03);
+
+  /* Inline code tokens (dark) */
+  --inline-code-bg: 24 100% 10%;      /* deep orange base; appears dark */
+  --inline-code-text: 24 95% 75%;     /* orange-300 */
+  --inline-code-border: 24 94% 20%;   /* dark orange border */
 }
 
 ::selection {
@@ -220,6 +230,12 @@
   }
   * {
     border-color: hsl(var(--border));
+  }
+  /* Consistent inline code appearance across themes */
+  .inline-code {
+    background-color: hsl(var(--inline-code-bg));
+    color: hsl(var(--inline-code-text));
+    border: 1px solid hsl(var(--inline-code-border));
   }
   body {
     background-color: hsl(var(--background));
