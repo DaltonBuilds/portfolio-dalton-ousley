@@ -28,19 +28,24 @@ const components = {
   },
   
   code: ({ children, className, ...props }: React.ComponentProps<'code'>) => {
-    // If it's inline code (no className), render as inline
-    if (!className) {
+    // Treat as inline if there's no language class (some MDX compilers add className to inline code)
+    const isInline = !className || !/\blanguage-/.test(className)
+    if (isInline) {
       return (
-        <code 
-          className="px-2 py-1 rounded-md bg-orange-50 dark:bg-orange-950/30 text-orange-700 dark:text-orange-300 font-mono text-sm border border-orange-200 dark:border-orange-900/50" 
+        <code
+          className={`not-prose before:content-none after:content-none inline-flex items-center rounded-md px-1.5 py-0.5 font-mono text-[0.9em] border bg-orange-50 text-orange-800 border-orange-200 dark:bg-orange-950/30 dark:text-orange-300 dark:border-orange-900/50 ${className ?? ''}`}
           {...props}
         >
           {children}
         </code>
       )
     }
-    // Block code will be handled by pre element above
-    return <code className={className} {...props}>{children}</code>
+    // Block code will be handled by the pre element override above
+    return (
+      <code className={className} {...props}>
+        {children}
+      </code>
+    )
   },
 
   // Enhanced elements with proper anchor links
