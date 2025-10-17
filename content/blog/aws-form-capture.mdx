@@ -23,18 +23,19 @@ seo:
 
 As part of my ongoing Cloud Engineering journey, I recently decided to replace a simple embedded contact form on my website with a **custom React form backed by AWS services**. While this may sound like a small project on the surface, it was an intentional step toward deepening my cloud skill set and creating something that would **persist and scale over time**.
 
-For years, I’ve relied on software platforms like GoHighLevel (GHL) to handle form capture (among a zillion other things) for my freelance work. They’re convenient, but they’re also ephemeral — if I ever end my subscription, my form disappears along with it. That realization pushed me to build a solution I fully control. By developing my own **React form with an Amazon Web Services (AWS) backend**, I not only gained hands-on experience with services like DynamoDB, API Gateway, Lambda, and Secrets Manager, but I also laid the groundwork for a sustainable and secure form system that lives independently of any third-party SaaS.
+For years, I've relied on software platforms like GoHighLevel [(GHL)](https://www.gohighlevel.com/?fp_ref=dalton) to handle form capture (among a zillion other things) for my freelance work. They're convenient, but they're also ephemeral — if I ever end my subscription, my form disappears along with it. That realization pushed me to build a solution I fully control. By developing my own **React form with an Amazon Web Services (AWS) backend**, I not only gained hands-on experience with services like DynamoDB, API Gateway, Lambda, and Secrets Manager, but I also laid the groundwork for a sustainable and secure form system that lives independently of any third-party SaaS.
 
-More importantly, this was a deliberate **mini cloud project** designed to give me more “reps” working with AWS infrastructure in a practical way. Now that I’ve passed the [Google Professional Cloud Architect exam](https://daltonousley.com/blog/google-professional-cloud-architect-exam-prep), and deep into a different GCP project (that one is almost done too), I didn’t want to leave AWS out of my roadmap. This isn’t a theoretical lab exercise — it’s a real, production feature integrated directly into my portfolio website. And since I’m currently building out multiple cloud projects to strengthen my Cloud Engineering and DevOps skills, this kind of focused, end-to-end build was exactly what I needed.
+More importantly, this was a deliberate **mini cloud project** designed to give me more "reps" working with AWS infrastructure in a practical way. Now that I've passed the [Google Professional Cloud Architect exam](https://daltonousley.com/blog/google-professional-cloud-architect-exam-prep), and deep into a different GCP project (that one is almost done too), I didn't want to leave AWS out of my roadmap. This isn't a theoretical lab exercise — it's a real, production feature integrated directly into my portfolio website. And since I'm currently building out multiple cloud projects to strengthen my Cloud Engineering and DevOps skills, this kind of focused, end-to-end build was exactly what I needed.
+
+**📦 Full Source Code:** The complete infrastructure code, Lambda functions, and demo application are available on GitHub at [github.com/DaltonBuilds/aws-serverless-form-backend](https://github.com/DaltonBuilds/aws-serverless-form-backend)
 
 ## Architecture Overview
 
 While the frontend is built using a simple React form, the real power of this project lives in the **AWS backend**. Rather than submitting form data to a third-party service, the React form communicates with a custom, event-driven backend built entirely on AWS. This architecture not only reinforces modern Cloud Engineering best practices but also gives me **full control over validation, security, storage, and monitoring** to name a few.
 
-At a high level, the flow involves **seven AWS services** working together in a secure and modular fashion:
+At a high level, the flow involves **six AWS services** working together in a secure and modular fashion:
 
-- 🛡️ **AWS WAF** – Filters traffic, applies rate limiting, and blocks malicious patterns
-- 🚪 **API Gateway** – Serves as the entry point for form submissions
+- 🚪 **API Gateway** – Serves as the entry point for form submissions with built-in throttling
 - 🧠 **AWS Lambda** – Processes incoming requests (contact processor) and handles asynchronous notifications (email notifier via [Resend](https://resend.com/))
 - 💾 **DynamoDB** – Stores validated contact data with TTL-based retention
 - 📡 **EventBridge** – Publishes `ContactSubmitted` events to decouple processing steps
@@ -50,8 +51,7 @@ flowchart TB
     Turnstile["🤖 Cloudflare Turnstile<br/>(Bot Protection)"]
 
     subgraph AWS["☁️ AWS Cloud"]
-        WAF["🛡️ AWS WAF<br/>(Rate Limiting + Rules)"]
-        APIGW["🚪 API Gateway<br/>(HTTP API)"]
+        APIGW["🚪 API Gateway<br/>(HTTP API + Throttling)"]
 
         subgraph Lambda1["λ Contact Processor"]
             HMAC["🔐 HMAC Verification"]
@@ -74,18 +74,17 @@ flowchart TB
 
     User -->|1. Submit Form| CF
     CF -->|2. POST /contacts| Turnstile
-    Turnstile -->|3. Token| WAF
-    WAF -->|4. Allow| APIGW
-    APIGW -->|5. Invoke| Lambda1
+    Turnstile -->|3. Token + Payload| APIGW
+    APIGW -->|4. Invoke| Lambda1
 
     Lambda1 <-->|Get Secrets| Secrets
-    Lambda1 -->|6. Store Contact| DDB
-    Lambda1 -->|7. Publish Event| EB
+    Lambda1 -->|5. Store Contact| DDB
+    Lambda1 -->|6. Publish Event| EB
 
-    EB -->|8. Trigger| Lambda2
+    EB -->|7. Trigger| Lambda2
     Lambda2 <-->|Get API Key| Secrets
-    Lambda2 -->|9. Send| Resend
-    Resend -->|10. Deliver| Email
+    Lambda2 -->|8. Send| Resend
+    Resend -->|9. Deliver| Email
 
     Lambda1 -.->|Logs| CW
     Lambda2 -.->|Logs| CW
@@ -96,7 +95,6 @@ flowchart TB
     style Lambda1 fill:#FF9900,stroke:#232F3E,stroke-width:2px
     style Lambda2 fill:#FF9900,stroke:#232F3E,stroke-width:2px
     style DDB fill:#4053D6,stroke:#232F3E,stroke-width:2px
-    style WAF fill:#DD344C,stroke:#232F3E,stroke-width:2px
 
 ```
 
@@ -107,20 +105,19 @@ flowchart TB
 When a user submits the form, the following steps take place:
 
 1. [**React Hook Form**](https://react-hook-form.com/) validates inputs on the client side using Zod.
-2. **Cloudflare Turnstile** challenges the user to confirm they’re human, issuing a token on success.
+2. **Cloudflare Turnstile** challenges the user to confirm they're human, issuing a token on success.
 3. The browser **signs the request with an HMAC** using a timestamp and payload hash to prevent tampering.
-4. **AWS WAF** evaluates the request against rate limiting rules and known attack patterns.
-5. **API Gateway** receives the request, applies throttling, and invokes the Contact Processor Lambda.
-6. **Contact Processor Lambda**:
+4. **API Gateway** receives the request, applies throttling, and invokes the Contact Processor Lambda.
+5. **Contact Processor Lambda**:
     - Verifies HMAC signature
-    - Validates the Turnstile token with Cloudflare’s API
+    - Validates the Turnstile token with Cloudflare's API
     - Validates the payload schema with [Zod](https://zod.dev/)
     - Checks for duplicates using an idempotency key in DynamoDB
     - Stores contacts with an 18-month TTL
     - Publishes a `ContactSubmitted` event to EventBridge
-7. **EventBridge** asynchronously triggers the Email Notifier Lambda.
-8. **Email Notifier Lambda** uses the Resend API to deliver a notification to my inbox.
-9. **CloudWatch** captures logs, metrics, and alarms for the entire flow.
+6. **EventBridge** asynchronously triggers the Email Notifier Lambda.
+7. **Email Notifier Lambda** uses the Resend API to deliver a notification to my inbox.
+8. **CloudWatch** captures logs, metrics, and alarms for the entire flow.
 
 This is illustrated in the sequence diagram below:
 
