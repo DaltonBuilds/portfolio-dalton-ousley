@@ -27,10 +27,10 @@ The result is a production-ready app running on **Cloudflare Workers**, backed b
 
 Full transparency: I love building stuff. And I *especially* love building stuff that teaches me cloud platforms I haven't fully worked with yet. I've shipped projects on GCP (Cloud Run) and [AWS](https://daltonousley.com/blog/react-form-aws-backend) (serverless bits), so Cloudflare felt like the perfect "new terrain" to kick off 2026. If I'm going to learn something, the learning should *matter*.
 
-> Try TaskFlow (sanitized demo): link coming soon
+> Try TaskFlow (sanitized demo): [Live Demo](https://daltonbuilds.github.io/task-flow-public/)
 > 
 > 
-> **Clone it:** *link coming soon*
+> **Clone it:** [GitHub Repo](https://github.com/DaltonBuilds/task-flow-public)
 > 
 
 ## Why TaskFlow exists
@@ -51,6 +51,11 @@ Most importantly: I wanted it **secure by default** without building a full auth
 **TaskFlow** is a lightweight kanban-based task manager built around a simple pipeline:
 
 **Backlog → To Do → In Progress → Review → Done**
+
+<Image 
+  src="/blog/images/task-flow-simple-pipeline-kanban-style.avif" 
+  alt="Kanban style pipeline with simple stages" 
+/>
 
 This flow keeps me honest:
 
@@ -97,6 +102,11 @@ The goal wasn't to build "Trello, but smaller." The goal was to build something 
 ## Design principles (rules I set before writing code)
 
 Every project needs constraints. Without them, "simple app" becomes "I wonder if I should keep feeding this thing?"
+
+<Image 
+  src="/blog/images/task-flow-calendar-view-user-menu.avif" 
+  alt="Kanban style pipeline with simple stages" 
+/>
 
 ### What TaskFlow must do
 
@@ -590,10 +600,10 @@ The app stays simple, but it can become smarter over time.
 
 I'm publishing a basic sanitized version of TaskFlow so you can explore the architecture and run your own instance.
 
-> Live demo: link coming soon
+> View TaskFlow: [Live Demo](https://daltonbuilds.github.io/task-flow-public/)
 > 
 > 
-> **GitHub repo:** *link coming soon*
+> **Clone it:** [GitHub Repo](https://github.com/DaltonBuilds/task-flow-public)
 > 
 
 **What "sanitized" means:**
@@ -619,4 +629,4 @@ The README will include full setup instructions.
 
 TaskFlow is production-ready, personally useful, and taught me more about Cloudflare's platform. If you're learning cloud infrastructure or building personal tools, I hope this walkthrough helps.
 
-Thanks for reading.
+Thanks for reading!

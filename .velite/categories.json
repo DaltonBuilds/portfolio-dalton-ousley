@@ -1,1 +1,24 @@
-[{"categories":[{"name":"journey","slug":"journey","description":"Personal experiences, career stories, and learning journeys","color":"#ec4899"},{"name":"tutorials","slug":"tutorials","description":"Step-by-step guides and hands-on tutorials","color":"#06b6d4"},{"name":"projects","slug":"projects","description":"Project showcases, case studies, and technical implementations","color":"#10b981"}]}]
+[
+  {
+    "categories": [
+      {
+        "name": "journey",
+        "slug": "journey",
+        "description": "Personal experiences, career stories, and learning journeys",
+        "color": "#ec4899"
+      },
+      {
+        "name": "tutorials",
+        "slug": "tutorials",
+        "description": "Step-by-step guides and hands-on tutorials",
+        "color": "#06b6d4"
+      },
+      {
+        "name": "projects",
+        "slug": "projects",
+        "description": "Project showcases, case studies, and technical implementations",
+        "color": "#10b981"
+      }
+    ]
+  }
+]

@@ -1,1 +1,14 @@
-[{"name":"Dalton Ousley","bio":"Cloud-focused engineer passionate about DevOps, Kubernetes, and cloud-native solutions. I love building scalable systems and sharing knowledge about modern infrastructure practices.","avatar":"/dalton-ousley-profile-pic.webp","email":"example@gmail.com","website":"https://daltonousley.com","social":{"twitter":"daltonousley","linkedin":"daltonousley","github":"daltonousley"}}]
+[
+  {
+    "name": "Dalton Ousley",
+    "bio": "Cloud-focused engineer passionate about DevOps, Kubernetes, and cloud-native solutions. I love building scalable systems and sharing knowledge about modern infrastructure practices.",
+    "avatar": "/dalton-ousley-profile-pic.webp",
+    "email": "example@gmail.com",
+    "website": "https://daltonousley.com",
+    "social": {
+      "twitter": "daltonousley",
+      "linkedin": "daltonousley",
+      "github": "daltonousley"
+    }
+  }
+]
