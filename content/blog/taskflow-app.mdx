@@ -625,8 +625,63 @@ The public version keeps the core architecture and functionality, but strips any
 
 The README will include full setup instructions.
 
+## Evolution: from proof of concept to production
+
+<Image 
+  src="/blog/images/taskflow-new-ui-nextjs-migration.avif" 
+  alt="New look for TaskFlow, Kanban style pipeline with fresh look" 
+/>
+
+The version described throughout this article represents TaskFlow's initial architecture—the learning phase where I focused on mastering Cloudflare's platform, Terraform workflows, and infrastructure as code patterns.
+
+**That original implementation worked.** It proved the concept, taught me edge computing, and became my daily task manager. But it was also a 10,000+ line vanilla JavaScript file with inline styles, mixed concerns, and performance limitations. Perfect for rapid prototyping and infrastructure learning. Not ideal for long-term maintenance or feature velocity.
+
+So I iterated.
+
+### The Next.js migration
+
+Once the cloud infrastructure was solid and the Terraform patterns were proven, I shifted focus to frontend architecture. The current production version of TaskFlow runs on **Next.js 16** with a full-stack architecture:
+
+**Frontend improvements:**
+
+- Component-based architecture with 50+ reusable UI components
+- TypeScript throughout (type safety catches bugs before they reach production)
+- [shadcn/ui](https://ui.shadcn.com/) for standardized, accessible components
+- React Query for intelligent data caching and background updates
+- Tailwind CSS for maintainable, optimized styling
+- Code splitting for faster initial loads (60-80% improvement)
+
+**Backend modernization:**
+
+- Proper separation of concerns (`/components`, `/hooks`, `/server/routes`, `/services`)
+- Zod validation for API requests/responses
+- Structured database migrations
+- Comprehensive error boundaries and offline handling
+
+**Developer experience:**
+
+- ESLint + Prettier for consistent code quality
+- Full type checking prevents runtime errors
+- New features ship 5-10x faster with organized codebase
+- Testing infrastructure ready for expansion
+
+**The result:** A maintainable, type-safe application that scales to hundreds of concurrent users with global edge performance.
+
+### Why this matters (beyond the code)
+
+This evolution represents how real engineering work happens. You don't build perfect systems from day one. You:
+
+1. **Learn the platform** (Cloudflare, Terraform, edge architecture)
+2. **Prove the concept** (fast iteration, infrastructure focus)
+3. **Identify bottlenecks** (performance, maintainability, type safety)
+4. **Iterate strategically** (Next.js migration, TypeScript, modern tooling)
+5. **Ship improvements** (better UX, faster features, production stability)
+
+The sanitized public repo reflects the original architecture—the infrastructure learning phase. My production instance runs the evolved version. Both taught me different skills. Both matter.
+
+Start with working solutions, measure what matters, iterate based on real constraints, and always optimize for the next person (including future me) who has to maintain the code.
+
 ---
 
-TaskFlow is production-ready, personally useful, and taught me more about Cloudflare's platform. If you're learning cloud infrastructure or building personal tools, I hope this walkthrough helps.
-
+TaskFlow taught me more about cloud infrastructure, modern web architecture, and iterative development than any tutorial could. If you're learning these platforms or building personal tools that evolve with you, I hope this walkthrough helps.
 Thanks for reading!
