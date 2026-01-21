@@ -43,6 +43,9 @@ wrangler.toml
 *.tsbuildinfo
 next-env.d.ts
 
+# velite generated files
+.velite
+
 # Terraform
 terraform/.terraform/
 terraform/.terraform.lock.hcl
