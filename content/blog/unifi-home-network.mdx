@@ -178,6 +178,21 @@ There were a few times I had to temporarily reopen access, regain control, adjus
 
 Once everything was aligned, Proxmox access came back and the segmentation finally behaved exactly as intended.
 
+***But first...***
+
+One more gotcha: stateful firewall rules and return traffic
+
+One tricky bug I hit was isolating my Homelab VLAN (Proxmox) so well (...yeah we'll go with that) that I accidentally blocked my own management access. Even though I had rules allowing my Main-LAN devices to reach the Proxmox GUI (port 8006), my `BLOCK: Homelab → Main-LAN` rule also blocked the return traffic — which caused timeouts and made it look like Proxmox was down.
+
+The fix was making the firewall rules state-aware, so only `new` connections from Homelab to Main-LAN are blocked while established/related return traffic is allowed. Once I adjusted that, Proxmox access worked reliably from both my workstation VM and laptop while keeping strong isolation in place.
+
+<Image 
+  src="/blog/images/unifi-firewall-rules-match-state-screenshot.avif" 
+  alt="UniFi firewall rule details showing advanced match state options" 
+/>
+
+Turns out you can secure something so well that even you can’t get in!
+
 ---
 
 ## Results (and What Improved Immediately)
@@ -225,10 +240,12 @@ This setup gives me a foundation to build on. Next up:
 
 ---
 
-I learned a lot of relevant lessons throughout this project and if you’re reading this with hopes of doing something similar, I hope this helps!
+I learned a lot of relevant lessons throughout this project and here are a few more to end on:
 
-YouTube tutorials were marginally valuable but walking through the steps with a solid LLM like ChatGPT or Claude was the most beneficial in my opinion since I could ask 2nd and 3rd level questions for a deeper understanding along the way.
+- YouTube tutorials were marginally valuable but walking through the steps with a solid LLM like ChatGPT or Claude was the most beneficial in my opinion since I could ask 2nd and 3rd level questions for a deeper understanding along the way.
 
-Oh — and if you’re naming SSIDs… don’t take yourself too seriously. 😉
+- The `allow` rules aren’t enough unless you also account for return traffic. Stateful firewalls need either an Established/Related allow rule, or block rules scoped to New connections only.
+
+- Lastly, if you’re naming SSIDs… don’t take yourself too seriously. 😉
 
 Thanks for stopping by!
