@@ -34,16 +34,16 @@ export function CodeBlock({
   }
 
   return (
-    <div className="blog-code-block relative group w-full min-w-0 overflow-hidden">
+    <div className="blog-code-block relative group w-full min-w-0">
       {/* Header with filename and copy button */}
       {(filename || codeContent) && (
-        <div className="flex items-center justify-between px-4 py-2 bg-muted/50 border border-b-0 rounded-t-lg">
+        <div className="flex items-center justify-between px-4 py-2 bg-muted/50 border border-b-0 rounded-t-lg overflow-hidden">
           {filename && (
-            <span className="text-sm font-mono text-muted-foreground">
+            <span className="text-sm font-mono text-muted-foreground truncate">
               {filename}
             </span>
           )}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-shrink-0">
             {language && language !== 'text' && (
               <span className="text-xs uppercase font-mono text-muted-foreground">
                 {language}
@@ -67,19 +67,23 @@ export function CodeBlock({
         </div>
       )}
       
-      {/* Code content */}
-      <pre 
-        className={`
-          w-full min-w-0 overflow-x-auto p-4 bg-muted/30 border rounded-lg
-          ${filename || codeContent ? 'rounded-t-none' : ''}
-          ${className || ''}
-        `}
-        {...props}
-      >
-        <code className={`font-mono text-sm ${language ? `language-${language}` : ''}`}>
-          {children || code}
-        </code>
-      </pre>
+      {/* Code content with proper scrolling */}
+      <div className="relative overflow-hidden rounded-lg">
+        <pre 
+          className={`
+            w-full overflow-x-auto overflow-y-hidden p-4 bg-muted/30 border
+            ${filename || codeContent ? 'rounded-t-none border-t-0' : 'rounded-lg'}
+            scrollbar-thin scrollbar-thumb-muted-foreground/30 scrollbar-track-transparent
+            hover:scrollbar-thumb-muted-foreground/50
+            ${className || ''}
+          `}
+          {...props}
+        >
+          <code className={`font-mono text-sm whitespace-pre ${language ? `language-${language}` : ''}`}>
+            {children || code}
+          </code>
+        </pre>
+      </div>
     </div>
   )
 }

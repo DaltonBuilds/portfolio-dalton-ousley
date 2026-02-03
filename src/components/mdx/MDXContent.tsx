@@ -7,6 +7,7 @@ import { CodeBlock } from './CodeBlock'
 import { Callout } from './Callout'
 import { CustomImage } from './CustomImage'
 import { Mermaid } from './Mermaid'
+import { CodeBlockCopy } from './CodeBlockCopy'
 
 const components = {
   // Custom components
@@ -228,7 +229,8 @@ export function MDXContent({ code }: MDXContentProps) {
 
   return (
     <MDXProvider components={components}>
-      <div className="prose prose-gray dark:prose-invert max-w-none prose-sm sm:prose-base md:prose-lg">
+      <CodeBlockCopy />
+      <div className="prose prose-gray dark:prose-invert max-w-none prose-sm sm:prose-base md:prose-lg prose-pre:p-0 prose-pre:m-0 prose-pre:bg-transparent prose-pre:overflow-visible prose-code:whitespace-pre">
         <MDXComponent components={components} />
       </div>
     </MDXProvider>
