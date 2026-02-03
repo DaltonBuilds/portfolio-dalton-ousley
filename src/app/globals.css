@@ -206,9 +206,10 @@
   backdrop-filter: blur(10px);
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar (vertical and horizontal) */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -224,6 +225,26 @@
   background: hsla(var(--foreground), 0.5);
 }
 
+/*
+ * Rehype-pretty-code output (Velite MDX): code blocks are rendered as
+ * figure[data-rehype-pretty-code-figure] > pre > code. Our CodeBlock
+ * component only wraps plain pre/code; these figures need spacing and
+ * overflow handled here so long lines scroll instead of overflowing.
+ */
+figure[data-rehype-pretty-code-figure] {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+figure[data-rehype-pretty-code-figure] pre {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  min-width: 0;
+}
+
 @layer base {
   button, a, [role="button"] {
     cursor: pointer;
@@ -236,6 +257,11 @@
     background-color: hsl(var(--inline-code-bg));
     color: hsl(var(--inline-code-text));
     border: 1px solid hsl(var(--inline-code-border));
+  }
+  /* Blog code blocks: symmetrical spacing above/below for adequate breathing room */
+  .blog-code-block {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
   }
   body {
     background-color: hsl(var(--background));

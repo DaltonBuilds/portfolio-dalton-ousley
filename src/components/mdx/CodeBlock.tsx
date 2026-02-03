@@ -34,7 +34,7 @@ export function CodeBlock({
   }
 
   return (
-    <div className="relative group my-6">
+    <div className="blog-code-block relative group w-full min-w-0 overflow-hidden">
       {/* Header with filename and copy button */}
       {(filename || codeContent) && (
         <div className="flex items-center justify-between px-4 py-2 bg-muted/50 border border-b-0 rounded-t-lg">
@@ -70,7 +70,7 @@ export function CodeBlock({
       {/* Code content */}
       <pre 
         className={`
-          overflow-x-auto p-4 bg-muted/30 border rounded-lg 
+          w-full min-w-0 overflow-x-auto p-4 bg-muted/30 border rounded-lg
           ${filename || codeContent ? 'rounded-t-none' : ''}
           ${className || ''}
         `}
