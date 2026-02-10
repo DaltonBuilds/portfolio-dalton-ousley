@@ -69,57 +69,78 @@ const roles = [
 export default function ExperiencePage() {
   const timelineData = [
     {
-      id: 'solutions-architect-cleancore',
-      title: 'Software Solutions Architect — CleanCore',
+      id: 'foundations-learning-pivot',
+      title: 'Foundations — Learning & Pivot',
       content: (
         <Card className="bg-card/60">
           <CardContent className="pt-6 space-y-3">
-            <p className="text-sm text-muted-foreground"><strong>Problem</strong>: Fragmented customer onboarding and limited visibility into funnel performance.</p>
-            <p className="text-sm text-muted-foreground"><strong>Approach</strong>: Designed an AI-powered CRM with event-driven automation, rolled out CI/CD and observability.</p>
-            <p className="text-sm text-muted-foreground"><strong>Outcome</strong>: 1,500+ clients onboarded, churn reduced, lead time -70%.</p>
+            <p className="text-sm text-muted-foreground"><strong>Problem</strong>: I wanted to move into Cloud/DevOps, but my experience and knowledge were scattered across IT, self-study, and side projects.</p>
+            <p className="text-sm text-muted-foreground"><strong>Approach</strong>: Built a structured learning path around Linux, networking, containers, and scripting, with daily hands-on labs instead of just videos.</p>
+            <p className="text-sm text-muted-foreground"><strong>Outcome</strong>: Strong fundamentals in Linux, the OSI model, and shell tooling—enough to debug real systems, not just pass quizzes.</p>
             <div className="flex flex-wrap gap-2 pt-2">
-              <Badge>GCP</Badge>
-              <Badge>CI/CD</Badge>
-              <Badge>Observability</Badge>
-              <Badge>APIs</Badge>
+              <Badge className="bg-slate-500/10 border-slate-500/30 text-slate-300">Linux</Badge>
+              <Badge className="bg-slate-500/10 border-slate-500/30 text-slate-300">Networking</Badge>
+              <Badge className="bg-slate-500/10 border-slate-500/30 text-slate-300">Bash</Badge>
+              <Badge className="bg-slate-500/10 border-slate-500/30 text-slate-300">Fundamentals</Badge>
             </div>
           </CardContent>
         </Card>
       ),
     },
     {
-      id: 'tech-consultant-pioneering',
-      title: 'Systems & Technology Consultant — Pioneering Clean',
+      id: 'architect-mindset-google-pca',
+      title: 'Architect Mindset — Google PCA',
       content: (
         <Card className="bg-card/60">
           <CardContent className="pt-6 space-y-3">
-            <p className="text-sm text-muted-foreground"><strong>Problem</strong>: Need for scalable LMS with reliable payments and content delivery.</p>
-            <p className="text-sm text-muted-foreground"><strong>Approach</strong>: Built modular LMS, integrated gateways, optimized UX and release flow.</p>
-            <p className="text-sm text-muted-foreground"><strong>Outcome</strong>: Adoption up, incidents down; release cadence increased safely.</p>
+            <p className="text-sm text-muted-foreground"><strong>Problem</strong>: I needed more than "how to click in the console"—I wanted to understand how to design secure, scalable systems end-to-end.</p>
+            <p className="text-sm text-muted-foreground"><strong>Approach</strong>: Went deep into Google Cloud architecture: IAM, networking, storage, and resilience patterns. Worked through case studies and built small reference architectures.</p>
+            <p className="text-sm text-muted-foreground"><strong>Outcome</strong>: Passed the Google Professional Cloud Architect exam and gained confidence designing multi-tier, secure cloud solutions.</p>
             <div className="flex flex-wrap gap-2 pt-2">
-              <Badge>React</Badge>
-              <Badge>Payments</Badge>
-              <Badge>Blue/Green</Badge>
-              <Badge>Metrics</Badge>
+              <Badge className="bg-blue-500/10 border-blue-500/30 text-blue-300">GCP</Badge>
+              <Badge className="bg-blue-500/10 border-blue-500/30 text-blue-300">IAM</Badge>
+              <Badge className="bg-blue-500/10 border-blue-500/30 text-blue-300">VPC</Badge>
+              <Badge className="bg-blue-500/10 border-blue-500/30 text-blue-300">Architecture</Badge>
             </div>
           </CardContent>
         </Card>
       ),
     },
     {
-      id: 'entrepreneur-freelancer',
-      title: 'Entrepreneur & Freelancer — Self-Employed',
+      id: 'platform-thinking-homelab-gitops',
+      title: 'Platform Thinking — Homelab & GitOps',
       content: (
         <Card className="bg-card/60">
           <CardContent className="pt-6 space-y-3">
-            <p className="text-sm text-muted-foreground"><strong>Problem</strong>: Regulated clients needed secure automation and reliable integrations.</p>
-            <p className="text-sm text-muted-foreground"><strong>Approach</strong>: Automated CRM and data pipelines, enforced IAM/RBAC, added alerting.</p>
-            <p className="text-sm text-muted-foreground"><strong>Outcome</strong>: Compliance workflows automated; fewer manual errors and faster SLAs.</p>
+            <p className="text-sm text-muted-foreground"><strong>Problem</strong>: I wanted a place to experiment with "real" infrastructure—Kubernetes, GitOps, observability—without running up a massive cloud bill.</p>
+            <p className="text-sm text-muted-foreground"><strong>Approach</strong>: Built a Proxmox-backed homelab running a multi-node k3s cluster, wired up GitOps with ArgoCD, storage, ingress, and monitoring.</p>
+            <p className="text-sm text-muted-foreground"><strong>Outcome</strong>: Production-like environment where I run real services, practice upgrades, troubleshoot failures, and treat infra as code.</p>
             <div className="flex flex-wrap gap-2 pt-2">
-              <Badge>IAM</Badge>
-              <Badge>APIs</Badge>
-              <Badge>Zapier</Badge>
-              <Badge>Docs</Badge>
+              <Badge className="bg-purple-500/10 border-purple-500/30 text-purple-300">Kubernetes</Badge>
+              <Badge className="bg-purple-500/10 border-purple-500/30 text-purple-300">k3s</Badge>
+              <Badge className="bg-purple-500/10 border-purple-500/30 text-purple-300">GitOps</Badge>
+              <Badge className="bg-purple-500/10 border-purple-500/30 text-purple-300">ArgoCD</Badge>
+              <Badge className="bg-purple-500/10 border-purple-500/30 text-purple-300">Proxmox</Badge>
+            </div>
+          </CardContent>
+        </Card>
+      ),
+    },
+    {
+      id: 'product-thinking-real-applications',
+      title: 'Product Thinking — Building Real Applications',
+      content: (
+        <Card className="bg-card/60">
+          <CardContent className="pt-6 space-y-3">
+            <p className="text-sm text-muted-foreground"><strong>Problem</strong>: I needed to demonstrate end-to-end ownership—from design and development to deployment and operations—across diverse technical stacks.</p>
+            <p className="text-sm text-muted-foreground"><strong>Approach</strong>: Built and deployed production applications including an AI-powered knowledge management system, serverless lead capture with AWS Lambda/DynamoDB, and a task management platform—each showcasing different cloud-native patterns.</p>
+            <p className="text-sm text-muted-foreground"><strong>Outcome</strong>: Portfolio of working applications that demonstrate my ability to design, build, deploy, and operate real products end-to-end across multiple cloud platforms.</p>
+            <div className="flex flex-wrap gap-2 pt-2">
+              <Badge className="bg-emerald-500/10 border-emerald-500/30 text-emerald-300">AWS</Badge>
+              <Badge className="bg-emerald-500/10 border-emerald-500/30 text-emerald-300">GCP</Badge>
+              <Badge className="bg-emerald-500/10 border-emerald-500/30 text-emerald-300">Serverless</Badge>
+              <Badge className="bg-emerald-500/10 border-emerald-500/30 text-emerald-300">IaC</Badge>
+              <Badge className="bg-emerald-500/10 border-emerald-500/30 text-emerald-300">CI/CD</Badge>
             </div>
           </CardContent>
         </Card>
@@ -130,7 +151,7 @@ export default function ExperiencePage() {
     <div className="relative w-full">
       <ExperienceHero
         heading="Designing resilient cloud platforms that ship faster and fail safer"
-        subheading="Outcome-driven work across Cloud, DevOps, and Platform Engineering — positioned for Cloud Engineer, Site Reliability Engineer, or DevOps Engineer roles."
+        subheading="Outcome-driven work across DevOps, cloud infrastructure, and platform engineering — positioned for DevOps Engineer and Cloud Engineer roles."
         stats={[
           { label: 'Availability', value: '99.95%' },
           { label: 'MTTR Reduction', value: '-63%' },
@@ -190,12 +211,12 @@ export default function ExperiencePage() {
             {/* Architecture Highlights (Bento) */}
       <ArchitecturesSection />
 
-      {/* Experience Timeline */}
+      {/* DevOps Journey Timeline */}
       <section>
         <div className="container mx-auto max-w-screen-2xl py-16 px-4 sm:px-6 lg:px-8">
           <Timeline
-            title="Impact Over Time"
-            description="Problem → approach → outcome across roles"
+            title="My DevOps Journey"
+            description="From scattered knowledge to production-ready cloud infrastructure"
             data={timelineData}
           />
         </div>
@@ -208,23 +229,17 @@ export default function ExperiencePage() {
             title="Career Goals"
             subtitle="Targeting roles that leverage my unique skill set"
           />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-            <Card>
-                <CardContent className="pt-6">
-                    <Cloud className="h-8 w-8 mx-auto mb-2 text-primary" />
-                    <h3 className="text-lg font-semibold">Cloud Engineer</h3>
-                </CardContent>
-            </Card>
-            <Card>
-                <CardContent className="pt-6">
-                    <Settings className="h-8 w-8 mx-auto mb-2 text-primary" />
-                    <h3 className="text-lg font-semibold">Site Reliability Engineer</h3>
-                </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center max-w-2xl mx-auto">
             <Card>
                 <CardContent className="pt-6">
                     <GitBranch className="h-8 w-8 mx-auto mb-2 text-primary" />
                     <h3 className="text-lg font-semibold">DevOps Engineer</h3>
+                </CardContent>
+            </Card>
+            <Card>
+                <CardContent className="pt-6">
+                    <Cloud className="h-8 w-8 mx-auto mb-2 text-primary" />
+                    <h3 className="text-lg font-semibold">Cloud Engineer</h3>
                 </CardContent>
             </Card>
           </div>
@@ -271,7 +286,7 @@ export default function ExperiencePage() {
       <section className="pb-16 md:pb-24">
         <div className="container mx-auto max-w-screen-2xl text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold tracking-tight text-primary">Design review or migration chat?</h2>
-          <p className="mt-4 text-lg text-muted-foreground">Cloud Engineer, Site Reliability Engineer, or DevOps Engineer — I can help accelerate outcomes.</p>
+          <p className="mt-4 text-lg text-muted-foreground">DevOps Engineer or Cloud Engineer — I can help accelerate outcomes.</p>
           <div className="mt-6 flex items-center justify-center gap-4">
             <Button asChild size="lg">
               <Link href="mailto:example@gmail.com">Request a review</Link>

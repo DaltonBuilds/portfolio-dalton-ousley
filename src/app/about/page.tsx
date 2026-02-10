@@ -56,18 +56,69 @@ function TerminalWidget() {
         </div>
         <span className="text-xs text-blue-200/70 truncate">dalton@homelab:~</span>
       </div>
-      <div className="px-2 sm:px-4 py-3 font-mono text-xs sm:text-[13px] md:text-sm overflow-x-auto">
-        <div className="text-blue-300 whitespace-nowrap">$ kubectl get pods -n observability</div>
-        <pre className="mt-1 text-blue-100/90 text-xs overflow-x-auto whitespace-pre">NAME                        READY   STATUS    RESTARTS   AGE
-grafana-6c9dbbd666-ck9v2   1/1     Running   0          3d
-prometheus-768b9b9f7c-z2s4q 2/2     Running   1          3d</pre>
-        <div className="mt-3 text-blue-300 whitespace-nowrap">$ helm ls -n automation</div>
-        <pre className="mt-1 text-blue-100/90 text-xs overflow-x-auto whitespace-pre">NAME    NAMESPACE   REVISION  UPDATED             STATUS   CHART
-n8n     automation  4         2025-01-01 12:00    deployed n8n-0.21.0</pre>
-        <div className="mt-3 text-blue-300 whitespace-nowrap">$ terraform plan</div>
-        <pre className="mt-1 text-green-300/90 text-xs overflow-x-auto whitespace-pre">Plan: 3 to add, 0 to change, 0 to destroy</pre>
+      <div className="px-2 sm:px-4 py-3 font-mono text-xs sm:text-[13px] md:text-sm">
+        <div className="text-blue-300">$ kubectl get pods -n observability</div>
+        <div className="mt-1 text-blue-100/90 text-[11px] sm:text-xs overflow-x-auto">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr>
+                <th className="text-left pr-4 font-normal">NAME</th>
+                <th className="text-left pr-4 font-normal">READY</th>
+                <th className="text-left pr-4 font-normal">STATUS</th>
+                <th className="text-left pr-4 font-normal">RESTARTS</th>
+                <th className="text-left font-normal">AGE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="pr-4">grafana-6c9dbbd666-ck9v2</td>
+                <td className="pr-4">1/1</td>
+                <td className="pr-4">Running</td>
+                <td className="pr-4">0</td>
+                <td>3d</td>
+              </tr>
+              <tr>
+                <td className="pr-4">prometheus-768b9b9f7c-z2s4q</td>
+                <td className="pr-4">2/2</td>
+                <td className="pr-4">Running</td>
+                <td className="pr-4">1</td>
+                <td>3d</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div className="mt-3 text-blue-300">$ helm ls -n automation</div>
+        <div className="mt-1 text-blue-100/90 text-[11px] sm:text-xs overflow-x-auto">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr>
+                <th className="text-left pr-4 font-normal">NAME</th>
+                <th className="text-left pr-4 font-normal">NAMESPACE</th>
+                <th className="text-left pr-4 font-normal">REVISION</th>
+                <th className="text-left pr-4 font-normal">UPDATED</th>
+                <th className="text-left pr-4 font-normal">STATUS</th>
+                <th className="text-left font-normal">CHART</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="pr-4">n8n</td>
+                <td className="pr-4">automation</td>
+                <td className="pr-4">4</td>
+                <td className="pr-4 whitespace-nowrap">2025-01-01 12:00</td>
+                <td className="pr-4">deployed</td>
+                <td>n8n-0.21.0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div className="mt-3 text-blue-300">$ terraform plan</div>
+        <div className="mt-1 text-green-300/90 text-xs">Plan: 3 to add, 0 to change, 0 to destroy</div>
+        
         <div className="mt-3 flex items-center gap-2 text-orange-300">
-          <span className="text-blue-200/70 truncate">dalton@homelab</span>
+          <span className="text-blue-200/70">dalton@homelab</span>
           <span className="text-blue-200/50">$</span>
           <span className="inline-block h-4 w-1 bg-blue-100 animate-blink" />
         </div>
@@ -148,8 +199,7 @@ export default function AboutPage() {
               <p className="mt-4 text-foreground/90">
                 I started in digital marketing, but quickly discovered my passion for the technical side of things —
                 from CRMs and APIs to workflows, compliance, and cloud systems. Today, I’m pursuing a career that blends
-                <strong> technical depth with customer success</strong>, aiming to become a <strong>Technical Account Manager, Cloud Engineer,
-                or Solutions Architect</strong>.
+                <strong> DevOps Engineer</strong>, with a focus on cloud infrastructure, automation, and reliability engineering.
               </p>
             </CardContent>
           </Card>
@@ -326,9 +376,9 @@ export default function AboutPage() {
           <Card>
             <CardContent className="flex flex-col items-start gap-6 pt-6 md:flex-row md:items-center md:justify-between">
               <p className="max-w-3xl text-foreground/90">
-                I’m eager to join a forward-thinking team as a <strong>TAM, Cloud Engineer, or Solutions Architect</strong>.
-                My blend of entrepreneurial drive, technical expertise, and customer-facing experience fits roles that
-                require both technical depth and business alignment.
+                I’m eager to join a forward-thinking team as a <strong>DevOps Engineer or Cloud Engineer</strong>.
+                My blend of entrepreneurial drive, technical expertise, and hands-on infrastructure experience fits roles that
+                require both technical depth and operational excellence.
               </p>
               <div className="flex gap-3">
                 <Button onClick={openContactModal}>
