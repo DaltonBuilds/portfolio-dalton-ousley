@@ -5,6 +5,7 @@ import { BlogPostHeader } from '@/components/blog/BlogPostHeader'
 import { BlogPostContent } from '@/components/blog/BlogPostContent'
 import { BlogNavigation } from '@/components/blog/BlogNavigation'
 import { AuthorCard } from '@/components/blog/AuthorCard'
+import { ProjectMetadata } from '@/components/blog/ProjectMetadata'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -78,6 +79,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <article className="min-h-screen bg-background">
       {/* Post Header */}
       <BlogPostHeader post={post} author={author} />
+
+      {/* Project Metadata - appears prominently after header for project posts */}
+      <ProjectMetadata post={post} />
 
       {/* Post Content */}
       <div className="container mx-auto max-w-screen-2xl py-16 px-4">

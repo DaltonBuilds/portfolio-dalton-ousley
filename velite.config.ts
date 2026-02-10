@@ -36,6 +36,13 @@ const posts = defineCollection({
         })
         .default({}),
       body: s.mdx(),
+      
+      // Project-specific fields
+      projectCategory: s.string().optional(),
+      projectStatus: s.enum(['Completed', 'In Progress', 'Not Started']).optional(),
+      techStack: s.array(s.string()).default([]),
+      projectUrl: s.string().url().optional(),
+      githubUrl: s.string().url().optional(),
     })
     .transform((data) => ({
       ...data,
