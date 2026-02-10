@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import { Briefcase, Zap, Rocket, Cloud, Settings, GitBranch } from 'lucide-react';
+import { Cloud, GitBranch } from 'lucide-react';
 
 import SectionHeader from '@/components/SectionHeader';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import ExperienceHero from '@/components/experience/ExperienceHero';
 import { Timeline } from '@/components/ui/timeline';
@@ -11,6 +11,9 @@ import { CommandCenterDashboard } from '@/components/CommandCenterDashboard';
 import { InteractiveSkillsGrid } from '@/components/InteractiveSkillsGrid';
 import { TerminalPhilosophy } from '@/components/TerminalPhilosophy';
 import ArchitecturesSection from '@/components/experience/ArchitecturesSection';
+import FeaturedProjectsSection from '@/components/experience/FeaturedProjectsSection';
+import { posts } from '../../../.velite';
+import { getProjectPosts, getFeaturedProjects } from '@/lib/projects';
 
 export const metadata = {
   title: 'Experience — Dalton Ousley',
@@ -28,45 +31,10 @@ function Badge({ children, className }: { children: React.ReactNode; className?:
   );
 }
 
-const roles = [
-    {
-      title: 'Software Solutions Architect',
-      company: 'CleanCore',
-      icon: <Rocket className="h-6 w-6 text-primary" />,
-      description: 'Architected AI-powered CRM systems and led client onboarding programs.',
-      items: [
-        'Architected AI-powered CRM systems with automated lead scoring & chatbots',
-        'Collaborated on custom engineered fixes & enhancements',
-        'Reduced churn by designing effective onboarding programs',
-      ],
-    },
-    {
-      title: 'Systems & Technology Consultant',
-      company: 'Pioneering Clean',
-      icon: <Zap className="h-6 w-6 text-primary" />,
-      description: 'Developed an LMS platform and improved user adoption through UX enhancements.',
-      items: [
-        'Developed a full-scale online learning management platform (LMS)',
-        'Integrated payment gateways & course hosting solutions',
-        'Led UX enhancements to refine user flows & boost adoption',
-      ],
-    },
-    {
-      title: 'Entrepreneur & Freelancer',
-      company: 'Self-Employed',
-      icon: <Briefcase className="h-6 w-6 text-primary" />,
-      description: 'Delivered CRM automation and API integrations for clients in regulated industries.',
-      items: [
-        'Delivered CRM automation & SaaS onboarding for regulated industries',
-        'Designed Zapier and custom automation workflows',
-        'Provided technical training & documentation for business teams',
-      ],
-    },
-  ];
-
-
-
 export default function ExperiencePage() {
+  // Get featured projects for the experience page
+  const allProjects = getProjectPosts(posts);
+  const featuredProjects = getFeaturedProjects(allProjects);
   const timelineData = [
     {
       id: 'foundations-learning-pivot',
@@ -180,33 +148,8 @@ export default function ExperiencePage() {
         </div>
       </section>
       
-      {/* Roles & Contributions */}
-      <section>
-        <div className="container mx-auto max-w-screen-2xl py-16 px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="Roles & Contributions"
-            subtitle="Hands-on experience in diverse technical roles"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {roles.map((role) => (
-              <Card key={role.title} className="flex flex-col">
-                <CardHeader className="flex-row items-start gap-4 space-y-0">
-                    {role.icon}
-                    <div className="flex-1">
-                        <CardTitle>{role.title}</CardTitle>
-                        <CardDescription>{role.company}</CardDescription>
-                    </div>
-                </CardHeader>
-                <CardContent className="flex-1">
-                  <ul className="list-disc list-inside space-y-2 text-sm text-foreground/80">
-                    {role.items.map((item, index) => <li key={index}>{item}</li>)}
-                  </ul>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Featured Projects */}
+      <FeaturedProjectsSection projects={featuredProjects} />
       
             {/* Architecture Highlights (Bento) */}
       <ArchitecturesSection />

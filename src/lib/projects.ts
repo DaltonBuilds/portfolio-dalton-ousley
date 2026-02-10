@@ -135,6 +135,18 @@ export function getProjectCountsByStatus(projects: ProjectPost[]): Record<Projec
 }
 
 /**
+ * Gets projects marked as featured for the experience page
+ * 
+ * @param projects - Array of project posts
+ * @returns Array of featured projects sorted by date (newest first)
+ */
+export function getFeaturedProjects(projects: ProjectPost[]): ProjectPost[] {
+  return projects
+    .filter(project => project.featuredOnExperience === true)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+}
+
+/**
  * Groups project posts by their series field
  * Posts within each series are sorted by seriesOrder
  * Posts without a series are excluded from the result

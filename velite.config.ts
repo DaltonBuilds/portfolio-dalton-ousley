@@ -43,6 +43,7 @@ const posts = defineCollection({
       techStack: s.array(s.string()).default([]),
       projectUrl: s.string().url().optional(),
       githubUrl: s.string().url().optional(),
+      featuredOnExperience: s.boolean().default(false),
     })
     .transform((data) => ({
       ...data,

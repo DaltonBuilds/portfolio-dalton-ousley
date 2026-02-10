@@ -299,8 +299,10 @@ function SystemMonitor({ component, delay = 0 }: { component: SystemComponent; d
 
 function AlertPanel() {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
@@ -312,8 +314,8 @@ function AlertPanel() {
           <AlertTriangle className="w-4 h-4" />
           <span className="font-medium">System Status</span>
         </div>
-        <div className="text-xs text-gray-400 font-mono">
-          {currentTime.toLocaleTimeString()}
+        <div className="text-xs text-gray-400 font-mono" suppressHydrationWarning>
+          {mounted ? currentTime.toLocaleTimeString() : '--:--:--'}
         </div>
       </div>
       

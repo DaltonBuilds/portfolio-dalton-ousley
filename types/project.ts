@@ -43,6 +43,7 @@ export interface ProjectPost {
   techStack: string[]
   projectUrl?: string
   githubUrl?: string
+  featuredOnExperience?: boolean
 }
 
 /**
