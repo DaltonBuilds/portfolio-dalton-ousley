@@ -58,8 +58,10 @@ const Hero: React.FC = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="text-lg px-8 py-6" aria-label="Download Dalton Ousley's CV">
-            <ArrowDownToLine className="mr-2 h-5 w-5" aria-hidden="true" /> Download CV
+          <Button size="lg" className="text-lg px-8 py-6" aria-label="Download Dalton Ousley's CV" asChild>
+            <a href="/dalton-ousley-resume.pdf" download>
+              <ArrowDownToLine className="mr-2 h-5 w-5" aria-hidden="true" /> Download CV
+            </a>
           </Button>
           <Button 
             variant="outline" 
