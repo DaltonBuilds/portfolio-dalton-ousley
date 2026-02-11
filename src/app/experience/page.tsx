@@ -7,10 +7,8 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import ExperienceHero from '@/components/experience/ExperienceHero';
 import { Timeline } from '@/components/ui/timeline';
-import { CommandCenterDashboard } from '@/components/CommandCenterDashboard';
 import { InteractiveSkillsGrid } from '@/components/InteractiveSkillsGrid';
 import { TerminalPhilosophy } from '@/components/TerminalPhilosophy';
-import ArchitecturesSection from '@/components/experience/ArchitecturesSection';
 import FeaturedProjectsSection from '@/components/experience/FeaturedProjectsSection';
 import { posts } from '../../../.velite';
 import { getProjectPosts, getFeaturedProjects } from '@/lib/projects';
@@ -18,7 +16,7 @@ import { getProjectPosts, getFeaturedProjects } from '@/lib/projects';
 export const metadata = {
   title: 'Experience — Dalton Ousley',
   description:
-    '5+ years of experience in cloud, DevOps, automation, and full-stack development. Discover my career journey, accomplishments, and skills.',
+    'DevOps engineer with hands-on experience in Kubernetes, GitOps, cloud infrastructure, and automation. Discover my journey and technical expertise.',
 };
 
 function Badge({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -35,6 +33,7 @@ export default function ExperiencePage() {
   // Get featured projects for the experience page
   const allProjects = getProjectPosts(posts);
   const featuredProjects = getFeaturedProjects(allProjects);
+  
   const timelineData = [
     {
       id: 'foundations-learning-pivot',
@@ -115,33 +114,31 @@ export default function ExperiencePage() {
       ),
     },
   ];
+
   return (
     <div className="relative w-full">
       <ExperienceHero
         heading="Designing resilient cloud platforms that ship faster and fail safer"
         subheading="Outcome-driven work across DevOps, cloud infrastructure, and platform engineering — positioned for DevOps Engineer and Cloud Engineer roles."
-        stats={[
-          { label: 'Availability', value: '99.95%' },
-          { label: 'MTTR Reduction', value: '-63%' },
-          { label: 'Deploys/Day', value: '×10' },
-          { label: 'Cost Reduction', value: '-27%' },
-        ]}
       />
 
-      {/* Professional Background */}
+      {/* Why DevOps */}
       <section>
         <div className="container mx-auto max-w-screen-2xl py-16 px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            title="Professional Background"
-            subtitle="Bridging business needs with technical execution"
+            title="Why DevOps?"
+            subtitle="From building products to building the platforms that power them"
           />
           <Card className="bg-card/60">
             <CardContent className="pt-6 text-foreground/90 space-y-4">
                 <p>
-                With 5+ years of experience as an entrepreneur, freelancer, and technical consultant, I’ve helped organizations implement solutions in cloud infrastructure, SaaS automation, and API integrations. My work has spanned compliance-heavy industries like health and life insurance, as well as SaaS startups.
+                After years of building applications and solving technical problems, I realized my passion lies in the infrastructure layer—the systems that enable teams to ship faster, fail safer, and scale reliably.
                 </p>
                 <p>
-                I thrive in cross-functional environments, collaborating with engineers, compliance officers, and business stakeholders to deliver solutions that are scalable, secure, and user-friendly.
+                I'm drawn to DevOps because it combines my love for automation, system design, and operational excellence. Whether it's designing CI/CD pipelines, implementing observability, or managing Kubernetes clusters, I thrive on making infrastructure invisible so teams can focus on delivering value.
+                </p>
+                <p>
+                My homelab isn't just a learning environment—it's where I practice the same disciplines I want to bring to a production team: GitOps workflows, infrastructure as code, monitoring, and continuous improvement.
                 </p>
             </CardContent>
           </Card>
@@ -150,9 +147,6 @@ export default function ExperiencePage() {
       
       {/* Featured Projects */}
       <FeaturedProjectsSection projects={featuredProjects} />
-      
-            {/* Architecture Highlights (Bento) */}
-      <ArchitecturesSection />
 
       {/* DevOps Journey Timeline */}
       <section>
@@ -165,50 +159,12 @@ export default function ExperiencePage() {
         </div>
       </section>
 
-      {/* Career Goals */}
-      <section >
-        <div className="container mx-auto max-w-screen-2xl py-16 px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="Career Goals"
-            subtitle="Targeting roles that leverage my unique skill set"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center max-w-2xl mx-auto">
-            <Card>
-                <CardContent className="pt-6">
-                    <GitBranch className="h-8 w-8 mx-auto mb-2 text-primary" />
-                    <h3 className="text-lg font-semibold">DevOps Engineer</h3>
-                </CardContent>
-            </Card>
-            <Card>
-                <CardContent className="pt-6">
-                    <Cloud className="h-8 w-8 mx-auto mb-2 text-primary" />
-                    <h3 className="text-lg font-semibold">Cloud Engineer</h3>
-                </CardContent>
-            </Card>
-          </div>
-          <p className="mt-6 text-center text-muted-foreground max-w-3xl mx-auto">
-            These roles leverage my expertise in cloud infrastructure, automation, and reliability engineering to build scalable systems that deliver business value and operational excellence.
-          </p>
-        </div>
-      </section>
-
-      {/* Command Center Dashboard */}
-      <section className="pb-16 md:pb-24">
-        <div className="container mx-auto max-w-screen-2xl py-16 px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="Mission Control Center"
-            subtitle="Real-time monitoring and management of enterprise cloud infrastructure"
-          />
-          <CommandCenterDashboard />
-        </div>
-      </section>
-
       {/* Interactive Skills Grid */}
       <section className="pb-16 md:pb-24">
         <div className="container mx-auto max-w-screen-2xl py-16 px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            title="Skills & Expertise"
-            subtitle="Interactive skill showcase with proficiency levels and project experience"
+            title="Technical Skills"
+            subtitle="Core competencies for DevOps and cloud engineering roles"
           />
           <InteractiveSkillsGrid />
         </div>
@@ -225,17 +181,49 @@ export default function ExperiencePage() {
         </div>
       </section>
 
+      {/* Career Goals */}
+      <section>
+        <div className="container mx-auto max-w-screen-2xl py-16 px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            title="What I'm Looking For"
+            subtitle="Ready to contribute to a team building reliable, scalable infrastructure"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <Card>
+                <CardContent className="pt-6">
+                    <GitBranch className="h-8 w-8 mx-auto mb-3 text-primary" />
+                    <h3 className="text-lg font-semibold mb-2">DevOps Engineer</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Building CI/CD pipelines, managing Kubernetes clusters, and implementing infrastructure as code to accelerate delivery.
+                    </p>
+                </CardContent>
+            </Card>
+            <Card>
+                <CardContent className="pt-6">
+                    <Cloud className="h-8 w-8 mx-auto mb-3 text-primary" />
+                    <h3 className="text-lg font-semibold mb-2">Cloud Engineer</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Designing and operating cloud infrastructure with focus on reliability, security, and cost optimization.
+                    </p>
+                </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="pb-16 md:pb-24">
         <div className="container mx-auto max-w-screen-2xl text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold tracking-tight text-primary">Design review or migration chat?</h2>
-          <p className="mt-4 text-lg text-muted-foreground">DevOps Engineer or Cloud Engineer — I can help accelerate outcomes.</p>
+          <h2 className="text-3xl font-bold tracking-tight text-primary">Let's build something reliable together</h2>
+          <p className="mt-4 text-lg text-muted-foreground">
+            I'm actively seeking DevOps and Cloud Engineering roles where I can contribute to infrastructure that matters.
+          </p>
           <div className="mt-6 flex items-center justify-center gap-4">
             <Button asChild size="lg">
-              <Link href="mailto:example@gmail.com">Request a review</Link>
+              <Link href="mailto:example@gmail.com">Get in touch</Link>
             </Button>
             <Button asChild variant="secondary" size="lg">
-              <Link href="/about">See how I work</Link>
+              <Link href="/projects">View my projects</Link>
             </Button>
           </div>
         </div>

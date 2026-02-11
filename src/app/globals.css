@@ -436,6 +436,35 @@ figure[data-rehype-pretty-code-figure] .copy-button.copied svg {
       linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
     background-size: 20px 20px;
     overflow-x: hidden;
+    position: relative;
+  }
+  
+  /* Horizontal fade overlay to reduce grid intensity in center */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      hsl(var(--background) / 0.5) 15%,
+      hsl(var(--background) / 0.9) 30%,
+      hsl(var(--background)) 50%,
+      hsl(var(--background) / 0.9) 70%,
+      hsl(var(--background) / 0.5) 85%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  /* Ensure content appears above the overlay */
+  body > * {
+    position: relative;
+    z-index: 1;
   }
   input:focus,
   input:focus-visible,

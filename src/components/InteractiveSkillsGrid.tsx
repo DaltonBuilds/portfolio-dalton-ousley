@@ -7,16 +7,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Code2, 
   Cloud, 
-  Zap, 
   GitBranch, 
-  Monitor, 
-  Database,
-  Network
+  Monitor,
+  Container,
+  Network,
+  Shield,
+  Boxes
 } from 'lucide-react';
 
 interface Skill {
   name: string;
-  category: 'Programming' | 'Cloud' | 'Automation';
+  category: 'Container Orchestration' | 'CI/CD & GitOps' | 'Observability' | 'IaC & Cloud';
   proficiency: number; // 1-5
   icon: React.ReactNode;
   description: string;
@@ -24,146 +25,171 @@ interface Skill {
 }
 
 const skillsData: Skill[] = [
-  {
-    name: 'JavaScript',
-    category: 'Programming',
-    proficiency: 5,
-    icon: <Code2 className="w-5 h-5" />,
-    description: 'Full-stack development with modern frameworks',
-    projects: ['AI-powered CRM', 'LMS Platform']
-  },
-  {
-    name: 'TypeScript',
-    category: 'Programming',
-    proficiency: 5,
-    icon: <Code2 className="w-5 h-5" />,
-    description: 'Type-safe development for scalable applications',
-    projects: ['Portfolio', 'Enterprise APIs']
-  },
-  {
-    name: 'Python',
-    category: 'Programming',
-    proficiency: 4,
-    icon: <Code2 className="w-5 h-5" />,
-    description: 'Automation, data processing, and ML workflows',
-    projects: ['Data Pipelines', 'Automation Scripts']
-  },
-  {
-    name: 'React',
-    category: 'Programming',
-    proficiency: 5,
-    icon: <Code2 className="w-5 h-5" />,
-    description: 'Component-based UI development',
-    projects: ['LMS Frontend', 'Dashboard UIs']
-  },
-  {
-    name: 'Next.js',
-    category: 'Programming',
-    proficiency: 5,
-    icon: <Code2 className="w-5 h-5" />,
-    description: 'Full-stack React applications with SSR/SSG',
-    projects: ['Portfolio', 'Client Websites']
-  },
-  {
-    name: 'SQL',
-    category: 'Programming',
-    proficiency: 4,
-    icon: <Database className="w-5 h-5" />,
-    description: 'Database design and complex queries',
-    projects: ['CRM Analytics', 'Reporting Systems']
-  },
+  // Container Orchestration
   {
     name: 'Kubernetes',
-    category: 'Cloud',
+    category: 'Container Orchestration',
     proficiency: 4,
-    icon: <Cloud className="w-5 h-5" />,
-    description: 'Container orchestration and cluster management',
-    projects: ['GKE Platform', 'Microservices Deploy']
+    icon: <Boxes className="w-5 h-5" />,
+    description: 'Multi-node k3s cluster with production workloads',
+    projects: ['Homelab K3s', 'ArgoCD Platform']
   },
   {
     name: 'Docker',
-    category: 'Cloud',
+    category: 'Container Orchestration',
     proficiency: 5,
-    icon: <Cloud className="w-5 h-5" />,
-    description: 'Containerization and multi-stage builds',
-    projects: ['CI/CD Pipelines', 'Dev Environments']
+    icon: <Container className="w-5 h-5" />,
+    description: 'Multi-stage builds, optimization, and orchestration',
+    projects: ['Lambda Functions', 'Dev Environments']
   },
   {
-    name: 'CI/CD',
-    category: 'Cloud',
+    name: 'Helm',
+    category: 'Container Orchestration',
+    proficiency: 4,
+    icon: <Boxes className="w-5 h-5" />,
+    description: 'Package management and templating for K8s',
+    projects: ['Homelab Services', 'App Deployments']
+  },
+  
+  // CI/CD & GitOps
+  {
+    name: 'ArgoCD',
+    category: 'CI/CD & GitOps',
+    proficiency: 4,
+    icon: <GitBranch className="w-5 h-5" />,
+    description: 'GitOps continuous delivery with App-of-Apps',
+    projects: ['Homelab GitOps', 'Declarative Config']
+  },
+  {
+    name: 'GitHub Actions',
+    category: 'CI/CD & GitOps',
     proficiency: 5,
     icon: <GitBranch className="w-5 h-5" />,
-    description: 'Automated deployment pipelines',
-    projects: ['GitHub Actions', 'Blue/Green Deploy']
+    description: 'Automated CI/CD pipelines and workflows',
+    projects: ['Portfolio Deploy', 'Lambda Build']
+  },
+  {
+    name: 'GitLab CI',
+    category: 'CI/CD & GitOps',
+    proficiency: 4,
+    icon: <GitBranch className="w-5 h-5" />,
+    description: 'Pipeline automation and deployment workflows',
+    projects: ['Enterprise CI/CD', 'Multi-stage Pipelines']
+  },
+  {
+    name: 'Git',
+    category: 'CI/CD & GitOps',
+    proficiency: 5,
+    icon: <GitBranch className="w-5 h-5" />,
+    description: 'Version control and collaboration',
+    projects: ['All Projects', 'GitOps Repo']
+  },
+  
+  // Observability
+  {
+    name: 'Prometheus',
+    category: 'Observability',
+    proficiency: 4,
+    icon: <Monitor className="w-5 h-5" />,
+    description: 'Metrics collection and time-series monitoring',
+    projects: ['Homelab Monitoring', 'Cluster Metrics']
   },
   {
     name: 'Grafana',
-    category: 'Cloud',
+    category: 'Observability',
     proficiency: 4,
     icon: <Monitor className="w-5 h-5" />,
-    description: 'Observability dashboards and alerting',
-    projects: ['SRE Monitoring', 'Performance Tracking']
+    description: 'Visualization dashboards and alerting',
+    projects: ['Infrastructure Dashboards', 'SLO Tracking']
   },
   {
-    name: 'Prometheus',
-    category: 'Cloud',
+    name: 'Alertmanager',
+    category: 'Observability',
+    proficiency: 3,
+    icon: <Monitor className="w-5 h-5" />,
+    description: 'Alert routing and notification management',
+    projects: ['Homelab Alerts', 'Incident Response']
+  },
+  {
+    name: 'Uptime Kuma',
+    category: 'Observability',
     proficiency: 4,
     icon: <Monitor className="w-5 h-5" />,
-    description: 'Metrics collection and time-series data',
-    projects: ['Infrastructure Monitoring', 'SLO Tracking']
+    description: 'Service uptime monitoring and status pages',
+    projects: ['Service Health', 'Availability Tracking']
   },
+  
+  // IaC & Cloud
   {
-    name: 'GoHighLevel',
-    category: 'Automation',
-    proficiency: 5,
-    icon: <Zap className="w-5 h-5" />,
-    description: 'CRM automation and funnel optimization',
-    projects: ['Client Onboarding', 'Lead Scoring']
-  },
-  {
-    name: 'HubSpot',
-    category: 'Automation',
+    name: 'Terraform',
+    category: 'IaC & Cloud',
     proficiency: 4,
-    icon: <Zap className="w-5 h-5" />,
-    description: 'Marketing automation and CRM integration',
-    projects: ['Sales Workflows', 'Customer Journey']
+    icon: <Cloud className="w-5 h-5" />,
+    description: 'Infrastructure as code for cloud resources',
+    projects: ['AWS Backend', 'Lambda Infrastructure']
   },
   {
-    name: 'Zapier',
-    category: 'Automation',
-    proficiency: 5,
-    icon: <Zap className="w-5 h-5" />,
-    description: 'No-code automation and API integrations',
-    projects: ['Workflow Automation', 'Data Sync']
-  },
-  {
-    name: 'API Integrations',
-    category: 'Automation',
-    proficiency: 5,
-    icon: <Network className="w-5 h-5" />,
-    description: 'RESTful APIs and webhook implementations',
-    projects: ['Payment Gateways', 'Third-party Integrations']
-  },
-  {
-    name: 'Webhooks',
-    category: 'Automation',
+    name: 'AWS',
+    category: 'IaC & Cloud',
     proficiency: 4,
-    icon: <Network className="w-5 h-5" />,
-    description: 'Event-driven automation and real-time sync',
-    projects: ['Real-time Updates', 'Event Processing']
-  }
+    icon: <Cloud className="w-5 h-5" />,
+    description: 'Lambda, DynamoDB, API Gateway, EventBridge',
+    projects: ['Lead Capture', 'Serverless Backend']
+  },
+  {
+    name: 'GCP',
+    category: 'IaC & Cloud',
+    proficiency: 4,
+    icon: <Cloud className="w-5 h-5" />,
+    description: 'Professional Cloud Architect certified',
+    projects: ['Cloud Architecture', 'GKE Deployments']
+  },
+  {
+    name: 'Azure',
+    category: 'IaC & Cloud',
+    proficiency: 3,
+    icon: <Cloud className="w-5 h-5" />,
+    description: 'AKS cluster deployment and management',
+    projects: ['AKS Cluster', 'Azure Infrastructure']
+  },
+  {
+    name: 'Cloudflare',
+    category: 'IaC & Cloud',
+    proficiency: 4,
+    icon: <Shield className="w-5 h-5" />,
+    description: 'Tunnel, Zero Trust, DNS, edge security',
+    projects: ['Homelab Ingress', 'Secure Access']
+  },
+  {
+    name: 'Linux',
+    category: 'IaC & Cloud',
+    proficiency: 5,
+    icon: <Code2 className="w-5 h-5" />,
+    description: 'System administration and shell scripting',
+    projects: ['Homelab Servers', 'Automation Scripts']
+  },
+  {
+    name: 'Bash',
+    category: 'IaC & Cloud',
+    proficiency: 5,
+    icon: <Code2 className="w-5 h-5" />,
+    description: 'Shell scripting and automation',
+    projects: ['Build Scripts', 'Infrastructure Setup']
+  },
 ];
 
 const categoryColors = {
-  'Programming': 'bg-blue-500/10 text-blue-600 border-blue-500/20',
-  'Cloud': 'bg-green-500/10 text-green-600 border-green-500/20',
-  'Automation': 'bg-orange-500/10 text-orange-600 border-orange-500/20'
+  'Container Orchestration': 'bg-blue-500/10 text-blue-600 border-blue-500/20',
+  'CI/CD & GitOps': 'bg-purple-500/10 text-purple-600 border-purple-500/20',
+  'Observability': 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20',
+  'IaC & Cloud': 'bg-green-500/10 text-green-600 border-green-500/20'
 };
 
 const categoryIcons = {
-  'Programming': <Code2 className="w-4 h-4" />,
-  'Cloud': <Cloud className="w-4 h-4" />,
-  'Automation': <Zap className="w-4 h-4" />
+  'Container Orchestration': <Container className="w-4 h-4" />,
+  'CI/CD & GitOps': <GitBranch className="w-4 h-4" />,
+  'Observability': <Monitor className="w-4 h-4" />,
+  'IaC & Cloud': <Cloud className="w-4 h-4" />
 };
 
 function ProficiencyBar({ level }: { level: number }) {
@@ -224,7 +250,6 @@ function SkillCard({ skill, isActive, onClick }: {
             </div>
             <Badge className={`text-xs ${categoryColors[skill.category]}`}>
               <span aria-hidden="true">{categoryIcons[skill.category]}</span>
-              <span className="ml-1">{skill.category}</span>
             </Badge>
           </div>
           
@@ -234,7 +259,7 @@ function SkillCard({ skill, isActive, onClick }: {
               <ProficiencyBar level={skill.proficiency} />
             </div>
             
-            <p className="text-xs text-muted-foreground line-clamp-2">
+            <p className="text-xs text-muted-foreground line-clamp-1">
               {skill.description}
             </p>
           </div>
@@ -272,7 +297,7 @@ export function InteractiveSkillsGrid() {
     ? skillsData.filter(skill => skill.category === selectedCategory)
     : skillsData;
 
-  const categories = ['Programming', 'Cloud', 'Automation'] as const;
+  const categories = ['Container Orchestration', 'CI/CD & GitOps', 'Observability', 'IaC & Cloud'] as const;
 
   return (
     <div className="space-y-6">
@@ -307,7 +332,7 @@ export function InteractiveSkillsGrid() {
             aria-label={`Filter skills by ${category}`}
           >
             <span aria-hidden="true">{categoryIcons[category]}</span>
-            {category}
+            <span className="hidden sm:inline">{category}</span>
           </motion.button>
         ))}
       </div>
@@ -339,33 +364,7 @@ export function InteractiveSkillsGrid() {
         </AnimatePresence>
       </motion.div>
 
-      {/* Summary Stats */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="flex justify-center gap-8 pt-4 text-center"
-      >
-        {categories.map((category) => {
-          const categorySkills = skillsData.filter(s => s.category === category);
-          const avgProficiency = categorySkills.reduce((acc, s) => acc + s.proficiency, 0) / categorySkills.length;
-          
-          return (
-            <div key={category} className="space-y-1">
-              <div className="flex items-center gap-2 text-sm font-medium">
-                {categoryIcons[category]}
-                {category}
-              </div>
-              <div className="text-2xl font-bold text-primary">
-                {categorySkills.length}
-              </div>
-              <div className="text-xs text-muted-foreground">
-                Avg: {avgProficiency.toFixed(1)}/5
-              </div>
-            </div>
-          );
-        })}
-      </motion.div>
+
     </div>
   );
 }
