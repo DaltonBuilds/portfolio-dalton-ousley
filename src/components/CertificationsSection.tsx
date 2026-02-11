@@ -3,13 +3,9 @@
 import React, { forwardRef, useRef } from 'react';
 import SectionHeader from './SectionHeader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { BadgeCheck, CircleDashed, Search } from 'lucide-react';
+import { BadgeCheck, CircleDashed } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { AnimatedBeam } from '@/components/magicui/animated-beam';
 import Image from 'next/image';
-import PythonIcon from './icons/PythonIcon';
-import JavaScriptIcon from './icons/JavaScriptIcon';
-import ReactIcon from './icons/ReactIcon';
 import GoogleCloudIcon from './icons/GoogleCloudIcon';
 import KubernetesIcon from './icons/KubernetesIcon';
 import LinuxIcon from './icons/LinuxIcon';
@@ -45,30 +41,6 @@ const certificationsData: Record<string, Certification> = {
         Icon: LinuxIcon,
         imageSrc: '/Linux.svg',
         progress: 30,
-    },
-    'seo': {
-        title: 'Advanced SEO Certification',
-        status: 'Completed',
-        Icon: Search,
-        link: 'https://www.linkedin.com/in/dalton-ousley/',
-    },
-    'python': {
-        title: 'Python Fundamentals',
-        status: 'Completed',
-        Icon: PythonIcon,
-        link: 'https://www.linkedin.com/in/dalton-ousley/',
-    },
-    'javascript': {
-        title: 'Modern JavaScript',
-        status: 'Completed',
-        Icon: JavaScriptIcon,
-        link: 'https://www.linkedin.com/in/dalton-ousley/',
-    },
-    'react': {
-        title: 'React Developer',
-        status: 'Completed',
-        Icon: ReactIcon,
-        link: 'https://www.linkedin.com/in/dalton-ousley/',
     },
 };
 
@@ -171,25 +143,20 @@ export function CertificationsSection() {
     const pcaRef = useRef<HTMLDivElement>(null);
     const ckaRef = useRef<HTMLDivElement>(null);
     const lpic1Ref = useRef<HTMLDivElement>(null);
-    const seoRef = useRef<HTMLDivElement>(null);
-    const pythonRef = useRef<HTMLDivElement>(null);
-    const javascriptRef = useRef<HTMLDivElement>(null);
-    const reactRef = useRef<HTMLDivElement>(null);
 
     return (
         <section id="certifications" className="py-20 sm:py-32">
             <div className="container mx-auto px-4">
                 <SectionHeader
                     title="Certifications"
-                    subtitle="A timeline of my ongoing and completed technical certifications."
+                    subtitle="Cloud and infrastructure certifications focused on production-ready skills"
                     command="cat /var/log/certifications.log"
                     className="px-4"
                 />
                 
                 {/* Glassmorphism container with tree connectors */}
                 <div className="mt-12 glass rounded-2xl p-8 md:p-12 border border-primary/20 shadow-2xl shadow-primary/5 relative">
-                    {/* Horizontal connector line spanning both columns - hidden on mobile */}
-                    <div className="hidden md:block absolute top-[3.5rem] left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-transparent via-orange-500 to-transparent" aria-hidden="true"></div>
+
                     
                     <div
                         className="relative flex w-full flex-col items-center justify-center"
@@ -218,27 +185,7 @@ export function CertificationsSection() {
                                     {/* Vertical line down from category - hidden on mobile */}
                                     <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
                                 </div>
-                                <div className="relative">
-                                    <CertificationNode id="pca" ref={pcaRef} />
-                                    {/* Vertical connector to next card */}
-                                    <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
-                                </div>
-                                <div className="relative">
-                                    <CertificationNode id="seo" ref={seoRef} />
-                                    {/* Vertical connector to next card */}
-                                    <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
-                                </div>
-                                <div className="relative">
-                                    <CertificationNode id="python" ref={pythonRef} />
-                                    {/* Vertical connector to next card */}
-                                    <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
-                                </div>
-                                <div className="relative">
-                                    <CertificationNode id="javascript" ref={javascriptRef} />
-                                    {/* Vertical connector to next card */}
-                                    <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
-                                </div>
-                                <CertificationNode id="react" ref={reactRef} />
+                                <CertificationNode id="pca" ref={pcaRef} />
                             </div>
                         </div>
                     </div>

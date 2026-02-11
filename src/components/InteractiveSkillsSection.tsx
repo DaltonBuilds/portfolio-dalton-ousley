@@ -185,14 +185,21 @@ export function InteractiveSkillsSection() {
                     {/* Tech Stack Pills */}
                     <div className="mt-12 flex flex-wrap justify-center gap-2">
                         {[
-                            { label: "Kubernetes", color: "bg-cyan-500/10 border-cyan-500/30 text-cyan-300" },
+                            { label: "k3s", color: "bg-cyan-500/10 border-cyan-500/30 text-cyan-300" },
                             { label: "ArgoCD", color: "bg-blue-500/10 border-blue-500/30 text-blue-300" },
                             { label: "Terraform", color: "bg-purple-500/10 border-purple-500/30 text-purple-300" },
-                            { label: "AWS", color: "bg-orange-500/10 border-orange-500/30 text-orange-300" },
+                            { label: "Proxmox", color: "bg-pink-500/10 border-pink-500/30 text-pink-300" },
+                            { label: "MetalLB", color: "bg-cyan-500/10 border-cyan-500/30 text-cyan-300" },
+                            { label: "Traefik", color: "bg-green-500/10 border-green-500/30 text-green-300" },
+                            { label: "AWS Lambda", color: "bg-orange-500/10 border-orange-500/30 text-orange-300" },
+                            { label: "DynamoDB", color: "bg-orange-500/10 border-orange-500/30 text-orange-300" },
                             { label: "GCP", color: "bg-sky-500/10 border-sky-500/30 text-sky-300" },
                             { label: "Prometheus", color: "bg-amber-500/10 border-amber-500/30 text-amber-300" },
                             { label: "Grafana", color: "bg-emerald-500/10 border-emerald-500/30 text-emerald-300" },
                             { label: "GitHub Actions", color: "bg-blue-500/10 border-blue-500/30 text-blue-300" },
+                            { label: "Helm", color: "bg-blue-500/10 border-blue-500/30 text-blue-300" },
+                            { label: "NFS", color: "bg-purple-500/10 border-purple-500/30 text-purple-300" },
+                            { label: "Cloudflare", color: "bg-yellow-500/10 border-yellow-500/30 text-yellow-300" },
                         ].map((tech) => (
                             <span
                                 key={tech.label}
