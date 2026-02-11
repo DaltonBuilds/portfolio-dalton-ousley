@@ -22,12 +22,15 @@ interface GitHubEvent {
 
 interface GitHubStats {
   totalCommits: number;
+  commitsThisWeek: number;
   totalRepos: number;
   recentActivity: Array<{
     type: string;
     repo: string;
+    repoFullName: string;
     message: string;
     time: string;
+    isDevOpsRepo: boolean;
   }>;
 }
 
@@ -61,6 +64,13 @@ const GitHubActivityWidget: React.FC = () => {
         // Process events - count all commits from PushEvents
         const pushEvents = events.filter(e => e.type === 'PushEvent');
         
+        // Count commits this week
+        const oneWeekAgo = new Date();
+        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+        const commitsThisWeek = pushEvents.filter(e => 
+          new Date(e.created_at) > oneWeekAgo
+        ).length;
+        
         // Try to count individual commits, fallback to counting push events
         let totalCommits = 0;
         pushEvents.forEach(event => {
@@ -79,35 +89,61 @@ const GitHubActivityWidget: React.FC = () => {
 
         const uniqueRepos = new Set(events.map(e => e.repo.name));
 
+        // Helper to check if repo is DevOps-related
+        const isDevOpsRepo = (repoName: string) => {
+          const devOpsKeywords = ['gitops', 'k8s', 'kubernetes', 'terraform', 'ansible', 'docker', 'helm', 'argocd', 'homelab', 'infra', 'infrastructure', 'cicd', 'pipeline'];
+          return devOpsKeywords.some(keyword => repoName.toLowerCase().includes(keyword));
+        };
+
         // Get recent activity (last 8 meaningful events for compact display)
-        const recentActivity = events
-          .filter(e => ['PushEvent', 'PullRequestEvent', 'CreateEvent'].includes(e.type))
+        const recentActivityPromises = events
+          .filter(e => ['PushEvent', 'CreateEvent'].includes(e.type))
           .slice(0, 8)
-          .map(event => {
+          .map(async (event) => {
             let message = '';
             let type = '';
 
             if (event.type === 'PushEvent') {
               type = 'commit';
-              message = event.payload.commits?.[0]?.message || 'Pushed commits';
-            } else if (event.type === 'PullRequestEvent') {
-              type = 'pr';
-              message = `${event.payload.action} pull request`;
+              // Fetch the actual commit message from the commit API
+              try {
+                const commitSha = event.payload.head;
+                const repoName = event.repo.name;
+                const commitResponse = await fetch(
+                  `https://api.github.com/repos/${repoName}/commits/${commitSha}`
+                );
+                if (commitResponse.ok) {
+                  const commitData = await commitResponse.json();
+                  message = commitData.commit.message.split('\n')[0]; // First line only
+                } else {
+                  message = 'Pushed commits';
+                }
+              } catch {
+                message = 'Pushed commits';
+              }
             } else if (event.type === 'CreateEvent') {
               type = 'create';
               message = `Created ${event.payload.ref_type}`;
             }
 
+            const repoFullName = event.repo.name;
+            const repoShortName = repoFullName.split('/')[1];
+
             return {
               type,
-              repo: event.repo.name.split('/')[1], // Get repo name without username
+              repo: repoShortName,
+              repoFullName,
               message: message.length > 50 ? message.substring(0, 50) + '...' : message,
               time: new Date(event.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+              isDevOpsRepo: isDevOpsRepo(repoFullName),
             };
           });
 
+        const recentActivity = await Promise.all(recentActivityPromises);
+
         setStats({
           totalCommits,
+          commitsThisWeek,
           totalRepos: uniqueRepos.size,
           recentActivity,
         });
@@ -172,7 +208,7 @@ const GitHubActivityWidget: React.FC = () => {
           {/* Stats Cards */}
           <Card className="glass p-6 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <GitCommit className="w-5 h-5 text-primary" />
+              <GitCommit className="w-5 h-5 text-blue-500" />
               <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Recent Commits</h3>
             </div>
             <p className="text-4xl font-bold text-foreground">{stats.totalCommits}</p>
@@ -181,20 +217,20 @@ const GitHubActivityWidget: React.FC = () => {
 
           <Card className="glass p-6 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <GitFork className="w-5 h-5 text-primary" />
-              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Active Repos</h3>
+              <Activity className="w-5 h-5 text-green-500" />
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">This Week</h3>
             </div>
-            <p className="text-4xl font-bold text-foreground">{stats.totalRepos}</p>
-            <p className="text-xs text-muted-foreground mt-1">Contributing to</p>
+            <p className="text-4xl font-bold text-foreground">{stats.commitsThisWeek}</p>
+            <p className="text-xs text-muted-foreground mt-1">Commits pushed</p>
           </Card>
 
           <Card className="glass p-6 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <Activity className="w-5 h-5 text-primary" />
-              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Status</h3>
+              <GitFork className="w-5 h-5 text-purple-500" />
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Active Repos</h3>
             </div>
-            <p className="text-4xl font-bold text-green-500">Active</p>
-            <p className="text-xs text-muted-foreground mt-1">Building daily</p>
+            <p className="text-4xl font-bold text-foreground">{stats.totalRepos}</p>
+            <p className="text-xs text-muted-foreground mt-1">Contributing to</p>
           </Card>
         </div>
 
@@ -233,8 +269,15 @@ const GitHubActivityWidget: React.FC = () => {
                   {activity.message}
                 </p>
                 
-                {/* Repo badge */}
-                <Badge variant="outline" className="text-xs shrink-0 font-mono">
+                {/* Repo badge with DevOps highlight */}
+                <Badge 
+                  variant="outline" 
+                  className={`text-xs shrink-0 font-mono transition-colors ${
+                    activity.isDevOpsRepo 
+                      ? 'border-orange-500/70 bg-orange-500/20 text-orange-400 font-semibold' 
+                      : 'border-border'
+                  }`}
+                >
                   {activity.repo}
                 </Badge>
                 
