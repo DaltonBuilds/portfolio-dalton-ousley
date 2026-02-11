@@ -17,6 +17,7 @@ interface GitHubEvent {
     commits?: Array<{ message: string }>;
     action?: string;
     ref_type?: string;
+    head?: string;
   };
 }
 
