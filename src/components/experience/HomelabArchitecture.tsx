@@ -7,15 +7,16 @@ export const HomelabArchitecture: React.FC = () => {
   return (
     <div className="relative w-full max-w-5xl mx-auto">
       {/* Architecture Diagram */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 relative">
+        
+        {/* Horizontal connector line spanning all three columns - hidden on mobile */}
+        <div className="hidden lg:block absolute top-[1.75rem] left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-orange-500 to-transparent" aria-hidden="true"></div>
         
         {/* Left Column: Infrastructure */}
         <div className="space-y-4 relative">
           <div className="text-center mb-4 relative">
             <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide relative inline-block">
               Infrastructure
-              {/* Horizontal line extending right - hidden on mobile */}
-              <span className="hidden lg:block absolute left-full top-1/2 w-[200%] h-0.5 bg-gradient-to-r from-orange-500 to-transparent" aria-hidden="true"></span>
             </h3>
             {/* Vertical line down - hidden on mobile */}
             <div className="hidden lg:block absolute left-1/2 top-full w-0.5 h-4 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
@@ -58,8 +59,6 @@ export const HomelabArchitecture: React.FC = () => {
           <div className="text-center mb-4 relative">
             <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide relative inline-block">
               K3s Cluster
-              {/* Horizontal line extending right - hidden on mobile */}
-              <span className="hidden lg:block absolute left-full top-1/2 w-[200%] h-0.5 bg-gradient-to-r from-orange-500 to-transparent" aria-hidden="true"></span>
             </h3>
             {/* Vertical line down - hidden on mobile */}
             <div className="hidden lg:block absolute left-1/2 top-full w-0.5 h-4 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>

@@ -1,53 +1,18 @@
 'use client';
 
-import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Code2, Lightbulb, MessageSquare, Target, Award, Rocket, Users, Zap } from 'lucide-react';
 import SectionHeader from '@/components/SectionHeader';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import CredlyBadge from '@/components/CredlyBadge';
 import { useContactModal } from '@/contexts/ContactModalContext';
 
-function Badge({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-center rounded-md border border-blue-500/60 bg-background px-3 py-1 text-sm text-foreground shadow-sm shadow-blue-500/20">
-      {children}
-    </span>
-  );
-}
-
-function TimelineItem({ title, period, children }: { title: string; period?: string; children: React.ReactNode }) {
-  return (
-    <li className="relative pl-6">
-      <span className="absolute left-0 top-2 h-3 w-3 rounded-full bg-orange-500 shadow-[0_0_0_3px] shadow-orange-500/20" />
-      <div className="flex flex-col gap-1">
-        <p className="text-lg font-semibold text-primary">{title}</p>
-        {period && <p className="text-sm text-muted-foreground">{period}</p>}
-        <div className="text-foreground/90">{children}</div>
-      </div>
-    </li>
-  );
-}
-
-function StackIcon({ label, src }: { label: string; src?: string }) {
-  return (
-    <span className="inline-flex items-center gap-2 text-foreground/80">
-      {src ? (
-        <Image src={src} alt={label} width={28} height={28} className="h-7 w-7 md:h-8 md:w-8" />
-      ) : (
-        <span className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-md border border-blue-500/40 bg-background text-xs font-bold text-blue-400">
-          TS
-        </span>
-      )}
-      <span className="text-sm">{label}</span>
-    </span>
-  );
-}
-
 function TerminalWidget() {
   return (
-    <div className="mt-8 w-full max-w-3xl md:max-w-4xl overflow-hidden rounded-lg border border-blue-500/50 bg-[#0b1220] text-gray-200 shadow-xl shadow-blue-500/20">
+    <div className="w-full max-w-3xl md:max-w-4xl overflow-hidden rounded-lg border border-blue-500/50 bg-[#0b1220] text-gray-200 shadow-xl shadow-blue-500/20">
       <div className="flex items-center justify-between border-b border-blue-500/30 bg-[#0d1526] px-4 py-2">
         <div className="flex items-center gap-2">
           <span className="h-3 w-3 rounded-full bg-red-500/80" />
@@ -81,7 +46,7 @@ function TerminalWidget() {
                 <td className="pr-4">prometheus-768b9b9f7c-z2s4q</td>
                 <td className="pr-4">2/2</td>
                 <td className="pr-4">Running</td>
-                <td className="pr-4">1</td>
+                <td className="pr-4">0</td>
                 <td>3d</td>
               </tr>
             </tbody>
@@ -106,7 +71,7 @@ function TerminalWidget() {
                 <td className="pr-4">n8n</td>
                 <td className="pr-4">automation</td>
                 <td className="pr-4">4</td>
-                <td className="pr-4 whitespace-nowrap">2025-01-01 12:00</td>
+                <td className="pr-4 whitespace-nowrap">2026-01-07 12:00</td>
                 <td className="pr-4">deployed</td>
                 <td>n8n-0.21.0</td>
               </tr>
@@ -130,270 +95,387 @@ function TerminalWidget() {
 export default function AboutPage() {
   const { openContactModal } = useContactModal();
   
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
   return (
     <div className="relative w-full">
+      {/* Subtle stationary background accent */}
+      <div className="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-blue-500/8 rounded-full filter blur-3xl" />
+      </div>
 
-        <div className="container mx-auto max-w-screen-2xl py-16 md:py-20 px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[1.1fr_.9fr]">
-            <div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary">
-                About Dalton Ousley
-              </h1>
-              <p className="mt-4 text-lg text-muted-foreground">
-                Technologist focused on DevOps, cloud, and customer success — bringing
-                automation, observability, and practical engineering to business outcomes.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="https://www.linkedin.com/in/dalton-ousley/" target="_blank" rel="noreferrer">
-                  <Button variant="secondary">Connect on LinkedIn</Button>
-                </Link>
-                <Button variant="outline" onClick={openContactModal}>
-                  Contact Dalton
+      {/* Hero Section */}
+      <section className="container mx-auto max-w-screen-2xl py-16 md:py-20 px-4 sm:px-6 lg:px-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="grid grid-cols-1 items-center gap-10 md:grid-cols-[1.1fr_.9fr]"
+        >
+          <div>
+            <motion.h1 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight"
+            >
+              Hi, I'm <span className="gradient-text">Dalton</span>
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-4 text-lg text-muted-foreground"
+            >
+              I build and operate infrastructure because I love the challenge of making complex systems reliable, observable, and elegant.
+            </motion.p>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="mt-6 flex flex-wrap gap-3"
+            >
+              <Button onClick={openContactModal}>
+                <Rocket className="mr-2 h-4 w-4" />
+                Get in Touch
+              </Button>
+              <Link href="https://www.linkedin.com/in/dalton-ousley/" target="_blank" rel="noreferrer">
+                <Button variant="outline">
+                  <Users className="mr-2 h-4 w-4" />
+                  LinkedIn
                 </Button>
-              </div>
-              <TerminalWidget />
-            </div>
-            <div className="flex justify-center md:justify-end">
-              <div className="relative">
-                <div className="absolute -inset-2 rounded-xl bg-gradient-to-tr from-orange-500/40 to-blue-500/40 blur-xl" />
-                <Image
-                  src="/dalton-ousley-profile-pic.webp"
-                  alt="Dalton Ousley portrait"
-                  width={240}
-                  height={240}
-                  className="relative z-10 rounded-xl border border-blue-500/50 shadow-xl shadow-blue-500/20"
-                  priority
-                />
-              </div>
-            </div>
+              </Link>
+              <Link href="/dalton-ousley-resume.pdf" target="_blank" rel="noreferrer">
+                <Button variant="secondary">
+                  <Award className="mr-2 h-4 w-4" />
+                  Resume
+                </Button>
+              </Link>
+            </motion.div>
           </div>
-
-          {/* Stack icons */}
-          <div className="mt-12">
-            <p className="text-xs uppercase tracking-widest ">Tooling comfort zone</p>
-            <div className="mt-3 flex flex-wrap items-center gap-6 text-muted-foreground opacity-90">
-              <StackIcon label="Kubernetes" src="/Kubernetes_logo_without_workmark.svg" />
-              <StackIcon label="GCP" src="/google_cloud-icon.svg" />
-              <StackIcon label="Linux" src="/Linux.svg" />
-              <StackIcon label="Python" src="/Python-logo-notext.svg" />
-              <StackIcon label="React" src="/React-icon.svg" />
-              <StackIcon label="TypeScript" src="/TypeScript.svg" />
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex justify-center md:justify-end"
+          >
+            <div className="relative">
+              <div className="absolute -inset-2 rounded-xl bg-gradient-to-tr from-orange-500/40 to-blue-500/40 blur-xl animate-pulse" />
+              <Image
+                src="/dalton-ousley-profile-pic.webp"
+                alt="Dalton Ousley"
+                width={240}
+                height={240}
+                className="relative z-10 rounded-xl border border-blue-500/50 shadow-xl shadow-blue-500/20"
+                priority
+              />
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
+      </section>
 
-      {/* Introduction */}
+      {/* My Story */}
       <section>
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            title="Introduction"
-            subtitle="A cross-functional path from marketing to solutions engineering"
+            title="My Story"
+            subtitle="From marketing automation to infrastructure engineering"
           />
-          <Card className="bg-card/60">
-            <CardContent className="pt-6">
-              <p className="text-foreground/90">
-                Hi, I’m <strong>Dalton Ousley</strong> — a technologist with a background in entrepreneurship,
-                freelancing, and technical consulting. Over the past 5+ years, I’ve helped clients solve complex
-                problems through <strong>automation, integrations, and custom technical solutions</strong>.
-              </p>
-              <p className="mt-4 text-foreground/90">
-                I started in digital marketing, but quickly discovered my passion for the technical side of things —
-                from CRMs and APIs to workflows, compliance, and cloud systems. Today, I’m pursuing a career that blends
-                <strong> DevOps Engineer</strong>, with a focus on cloud infrastructure, automation, and reliability engineering.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Career Journey */}
-      <section>
-        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader title="Career Journey" subtitle="Hands-on delivery across roles and industries" />
-          <Card>
-            <CardContent className="pt-6">
-              <ol className="relative space-y-8 border-l border-blue-500/40 pl-6">
-                <TimelineItem title="Entrepreneur & Freelancer" period="2018–Present">
-                  <p>
-                    Built a client base by providing CRM implementations, automation workflows, and cross-functional
-                    technical support. Worked extensively with <strong>GoHighLevel, Zapier, custom APIs, and SaaS tools</strong>.
-                  </p>
-                </TimelineItem>
-                <TimelineItem title="Technical Consultant & Solutions Architect">
-                  <ul className="mt-2 list-disc space-y-1 pl-5">
-                    <li>Designed AI-powered CRM systems with automated lead scoring and chatbot integrations.</li>
-                    <li>Reduced churn through custom onboarding and product adoption programs.</li>
-                    <li>Led UX improvements by working closely with stakeholders and developers.</li>
-                  </ul>
-                </TimelineItem>
-                <TimelineItem title="Cross-Functional Collaboration">
-                  <p>
-                    Partnered with engineering teams to secure API access, develop custom components, and meet
-                    compliance requirements (including regulated industries like health & life insurance).
-                  </p>
-                </TimelineItem>
-              </ol>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Skills & Expertise */}
-      <section>
-        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader title="Skills & Expertise" subtitle="Breadth across the stack with a DevOps core" />
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>Programming & Dev</CardTitle>
-                <CardDescription>Languages, frameworks, and platforms</CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                <Badge>JavaScript</Badge>
-                <Badge>TypeScript</Badge>
-                <Badge>Python</Badge>
-                <Badge>SQL</Badge>
-                <Badge>React</Badge>
-                <Badge>Next.js</Badge>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Automation & SaaS</CardTitle>
-                <CardDescription>Enablement and system glue</CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                <Badge>GoHighLevel</Badge>
-                <Badge>HubSpot</Badge>
-                <Badge>Zapier</Badge>
-                <Badge>Custom APIs</Badge>
-                <Badge>Webhooks</Badge>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Cloud & DevOps</CardTitle>
-                <CardDescription>Shipping reliable systems</CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                <Badge>Kubernetes (K8s)</Badge>
-                <Badge>Docker</Badge>
-                <Badge>Grafana</Badge>
-                <Badge>Prometheus</Badge>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Other Strengths</CardTitle>
-                <CardDescription>People and process</CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                <Badge>Technical Training</Badge>
-                <Badge>Customer Onboarding</Badge>
-                <Badge>Workflow Design</Badge>
-                <Badge>Compliance Consulting</Badge>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Current Projects */}
-      <section>
-        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader title="Current Projects" subtitle="Learning by building and operating" />
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>Personal Home Lab</CardTitle>
-                <CardDescription>Cloud-hosted, Kubernetes-centric environment</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="list-disc space-y-1 pl-5">
-                  <li>Hosting n8n for automation flows and AI Agents</li>
-                  <li>Configuring VPN networking for secure remote work</li>
-                  <li>Implementing observability with Grafana & Prometheus</li>
-                  <li>Developing custom apps and API integrations</li>
-                </ul>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Portfolio & Case Studies</CardTitle>
-                <CardDescription>Proof through practice</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>
-                  Creating real-world projects that demonstrate skills in DevOps, automation, and full-stack development —
-                  proving I can <em>do the work</em>, not just talk about it.
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <Card className="glass border-2 border-blue-500/20">
+              <CardContent className="pt-6 space-y-4">
+                <p className="text-foreground/90">
+                  I didn't start in infrastructure. My path began in digital marketing and business automation, where I helped clients build CRM systems, integrate APIs, and automate workflows. I was good at it—but something was missing.
+                </p>
+                <p className="text-foreground/90">
+                  The turning point came when I started asking deeper questions: How do these systems actually run? What happens when they scale? How do you make them reliable? I found myself more interested in the infrastructure layer than the business logic on top of it.
+                </p>
+                <p className="text-foreground/90">
+                  So I built a homelab. Not a toy setup—a production-grade 3-node Kubernetes cluster running on Proxmox with GitOps, observability, and real workloads. I deployed n8n for automation, configured Prometheus and Grafana for monitoring, set up Cloudflare tunnels for secure ingress, and learned to troubleshoot everything from networking issues to persistent volume claims.
+                </p>
+                <p className="text-foreground/90">
+                  That's when I realized: this is what I want to do. Not as a side project, but as my career. I want to be the person who designs resilient systems, automates deployments, and keeps services running smoothly. I want to work on infrastructure that matters.
                 </p>
               </CardContent>
             </Card>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Certifications & Learning Path */}
+      {/* How I Work */}
       <section>
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader title="Certifications & Learning Path" subtitle="Bias for action and hands-on learning" />
-          <Card>
-            <CardContent className="pt-6">
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div>
-                  <h3 className="text-xl font-semibold mb-4">Completed</h3>
-                  <ul className="mt-2 list-disc space-y-1 pl-5">
-                    <li>Google Professional Cloud Architect (PCA)</li>
-                  </ul>
-                  <div className="mt-6 flex justify-center md:justify-start">
-                    <CredlyBadge 
-                      width={200}
-                      height={200}
-                    />
+          <SectionHeader
+            title="How I Work"
+            subtitle="My approach to infrastructure and problem-solving"
+          />
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 gap-6 md:grid-cols-2"
+          >
+            <motion.div variants={itemVariants}>
+              <Card className="glass border-2 border-purple-500/20 h-full group hover:border-purple-500/40 transition-all duration-300 hover:scale-[1.02]">
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Code2 className="h-6 w-6 text-purple-400" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-primary">I Learn by Building</h3>
                   </div>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold">Next Steps</h3>
-                  <ul className="mt-2 list-disc space-y-1 pl-5">
-                    <li>LPIC-1</li>
-                    <li>Certified Kubernetes Administrator (CKA)</li>
-                    <li>Additional DevOps/Cloud certifications</li>
-                  </ul>
-                </div>
-              </div>
-              <blockquote className="mt-6 border-l-4 border-orange-500/60 pl-4 italic text-muted-foreground">
-                &ldquo;To learn and not do is not to learn; to learn and then do is to learn.&rdquo; — Stephen Covey
-              </blockquote>
-            </CardContent>
-          </Card>
+                  <p className="text-foreground/90">
+                    I don't just read documentation—I deploy it, break it, fix it, and understand why it works. My homelab isn't a resume bullet; it's where I spend nights debugging ingress controllers and optimizing resource limits because I genuinely want to understand how things work at a deep level.
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <Card className="glass border-2 border-green-500/20 h-full group hover:border-green-500/40 transition-all duration-300 hover:scale-[1.02]">
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-green-600/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Zap className="h-6 w-6 text-green-400" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-primary">I Value Reliability Over Complexity</h3>
+                  </div>
+                  <p className="text-foreground/90">
+                    The best infrastructure is boring infrastructure. I'd rather build something simple that runs for months without intervention than something clever that requires constant attention. Observability, automation, and clear documentation aren't optional—they're how you sleep at night.
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <Card className="glass border-2 border-blue-500/20 h-full group hover:border-blue-500/40 transition-all duration-300 hover:scale-[1.02]">
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <MessageSquare className="h-6 w-6 text-blue-400" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-primary">I Communicate Clearly</h3>
+                  </div>
+                  <p className="text-foreground/90">
+                    Years of working with non-technical clients taught me to explain complex systems in plain language. I can write runbooks that junior engineers can follow, document architecture decisions that make sense six months later, and explain why we need to invest in monitoring before the outage happens.
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <Card className="glass border-2 border-orange-500/20 h-full group hover:border-orange-500/40 transition-all duration-300 hover:scale-[1.02]">
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Target className="h-6 w-6 text-orange-400" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-primary">I Own the Outcome</h3>
+                  </div>
+                  <p className="text-foreground/90">
+                    Whether it's a deployment pipeline or a monitoring dashboard, I don't just build it and walk away. I think about edge cases, failure modes, and how the next person will maintain it. If something breaks at 2am, I want to be the kind of engineer who left enough breadcrumbs to fix it quickly.
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
-      {/* What's Next */}
+      {/* Terminal Showcase */}
+      <section>
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            title="Real Infrastructure, Real Commands"
+            subtitle="This isn't a demo—it's my actual homelab"
+          />
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex justify-center"
+          >
+            <TerminalWidget />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Beyond the Terminal */}
+      <section>
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            title="Beyond the Terminal"
+            subtitle="What drives me outside of infrastructure"
+          />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <Card className="glass border-2 border-cyan-500/20">
+              <CardContent className="pt-6 space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 flex items-center justify-center flex-shrink-0 mt-1">
+                    <Lightbulb className="h-6 w-6 text-cyan-400" />
+                  </div>
+                  <p className="text-foreground/90">
+                    When I'm not working on infrastructure, I'm usually still learning something technical—whether that's exploring new cloud services, reading SRE books, or experimenting with automation workflows. I'm the kind of person who finds Kubernetes networking diagrams genuinely interesting.
+                  </p>
+                </div>
+                <p className="text-foreground/90 pl-16">
+                  I also believe in building in public. This portfolio site isn't just a showcase—it's a real production application with a serverless backend on AWS, CI/CD pipelines, and infrastructure as code. Every project I build teaches me something new that I can apply to production systems.
+                </p>
+                <p className="text-foreground/90 pl-16">
+                  I'm driven by the idea that infrastructure should be invisible when it works and debuggable when it doesn't. The best compliment an infrastructure engineer can get is "I didn't even notice the deployment happened."
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Certifications */}
+      <section>
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            title="Certifications"
+            subtitle="Validating knowledge with hands-on practice"
+          />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <Card className="glass border-2 border-yellow-500/20">
+              <CardContent className="pt-6">
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                  <div>
+                    <div className="flex items-center gap-2 mb-4">
+                      <Award className="h-5 w-5 text-yellow-400" />
+                      <h3 className="text-xl font-semibold text-primary">Completed</h3>
+                    </div>
+                    <div className="flex items-start gap-6">
+                      <div className="flex-shrink-0">
+                        <CredlyBadge width={160} height={160} />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-lg">Google Professional Cloud Architect</p>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          Earned September 2025
+                        </p>
+                        <p className="text-foreground/90 mt-3">
+                          Validated my understanding of cloud architecture, infrastructure design, and GCP services through hands-on scenarios and case studies.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-4">
+                      <Target className="h-5 w-5 text-orange-400" />
+                      <h3 className="text-xl font-semibold text-primary">In Progress</h3>
+                    </div>
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-3 p-3 rounded-lg bg-orange-500/5 border border-orange-500/20">
+                        <span className="flex-shrink-0 mt-1 h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
+                        <div>
+                          <p className="font-semibold">Certified Kubernetes Administrator (CKA)</p>
+                          <p className="text-sm text-muted-foreground">Target: Q2 2026</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3 p-3 rounded-lg bg-orange-500/5 border border-orange-500/20">
+                        <span className="flex-shrink-0 mt-1 h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
+                        <div>
+                          <p className="font-semibold">LPIC-1: Linux Administrator</p>
+                          <p className="text-sm text-muted-foreground">Target: Q4 2026</p>
+                        </div>
+                      </li>
+                    </ul>
+                    <blockquote className="mt-6 border-l-4 border-orange-500/60 pl-4 italic text-muted-foreground">
+                      "To learn and not do is not to learn; to learn and then do is to learn."
+                    </blockquote>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* What I'm Looking For */}
       <section className="pb-16 md:pb-24">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader title="What’s Next" subtitle="Where I’m excited to add value" />
-          <Card>
-            <CardContent className="flex flex-col items-start gap-6 pt-6 md:flex-row md:items-center md:justify-between">
-              <p className="max-w-3xl text-foreground/90">
-                I’m eager to join a forward-thinking team as a <strong>DevOps Engineer or Cloud Engineer</strong>.
-                My blend of entrepreneurial drive, technical expertise, and hands-on infrastructure experience fits roles that
-                require both technical depth and operational excellence.
-              </p>
-              <div className="flex gap-3">
-                <Button onClick={openContactModal}>
-                  Get in Touch
-                </Button>
-                <Link href="https://www.linkedin.com/in/dalton-ousley/" target="_blank" rel="noreferrer">
-                  <Button variant="outline">View LinkedIn</Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
+          <SectionHeader
+            title="What I'm Looking For"
+            subtitle="The right team and the right challenge"
+          />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <Card className="glass border-2 border-primary/30 relative overflow-hidden">
+              {/* Animated gradient border effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-orange-500/10 to-blue-500/10 animate-pulse" />
+              <CardContent className="pt-6 space-y-4 relative z-10">
+                <p className="text-foreground/90">
+                  I'm actively seeking a full-time role as a <strong>DevOps Engineer</strong> or <strong>Cloud Engineer</strong> where I can contribute to building reliable, scalable infrastructure. I want to work with a team that values automation, observability, and continuous improvement.
+                </p>
+                <p className="text-foreground/90">
+                  I'm looking for an environment where I can learn from experienced engineers while bringing my own perspective from operating real infrastructure. I want to be part of on-call rotations, incident response, and the day-to-day work of keeping systems running.
+                </p>
+                <p className="text-foreground/90">
+                  If you're building infrastructure that matters and need someone who's genuinely passionate about this work, let's talk.
+                </p>
+                <div className="flex flex-wrap gap-3 pt-4">
+                  <Button onClick={openContactModal} size="lg">
+                    <Rocket className="mr-2 h-4 w-4" />
+                    Get in Touch
+                  </Button>
+                  <Link href="/experience">
+                    <Button variant="outline" size="lg">
+                      <Code2 className="mr-2 h-4 w-4" />
+                      View Experience
+                    </Button>
+                  </Link>
+                  <Link href="https://www.linkedin.com/in/dalton-ousley/" target="_blank" rel="noreferrer">
+                    <Button variant="secondary" size="lg">
+                      <Users className="mr-2 h-4 w-4" />
+                      Connect on LinkedIn
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
       </section>
     </div>
   );
 }
-
-
