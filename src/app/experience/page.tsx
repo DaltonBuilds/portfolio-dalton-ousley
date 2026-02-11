@@ -10,6 +10,7 @@ import { Timeline } from '@/components/ui/timeline';
 import { InteractiveSkillsGrid } from '@/components/InteractiveSkillsGrid';
 import { TerminalPhilosophy } from '@/components/TerminalPhilosophy';
 import FeaturedProjectsSection from '@/components/experience/FeaturedProjectsSection';
+import { ExperienceCTA } from '@/components/experience/ExperienceCTA';
 import { posts } from '../../../.velite';
 import { getProjectPosts, getFeaturedProjects } from '@/lib/projects';
 
@@ -212,22 +213,7 @@ export default function ExperiencePage() {
       </section>
 
       {/* CTA */}
-      <section className="pb-16 md:pb-24">
-        <div className="container mx-auto max-w-screen-2xl text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold tracking-tight text-primary">Let's build something reliable together</h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            I'm actively seeking DevOps and Cloud Engineering roles where I can contribute to infrastructure that matters.
-          </p>
-          <div className="mt-6 flex items-center justify-center gap-4">
-            <Button asChild size="lg">
-              <Link href="mailto:example@gmail.com">Get in touch</Link>
-            </Button>
-            <Button asChild variant="secondary" size="lg">
-              <Link href="/projects">View my projects</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <ExperienceCTA />
 
     </div>
   );
