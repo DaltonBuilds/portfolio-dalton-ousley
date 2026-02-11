@@ -54,7 +54,7 @@ const Hero: React.FC = () => {
           {siteConfig.professional.role}
         </h2>
         <p className="text-base sm:text-lg md:text-xl text-foreground/60 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
-          Building innovative cloud solutions and scalable architectures that drive business transformation.
+          Building reliable infrastructure with Kubernetes, GitOps, and cloud-native tools. Running a production homelab to learn, break things, and build better systems.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -67,10 +67,10 @@ const Hero: React.FC = () => {
             variant="outline" 
             size="lg" 
             className="text-lg px-8 py-6" 
-            aria-label="Contact Dalton for collaboration"
+            aria-label="Contact Dalton about opportunities"
             onClick={openContactModal}
           >
-            <Rocket className="mr-2 h-5 w-5" aria-hidden="true" /> Let&apos;s Build Together
+            <Rocket className="mr-2 h-5 w-5" aria-hidden="true" /> Get in Touch
           </Button>
         </div>
       </div>

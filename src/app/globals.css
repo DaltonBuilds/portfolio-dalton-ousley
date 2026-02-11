@@ -439,7 +439,7 @@ figure[data-rehype-pretty-code-figure] .copy-button.copied svg {
     position: relative;
   }
   
-  /* Horizontal fade overlay to reduce grid intensity in center */
+  /* Horizontal fade overlay to reduce grid intensity in center with subtle blue accent */
   body::before {
     content: '';
     position: fixed;
@@ -447,16 +447,22 @@ figure[data-rehype-pretty-code-figure] .copy-button.copied svg {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      hsl(var(--background) / 0.5) 15%,
-      hsl(var(--background) / 0.9) 30%,
-      hsl(var(--background)) 50%,
-      hsl(var(--background) / 0.9) 70%,
-      hsl(var(--background) / 0.5) 85%,
-      transparent 100%
-    );
+    background: 
+      radial-gradient(
+        ellipse 80% 50% at 50% 40%,
+        hsl(217 91% 60% / 0.04),
+        transparent 70%
+      ),
+      linear-gradient(
+        to right,
+        transparent 0%,
+        hsl(var(--background) / 0.5) 15%,
+        hsl(var(--background) / 0.9) 30%,
+        hsl(var(--background)) 50%,
+        hsl(var(--background) / 0.9) 70%,
+        hsl(var(--background) / 0.5) 85%,
+        transparent 100%
+      );
     pointer-events: none;
     z-index: 0;
   }

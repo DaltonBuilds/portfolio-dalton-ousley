@@ -37,14 +37,14 @@ const certificationsData: Record<string, Certification> = {
         status: 'In Progress',
         Icon: KubernetesIcon,
         imageSrc: '/Kubernetes_logo_without_workmark.svg',
-        progress: 15,
+        progress: 65,
     },
     'lpic1': {
         title: 'LPIC-1: Linux Administrator',
         status: 'In Progress',
         Icon: LinuxIcon,
         imageSrc: '/Linux.svg',
-        progress: 25,
+        progress: 30,
     },
     'seo': {
         title: 'Advanced SEO Certification',
@@ -185,38 +185,63 @@ export function CertificationsSection() {
                     command="cat /var/log/certifications.log"
                     className="px-4"
                 />
-                <div
-                    className="relative mt-20 flex w-full flex-col items-center justify-center"
-                    ref={containerRef}
-                >
-                    <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-16">
-                        {/* In Progress Column */}
-                        <div className="flex flex-col items-center gap-y-10">
-                            <CategoryNode ref={inProgressRef} title="In Progress" icon={CircleDashed} />
-                            <CertificationNode id="cka" ref={ckaRef} />
-                            <CertificationNode id="lpic1" ref={lpic1Ref} />
-                        </div>
+                
+                {/* Glassmorphism container with tree connectors */}
+                <div className="mt-12 glass rounded-2xl p-8 md:p-12 border border-primary/20 shadow-2xl shadow-primary/5 relative">
+                    {/* Horizontal connector line spanning both columns - hidden on mobile */}
+                    <div className="hidden md:block absolute top-[3.5rem] left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-transparent via-orange-500 to-transparent" aria-hidden="true"></div>
+                    
+                    <div
+                        className="relative flex w-full flex-col items-center justify-center"
+                        ref={containerRef}
+                    >
+                        <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-16">
+                            {/* In Progress Column */}
+                            <div className="flex flex-col items-center gap-y-10 relative">
+                                <div className="relative">
+                                    <CategoryNode ref={inProgressRef} title="In Progress" icon={CircleDashed} />
+                                    {/* Vertical line down from category - hidden on mobile */}
+                                    <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
+                                </div>
+                                <div className="relative">
+                                    <CertificationNode id="cka" ref={ckaRef} />
+                                    {/* Vertical connector to next card */}
+                                    <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
+                                </div>
+                                <CertificationNode id="lpic1" ref={lpic1Ref} />
+                            </div>
 
-                        {/* Completed Column */}
-                        <div className="flex flex-col items-center gap-y-10">
-                            <CategoryNode ref={completedRef} title="Completed" icon={BadgeCheck} />
-                            <CertificationNode id="pca" ref={pcaRef} />
-                            <CertificationNode id="seo" ref={seoRef} />
-                            <CertificationNode id="python" ref={pythonRef} />
-                            <CertificationNode id="javascript" ref={javascriptRef} />
-                            <CertificationNode id="react" ref={reactRef} />
+                            {/* Completed Column */}
+                            <div className="flex flex-col items-center gap-y-10 relative">
+                                <div className="relative">
+                                    <CategoryNode ref={completedRef} title="Completed" icon={BadgeCheck} />
+                                    {/* Vertical line down from category - hidden on mobile */}
+                                    <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
+                                </div>
+                                <div className="relative">
+                                    <CertificationNode id="pca" ref={pcaRef} />
+                                    {/* Vertical connector to next card */}
+                                    <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
+                                </div>
+                                <div className="relative">
+                                    <CertificationNode id="seo" ref={seoRef} />
+                                    {/* Vertical connector to next card */}
+                                    <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
+                                </div>
+                                <div className="relative">
+                                    <CertificationNode id="python" ref={pythonRef} />
+                                    {/* Vertical connector to next card */}
+                                    <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
+                                </div>
+                                <div className="relative">
+                                    <CertificationNode id="javascript" ref={javascriptRef} />
+                                    {/* Vertical connector to next card */}
+                                    <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
+                                </div>
+                                <CertificationNode id="react" ref={reactRef} />
+                            </div>
                         </div>
                     </div>
-
-                    {/* Beams connecting categories to certifications */}
-                    <AnimatedBeam containerRef={containerRef} fromRef={inProgressRef} toRef={ckaRef} duration={3} delay={0.5} pathOpacity={0.2} />
-                    <AnimatedBeam containerRef={containerRef} fromRef={inProgressRef} toRef={lpic1Ref} duration={3} delay={0.7} pathOpacity={0.2} />
-                    
-                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={pcaRef} duration={3} delay={0.6} pathOpacity={0.2} />
-                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={seoRef} duration={3} delay={0.8} pathOpacity={0.2} />
-                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={pythonRef} duration={3} delay={1.0} pathOpacity={0.2} />
-                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={javascriptRef} duration={3} delay={1.2} pathOpacity={0.2} />
-                    <AnimatedBeam containerRef={containerRef} fromRef={completedRef} toRef={reactRef} duration={3} delay={1.4} pathOpacity={0.2} />
                 </div>
             </div>
         </section>

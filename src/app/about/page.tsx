@@ -116,10 +116,6 @@ export default function AboutPage() {
 
   return (
     <div className="relative w-full">
-      {/* Subtle stationary background accent */}
-      <div className="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-blue-500/8 rounded-full filter blur-3xl" />
-      </div>
 
       {/* Hero Section */}
       <section className="container mx-auto max-w-screen-2xl py-16 md:py-20 px-4 sm:px-6 lg:px-8">
