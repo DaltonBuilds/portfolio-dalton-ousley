@@ -41,8 +41,10 @@ const GitHubActivityWidget: React.FC = () => {
   useEffect(() => {
     const fetchGitHubActivity = async () => {
       try {
-        // Fetch recent events from GitHub API
-        const response = await fetch(`https://api.github.com/users/${githubUsername}/events/public?per_page=30`);
+        // Fetch recent events from GitHub API with cache busting
+        const response = await fetch(
+          `https://api.github.com/users/${githubUsername}/events/public?per_page=30&_=${Date.now()}`
+        );
         
         if (!response.ok) {
           throw new Error(`GitHub API error: ${response.status}`);
@@ -119,6 +121,11 @@ const GitHubActivityWidget: React.FC = () => {
     };
 
     fetchGitHubActivity();
+    
+    // Refetch every 5 minutes
+    const interval = setInterval(fetchGitHubActivity, 5 * 60 * 1000);
+    
+    return () => clearInterval(interval);
   }, [githubUsername]);
 
   if (loading) {
