@@ -48,19 +48,28 @@ const Header: React.FC = () => {
         </Link>
         <nav className="hidden md:flex" aria-label="Main navigation">
           <ul className="flex items-center space-x-6 text-md font-medium">
-            {navItems.map((item) => (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className={`relative terminal-cursor-hover transition-colors hover:text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm px-2 py-1 ${
-                    pathname === item.href ? 'text-foreground' : 'text-foreground/60'
-                  }`}
-                  aria-current={pathname === item.href ? 'page' : undefined}
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className={`relative inline-block terminal-cursor-hover transition-colors hover:text-foreground/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm px-2 py-1 pb-2 ${
+                      isActive ? 'text-foreground font-semibold' : 'text-foreground/60'
+                    }`}
+                    aria-current={isActive ? 'page' : undefined}
+                  >
+                    {item.name}
+                    <span 
+                      className={`absolute bottom-0 left-0 right-0 h-0.5 rounded-full transition-all duration-300 ${
+                        isActive ? 'bg-[#f97316] scale-x-100' : 'bg-transparent scale-x-0'
+                      }`}
+                      aria-hidden="true" 
+                    />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
         <div className="flex items-center space-x-4">
