@@ -45,16 +45,19 @@ const GitHubActivityWidget: React.FC = () => {
   useEffect(() => {
     const fetchGitHubActivity = async () => {
       try {
-        // Fetch recent events from GitHub API with cache busting
-        const response = await fetch(
-          `https://api.github.com/users/${githubUsername}/events/public?per_page=30&_=${Date.now()}`
-        );
+        // Fetch multiple pages to get more events (up to 100 events = ~30 days of activity)
+        const eventsPromises = [
+          fetch(`https://api.github.com/users/${githubUsername}/events/public?per_page=100&page=1&_=${Date.now()}`),
+        ];
         
-        if (!response.ok) {
-          throw new Error(`GitHub API error: ${response.status}`);
+        const responses = await Promise.all(eventsPromises);
+        
+        if (!responses[0].ok) {
+          throw new Error(`GitHub API error: ${responses[0].status}`);
         }
         
-        const events: GitHubEvent[] = await response.json();
+        const eventsArrays = await Promise.all(responses.map(r => r.json()));
+        const events: GitHubEvent[] = eventsArrays.flat();
 
         // Validate that we got an array
         if (!Array.isArray(events)) {
@@ -62,17 +65,31 @@ const GitHubActivityWidget: React.FC = () => {
           throw new Error('Invalid response from GitHub API');
         }
 
-        // Process events - count all commits from PushEvents
-        const pushEvents = events.filter(e => e.type === 'PushEvent');
+        // Filter events from last 30 days for accurate counting
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        
+        const recentEvents = events.filter(e => 
+          new Date(e.created_at) > thirtyDaysAgo
+        );
+
+        // Process events - count all commits from PushEvents in last 30 days
+        const pushEvents = recentEvents.filter(e => e.type === 'PushEvent');
         
         // Count commits this week
         const oneWeekAgo = new Date();
         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-        const commitsThisWeek = pushEvents.filter(e => 
-          new Date(e.created_at) > oneWeekAgo
-        ).length;
         
-        // Try to count individual commits, fallback to counting push events
+        let commitsThisWeek = 0;
+        pushEvents.filter(e => new Date(e.created_at) > oneWeekAgo).forEach(event => {
+          if (event.payload?.commits && Array.isArray(event.payload.commits)) {
+            commitsThisWeek += event.payload.commits.length;
+          } else {
+            commitsThisWeek += 1;
+          }
+        });
+        
+        // Count total commits in last 30 days (actual commit count, not push events)
         let totalCommits = 0;
         pushEvents.forEach(event => {
           if (event.payload?.commits && Array.isArray(event.payload.commits)) {
@@ -88,57 +105,60 @@ const GitHubActivityWidget: React.FC = () => {
           totalCommits = pushEvents.length;
         }
 
-        const uniqueRepos = new Set(events.map(e => e.repo.name));
+        // Count all unique repos from recent events (shows total activity)
+        const uniqueRepos = new Set(recentEvents.map(e => e.repo.name));
 
         // Helper to check if repo is DevOps-related
         const isDevOpsRepo = (repoName: string) => {
-          const devOpsKeywords = ['gitops', 'k8s', 'kubernetes', 'terraform', 'ansible', 'docker', 'helm', 'argocd', 'homelab', 'infra', 'infrastructure', 'cicd', 'pipeline'];
+          const devOpsKeywords = ['gitops', 'k8s', 'kubernetes', 'terraform', 'ansible', 'docker', 'helm', 'argocd', 'homelab', 'infra', 'infrastructure', 'cicd', 'pipeline', 'lab'];
           return devOpsKeywords.some(keyword => repoName.toLowerCase().includes(keyword));
         };
 
-        // Get recent activity (last 8 meaningful events for compact display)
-        const recentActivityPromises = events
+        // Get recent activity - FILTER to only show DevOps repos
+        const allRecentActivity = events
           .filter(e => ['PushEvent', 'CreateEvent'].includes(e.type))
-          .slice(0, 8)
-          .map(async (event) => {
-            let message = '';
-            let type = '';
+          .filter(e => isDevOpsRepo(e.repo.name)) // Only show DevOps-related repos
+          .slice(0, 8);
 
-            if (event.type === 'PushEvent') {
-              type = 'commit';
-              // Fetch the actual commit message from the commit API
-              try {
-                const commitSha = event.payload.head;
-                const repoName = event.repo.name;
-                const commitResponse = await fetch(
-                  `https://api.github.com/repos/${repoName}/commits/${commitSha}`
-                );
-                if (commitResponse.ok) {
-                  const commitData = await commitResponse.json();
-                  message = commitData.commit.message.split('\n')[0]; // First line only
-                } else {
-                  message = 'Pushed commits';
-                }
-              } catch {
+        const recentActivityPromises = allRecentActivity.map(async (event) => {
+          let message = '';
+          let type = '';
+
+          if (event.type === 'PushEvent') {
+            type = 'commit';
+            // Fetch the actual commit message from the commit API
+            try {
+              const commitSha = event.payload.head;
+              const repoName = event.repo.name;
+              const commitResponse = await fetch(
+                `https://api.github.com/repos/${repoName}/commits/${commitSha}`
+              );
+              if (commitResponse.ok) {
+                const commitData = await commitResponse.json();
+                message = commitData.commit.message.split('\n')[0]; // First line only
+              } else {
                 message = 'Pushed commits';
               }
-            } else if (event.type === 'CreateEvent') {
-              type = 'create';
-              message = `Created ${event.payload.ref_type}`;
+            } catch {
+              message = 'Pushed commits';
             }
+          } else if (event.type === 'CreateEvent') {
+            type = 'create';
+            message = `Created ${event.payload.ref_type}`;
+          }
 
-            const repoFullName = event.repo.name;
-            const repoShortName = repoFullName.split('/')[1];
+          const repoFullName = event.repo.name;
+          const repoShortName = repoFullName.split('/')[1];
 
-            return {
-              type,
-              repo: repoShortName,
-              repoFullName,
-              message: message.length > 50 ? message.substring(0, 50) + '...' : message,
-              time: new Date(event.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-              isDevOpsRepo: isDevOpsRepo(repoFullName),
-            };
-          });
+          return {
+            type,
+            repo: repoShortName,
+            repoFullName,
+            message: message.length > 50 ? message.substring(0, 50) + '...' : message,
+            time: new Date(event.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+            isDevOpsRepo: isDevOpsRepo(repoFullName),
+          };
+        });
 
         const recentActivity = await Promise.all(recentActivityPromises);
 
