@@ -29,6 +29,11 @@ resource "aws_dynamodb_table" "leads" {
     type = "N" # Number (Unix timestamp)
   }
 
+  attribute {
+    name = "email"
+    type = "S" # String (email address)
+  }
+
   # Global Secondary Index for querying leads by date
   global_secondary_index {
     name            = "createdAt-index"
@@ -40,6 +45,13 @@ resource "aws_dynamodb_table" "leads" {
     # For PROVISIONED billing, uncomment these:
     # read_capacity  = 5
     # write_capacity = 5
+  }
+
+  # Global Secondary Index for querying by email (for privacy requests)
+  global_secondary_index {
+    name            = "email-index"
+    hash_key        = "email"
+    projection_type = "ALL"
   }
 
   # TTL configuration for automatic PII cleanup
@@ -105,6 +117,68 @@ resource "aws_cloudwatch_metric_alarm" "dynamodb_throttle" {
     return_data = true
   }
   tags = local.common_tags
+}
+
+/**
+ * Privacy Requests Table
+ * 
+ * Stores privacy request logs (access, deletion, portability)
+ * with email verification and 2-year TTL
+ */
+resource "aws_dynamodb_table" "privacy_requests" {
+  name         = "${local.name_prefix}-privacy-requests"
+  billing_mode = var.dynamodb_billing_mode
+  hash_key     = "id"
+
+  # Partition Key
+  attribute {
+    name = "id"
+    type = "S" # String (UUID)
+  }
+
+  # GSI Attributes
+  attribute {
+    name = "requesterEmail"
+    type = "S" # String (email address)
+  }
+
+  attribute {
+    name = "status"
+    type = "S" # String (pending, verified, completed, rejected)
+  }
+
+  # Global Secondary Index for querying by email and status
+  global_secondary_index {
+    name            = "email-status-index"
+    hash_key        = "requesterEmail"
+    range_key       = "status"
+    projection_type = "ALL"
+  }
+
+  # TTL configuration for automatic cleanup after 2 years
+  ttl {
+    attribute_name = "ttl"
+    enabled        = true
+  }
+
+  # Point-in-time recovery for data protection
+  point_in_time_recovery {
+    enabled = var.enable_point_in_time_recovery
+  }
+
+  # Server-side encryption
+  server_side_encryption {
+    enabled = true
+  }
+
+  # Tags
+  tags = merge(
+    local.common_tags,
+    {
+      Name        = "${local.name_prefix}-privacy-requests"
+      Description = "Privacy request logs with 2-year TTL"
+    }
+  )
 }
 
 

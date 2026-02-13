@@ -29,6 +29,8 @@ interface ContactFormModalProps {
 export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) {
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [turnstileToken, setTurnstileToken] = React.useState<string>("")
+  const [consentChecked, setConsentChecked] = React.useState(false)
+  const [consentError, setConsentError] = React.useState(false)
   const turnstileRef = React.useRef<TurnstileInstance | null>(null)
 
   const {
@@ -49,6 +51,18 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
   })
 
   const onSubmit = async (data: LeadFormData) => {
+    // Validate consent
+    if (!consentChecked) {
+      setConsentError(true)
+      toast.error("Consent Required", {
+        description: "You must agree to the Privacy Policy and Terms of Use to submit this form.",
+      })
+      return
+    }
+
+    // Clear consent error if it was previously set
+    setConsentError(false)
+
     // Validate Turnstile token
     if (!turnstileToken) {
       console.error("Turnstile token missing")
@@ -59,10 +73,12 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
     setIsSubmitting(true)
 
     try {
-      // Submit lead to AWS Lambda via API Gateway
+      // Submit lead to AWS Lambda via API Gateway with consent data
       await submitLead({
         ...data,
         turnstileToken,
+        consentGiven: true,
+        consentTimestamp: Date.now(),
       })
 
       // Success! Show confirmation message
@@ -73,6 +89,7 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
       // Reset form and close modal
       reset()
       setTurnstileToken("")
+      setConsentChecked(false)
       turnstileRef.current?.reset()
       onOpenChange(false)
     } catch (error) {
@@ -122,6 +139,8 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
     if (!open) {
       reset()
       setTurnstileToken("")
+      setConsentChecked(false)
+      setConsentError(false)
       setValue("turnstileToken", "")
       turnstileRef.current?.reset()
     }
@@ -295,6 +314,64 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
             )}
           </div>
 
+          {/* Consent Checkbox */}
+          <div className="space-y-2">
+            <div className="flex items-start gap-2">
+              <input
+                type="checkbox"
+                id="consent"
+                checked={consentChecked}
+                onChange={(e) => {
+                  setConsentChecked(e.target.checked)
+                  // Clear error when user checks the box
+                  if (e.target.checked) {
+                    setConsentError(false)
+                  }
+                }}
+                disabled={isSubmitting}
+                className="mt-1 h-4 w-4 rounded border-gray-300 text-primary focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                aria-describedby="consent-label consent-error"
+                aria-invalid={consentError ? "true" : "false"}
+              />
+              <Label 
+                htmlFor="consent" 
+                id="consent-label"
+                className="text-sm text-slate-700 dark:text-slate-300 cursor-pointer"
+              >
+                I agree to the{" "}
+                <a
+                  href="/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Privacy Policy
+                </a>
+                {" "}and{" "}
+                <a
+                  href="/terms"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Terms of Use
+                </a>
+                {" "}<span className="text-destructive">*</span>
+              </Label>
+            </div>
+            {consentError && (
+              <p
+                id="consent-error"
+                className="text-sm text-red-600 dark:text-red-400 font-medium"
+                role="alert"
+              >
+                You must agree to the Privacy Policy and Terms of Use to submit this form.
+              </p>
+            )}
+          </div>
+
           {/* Submit Button */}
           <div className="flex gap-3 pt-2">
             <Button
@@ -308,7 +385,7 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
             </Button>
             <Button
               type="submit"
-              disabled={isSubmitting || !turnstileToken}
+              disabled={isSubmitting || !turnstileToken || !consentChecked}
               className="flex-1"
             >
               {isSubmitting ? (

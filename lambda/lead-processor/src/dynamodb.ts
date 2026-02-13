@@ -66,6 +66,8 @@ export async function storeLead(
     email: leadData.email,
     company: leadData.company || undefined,
     message: leadData.message,
+    consentGiven: leadData.consentGiven,
+    consentTimestamp: leadData.consentTimestamp,
     createdAt,
     type: "LEAD",
     ttl,

@@ -10,6 +10,8 @@ export interface LeadSubmission {
   company?: string
   message: string
   turnstileToken: string
+  consentGiven: boolean
+  consentTimestamp: number
 }
 
 export interface StoredLead {
@@ -18,6 +20,8 @@ export interface StoredLead {
   email: string
   company?: string
   message: string
+  consentGiven: boolean
+  consentTimestamp: number
   createdAt: number
   type: "LEAD"
   ttl: number

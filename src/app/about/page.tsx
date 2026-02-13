@@ -118,73 +118,84 @@ export default function AboutPage() {
     <div className="relative w-full">
 
       {/* Hero Section */}
-      <section className="container mx-auto max-w-screen-2xl py-16 md:py-20 px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 items-center gap-10 md:grid-cols-[1.1fr_.9fr]"
-        >
-          <div>
-            <motion.h1 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight"
-            >
-              Hi, I'm <span className="gradient-text">Dalton</span>
-            </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-4 text-lg text-muted-foreground"
-            >
-              I build and operate infrastructure because I love the challenge of making complex systems reliable, observable, and elegant.
-            </motion.p>
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="mt-6 flex flex-wrap gap-3"
-            >
-              <Button onClick={openContactModal}>
-                <Rocket className="mr-2 h-4 w-4" />
-                Get in Touch
-              </Button>
-              <Link href="https://www.linkedin.com/in/dalton-ousley/" target="_blank" rel="noreferrer">
-                <Button variant="outline">
-                  <Users className="mr-2 h-4 w-4" />
-                  LinkedIn
-                </Button>
-              </Link>
-              <Link href="/dalton-ousley-resume.pdf" target="_blank" rel="noreferrer">
-                <Button variant="secondary">
-                  <Award className="mr-2 h-4 w-4" />
-                  Resume
-                </Button>
-              </Link>
-            </motion.div>
-          </div>
+      <section className="relative overflow-hidden">
+        {/* Background with gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+        
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex justify-center md:justify-end"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="relative grid grid-cols-1 items-start gap-8 md:grid-cols-[1.2fr_1fr] lg:gap-12 py-12 md:py-16"
           >
-            <div className="relative">
-              <div className="absolute -inset-2 rounded-xl bg-gradient-to-tr from-orange-500/40 to-blue-500/40 blur-xl animate-pulse" />
-              <Image
-                src="/dalton-ousley-profile-pic.webp"
-                alt="Dalton Ousley"
-                width={240}
-                height={240}
-                className="relative z-10 rounded-xl border border-blue-500/50 shadow-xl shadow-blue-500/20"
-                priority
-              />
+            {/* Text Content */}
+            <div className="relative z-10 pt-8 md:pt-16 lg:pt-20">
+              <motion.h1 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight"
+              >
+                Hi, I'm <span className="gradient-text">Dalton</span>
+              </motion.h1>
+              <motion.p 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="mt-6 text-xl md:text-2xl text-muted-foreground leading-relaxed"
+              >
+                I build and operate infrastructure because I love the challenge of making complex systems reliable, observable, and elegant.
+              </motion.p>
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="mt-8 flex flex-wrap gap-3"
+              >
+                <Button onClick={openContactModal} size="lg">
+                  <Rocket className="mr-2 h-5 w-5" />
+                  Get in Touch
+                </Button>
+                <Link href="https://www.linkedin.com/in/dalton-ousley/" target="_blank" rel="noreferrer">
+                  <Button variant="outline" size="lg">
+                    <Users className="mr-2 h-5 w-5" />
+                    LinkedIn
+                  </Button>
+                </Link>
+                <Link href="/dalton-ousley-resume.pdf" target="_blank" rel="noreferrer">
+                  <Button variant="secondary" size="lg">
+                    <Award className="mr-2 h-5 w-5" />
+                    Resume
+                  </Button>
+                </Link>
+              </motion.div>
             </div>
+
+            {/* Portrait Image with Fade Effect */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative flex justify-center md:justify-end"
+            >
+              <div className="relative w-full max-w-md md:max-w-lg">
+                <Image
+                  src="/Dalton-Ousley-portrait-black-shirt.avif"
+                  alt="Dalton Ousley"
+                  width={600}
+                  height={800}
+                  className="w-full h-auto object-cover"
+                  priority
+                  style={{ 
+                    maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)'
+                  }}
+                />
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </section>
 
       {/* My Story */}

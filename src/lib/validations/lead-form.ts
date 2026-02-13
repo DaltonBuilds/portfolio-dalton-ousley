@@ -35,6 +35,17 @@ export const leadFormSchema = z.object({
   turnstileToken: z
     .string()
     .min(1, { message: "Please complete the security challenge" }),
+
+  consentGiven: z
+    .boolean()
+    .refine((val) => val === true, {
+      message: "You must agree to the Privacy Policy and Terms of Use",
+    }),
+
+  consentTimestamp: z
+    .number()
+    .int()
+    .positive(),
 })
 
 /**
@@ -62,6 +73,8 @@ export const storedLeadSchema = z.object({
   email: z.string().email(),
   company: z.string().optional(),
   message: z.string(),
+  consentGiven: z.boolean(),
+  consentTimestamp: z.number(),
   createdAt: z.number(),
   type: z.literal("LEAD"),
   ttl: z.number(),

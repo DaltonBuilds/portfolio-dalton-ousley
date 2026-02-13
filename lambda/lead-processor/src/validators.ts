@@ -41,6 +41,17 @@ export const leadSubmissionSchema = z.object({
   turnstileToken: z
     .string()
     .min(1, { message: "Turnstile token is required" }),
+
+  consentGiven: z
+    .boolean()
+    .refine((val) => val === true, {
+      message: "Consent must be given",
+    }),
+
+  consentTimestamp: z
+    .number()
+    .int()
+    .positive(),
 })
 
 /**

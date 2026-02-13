@@ -46,6 +46,20 @@ const Footer: React.FC = () => {
             <span className="text-gray-400">:</span>
             <span className="text-blue-400">~</span>
             <span className="text-gray-400">$ </span>
+            <span className="text-gray-200">ls -a legal</span>
+          </div>
+          <nav aria-label="Legal links">
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              <Link href="/privacy" className="text-cyan-400 hover:text-cyan-300 transition-colors duration-200 terminal-cursor-hover focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#0d1117] rounded-sm px-1 py-0.5">privacy-policy</Link>
+              <Link href="/terms" className="text-cyan-400 hover:text-cyan-300 transition-colors duration-200 terminal-cursor-hover focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-[#0d1117] rounded-sm px-1 py-0.5">terms-of-use</Link>
+            </div>
+          </nav>
+          
+          <div className="pt-4">
+            <span className="text-green-400">dalton@portfolio</span>
+            <span className="text-gray-400">:</span>
+            <span className="text-blue-400">~</span>
+            <span className="text-gray-400">$ </span>
             <span className="inline-block w-2 h-5 bg-white animate-blink"></span>
           </div>
         </div>
