@@ -2,13 +2,16 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { Scale, Mail, Clock, AlertTriangle, FileText, Shield, Globe } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/Card';
+import { getCurrentVersion, hasVersionHistory } from '@/lib/policy-versions';
 
 export const metadata: Metadata = {
   title: 'Terms of Use - Dalton Ousley',
   description: 'Terms of Use for daltonousley.dev - Understand the rules and guidelines for using our website.',
 };
 
-const LAST_UPDATED = 'February 13, 2026';
+const currentVersion = getCurrentVersion('terms');
+const LAST_UPDATED = currentVersion.lastUpdated;
+const VERSION = currentVersion.version;
 const CONTACT_EMAIL = 'legal@daltonousley.dev';
 
 export default function TermsOfUsePage() {
@@ -19,10 +22,23 @@ export default function TermsOfUsePage() {
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
             Terms of Use
           </h1>
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Clock className="h-4 w-4" />
-            <p className="text-sm">Last Updated: {LAST_UPDATED}</p>
+          <div className="flex items-center gap-4 text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4" />
+              <p className="text-sm">Last Updated: {LAST_UPDATED}</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              <p className="text-sm">Version: {VERSION}</p>
+            </div>
           </div>
+          {hasVersionHistory('terms') && (
+            <div className="mt-2">
+              <Link href="/terms/history" className="text-sm text-blue-400 hover:underline">
+                View version history
+              </Link>
+            </div>
+          )}
         </div>
 
         <Card className="glass border-2 border-purple-500/20 mb-8">

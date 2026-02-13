@@ -217,14 +217,14 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - Test submission prevention with invalid data
     - _Requirements: 3.1, 3.4_
 
-- [-] 11. Implement cookie disclosure and conditional banner
-  - [-] 11.1 Audit current cookie usage
+- [x] 11. Implement cookie disclosure and conditional banner
+  - [x] 11.1 Audit current cookie usage
     - Document all cookies currently set by the website
     - Categorize cookies (essential, functional, analytics, marketing)
     - Update Privacy Policy with cookie list
     - _Requirements: 8.1, 8.2, 8.3_
 
-  - [ ] 11.2 Implement conditional cookie banner logic
+  - [x] 11.2 Implement conditional cookie banner logic
     - Check if non-essential cookies are used
     - If yes, display cookie consent banner before setting cookies
     - If no (only essential), skip banner
@@ -234,8 +234,8 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - **Property 12: Cookie Banner Conditional Display**
     - **Validates: Requirements 8.4, 8.5**
 
-- [~] 12. Implement policy version management
-  - [ ] 12.1 Create policy version tracking system
+- [-] 12. Implement policy version management
+  - [-] 12.1 Create policy version tracking system
     - Store policy versions with effective date ranges
     - Update "Last Updated" date when policy content changes
     - Maintain history of previous versions

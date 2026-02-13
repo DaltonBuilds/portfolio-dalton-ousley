@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Toaster } from 'sonner';
 import { ContactModalProvider } from '@/contexts/ContactModalContext';
+import { CookieConsentManager } from '@/components/CookieConsentManager';
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Footer />
             </div>
             <Toaster richColors position="top-right" />
+            <CookieConsentManager />
           </ContactModalProvider>
         </ThemeProvider>
       </body>

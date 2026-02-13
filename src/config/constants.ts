@@ -23,7 +23,7 @@ export const SKILL_CATEGORIES = {
 // File paths
 export const PATHS = {
   BLOG_IMAGES: '/blog/images',
-  PROFILE_IMAGE: '/dalton-ousley-profile-pic.webp',
+  PROFILE_IMAGE: '/Dalton-Ousley-portrait-white-buttondown.avif',
   FAVICON: '/dalton-ousley-favicon.svg',
 } as const
 

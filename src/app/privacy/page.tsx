@@ -3,13 +3,16 @@ import Link from 'next/link';
 import { Shield, Mail, Clock, Database, Globe, Lock, FileText, AlertCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/Card';
 import SectionHeader from '@/components/SectionHeader';
+import { getCurrentVersion, hasVersionHistory } from '@/lib/policy-versions';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - Dalton Ousley',
   description: 'Privacy Policy for daltonousley.dev - Learn how we collect, use, and protect your personal data in compliance with GDPR and CCPA.',
 };
 
-const LAST_UPDATED = 'February 13, 2026';
+const currentVersion = getCurrentVersion('privacy');
+const LAST_UPDATED = currentVersion.lastUpdated;
+const VERSION = currentVersion.version;
 const CONTACT_EMAIL = 'privacy@daltonousley.dev';
 
 export default function PrivacyPolicyPage() {
@@ -20,10 +23,23 @@ export default function PrivacyPolicyPage() {
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
             Privacy Policy
           </h1>
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Clock className="h-4 w-4" />
-            <p className="text-sm">Last Updated: {LAST_UPDATED}</p>
+          <div className="flex items-center gap-4 text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4" />
+              <p className="text-sm">Last Updated: {LAST_UPDATED}</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              <p className="text-sm">Version: {VERSION}</p>
+            </div>
           </div>
+          {hasVersionHistory('privacy') && (
+            <div className="mt-2">
+              <Link href="/privacy/history" className="text-sm text-blue-400 hover:underline">
+                View version history
+              </Link>
+            </div>
+          )}
         </div>
 
         <Card className="glass border-2 border-blue-500/20 mb-8">
@@ -274,15 +290,50 @@ export default function PrivacyPolicyPage() {
               <p className="text-foreground/90">
                 We use only <strong>essential cookies</strong> required for website security and functionality. We do not use analytics, marketing, or tracking cookies.
               </p>
+              
               <div>
-                <h3 className="font-semibold mb-2">Essential Cookies:</h3>
+                <h3 className="font-semibold mb-3">Essential Cookies We Use:</h3>
+                <div className="space-y-3 ml-4">
+                  <div>
+                    <p className="font-medium text-foreground">Cloudflare Turnstile Security Cookies</p>
+                    <ul className="list-disc list-inside space-y-1 text-sm text-foreground/80 ml-4 mt-1">
+                      <li><strong>Purpose:</strong> Bot protection and spam prevention on contact form</li>
+                      <li><strong>Duration:</strong> Session (expires when browser closes)</li>
+                      <li><strong>Set by:</strong> Cloudflare (third-party service)</li>
+                      <li><strong>Cookie names:</strong> cf_clearance, __cf_bm</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-medium text-foreground">Next.js Session Cookies</p>
+                    <ul className="list-disc list-inside space-y-1 text-sm text-foreground/80 ml-4 mt-1">
+                      <li><strong>Purpose:</strong> Framework-level session management and CSRF protection</li>
+                      <li><strong>Duration:</strong> Session (expires when browser closes)</li>
+                      <li><strong>Set by:</strong> Next.js framework (first-party)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="font-semibold mb-2">Cookies We Do NOT Use:</h3>
                 <ul className="list-disc list-inside space-y-1 text-foreground/90 ml-4">
-                  <li><strong>Session Cookies:</strong> Temporary cookies that expire when you close your browser, used for security and form functionality</li>
-                  <li><strong>Security Cookies:</strong> Used by Cloudflare Turnstile for bot protection</li>
+                  <li>Analytics cookies (Google Analytics, etc.)</li>
+                  <li>Marketing or advertising cookies</li>
+                  <li>Social media tracking cookies</li>
+                  <li>Third-party tracking pixels</li>
+                  <li>Preference or functional cookies</li>
                 </ul>
               </div>
-              <p className="text-foreground/90">
-                Because we only use essential cookies, we do not require a cookie consent banner. Essential cookies are necessary for the website to function and are exempt from consent requirements under GDPR and ePrivacy Directive.
+
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                <h3 className="font-semibold mb-2 text-primary">Why No Cookie Banner?</h3>
+                <p className="text-foreground/90 text-sm">
+                  Because we only use essential cookies necessary for security and functionality, we do not require a cookie consent banner. Essential cookies are exempt from consent requirements under GDPR (Article 6(1)(f)), ePrivacy Directive (Recital 66), and CCPA regulations.
+                </p>
+              </div>
+
+              <p className="text-sm text-foreground/80">
+                <strong>Note:</strong> If we add non-essential cookies in the future (such as analytics), we will implement a cookie consent banner and update this policy accordingly.
               </p>
             </CardContent>
           </Card>
