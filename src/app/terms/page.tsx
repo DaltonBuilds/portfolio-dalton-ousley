@@ -3,16 +3,17 @@ import Link from 'next/link';
 import { Scale, Mail, Clock, AlertTriangle, FileText, Shield, Globe } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/Card';
 import { getCurrentVersion, hasVersionHistory } from '@/lib/policy-versions';
+import { siteConfig } from '@/config/site.config';
 
 export const metadata: Metadata = {
-  title: 'Terms of Use - Dalton Ousley',
-  description: 'Terms of Use for daltonousley.dev - Understand the rules and guidelines for using our website.',
+  title: `Terms of Use - ${siteConfig.name}`,
+  description: `Terms of Use for ${siteConfig.domain.displayName} - Understand the rules and guidelines for using our website.`,
 };
 
 const currentVersion = getCurrentVersion('terms');
 const LAST_UPDATED = currentVersion.lastUpdated;
 const VERSION = currentVersion.version;
-const CONTACT_EMAIL = 'legal@daltonousley.dev';
+const CONTACT_EMAIL = siteConfig.contact.legal;
 
 export default function TermsOfUsePage() {
   return (
@@ -48,7 +49,7 @@ export default function TermsOfUsePage() {
               <div>
                 <h2 className="text-xl font-semibold mb-2">Agreement to Terms</h2>
                 <p className="text-foreground/90">
-                  By accessing or using daltonousley.dev (the "Website"), you agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use the Website.
+                  By accessing or using {siteConfig.domain.displayName} (the "Website"), you agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use the Website.
                 </p>
               </div>
             </div>
@@ -113,7 +114,7 @@ export default function TermsOfUsePage() {
           <Card className="glass">
             <CardContent className="pt-6 space-y-4">
               <p className="text-foreground/90">
-                The Website and its entire contents, features, and functionality (including but not limited to all information, software, text, displays, images, video, and audio, and the design, selection, and arrangement thereof) are owned by Dalton Ousley, its licensors, or other providers of such material and are protected by United States and international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.
+                The Website and its entire contents, features, and functionality (including but not limited to all information, software, text, displays, images, video, and audio, and the design, selection, and arrangement thereof) are owned by {siteConfig.company.legalName}, its licensors, or other providers of such material and are protected by United States and international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.
               </p>
               <p className="text-foreground/90">
                 You may view, download, and print pages from the Website for your personal, non-commercial use, subject to the restrictions set out in these Terms. You must not:
@@ -188,7 +189,7 @@ export default function TermsOfUsePage() {
           <Card className="glass border-2 border-orange-500/20">
             <CardContent className="pt-6 space-y-4">
               <p className="text-foreground/90 uppercase font-semibold">
-                To the fullest extent permitted by applicable law, in no event shall Dalton Ousley, its affiliates, licensors, service providers, employees, agents, officers, or directors be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of the Website.
+                To the fullest extent permitted by applicable law, in no event shall {siteConfig.company.legalName}, its affiliates, licensors, service providers, employees, agents, officers, or directors be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of the Website.
               </p>
               <p className="text-foreground/90">
                 This includes, but is not limited to, damages for:
@@ -215,7 +216,7 @@ export default function TermsOfUsePage() {
           <Card className="glass">
             <CardContent className="pt-6 space-y-4">
               <p className="text-foreground/90">
-                You agree to defend, indemnify, and hold harmless Dalton Ousley, its affiliates, licensors, and service providers, and its and their respective officers, directors, employees, contractors, agents, licensors, suppliers, successors, and assigns from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising out of or relating to:
+                You agree to defend, indemnify, and hold harmless {siteConfig.company.legalName}, its affiliates, licensors, and service providers, and its and their respective officers, directors, employees, contractors, agents, licensors, suppliers, successors, and assigns from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising out of or relating to:
               </p>
               <ul className="list-disc list-inside space-y-2 text-foreground/90 ml-4">
                 <li>Your violation of these Terms of Use</li>
@@ -236,10 +237,10 @@ export default function TermsOfUsePage() {
           <Card className="glass">
             <CardContent className="pt-6 space-y-4">
               <p className="text-foreground/90">
-                These Terms of Use and any dispute or claim arising out of or related to them, their subject matter, or their formation (in each case, including non-contractual disputes or claims) shall be governed by and construed in accordance with the laws of the <strong>State of Texas, United States</strong>, without giving effect to any choice or conflict of law provision or rule.
+                These Terms of Use and any dispute or claim arising out of or related to them, their subject matter, or their formation (in each case, including non-contractual disputes or claims) shall be governed by and construed in accordance with the laws of the <strong>State of {siteConfig.company.jurisdiction.state}, {siteConfig.company.jurisdiction.country}</strong>, without giving effect to any choice or conflict of law provision or rule.
               </p>
               <p className="text-foreground/90">
-                Any legal suit, action, or proceeding arising out of or related to these Terms of Use or the Website shall be instituted exclusively in the federal courts of the United States or the courts of the State of Texas. You waive any and all objections to the exercise of jurisdiction over you by such courts and to venue in such courts.
+                Any legal suit, action, or proceeding arising out of or related to these Terms of Use or the Website shall be instituted exclusively in the federal courts of the {siteConfig.company.jurisdiction.country} or the courts of the State of {siteConfig.company.jurisdiction.state}. You waive any and all objections to the exercise of jurisdiction over you by such courts and to venue in such courts.
               </p>
             </CardContent>
           </Card>
@@ -296,7 +297,7 @@ export default function TermsOfUsePage() {
           <Card className="glass">
             <CardContent className="pt-6 space-y-4">
               <p className="text-foreground/90">
-                These Terms of Use, together with our Privacy Policy, constitute the sole and entire agreement between you and Dalton Ousley regarding the Website and supersede all prior and contemporaneous understandings, agreements, representations, and warranties, both written and oral, regarding the Website.
+                These Terms of Use, together with our Privacy Policy, constitute the sole and entire agreement between you and {siteConfig.company.legalName} regarding the Website and supersede all prior and contemporaneous understandings, agreements, representations, and warranties, both written and oral, regarding the Website.
               </p>
             </CardContent>
           </Card>

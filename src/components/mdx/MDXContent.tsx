@@ -8,8 +8,9 @@ import { Callout } from './Callout'
 import { CustomImage } from './CustomImage'
 import { Mermaid } from './Mermaid'
 import { CodeBlockCopy } from './CodeBlockCopy'
+import { useMDXComponents } from '@/config/mdx-components'
 
-const components = {
+const baseComponents = {
   // Custom components
   CodeBlock,
   Callout,
@@ -201,6 +202,9 @@ const components = {
     </td>
   ),
 }
+
+// Merge base components with configuration components
+const components = useMDXComponents(baseComponents)
 
 interface MDXContentProps {
   code: string

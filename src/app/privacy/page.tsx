@@ -4,16 +4,17 @@ import { Shield, Mail, Clock, Database, Globe, Lock, FileText, AlertCircle } fro
 import { Card, CardContent } from '@/components/ui/Card';
 import SectionHeader from '@/components/SectionHeader';
 import { getCurrentVersion, hasVersionHistory } from '@/lib/policy-versions';
+import { siteConfig } from '@/config/site.config';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy - Dalton Ousley',
-  description: 'Privacy Policy for daltonousley.dev - Learn how we collect, use, and protect your personal data in compliance with GDPR and CCPA.',
+  title: `Privacy Policy - ${siteConfig.name}`,
+  description: `Privacy Policy for ${siteConfig.domain.displayName} - Learn how we collect, use, and protect your personal data in compliance with GDPR and CCPA.`,
 };
 
 const currentVersion = getCurrentVersion('privacy');
 const LAST_UPDATED = currentVersion.lastUpdated;
 const VERSION = currentVersion.version;
-const CONTACT_EMAIL = 'privacy@daltonousley.dev';
+const CONTACT_EMAIL = siteConfig.contact.privacy;
 
 export default function PrivacyPolicyPage() {
   return (
@@ -49,7 +50,7 @@ export default function PrivacyPolicyPage() {
               <div>
                 <h2 className="text-xl font-semibold mb-2">Your Privacy Matters</h2>
                 <p className="text-foreground/90">
-                  This Privacy Policy explains how daltonousley.dev ("we", "us", or "our") collects, uses, and protects your personal information when you use our website and contact form. We are committed to transparency and compliance with GDPR (General Data Protection Regulation) and CCPA (California Consumer Privacy Act).
+                  This Privacy Policy explains how {siteConfig.domain.displayName} ("we", "us", or "our") collects, uses, and protects your personal information when you use our website and contact form. We are committed to transparency and compliance with GDPR (General Data Protection Regulation) and CCPA (California Consumer Privacy Act).
                 </p>
               </div>
             </div>
