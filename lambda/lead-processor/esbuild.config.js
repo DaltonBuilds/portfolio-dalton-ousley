@@ -6,13 +6,11 @@
 
 import esbuild from 'esbuild';
 
-esbuild.build({
-  entryPoints: ['src/index.ts'],
+const sharedConfig = {
   bundle: true,
   platform: 'node',
   target: 'node20',
   format: 'cjs',
-  outfile: 'dist/index.js',
   sourcemap: true,
   minify: true,
   external: [
@@ -20,8 +18,25 @@ esbuild.build({
     '@aws-sdk/*'
   ],
   logLevel: 'info',
+};
+
+// Build main handler
+await esbuild.build({
+  ...sharedConfig,
+  entryPoints: ['src/index.ts'],
+  outfile: 'dist/index.js',
 }).catch((error) => {
-  console.error('Build failed:', error);
+  console.error('Build failed for index.ts:', error);
+  process.exit(1);
+});
+
+// Build verification handler
+await esbuild.build({
+  ...sharedConfig,
+  entryPoints: ['src/verify-handler.ts'],
+  outfile: 'dist/verify-handler.js',
+}).catch((error) => {
+  console.error('Build failed for verify-handler.ts:', error);
   process.exit(1);
 });
 

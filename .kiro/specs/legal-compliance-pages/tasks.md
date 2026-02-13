@@ -138,7 +138,7 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - **Property 10: Privacy Requests Are Logged**
     - **Validates: Requirements 5.6**
 
-- [-] 7. Implement email verification for privacy requests
+- [x] 7. Implement email verification for privacy requests
   - [x] 7.1 Create verification token generation
     - Generate secure random token for each privacy request
     - Store token in privacy-requests table with 24-hour expiration
@@ -150,7 +150,7 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - Use Resend service to send verification email
     - _Requirements: 5.5_
 
-  - [-] 7.3 Implement verification endpoint
+  - [x] 7.3 Implement verification endpoint
     - Create API endpoint to verify token
     - Update privacy request status from 'pending' to 'verified'
     - Process verified requests (access/deletion/portability)
@@ -171,13 +171,13 @@ This implementation plan breaks down the legal compliance pages feature into dis
 - [ ] 8. Checkpoint - Test privacy request handling system
   - Ensure all tests pass, ask the user if questions arise.
 
-- [~] 9. Implement TTL calculation and validation
-  - [ ] 9.1 Create TTL calculation utility function
+- [-] 9. Implement TTL calculation and validation
+  - [x] 9.1 Create TTL calculation utility function
     - Calculate TTL as submission timestamp + 18 months (in seconds)
     - Handle edge cases (leap years, month boundaries)
     - _Requirements: 1.6_
 
-  - [ ] 9.2 Update form submission handler to use TTL calculation
+  - [-] 9.2 Update form submission handler to use TTL calculation
     - Call TTL utility when storing submissions
     - Store TTL value in DynamoDB ttl field
     - _Requirements: 1.6_

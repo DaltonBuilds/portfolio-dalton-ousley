@@ -12,6 +12,7 @@ import {
   QueryCommand,
 } from "@aws-sdk/lib-dynamodb"
 import type { StoredLead, LeadSubmission } from "./types"
+import { calculateTTL } from "./ttl-utils"
 
 // Initialize DynamoDB client
 const client = new DynamoDBClient({})
@@ -48,17 +49,19 @@ export async function checkIdempotency(
  * @param tableName - DynamoDB table name
  * @param leadId - UUID lead identifier
  * @param leadData - Lead submission data
- * @param ttlDays - Number of days until TTL expires
+ * @param ttlDays - Number of days until TTL expires (deprecated, kept for backward compatibility)
  * @returns Stored lead record
  */
 export async function storeLead(
   tableName: string,
   leadId: string,
   leadData: LeadSubmission,
-  ttlDays: number = 548 // 18 months default
+  ttlDays: number = 548 // Deprecated parameter, kept for backward compatibility
 ): Promise<StoredLead> {
   const createdAt = Date.now()
-  const ttl = Math.floor(createdAt / 1000) + (ttlDays * 24 * 60 * 60)
+  
+  // Use the TTL calculation utility to calculate TTL as 18 months from submission
+  const ttl = calculateTTL(createdAt)
 
   const lead: StoredLead = {
     leadId,
