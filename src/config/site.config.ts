@@ -22,33 +22,133 @@ function getEnvVar(key: string, fallback: string): string {
  * This configuration object serves as the single source of truth for all
  * site-wide variables, contact information, and placeholder values.
  * 
- * Environment variable overrides:
- * - NEXT_PUBLIC_SITE_DOMAIN: Override domain.domain
- * - NEXT_PUBLIC_SITE_BASE_URL: Override domain.baseUrl
- * - NEXT_PUBLIC_CONTACT_EMAIL: Override contact.general
- * - NEXT_PUBLIC_LEGAL_EMAIL: Override contact.legal
- * - NEXT_PUBLIC_PRIVACY_EMAIL: Override contact.privacy
- * - NEXT_PUBLIC_SUPPORT_EMAIL: Override contact.support
+ * ## Environment Variable Overrides
  * 
- * @example
+ * The following environment variables can be used to override default configuration values.
+ * All environment variables must be prefixed with `NEXT_PUBLIC_` to be accessible in client-side code.
+ * 
+ * | Environment Variable | Configuration Path | Default Value |
+ * |---------------------|-------------------|---------------|
+ * | `NEXT_PUBLIC_SITE_DOMAIN` | `domain.domain` | `daltonousley.com` |
+ * | `NEXT_PUBLIC_SITE_BASE_URL` | `domain.baseUrl` | `https://daltonousley.com` |
+ * | `NEXT_PUBLIC_CONTACT_EMAIL` | `contact.general` | `contact@daltonousley.com` |
+ * | `NEXT_PUBLIC_LEGAL_EMAIL` | `contact.legal` | `legal@daltonousley.com` |
+ * | `NEXT_PUBLIC_PRIVACY_EMAIL` | `contact.privacy` | `privacy@daltonousley.com` |
+ * | `NEXT_PUBLIC_SUPPORT_EMAIL` | `contact.support` | `support@daltonousley.com` |
+ * 
+ * ### Setting Environment Variables
+ * 
+ * Create a `.env.local` file in the project root:
+ * 
+ * ```bash
+ * # .env.local
+ * NEXT_PUBLIC_CONTACT_EMAIL=hello@example.com
+ * NEXT_PUBLIC_SITE_DOMAIN=example.com
+ * NEXT_PUBLIC_SITE_BASE_URL=https://example.com
+ * ```
+ * 
+ * ## Usage Examples
+ * 
+ * ### In React Components
+ * 
  * ```typescript
- * // In React components
  * import { siteConfig } from '@/config/site.config';
  * 
  * export default function ContactPage() {
- *   return <a href={`mailto:${siteConfig.contact.general}`}>Contact Us</a>;
+ *   return (
+ *     <div>
+ *       <h1>Contact {siteConfig.name}</h1>
+ *       <a href={`mailto:${siteConfig.contact.general}`}>
+ *         Email us at {siteConfig.contact.general}
+ *       </a>
+ *     </div>
+ *   );
  * }
  * ```
  * 
- * @example
- * ```typescript
- * // In Next.js metadata
- * import { siteConfig } from '@/config/site.config';
+ * ### Using Destructured Exports
  * 
- * export const metadata = {
+ * ```typescript
+ * import { contact, domain, company } from '@/config/site.config';
+ * 
+ * export default function Footer() {
+ *   return (
+ *     <footer>
+ *       <p>© {new Date().getFullYear()} {company.legalName}</p>
+ *       <p>Located in {company.address.city}, {company.address.state}</p>
+ *       <a href={`mailto:${contact.general}`}>Contact</a>
+ *     </footer>
+ *   );
+ * }
+ * ```
+ * 
+ * ### In Next.js Metadata
+ * 
+ * ```typescript
+ * import { siteConfig } from '@/config/site.config';
+ * import type { Metadata } from 'next';
+ * 
+ * export const metadata: Metadata = {
  *   title: `Privacy Policy - ${siteConfig.name}`,
  *   description: `Privacy Policy for ${siteConfig.domain.displayName}`,
+ *   keywords: siteConfig.meta.keywords,
+ *   themeColor: siteConfig.meta.themeColor,
  * };
+ * ```
+ * 
+ * ### In Server Components
+ * 
+ * ```typescript
+ * import { siteConfig } from '@/config/site.config';
+ * 
+ * export default async function PrivacyPage() {
+ *   return (
+ *     <article>
+ *       <h1>Privacy Policy</h1>
+ *       <p>
+ *         For privacy inquiries, contact us at{' '}
+ *         <a href={`mailto:${siteConfig.contact.privacy}`}>
+ *           {siteConfig.contact.privacy}
+ *         </a>
+ *       </p>
+ *       <p>This policy applies to {siteConfig.domain.displayName}</p>
+ *     </article>
+ *   );
+ * }
+ * ```
+ * 
+ * ### Accessing Social Links
+ * 
+ * ```typescript
+ * import { social } from '@/config/site.config';
+ * 
+ * export default function SocialLinks() {
+ *   return (
+ *     <div>
+ *       <a href={social.github}>GitHub</a>
+ *       <a href={social.linkedin}>LinkedIn</a>
+ *       {social.twitter && <a href={social.twitter}>Twitter</a>}
+ *     </div>
+ *   );
+ * }
+ * ```
+ * 
+ * ### Using Navigation Paths
+ * 
+ * ```typescript
+ * import { nav } from '@/config/site.config';
+ * import Link from 'next/link';
+ * 
+ * export default function Navigation() {
+ *   return (
+ *     <nav>
+ *       <Link href={nav.home}>Home</Link>
+ *       <Link href={nav.about}>About</Link>
+ *       <Link href={nav.blog}>Blog</Link>
+ *       <Link href={nav.projects}>Projects</Link>
+ *     </nav>
+ *   );
+ * }
  * ```
  */
 export const siteConfig: SiteConfig = {
@@ -126,6 +226,17 @@ export const siteConfig: SiteConfig = {
 };
 
 // Export individual sections for convenience
+/**
+ * Contact configuration
+ * 
+ * @example
+ * ```typescript
+ * import { contact } from '@/config/site.config';
+ * 
+ * <a href={`mailto:${contact.general}`}>Contact Us</a>
+ * <a href={`mailto:${contact.support}`}>Get Support</a>
+ * ```
+ */
 export const { contact, domain, company, social, professional, meta, nav } = siteConfig;
 
 // Backward compatibility: maintain existing export structure

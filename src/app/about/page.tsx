@@ -122,7 +122,7 @@ export default function AboutPage() {
         {/* Background with gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
         
-        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-screen-2xl px-6 sm:px-8 lg:px-12 xl:px-16">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

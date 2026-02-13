@@ -113,6 +113,50 @@ export interface NavigationConfig {
  * 
  * This interface defines the centralized configuration for all site-wide
  * variables, contact information, and placeholder values.
+ * 
+ * @example
+ * ```typescript
+ * // Using in React components
+ * import { siteConfig } from '@/config/site.config';
+ * 
+ * function Footer() {
+ *   return (
+ *     <footer>
+ *       <p>© {new Date().getFullYear()} {siteConfig.company.legalName}</p>
+ *       <a href={`mailto:${siteConfig.contact.general}`}>Contact</a>
+ *     </footer>
+ *   );
+ * }
+ * ```
+ * 
+ * @example
+ * ```typescript
+ * // Using destructured exports
+ * import { contact, domain } from '@/config/site.config';
+ * 
+ * function ContactInfo() {
+ *   return (
+ *     <div>
+ *       <p>Email: {contact.general}</p>
+ *       <p>Website: {domain.displayName}</p>
+ *     </div>
+ *   );
+ * }
+ * ```
+ * 
+ * @example
+ * ```typescript
+ * // Using in Next.js metadata
+ * import { siteConfig } from '@/config/site.config';
+ * import type { Metadata } from 'next';
+ * 
+ * export const metadata: Metadata = {
+ *   title: siteConfig.title,
+ *   description: siteConfig.description,
+ *   keywords: siteConfig.meta.keywords,
+ *   themeColor: siteConfig.meta.themeColor,
+ * };
+ * ```
  */
 export interface SiteConfig {
   /** Site name */

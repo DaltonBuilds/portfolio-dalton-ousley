@@ -84,16 +84,70 @@ function DomainLink({ children }: { children?: React.ReactNode }) {
  * This function provides custom components that can be used in MDX content
  * to inject configuration values dynamically.
  * 
- * @param components - Existing MDX components to merge with
- * @returns Merged MDX components including configuration components
+ * ## Setup
  * 
- * @example
+ * To use these components in your MDX content, create or update the `mdx-components.ts`
+ * file in your project root:
+ * 
  * ```typescript
- * // In mdx-components.ts (root level)
+ * // mdx-components.ts (root level)
  * import { useMDXComponents } from '@/config/mdx-components';
  * 
  * export { useMDXComponents };
  * ```
+ * 
+ * ## Available Components
+ * 
+ * ### ConfigValue
+ * 
+ * Injects any configuration value using dot notation:
+ * 
+ * ```mdx
+ * Contact us at <ConfigValue path="contact.general" />
+ * Visit <ConfigValue path="domain.displayName" />
+ * We're located in <ConfigValue path="company.address.city" />
+ * ```
+ * 
+ * ### EmailLink
+ * 
+ * Creates mailto links for configured email addresses:
+ * 
+ * ```mdx
+ * <EmailLink type="general" />
+ * <EmailLink type="privacy">Contact our privacy team</EmailLink>
+ * <EmailLink type="legal">Legal inquiries</EmailLink>
+ * <EmailLink type="support">Get support</EmailLink>
+ * ```
+ * 
+ * ### DomainLink
+ * 
+ * Creates links to the site's base URL:
+ * 
+ * ```mdx
+ * <DomainLink />
+ * <DomainLink>Visit our website</DomainLink>
+ * ```
+ * 
+ * ## Complete MDX Example
+ * 
+ * ```mdx
+ * ---
+ * title: "Contact Information"
+ * ---
+ * 
+ * # Get in Touch
+ * 
+ * You can reach us at <EmailLink type="general" /> for general inquiries.
+ * 
+ * For privacy-related questions, please contact <EmailLink type="privacy">our privacy team</EmailLink>.
+ * 
+ * Visit our website at <DomainLink /> to learn more.
+ * 
+ * We're based in <ConfigValue path="company.address.city" />, <ConfigValue path="company.address.state" />.
+ * ```
+ * 
+ * @param components - Existing MDX components to merge with
+ * @returns Merged MDX components including configuration components
  */
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {

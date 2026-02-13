@@ -121,8 +121,8 @@ This implementation plan breaks down the centralized site configuration feature 
     - Test that no hardcoded domain names remain
     - _Requirements: 6.1, 6.4_
 
-- [-] 8. Update blog MDX content to use configuration
-  - [-] 8.1 Update `content/blog/hello-world.mdx` to use MDX components
+- [x] 8. Update blog MDX content to use configuration
+  - [x] 8.1 Update `content/blog/hello-world.mdx` to use MDX components
     - Replace `example@gmail.com` with `<EmailLink type="general" />`
     - Add import for MDX components if needed
     - Test that MDX renders correctly with config values
@@ -133,8 +133,8 @@ This implementation plan breaks down the centralized site configuration feature 
     - Test that EmailLink component works in MDX context
     - _Requirements: 6.2, 6.6_
 
-- [~] 9. Update existing site.config.ts references
-  - [ ] 9.1 Replace old email in site.config.ts
+- [x] 9. Update existing site.config.ts references
+  - [x] 9.1 Replace old email in site.config.ts
     - Replace `example@gmail.com` with correct contact email
     - Ensure all config values are using new structure
     - _Requirements: 6.5_
@@ -145,8 +145,8 @@ This implementation plan breaks down the centralized site configuration feature 
     - Test that existing code can import without modifications
     - _Requirements: 8.1, 8.2_
 
-- [~] 10. Create documentation and examples
-  - [ ] 10.1 Add usage examples to configuration files
+- [x] 10. Create documentation and examples
+  - [x] 10.1 Add usage examples to configuration files
     - Add JSDoc examples for React component usage
     - Add JSDoc examples for MDX component usage
     - Document environment variable overrides
