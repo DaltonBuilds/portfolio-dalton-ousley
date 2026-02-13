@@ -7,14 +7,14 @@ import { z } from "zod"
 export const leadFormSchema = z.object({
   name: z
     .string()
-    .min(2, { message: "Name must be at least 2 characters" })
+    .min(1, { message: "Name is required" })
     .max(100, { message: "Name must not exceed 100 characters" })
     .trim(),
   
   email: z
     .string()
-    .email({ message: "Please enter a valid email address" })
     .min(1, { message: "Email is required" })
+    .email({ message: "Please enter a valid email address" })
     .max(100, { message: "Email must not exceed 100 characters" })
     .trim()
     .toLowerCase(),
@@ -29,7 +29,7 @@ export const leadFormSchema = z.object({
   message: z
     .string()
     .min(10, { message: "Message must be at least 10 characters" })
-    .max(1000, { message: "Message must not exceed 1000 characters" })
+    .max(5000, { message: "Message must not exceed 5000 characters" })
     .trim(),
   
   turnstileToken: z

@@ -171,13 +171,13 @@ This implementation plan breaks down the legal compliance pages feature into dis
 - [ ] 8. Checkpoint - Test privacy request handling system
   - Ensure all tests pass, ask the user if questions arise.
 
-- [-] 9. Implement TTL calculation and validation
+- [x] 9. Implement TTL calculation and validation
   - [x] 9.1 Create TTL calculation utility function
     - Calculate TTL as submission timestamp + 18 months (in seconds)
     - Handle edge cases (leap years, month boundaries)
     - _Requirements: 1.6_
 
-  - [-] 9.2 Update form submission handler to use TTL calculation
+  - [x] 9.2 Update form submission handler to use TTL calculation
     - Call TTL utility when storing submissions
     - Store TTL value in DynamoDB ttl field
     - _Requirements: 1.6_
@@ -192,8 +192,8 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - Verify TTL is exactly 18 months from submission
     - _Requirements: 1.6_
 
-- [~] 10. Implement comprehensive form validation
-  - [ ] 10.1 Add validation for all form fields
+- [x] 10. Implement comprehensive form validation
+  - [x] 10.1 Add validation for all form fields
     - Name: required, 1-100 characters
     - Email: required, valid email format
     - Company: optional, max 100 characters
@@ -201,7 +201,7 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - Consent: required (must be true)
     - _Requirements: 3.1, 3.4_
 
-  - [ ] 10.2 Implement validation error messages
+  - [x] 10.2 Implement validation error messages
     - Display specific error message for each invalid field
     - Show inline errors next to form fields
     - Prevent submission when validation fails
@@ -217,8 +217,8 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - Test submission prevention with invalid data
     - _Requirements: 3.1, 3.4_
 
-- [~] 11. Implement cookie disclosure and conditional banner
-  - [ ] 11.1 Audit current cookie usage
+- [-] 11. Implement cookie disclosure and conditional banner
+  - [-] 11.1 Audit current cookie usage
     - Document all cookies currently set by the website
     - Categorize cookies (essential, functional, analytics, marketing)
     - Update Privacy Policy with cookie list
