@@ -67,7 +67,7 @@ const GitHubActivityWidget: React.FC = () => {
 
   if (loading) {
     return (
-      <section className="py-12 sm:py-16">
+      <section className="section-padding">
         <div className="container mx-auto max-w-6xl px-4">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-8 text-center">
             GitHub <span className="gradient-text">Activity</span>
@@ -99,7 +99,7 @@ const GitHubActivityWidget: React.FC = () => {
   };
 
   return (
-    <section className="py-12 sm:py-16">
+    <section className="section-padding">
       <div className="container mx-auto max-w-6xl px-4">
         <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-8 text-center">
           GitHub <span className="gradient-text">Activity</span>

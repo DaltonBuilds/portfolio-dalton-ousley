@@ -145,7 +145,7 @@ export function CertificationsSection() {
     const lpic1Ref = useRef<HTMLDivElement>(null);
 
     return (
-        <section id="certifications" className="py-20 sm:py-32">
+        <section id="certifications" className="section-padding">
             <div className="container mx-auto px-4">
                 <SectionHeader
                     title="Certifications"

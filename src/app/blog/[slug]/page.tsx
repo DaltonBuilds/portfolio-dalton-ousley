@@ -84,7 +84,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <ProjectMetadata post={post} />
 
       {/* Post Content */}
-      <div className="container mx-auto max-w-screen-2xl py-16 px-4">
+      <div className="container mx-auto max-w-screen-2xl section-padding px-4">
         <div className="max-w-4xl mx-auto overflow-visible">
           <BlogPostContent post={post} />
 

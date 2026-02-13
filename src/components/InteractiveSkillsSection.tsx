@@ -122,7 +122,7 @@ const SkillCard: React.FC<{ id: SkillId; showConnector?: boolean }> = ({ id, sho
 
 export function InteractiveSkillsSection() {
     return (
-        <section id="skills" className="py-20 sm:py-32">
+        <section id="skills" className="section-padding">
             <div className="container mx-auto px-4">
                 <SectionHeader
                     title="Skills"

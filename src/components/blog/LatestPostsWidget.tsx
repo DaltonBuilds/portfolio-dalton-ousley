@@ -43,7 +43,7 @@ export function LatestPostsWidget({
   }
 
   return (
-    <section className={`py-12 sm:py-16 ${className}`}>
+    <section className={`section-padding ${className}`}>
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground">{title}</h2>

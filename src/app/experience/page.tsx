@@ -124,8 +124,8 @@ export default function ExperiencePage() {
       />
 
       {/* Why DevOps */}
-      <section>
-        <div className="container mx-auto max-w-screen-2xl py-16 px-4 sm:px-6 lg:px-8">
+      <section className="section-padding">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="Why DevOps?"
             subtitle="From building products to building the platforms that power them"
@@ -148,8 +148,8 @@ export default function ExperiencePage() {
       <FeaturedProjectsSection projects={featuredProjects} />
 
       {/* DevOps Journey Timeline */}
-      <section>
-        <div className="container mx-auto max-w-screen-2xl py-16 px-4 sm:px-6 lg:px-8">
+      <section className="section-padding">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <Timeline
             title="My DevOps Journey"
             description="From scattered knowledge to production-ready cloud infrastructure"
@@ -159,8 +159,8 @@ export default function ExperiencePage() {
       </section>
 
       {/* Interactive Skills Grid */}
-      <section className="pb-16 md:pb-24">
-        <div className="container mx-auto max-w-screen-2xl py-16 px-4 sm:px-6 lg:px-8">
+      <section className="section-padding">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="Technical Skills"
             subtitle="Core competencies for DevOps and cloud engineering roles"
@@ -170,8 +170,8 @@ export default function ExperiencePage() {
       </section>
 
       {/* Terminal Philosophy */}
-      <section>
-        <div className="container mx-auto max-w-screen-2xl py-16 px-4 sm:px-6 lg:px-8">
+      <section className="section-padding">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
             <SectionHeader
                 title="Development Philosophy"
                 subtitle="My approach to building systems that work in the real world"
@@ -181,8 +181,8 @@ export default function ExperiencePage() {
       </section>
 
       {/* Career Goals */}
-      <section>
-        <div className="container mx-auto max-w-screen-2xl py-16 px-4 sm:px-6 lg:px-8">
+      <section className="section-padding">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="What I'm Looking For"
             subtitle="Ready to contribute to a team building reliable, scalable infrastructure"

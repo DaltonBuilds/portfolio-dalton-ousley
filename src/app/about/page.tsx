@@ -199,7 +199,7 @@ export default function AboutPage() {
       </section>
 
       {/* My Story */}
-      <section className="py-16 md:py-24">
+      <section className="section-padding">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="My Story"
@@ -229,7 +229,7 @@ export default function AboutPage() {
       </section>
 
       {/* I Learn by Doing - Terminal Showcase */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-background via-muted/20 to-background">
+      <section className="section-padding bg-gradient-to-b from-background via-muted/20 to-background">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="I Learn by Doing"
@@ -263,7 +263,7 @@ export default function AboutPage() {
       </section>
 
       {/* How I Work */}
-      <section className="py-16 md:py-24">
+      <section className="section-padding">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="How I Work"
@@ -344,7 +344,7 @@ export default function AboutPage() {
       </section>
 
       {/* Certifications */}
-      <section className="py-16 md:py-24">
+      <section className="section-padding">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="Certifications"
@@ -436,7 +436,7 @@ export default function AboutPage() {
       </section>
 
       {/* What I'm Looking For - CTA */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-background via-primary/5 to-background">
+      <section className="section-padding bg-gradient-to-b from-background via-primary/5 to-background">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="What I'm Looking For"

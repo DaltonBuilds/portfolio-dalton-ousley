@@ -14,7 +14,7 @@ export default function TermsOfUseHistoryPage() {
 
   return (
     <div className="relative w-full">
-      <section className="container mx-auto max-w-4xl py-16 md:py-20 px-4 sm:px-6 lg:px-8">
+      <section className="container mx-auto max-w-4xl section-padding px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <Link href="/terms" className="inline-flex items-center gap-2 text-blue-400 hover:underline mb-4">
             <ArrowLeft className="h-4 w-4" />

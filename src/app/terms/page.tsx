@@ -18,7 +18,7 @@ const CONTACT_EMAIL = siteConfig.contact.legal;
 export default function TermsOfUsePage() {
   return (
     <div className="relative w-full">
-      <section className="container mx-auto max-w-4xl py-16 md:py-20 px-4 sm:px-6 lg:px-8">
+      <section className="container mx-auto max-w-4xl section-padding px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
             Terms of Use

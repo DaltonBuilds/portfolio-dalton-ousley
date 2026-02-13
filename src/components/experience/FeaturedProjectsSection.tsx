@@ -22,8 +22,8 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
   }
 
   return (
-    <section>
-      <div className="container mx-auto max-w-screen-2xl py-16 px-4 sm:px-6 lg:px-8">
+    <section className="section-padding">
+      <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="Featured Projects"
           subtitle="Real-world implementations demonstrating cloud architecture, DevOps practices, and full-stack development"

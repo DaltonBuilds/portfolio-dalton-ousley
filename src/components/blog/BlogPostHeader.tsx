@@ -18,7 +18,7 @@ export function BlogPostHeader({ post, author }: BlogPostHeaderProps) {
 
   return (
     <header className="border-b border-gray-200 dark:border-gray-800">
-      <div className="container mx-auto max-w-screen-2xl py-16 md:py-24">
+      <div className="container mx-auto max-w-screen-2xl section-padding">
         <div className="max-w-4xl mx-auto">
           {/* Categories */}
           {post.categories.length > 0 && (

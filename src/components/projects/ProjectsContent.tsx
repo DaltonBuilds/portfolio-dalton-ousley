@@ -29,7 +29,7 @@ export function ProjectsContent({ projects }: ProjectsContentProps) {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="border-b border-gray-200 dark:border-gray-800">
-        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-24">
+        <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 section-padding">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground mb-4">
               Projects
@@ -43,7 +43,7 @@ export function ProjectsContent({ projects }: ProjectsContentProps) {
       </section>
 
       {/* Filters and Projects Section */}
-      <section className="py-8 sm:py-12 lg:py-16">
+      <section className="section-padding">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           {/* Project Filters */}
           <div className="mb-8">
