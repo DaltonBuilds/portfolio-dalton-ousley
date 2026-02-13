@@ -3,7 +3,7 @@
 import React, { forwardRef, useRef } from 'react';
 import SectionHeader from './SectionHeader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { BadgeCheck, CircleDashed } from 'lucide-react';
+import { BadgeCheck, CircleDashed, Clock, CheckCircle2, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import GoogleCloudIcon from './icons/GoogleCloudIcon';
@@ -122,10 +122,10 @@ const CertificationNode = forwardRef<HTMLDivElement, CertificationNodeProps>(({ 
 CertificationNode.displayName = 'CertificationNode';
 
 
-const CategoryNode = forwardRef<HTMLDivElement, { title: string, icon: React.ElementType }>(({ title, icon: Icon }, ref) => {
+const CategoryNode = forwardRef<HTMLDivElement, { title: string, icon: React.ElementType, colorClass?: string }>(({ title, icon: Icon, colorClass = 'text-secondary-foreground' }, ref) => {
     return (
         <div ref={ref} className="flex flex-col items-center justify-center text-center">
-            <div className="w-16 h-16 bg-secondary/30 text-secondary-foreground rounded-full flex items-center justify-center mb-2 border-2 border-border/50">
+            <div className={`w-16 h-16 bg-secondary/30 rounded-full flex items-center justify-center mb-2 border-2 border-border/50 ${colorClass}`}>
                 <Icon className="w-8 h-8" />
             </div>
             <h3 className="text-lg font-semibold tracking-wider">{title}</h3>
@@ -166,7 +166,7 @@ export function CertificationsSection() {
                             {/* In Progress Column */}
                             <div className="flex flex-col items-center gap-y-10 relative">
                                 <div className="relative">
-                                    <CategoryNode ref={inProgressRef} title="In Progress" icon={CircleDashed} />
+                                    <CategoryNode ref={inProgressRef} title="In Progress" icon={Clock} colorClass="text-amber-500" />
                                     {/* Vertical line down from category - hidden on mobile */}
                                     <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
                                 </div>
@@ -181,11 +181,96 @@ export function CertificationsSection() {
                             {/* Completed Column */}
                             <div className="flex flex-col items-center gap-y-10 relative">
                                 <div className="relative">
-                                    <CategoryNode ref={completedRef} title="Completed" icon={BadgeCheck} />
+                                    <CategoryNode ref={completedRef} title="Completed" icon={CheckCircle2} colorClass="text-green-500" />
                                     {/* Vertical line down from category - hidden on mobile */}
                                     <div className="hidden md:block absolute left-1/2 top-full w-0.5 h-10 bg-orange-500 -translate-x-1/2" aria-hidden="true"></div>
                                 </div>
                                 <CertificationNode id="pca" ref={pcaRef} />
+                            </div>
+                        </div>
+
+                        {/* Planned Certifications Section */}
+                        <div className="w-full mt-16 pt-12 border-t border-border/40">
+                            <div className="flex items-center justify-center gap-2 mb-8">
+                                <Calendar className="w-5 h-5 text-blue-500" />
+                                <h3 className="text-xl font-semibold text-muted-foreground">Planned</h3>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay: 0 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <Card className="bg-background/60 backdrop-blur-sm border-border/30 border-dashed hover:border-primary/40 transition-all duration-300 hover:scale-105">
+                                        <CardContent className="pt-6 pb-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+                                                    <Image src="/Kubernetes_logo_without_workmark.svg" alt="CKAD logo" width={20} height={20} className="w-5 h-5" />
+                                                </div>
+                                                <p className="font-semibold text-sm">CKAD</p>
+                                            </div>
+                                            <p className="text-xs text-muted-foreground mt-2">Certified Kubernetes Application Developer</p>
+                                        </CardContent>
+                                    </Card>
+                                </motion.div>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.1 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <Card className="bg-background/60 backdrop-blur-sm border-border/30 border-dashed hover:border-primary/40 transition-all duration-300 hover:scale-105">
+                                        <CardContent className="pt-6 pb-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+                                                    <Image src="/Kubernetes_logo_without_workmark.svg" alt="CKS logo" width={20} height={20} className="w-5 h-5" />
+                                                </div>
+                                                <p className="font-semibold text-sm">CKS</p>
+                                            </div>
+                                            <p className="text-xs text-muted-foreground mt-2">Certified Kubernetes Security Specialist</p>
+                                        </CardContent>
+                                    </Card>
+                                </motion.div>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.2 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <Card className="bg-background/60 backdrop-blur-sm border-border/30 border-dashed hover:border-primary/40 transition-all duration-300 hover:scale-105">
+                                        <CardContent className="pt-6 pb-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+                                                    <Image src="/Kubernetes_logo_without_workmark.svg" alt="KCNA logo" width={20} height={20} className="w-5 h-5" />
+                                                </div>
+                                                <p className="font-semibold text-sm">KCNA</p>
+                                            </div>
+                                            <p className="text-xs text-muted-foreground mt-2">Kubernetes and Cloud Native Associate</p>
+                                        </CardContent>
+                                    </Card>
+                                </motion.div>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.3 }}
+                                    viewport={{ once: true }}
+                                >
+                                    <Card className="bg-background/60 backdrop-blur-sm border-border/30 border-dashed hover:border-primary/40 transition-all duration-300 hover:scale-105">
+                                        <CardContent className="pt-6 pb-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+                                                    <Image src="/Kubernetes_logo_without_workmark.svg" alt="KCSA logo" width={20} height={20} className="w-5 h-5" />
+                                                </div>
+                                                <p className="font-semibold text-sm">KCSA</p>
+                                            </div>
+                                            <p className="text-xs text-muted-foreground mt-2">Kubernetes and Cloud Native Security Associate</p>
+                                        </CardContent>
+                                    </Card>
+                                </motion.div>
                             </div>
                         </div>
                     </div>

@@ -130,19 +130,17 @@ export default function ExperiencePage() {
             title="Why DevOps?"
             subtitle="From building products to building the platforms that power them"
           />
-          <Card className="bg-card/60">
-            <CardContent className="pt-6 text-foreground/90 space-y-4">
-                <p>
-                After years of building applications and solving technical problems, I realized my passion lies in the infrastructure layer—the systems that enable teams to ship faster, fail safer, and scale reliably.
-                </p>
-                <p>
-                I'm drawn to DevOps because it combines my love for automation, system design, and operational excellence. Whether it's designing CI/CD pipelines, implementing observability, or managing Kubernetes clusters, I thrive on making infrastructure invisible so teams can focus on delivering value.
-                </p>
-                <p>
-                My homelab isn't just a learning environment—it's where I practice the same disciplines I want to bring to a production team: GitOps workflows, infrastructure as code, monitoring, and continuous improvement.
-                </p>
-            </CardContent>
-          </Card>
+          <div className="max-w-4xl mx-auto text-center text-foreground/90 space-y-4">
+            <p>
+            After years of building applications and solving technical problems, I realized my passion lies in the infrastructure layer—the systems that enable teams to ship faster, fail safer, and scale reliably.
+            </p>
+            <p>
+            I'm drawn to DevOps because it combines my love for automation, system design, and operational excellence. Whether it's designing CI/CD pipelines, implementing observability, or managing Kubernetes clusters, I thrive on making infrastructure invisible so teams can focus on delivering value.
+            </p>
+            <p>
+            My homelab isn't just a learning environment—it's where I practice the same disciplines I want to bring to a production team: GitOps workflows, infrastructure as code, monitoring, and continuous improvement.
+            </p>
+          </div>
         </div>
       </section>
       
