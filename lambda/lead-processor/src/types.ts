@@ -58,8 +58,44 @@ export interface ErrorResponse {
 export interface SecretsCache {
   hmacServerSecret?: string
   turnstileSecret?: string
+  resendApiKey?: string
   lastFetch?: number
 }
 
 export const SECRETS_CACHE_TTL = 300000
+
+/**
+ * Privacy Request Types
+ */
+
+export interface PrivacyRequest {
+  id: string
+  requestType: "access" | "deletion" | "portability"
+  requesterEmail: string
+  requestedAt: number
+  processedAt?: number
+  status: "pending" | "verified" | "completed" | "rejected"
+  notes?: string
+  verificationToken?: string
+  tokenExpiration?: number
+  ttl: number
+}
+
+export interface AccessRequestResult {
+  success: boolean
+  data?: StoredLead[]
+  error?: string
+}
+
+export interface DeletionRequestResult {
+  success: boolean
+  deletedCount: number
+  error?: string
+}
+
+export interface PortabilityRequestResult {
+  success: boolean
+  data?: string
+  error?: string
+}
 

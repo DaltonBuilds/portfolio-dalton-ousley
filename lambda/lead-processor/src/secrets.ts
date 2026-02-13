@@ -101,11 +101,41 @@ export async function getTurnstileSecret(): Promise<string> {
 }
 
 /**
+ * Gets Resend API key with caching
+ * 
+ * @returns Resend API key
+ */
+export async function getResendApiKey(): Promise<string> {
+  const cacheKey = "resendApiKey"
+  const now = Date.now()
+
+  // Check cache
+  if (
+    secretsCache[cacheKey] &&
+    secretsCache.lastFetch &&
+    now - secretsCache.lastFetch < SECRETS_CACHE_TTL
+  ) {
+    return secretsCache[cacheKey]
+  }
+
+  // Fetch from Secrets Manager
+  const secretName = process.env.RESEND_API_KEY_NAME || "portfolio/resend-api-key"
+  const secret = await getSecret(secretName)
+
+  // Update cache
+  secretsCache[cacheKey] = secret
+  secretsCache.lastFetch = now
+
+  return secret
+}
+
+/**
  * Clears the secrets cache (useful for testing)
  */
 export function clearSecretsCache(): void {
   secretsCache.hmacServerSecret = undefined
   secretsCache.turnstileSecret = undefined
+  secretsCache.resendApiKey = undefined
   secretsCache.lastFetch = undefined
 }
 

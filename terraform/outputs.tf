@@ -32,6 +32,16 @@ output "dynamodb_table_arn" {
   value       = aws_dynamodb_table.leads.arn
 }
 
+output "privacy_requests_table_name" {
+  description = "DynamoDB table name for privacy requests"
+  value       = aws_dynamodb_table.privacy_requests.name
+}
+
+output "privacy_requests_table_arn" {
+  description = "DynamoDB table ARN for privacy requests"
+  value       = aws_dynamodb_table.privacy_requests.arn
+}
+
 # ============================================================================
 # EventBridge Outputs
 # ============================================================================

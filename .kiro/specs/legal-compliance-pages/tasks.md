@@ -88,21 +88,21 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - Test links navigate to correct URLs
     - _Requirements: 4.1, 4.3_
 
-- [-] 5. Create DynamoDB tables for privacy request handling
+- [x] 5. Create DynamoDB tables for privacy request handling
   - [x] 5.1 Create privacy-requests DynamoDB table
     - Define table schema with id (primary key), requestType, requesterEmail, requestedAt, processedAt, status, notes, verificationToken, ttl
     - Create GSI: email-status-index (partition: requesterEmail, sort: status)
     - Configure TTL on ttl attribute (2 years)
     - _Requirements: 5.6_
 
-  - [-] 5.2 Update contact-submissions table schema
+  - [x] 5.2 Update contact-submissions table schema
     - Add email GSI if not already present (partition: email)
     - Verify TTL configuration on ttl attribute
     - Add consentGiven and consentTimestamp fields to schema
     - _Requirements: 3.5, 5.2, 5.3, 5.4_
 
-- [~] 6. Implement privacy request handler functions
-  - [ ] 6.1 Implement access request handler
+- [x] 6. Implement privacy request handler functions
+  - [x] 6.1 Implement access request handler
     - Create function to query contact-submissions by email using GSI
     - Return all matching submissions with all fields
     - Create log entry in privacy-requests table
@@ -112,7 +112,7 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - **Property 6: Access Request Returns All Data**
     - **Validates: Requirements 5.2**
 
-  - [ ] 6.3 Implement deletion request handler
+  - [x] 6.3 Implement deletion request handler
     - Create function to query contact-submissions by email using GSI
     - Delete all matching submissions
     - Verify deletion by querying again (should return zero results)
@@ -123,7 +123,7 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - **Property 7: Deletion Request Removes All Data**
     - **Validates: Requirements 5.3**
 
-  - [ ] 6.5 Implement portability request handler
+  - [x] 6.5 Implement portability request handler
     - Create function to query contact-submissions by email using GSI
     - Export all matching submissions as JSON string
     - Validate JSON is parseable and contains all fields
@@ -138,19 +138,19 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - **Property 10: Privacy Requests Are Logged**
     - **Validates: Requirements 5.6**
 
-- [ ] 7. Implement email verification for privacy requests
-  - [ ] 7.1 Create verification token generation
+- [-] 7. Implement email verification for privacy requests
+  - [x] 7.1 Create verification token generation
     - Generate secure random token for each privacy request
     - Store token in privacy-requests table with 24-hour expiration
     - _Requirements: 5.5_
 
-  - [ ] 7.2 Create verification email template
+  - [x] 7.2 Create verification email template
     - Design email with verification link containing token
     - Include instructions for completing verification
     - Use Resend service to send verification email
     - _Requirements: 5.5_
 
-  - [ ] 7.3 Implement verification endpoint
+  - [-] 7.3 Implement verification endpoint
     - Create API endpoint to verify token
     - Update privacy request status from 'pending' to 'verified'
     - Process verified requests (access/deletion/portability)
@@ -171,7 +171,7 @@ This implementation plan breaks down the legal compliance pages feature into dis
 - [ ] 8. Checkpoint - Test privacy request handling system
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 9. Implement TTL calculation and validation
+- [~] 9. Implement TTL calculation and validation
   - [ ] 9.1 Create TTL calculation utility function
     - Calculate TTL as submission timestamp + 18 months (in seconds)
     - Handle edge cases (leap years, month boundaries)
@@ -192,7 +192,7 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - Verify TTL is exactly 18 months from submission
     - _Requirements: 1.6_
 
-- [ ] 10. Implement comprehensive form validation
+- [~] 10. Implement comprehensive form validation
   - [ ] 10.1 Add validation for all form fields
     - Name: required, 1-100 characters
     - Email: required, valid email format
@@ -217,7 +217,7 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - Test submission prevention with invalid data
     - _Requirements: 3.1, 3.4_
 
-- [ ] 11. Implement cookie disclosure and conditional banner
+- [~] 11. Implement cookie disclosure and conditional banner
   - [ ] 11.1 Audit current cookie usage
     - Document all cookies currently set by the website
     - Categorize cookies (essential, functional, analytics, marketing)
@@ -234,7 +234,7 @@ This implementation plan breaks down the legal compliance pages feature into dis
     - **Property 12: Cookie Banner Conditional Display**
     - **Validates: Requirements 8.4, 8.5**
 
-- [ ] 12. Implement policy version management
+- [~] 12. Implement policy version management
   - [ ] 12.1 Create policy version tracking system
     - Store policy versions with effective date ranges
     - Update "Last Updated" date when policy content changes
