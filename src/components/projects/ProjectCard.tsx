@@ -62,9 +62,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
           className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm"
           aria-label={`Read full article: ${project.title}`}
         >
-          <h3 className="text-lg md:text-xl font-bold leading-tight hover:text-primary transition-colors cursor-pointer">
+          <h2 className="text-lg md:text-xl font-bold leading-tight hover:text-primary transition-colors cursor-pointer">
             {project.title}
-          </h3>
+          </h2>
         </Link>
 
         {/* Date */}

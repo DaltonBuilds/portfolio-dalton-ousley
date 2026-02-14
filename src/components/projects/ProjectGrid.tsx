@@ -40,7 +40,7 @@ export function ProjectGrid({
             />
           </svg>
         </div>
-        <h3 className="text-xl font-semibold mb-2">No projects found</h3>
+        <h2 className="text-xl font-semibold mb-2">No projects found</h2>
         <p className="text-muted-foreground max-w-md">
           No projects match your current filters. Try adjusting your filters or check back soon for new projects!
         </p>

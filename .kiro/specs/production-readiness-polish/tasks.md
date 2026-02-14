@@ -134,7 +134,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - **Property 14: Touch target spacing** - verify 8px spacing
     - _Requirements: 5.4, 6.1, 6.2_
 
-- [~] 6. Checkpoint - Ensure accessibility tests pass
+- [x] 6. Checkpoint - Ensure accessibility tests pass
   - Run axe-core on all pages
   - Test keyboard navigation on all interactive elements
   - Test with screen reader (VoiceOver or NVDA)
