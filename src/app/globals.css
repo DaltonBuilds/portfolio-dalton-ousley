@@ -376,6 +376,42 @@ figure[data-rehype-pretty-code-figure] .copy-button.copied svg {
   * {
     border-color: hsl(var(--border));
   }
+  
+  /* Enhanced focus indicators for keyboard navigation - WCAG 2.1 AA compliant (3:1 contrast) */
+  *:focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 2px;
+    transition: outline-offset 0.2s ease;
+  }
+  
+  /* Specific focus styles for interactive elements */
+  button:focus-visible,
+  a:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+  
+  /* Focus styles for form inputs */
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px hsl(var(--ring) / 0.1);
+  }
+  
+  /* Focus styles for custom interactive elements */
+  [tabindex]:not([tabindex="-1"]):focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+  
+  /* Ensure focus indicators are visible in dark mode */
+  .dark *:focus-visible {
+    outline-color: hsl(var(--ring));
+  }
+  
   /* Consistent inline code appearance across themes */
   .inline-code {
     background-color: hsl(var(--inline-code-bg));

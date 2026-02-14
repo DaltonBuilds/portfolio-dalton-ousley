@@ -33,7 +33,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - **Property 10: Modal focus return** - verify focus returns to trigger
     - _Requirements: 3.3, 3.4_
 
-- [-] 2. Implement semantic HTML and ARIA improvements
+- [x] 2. Implement semantic HTML and ARIA improvements
   - [x] 2.1 Audit and update page layouts with semantic HTML5 elements
     - Ensure header, nav, main, article, section, footer are used appropriately
     - Add landmark roles where semantic elements aren't sufficient
@@ -56,7 +56,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - Associate labels via htmlFor/id or wrapping
     - _Requirements: 2.3_
   
-  - [-] 2.5 Write property tests for semantic HTML and ARIA
+  - [x] 2.5 Write property tests for semantic HTML and ARIA
     - **Property 1: Single H1 per page** - verify one h1 per route
     - **Property 2: Heading hierarchy** - verify no skipped levels
     - **Property 3: Interactive elements have accessible names**
@@ -65,19 +65,19 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - **Property 6: Navigation landmarks have labels**
     - _Requirements: 1.2, 1.3, 2.1, 2.2, 2.3, 2.5_
 
-- [~] 3. Enhance keyboard navigation and focus management
-  - [ ] 3.1 Add skip-to-content link to root layout
+- [x] 3. Enhance keyboard navigation and focus management
+  - [x] 3.1 Add skip-to-content link to root layout
     - Place SkipLink component at top of layout
     - Link to main content area
     - _Requirements: 3.5_
   
-  - [ ] 3.2 Improve focus indicators across all interactive elements
+  - [x] 3.2 Improve focus indicators across all interactive elements
     - Update global CSS for focus-visible styles
     - Ensure 3:1 contrast ratio for focus indicators
     - Test with keyboard navigation
     - _Requirements: 3.2_
   
-  - [ ] 3.3 Add focus trap to modal dialogs
+  - [x] 3.3 Add focus trap to modal dialogs
     - Integrate FocusTrap component into ContactFormModal
     - Integrate FocusTrap into any other modals
     - Test keyboard navigation within modals
@@ -88,15 +88,15 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - **Property 8: Focus indicators** - verify contrast requirements
     - _Requirements: 3.1, 3.2_
 
-- [~] 4. Implement color contrast and visual accessibility improvements
-  - [ ] 4.1 Audit and fix color contrast issues
+- [x] 4. Implement color contrast and visual accessibility improvements
+  - [x] 4.1 Audit and fix color contrast issues
     - Run axe-core on all pages
     - Fix text contrast issues (4.5:1 for normal, 3:1 for large)
     - Fix UI component contrast issues (3:1 minimum)
     - Update Tailwind color tokens if needed
     - _Requirements: 4.1, 4.2, 4.3_
   
-  - [~] 4.2 Add alt text to all images
+  - [x] 4.2 Add alt text to all images
     - Audit all img and Image components
     - Add descriptive alt text for content images
     - Add empty alt="" for decorative images

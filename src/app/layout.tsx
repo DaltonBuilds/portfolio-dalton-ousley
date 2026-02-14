@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import { Toaster } from 'sonner';
 import { ContactModalProvider } from '@/contexts/ContactModalContext';
 import { CookieConsentManager } from '@/components/CookieConsentManager';
+import { SkipLink } from '@/components/accessibility/SkipLink';
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
@@ -41,13 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body suppressHydrationWarning className={`${ibmPlexMono.className} bg-background text-foreground`}>
         <ThemeProvider>
           <ContactModalProvider>
-            {/* Skip to main content link for keyboard users */}
-            <a 
-              href="#main-content" 
-              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-primary-foreground px-4 py-2 rounded-md z-50"
-            >
-              Skip to main content
-            </a>
+            <SkipLink href="#main-content">Skip to main content</SkipLink>
             <div className="relative flex flex-col min-h-screen">
               <Header />
               <main id="main-content" className="flex-grow">{children}</main>
