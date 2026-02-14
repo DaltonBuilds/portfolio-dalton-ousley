@@ -162,14 +162,14 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - **Property 22: Image placeholders** - verify placeholder prop
     - _Requirements: 8.2, 8.4, 8.5_
 
-- [-] 8. Implement code splitting and bundle optimization
-  - [-] 8.1 Identify and dynamically import large components
+- [x] 8. Implement code splitting and bundle optimization
+  - [x] 8.1 Identify and dynamically import large components
     - Audit bundle size with next build
     - Identify components > 50KB
     - Wrap with dynamic import and loading states
     - _Requirements: 9.3_
   
-  - [ ] 8.2 Configure bundle analysis
+  - [x] 8.2 Configure bundle analysis
     - Add @next/bundle-analyzer
     - Run analysis and identify optimization opportunities
     - Document findings

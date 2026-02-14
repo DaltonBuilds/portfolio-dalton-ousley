@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Cloud, GitBranch } from 'lucide-react';
 
 import SectionHeader from '@/components/SectionHeader';
@@ -7,12 +8,24 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import ExperienceHero from '@/components/experience/ExperienceHero';
 import { Timeline } from '@/components/ui/timeline';
-import { InteractiveSkillsGrid } from '@/components/InteractiveSkillsGrid';
 import { TerminalPhilosophy } from '@/components/TerminalPhilosophy';
 import FeaturedProjectsSection from '@/components/experience/FeaturedProjectsSection';
 import { ExperienceCTA } from '@/components/experience/ExperienceCTA';
 import { posts } from '../../../.velite';
 import { getProjectPosts, getFeaturedProjects } from '@/lib/projects';
+
+// Dynamically import InteractiveSkillsGrid to reduce initial bundle size
+// This component uses framer-motion and is below the fold
+const InteractiveSkillsGrid = dynamic(
+  () => import('@/components/InteractiveSkillsGrid').then(mod => ({ default: mod.InteractiveSkillsGrid })),
+  {
+    loading: () => (
+      <div className="flex items-center justify-center p-12">
+        <div className="animate-pulse text-muted-foreground">Loading skills...</div>
+      </div>
+    ),
+  }
+);
 
 export const metadata = {
   title: 'Experience — Dalton Ousley',

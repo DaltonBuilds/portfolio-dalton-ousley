@@ -1,14 +1,25 @@
 'use client'
 
 import { useMemo } from 'react'
+import dynamic from 'next/dynamic'
 import { MDXProvider } from '@mdx-js/react'
 import { Fragment, jsx, jsxs } from 'react/jsx-runtime'
 import { CodeBlock } from './CodeBlock'
 import { Callout } from './Callout'
 import { CustomImage } from './CustomImage'
-import { Mermaid } from './Mermaid'
 import { CodeBlockCopy } from './CodeBlockCopy'
 import { useMDXComponents } from '@/config/mdx-components'
+
+// Dynamically import Mermaid to reduce initial bundle size
+// Mermaid is ~200KB+ and only needed for blog posts with diagrams
+const Mermaid = dynamic(() => import('./Mermaid').then(mod => ({ default: mod.Mermaid })), {
+  loading: () => (
+    <div className="flex items-center justify-center p-8 bg-muted/30 rounded-lg border border-border">
+      <div className="animate-pulse text-muted-foreground">Loading diagram...</div>
+    </div>
+  ),
+  ssr: false,
+})
 
 const baseComponents = {
   // Custom components
