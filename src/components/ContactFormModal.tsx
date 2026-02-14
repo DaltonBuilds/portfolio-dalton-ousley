@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { FormErrorAnnouncer } from "@/components/ui/FormErrorAnnouncer"
 import { leadFormSchema, type LeadFormData } from "@/lib/validations/lead-form"
 import { submitLead, getErrorMessage, isLeadSubmissionError } from "@/lib/api/lead-client"
 
@@ -39,8 +40,10 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
     formState: { errors },
     reset,
     setValue,
+    trigger,
   } = useForm<LeadFormData>({
     resolver: zodResolver(leadFormSchema),
+    mode: 'onBlur', // Enable validation on blur
     defaultValues: {
       name: "",
       email: "",
@@ -192,6 +195,9 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
           onSubmit={handleSubmit(onSubmit)} 
           className="space-y-4 mt-4"
         >
+          {/* Screen reader announcements for form errors */}
+          <FormErrorAnnouncer errors={errors} />
+
           {/* Name Field */}
           <div className="space-y-2">
             <Label htmlFor="name" className="text-slate-700 dark:text-slate-300">
