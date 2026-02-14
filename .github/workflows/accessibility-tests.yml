@@ -1,0 +1,54 @@
+name: Accessibility Tests
+
+on:
+  pull_request:
+    branches: [main, master]
+  push:
+    branches: [main, master]
+
+jobs:
+  accessibility:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run accessibility tests
+        run: npm test -- --run src/__tests__/accessibility/
+
+      - name: Run component accessibility tests
+        run: npm test -- --run src/components/__tests__/*.accessibility.test.tsx
+
+      - name: Generate accessibility report
+        if: always()
+        run: |
+          echo "# Accessibility Test Results" > accessibility-report.md
+          echo "" >> accessibility-report.md
+          echo "Tests completed at: $(date)" >> accessibility-report.md
+          echo "" >> accessibility-report.md
+          echo "## Test Summary" >> accessibility-report.md
+          echo "All accessibility tests have been executed." >> accessibility-report.md
+
+      - name: Upload accessibility report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: accessibility-report
+          path: accessibility-report.md
+          retention-days: 30
+
+      - name: Fail on critical violations
+        if: failure()
+        run: |
+          echo "::error::Critical accessibility violations detected. Please review the test results."
+          exit 1

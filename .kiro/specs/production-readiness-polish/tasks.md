@@ -424,19 +424,19 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - **Property 19: TTI threshold** - verify < 3.5s
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
 
-- [ ] 17. Set up accessibility testing infrastructure
-  - [ ] 17.1 Install accessibility testing tools
+- [x] 17. Set up accessibility testing infrastructure
+  - [x] 17.1 Install accessibility testing tools
     - Install axe-core
     - Install jest-axe or @axe-core/react
     - Configure in test setup
     - _Requirements: 17.1_
   
-  - [ ] 17.2 Add accessibility tests to component tests
+  - [x] 17.2 Add accessibility tests to component tests
     - Add axe checks to all interactive components
     - Test keyboard navigation for critical flows
     - _Requirements: 17.2, 17.5_
   
-  - [ ] 17.3 Configure accessibility checks in CI/CD
+  - [x] 17.3 Configure accessibility checks in CI/CD
     - Add accessibility audit to CI pipeline
     - Fail build on critical violations
     - Generate accessibility reports

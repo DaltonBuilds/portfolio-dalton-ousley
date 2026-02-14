@@ -1,9 +1,20 @@
 import '@testing-library/jest-dom'
+import * as matchers from 'vitest-axe/matchers'
+import { expect } from 'vitest'
 import { configureAxe } from 'vitest-axe'
 
-// Configure axe for vitest
+// Extend Vitest's expect with axe matchers
+expect.extend(matchers)
+
+// Configure axe for vitest with global options
 const axe = configureAxe({
-  globalOptions: {},
+  globalOptions: {
+    // Run all accessibility rules
+    runOnly: {
+      type: 'tag',
+      values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice']
+    }
+  },
 })
 
 // Mock IntersectionObserver for framer-motion

@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
+import { axe } from 'vitest-axe';
 import ErrorBoundary from '../ErrorBoundary';
 
 // Component that throws an error
@@ -103,5 +104,44 @@ describe('ErrorBoundary', () => {
 
     expect(screen.getByText('Custom error: Test error')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /custom retry/i })).toBeInTheDocument();
+  });
+
+  // Accessibility tests
+  describe('Accessibility', () => {
+    it('should have no accessibility violations in fallback UI', async () => {
+      const { container } = render(
+        <ErrorBoundary>
+          <ThrowError shouldThrow={true} />
+        </ErrorBoundary>
+      );
+
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+
+    it('should have accessible retry button', () => {
+      render(
+        <ErrorBoundary>
+          <ThrowError shouldThrow={true} />
+        </ErrorBoundary>
+      );
+
+      const retryButton = screen.getByRole('button', { name: /try again/i });
+      expect(retryButton).toBeInTheDocument();
+      // Button should be accessible (has role and accessible name)
+      expect(retryButton).toHaveAccessibleName();
+    });
+
+    it('should have proper heading hierarchy in fallback UI', () => {
+      render(
+        <ErrorBoundary>
+          <ThrowError shouldThrow={true} />
+        </ErrorBoundary>
+      );
+
+      // Should have a heading for the error message
+      const heading = screen.getByText('Something went wrong');
+      expect(heading.tagName).toMatch(/H[1-6]/);
+    });
   });
 });

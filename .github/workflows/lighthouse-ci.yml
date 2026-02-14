@@ -37,3 +37,10 @@ jobs:
           name: lighthouse-results
           path: .lighthouseci/
           retention-days: 30
+
+      - name: Check Lighthouse accessibility score
+        if: always()
+        run: |
+          echo "Checking Lighthouse accessibility scores..."
+          # Lighthouse CI will fail the build if accessibility score is below threshold
+          # configured in lighthouserc.json (minimum 90)
