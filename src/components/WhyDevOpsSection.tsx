@@ -3,9 +3,9 @@ import { Card } from "@/components/ui/Card";
 
 const WhyDevOpsSection: React.FC = () => {
   return (
-    <section id="why-devops" className="section-padding">
+    <section id="why-devops" className="section-padding" aria-labelledby="why-devops-heading">
       <div className="container mx-auto px-4 max-w-5xl">
-        <h2 className="section-header mb-12 text-center">
+        <h2 id="why-devops-heading" className="section-header mb-12 text-center">
           Why <span className="gradient-text">DevOps?</span>
         </h2>
         <Card className="bg-card/50 border border-border/20 backdrop-blur-sm p-8 md:p-12">

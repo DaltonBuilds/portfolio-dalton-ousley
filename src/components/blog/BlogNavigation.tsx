@@ -14,7 +14,7 @@ export function BlogNavigation({ previousPost, nextPost }: BlogNavigationProps) 
   }
 
   return (
-    <nav className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+    <nav className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800" aria-label="Blog post navigation">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Previous Post */}
         <div className="md:col-span-1">

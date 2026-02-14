@@ -115,10 +115,9 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="relative w-full">
-
+    <>
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden" aria-labelledby="about-heading">
         {/* Background with gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
         
@@ -132,6 +131,7 @@ export default function AboutPage() {
             {/* Text Content */}
             <div className="relative z-10 pt-8 md:pt-16 lg:pt-20">
               <motion.h1 
+                id="about-heading"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -199,18 +199,19 @@ export default function AboutPage() {
       </section>
 
       {/* My Story */}
-      <section className="section-padding">
+      <section className="section-padding" aria-labelledby="my-story-heading">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="My Story"
-            subtitle="From marketing automation to infrastructure engineering"
-          />
+          <h2 id="my-story-heading" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-2 relative pb-2 text-center break-words max-w-full overflow-hidden">
+            My Story
+            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-secondary rounded-full"></span>
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground text-center">{`> From marketing automation to infrastructure engineering`}</p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto space-y-4 text-foreground/90 text-center"
+            className="max-w-4xl mx-auto space-y-4 text-foreground/90 text-center mt-8"
           >
             <p>
               I didn't start in infrastructure. My path began in digital marketing and business automation, where I helped clients build CRM systems, integrate APIs, and automate workflows. I was good at it—but something was missing.
@@ -229,18 +230,19 @@ export default function AboutPage() {
       </section>
 
       {/* I Learn by Doing - Terminal Showcase */}
-      <section className="section-padding bg-gradient-to-b from-background via-muted/20 to-background">
+      <section className="section-padding bg-gradient-to-b from-background via-muted/20 to-background" aria-labelledby="learn-by-doing-heading">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="I Learn by Doing"
-            subtitle="I don't just read documentation—I deploy it, break it, fix it, and understand why it works"
-          />
+          <h2 id="learn-by-doing-heading" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-2 relative pb-2 text-center break-words max-w-full overflow-hidden">
+            I Learn by Doing
+            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-secondary rounded-full"></span>
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground text-center">{`> I don't just read documentation—I deploy it, break it, fix it, and understand why it works`}</p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto space-y-8"
+            className="max-w-4xl mx-auto space-y-8 mt-8"
           >
             <div className="text-center text-foreground/90 space-y-4">
               <p>
@@ -263,18 +265,19 @@ export default function AboutPage() {
       </section>
 
       {/* How I Work */}
-      <section className="section-padding">
+      <section className="section-padding" aria-labelledby="how-i-work-heading">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="How I Work"
-            subtitle="My approach to infrastructure and problem-solving"
-          />
+          <h2 id="how-i-work-heading" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-2 relative pb-2 text-center break-words max-w-full overflow-hidden">
+            How I Work
+            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-secondary rounded-full"></span>
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground text-center">{`> My approach to infrastructure and problem-solving`}</p>
           <motion.div 
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 gap-6 md:grid-cols-2"
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 mt-8"
           >
             <motion.div variants={itemVariants}>
               <Card className="glass border-2 border-green-500/20 h-full group hover:border-green-500/40 transition-all duration-300 hover:scale-[1.02]">
@@ -344,17 +347,19 @@ export default function AboutPage() {
       </section>
 
       {/* Certifications */}
-      <section className="section-padding">
+      <section className="section-padding" aria-labelledby="certifications-heading">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="Certifications"
-            subtitle="Validating knowledge with hands-on practice"
-          />
+          <h2 id="certifications-heading" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-2 relative pb-2 text-center break-words max-w-full overflow-hidden">
+            Certifications
+            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-secondary rounded-full"></span>
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground text-center">{`> Validating knowledge with hands-on practice`}</p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="mt-8"
           >
             <Card className="glass border-2 border-yellow-500/20">
               <CardContent className="pt-6">
@@ -436,17 +441,19 @@ export default function AboutPage() {
       </section>
 
       {/* What I'm Looking For - CTA */}
-      <section className="section-padding bg-gradient-to-b from-background via-primary/5 to-background">
+      <section className="section-padding bg-gradient-to-b from-background via-primary/5 to-background" aria-labelledby="looking-for-heading">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="What I'm Looking For"
-            subtitle="The right team and the right challenge"
-          />
+          <h2 id="looking-for-heading" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-2 relative pb-2 text-center break-words max-w-full overflow-hidden">
+            What I'm Looking For
+            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-secondary rounded-full"></span>
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground text-center">{`> The right team and the right challenge`}</p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="mt-8"
           >
             <div className="max-w-4xl mx-auto">
               <div className="relative rounded-2xl border-2 border-primary/40 bg-gradient-to-br from-primary/10 via-background to-primary/5 p-8 md:p-10 shadow-2xl shadow-primary/20">
@@ -495,6 +502,6 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

@@ -13,21 +13,11 @@ import { useContactModal } from '@/contexts/ContactModalContext'
 const Hero: React.FC = () => {
   const { openContactModal } = useContactModal()
   return (
-    <>
-      {/* Skip to main content link for screen readers */}
-      <a 
-        href="#main-content" 
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-primary-foreground px-4 py-2 rounded-md z-50"
-      >
-        Skip to main content
-      </a>
-      
-      <section 
-        id="hero" 
-        className="relative flex flex-col items-center justify-center text-center py-20 md:py-32 min-h-screen overflow-hidden"
-        aria-labelledby="hero-heading"
-        role="banner"
-      >
+    <section 
+      id="hero" 
+      className="relative flex flex-col items-center justify-center text-center py-20 md:py-32 min-h-screen overflow-hidden"
+      aria-labelledby="hero-heading"
+    >
       <div className="absolute top-0 left-0 w-full h-full z-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-secondary/10 rounded-full filter blur-3xl opacity-30 animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl opacity-30 animate-pulse animation-delay-200"></div>
@@ -50,9 +40,9 @@ const Hero: React.FC = () => {
         <h1 id="hero-heading" className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6">
           Hi, I&apos;m <span className="gradient-text">{siteConfig.name.split(' ')[0]}</span>
         </h1>
-        <h2 className="text-xl sm:text-2xl md:text-4xl font-semibold text-foreground/80 mb-8">
+        <p className="text-xl sm:text-2xl md:text-4xl font-semibold text-foreground/80 mb-8">
           {siteConfig.professional.role}
-        </h2>
+        </p>
         <p className="text-base sm:text-lg md:text-xl text-foreground/60 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
           Building reliable infrastructure with Kubernetes, GitOps, and cloud-native tools. Running a production homelab to learn, break things, and build better systems.
         </p>
@@ -83,8 +73,7 @@ const Hero: React.FC = () => {
         <span className="text-sm font-medium text-foreground/70 tracking-wide">Scroll to explore</span>
         <ChevronDown className="w-6 h-6 text-foreground/70 animate-bounce" aria-hidden="true" />
       </a>
-      </section>
-    </>
+    </section>
   );
 };
 

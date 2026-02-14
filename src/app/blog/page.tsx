@@ -24,29 +24,31 @@ export default function BlogPage() {
   const regularPosts = publishedPosts.filter((post) => !post.featured)
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
       {/* Hero Section */}
-      <section className="border-b border-gray-200 dark:border-gray-800">
+      <section className="border-b border-gray-200 dark:border-gray-800" aria-labelledby="blog-heading">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 section-padding">
           <div className="text-center max-w-4xl mx-auto">
-            <SectionHeader
-              title="Blog"
-              subtitle="Insights, tutorials, and thoughts on DevOps, Kubernetes, cloud architecture, and modern infrastructure practices"
-            />
+            <h1 id="blog-heading" className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground mb-4">
+              Blog
+            </h1>
+            <p className="text-lg sm:text-xl text-muted-foreground">
+              Insights, tutorials, and thoughts on DevOps, Kubernetes, cloud architecture, and modern infrastructure practices
+            </p>
           </div>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="section-padding">
+      <div className="section-padding">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
             {/* Main Content */}
-            <div className="lg:col-span-3">
+            <main className="lg:col-span-3">
               {/* Featured Posts */}
               {featuredPosts.length > 0 && (
-                <div className="mb-8 sm:mb-12">
-                  <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-foreground">
+                <section className="mb-8 sm:mb-12" aria-labelledby="featured-posts-heading">
+                  <h2 id="featured-posts-heading" className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-foreground">
                     Featured Posts
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -54,12 +56,12 @@ export default function BlogPage() {
                       <BlogPostCard key={post.slug} post={post} featured />
                     ))}
                   </div>
-                </div>
+                </section>
               )}
 
               {/* All Posts */}
-              <div>
-                <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-foreground">
+              <section aria-labelledby="all-posts-heading">
+                <h2 id="all-posts-heading" className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-foreground">
                   {featuredPosts.length > 0 ? 'Latest Posts' : 'All Posts'}
                 </h2>
                 {regularPosts.length > 0 ? (
@@ -81,16 +83,16 @@ export default function BlogPage() {
                     </p>
                   </div>
                 )}
-              </div>
-            </div>
+              </section>
+            </main>
 
             {/* Sidebar */}
-            <div className="lg:col-span-1 mt-8 lg:mt-0">
+            <aside className="lg:col-span-1 mt-8 lg:mt-0" aria-label="Blog sidebar">
               <BlogSidebar />
-            </div>
+            </aside>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </>
   )
 }

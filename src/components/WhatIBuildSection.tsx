@@ -54,9 +54,9 @@ const buildItems = [
 
 const WhatIBuildSection: React.FC = () => {
   return (
-    <section id="what-i-build" className="section-padding">
+    <section id="what-i-build" className="section-padding" aria-labelledby="what-i-build-heading">
       <div className="container mx-auto px-4 max-w-7xl">
-        <h2 className="section-header mb-12 text-center">
+        <h2 id="what-i-build-heading" className="section-header mb-12 text-center">
           What I <span className="gradient-text">Build</span>
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

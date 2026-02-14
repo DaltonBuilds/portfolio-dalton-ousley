@@ -9,7 +9,7 @@ import CTASection from "@/components/CTASection";
 
 const Home = () => {
   return (
-    <div className="flex flex-col">
+    <>
       <Hero />
       <WhyDevOpsSection />
       <WhatIBuildSection />
@@ -18,7 +18,7 @@ const Home = () => {
       <GitHubActivityWidget />
       <LatestPostsWidget maxPosts={6} showFeatured={true} />
       <CTASection />
-    </div>
+    </>
   );
 };
 

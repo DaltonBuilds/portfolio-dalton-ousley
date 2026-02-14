@@ -8,21 +8,21 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
 
 ## Tasks
 
-- [ ] 1. Set up accessibility infrastructure
-  - [ ] 1.1 Create SkipLink component for keyboard navigation
+- [x] 1. Set up accessibility infrastructure
+  - [x] 1.1 Create SkipLink component for keyboard navigation
     - Implement visually hidden link that appears on focus
     - Position at top of page, links to main content
     - Style with proper focus indicators
     - _Requirements: 3.5_
   
-  - [ ] 1.2 Create FocusTrap component for modal dialogs
+  - [x] 1.2 Create FocusTrap component for modal dialogs
     - Implement focus trapping logic
     - Handle Tab and Shift+Tab cycling
     - Support Escape key to close
     - Return focus to trigger element on close
     - _Requirements: 3.3, 3.4_
   
-  - [ ] 1.3 Create LiveRegion component for screen reader announcements
+  - [x] 1.3 Create LiveRegion component for screen reader announcements
     - Implement aria-live region with configurable politeness
     - Support auto-clearing after timeout
     - Provide hook for programmatic announcements
@@ -33,30 +33,30 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - **Property 10: Modal focus return** - verify focus returns to trigger
     - _Requirements: 3.3, 3.4_
 
-- [ ] 2. Implement semantic HTML and ARIA improvements
-  - [ ] 2.1 Audit and update page layouts with semantic HTML5 elements
+- [-] 2. Implement semantic HTML and ARIA improvements
+  - [x] 2.1 Audit and update page layouts with semantic HTML5 elements
     - Ensure header, nav, main, article, section, footer are used appropriately
     - Add landmark roles where semantic elements aren't sufficient
     - Verify exactly one h1 per page
     - Fix heading hierarchy issues
     - _Requirements: 1.1, 1.2, 1.3, 1.4_
   
-  - [ ] 2.2 Add ARIA labels to navigation landmarks
+  - [x] 2.2 Add ARIA labels to navigation landmarks
     - Add aria-label to nav elements to distinguish them
     - Label primary navigation, footer navigation, etc.
     - _Requirements: 2.5_
   
-  - [ ] 2.3 Add ARIA labels to icon buttons
+  - [x] 2.3 Add ARIA labels to icon buttons
     - Audit all buttons without visible text
     - Add aria-label or aria-labelledby attributes
     - _Requirements: 2.2_
   
-  - [ ] 2.4 Ensure all form inputs have associated labels
+  - [x] 2.4 Ensure all form inputs have associated labels
     - Audit all form inputs
     - Associate labels via htmlFor/id or wrapping
     - _Requirements: 2.3_
   
-  - [ ]* 2.5 Write property tests for semantic HTML and ARIA
+  - [-] 2.5 Write property tests for semantic HTML and ARIA
     - **Property 1: Single H1 per page** - verify one h1 per route
     - **Property 2: Heading hierarchy** - verify no skipped levels
     - **Property 3: Interactive elements have accessible names**
@@ -65,7 +65,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - **Property 6: Navigation landmarks have labels**
     - _Requirements: 1.2, 1.3, 2.1, 2.2, 2.3, 2.5_
 
-- [ ] 3. Enhance keyboard navigation and focus management
+- [~] 3. Enhance keyboard navigation and focus management
   - [ ] 3.1 Add skip-to-content link to root layout
     - Place SkipLink component at top of layout
     - Link to main content area
@@ -88,7 +88,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - **Property 8: Focus indicators** - verify contrast requirements
     - _Requirements: 3.1, 3.2_
 
-- [ ] 4. Implement color contrast and visual accessibility improvements
+- [~] 4. Implement color contrast and visual accessibility improvements
   - [ ] 4.1 Audit and fix color contrast issues
     - Run axe-core on all pages
     - Fix text contrast issues (4.5:1 for normal, 3:1 for large)
@@ -96,7 +96,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - Update Tailwind color tokens if needed
     - _Requirements: 4.1, 4.2, 4.3_
   
-  - [ ] 4.2 Add alt text to all images
+  - [~] 4.2 Add alt text to all images
     - Audit all img and Image components
     - Add descriptive alt text for content images
     - Add empty alt="" for decorative images
@@ -107,7 +107,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - **Property 12: Images have alt text** - verify all images have alt
     - _Requirements: 4.1, 4.2, 4.3, 4.5_
 
-- [ ] 5. Implement mobile-first responsive design improvements
+- [~] 5. Implement mobile-first responsive design improvements
   - [ ] 5.1 Add viewport meta tag to root layout
     - Ensure viewport meta tag is present
     - Set width=device-width, initial-scale=1
@@ -129,12 +129,12 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - Add minimum 8px spacing between touch targets
     - _Requirements: 6.2_
   
-  - [ ]* 5.5 Write property tests for mobile responsiveness
+  - [ ] 5.5 Write property tests for mobile responsiveness
     - **Property 13: Touch target minimum size** - verify 44x44px
     - **Property 14: Touch target spacing** - verify 8px spacing
     - _Requirements: 5.4, 6.1, 6.2_
 
-- [ ] 6. Checkpoint - Ensure accessibility tests pass
+- [~] 6. Checkpoint - Ensure accessibility tests pass
   - Run axe-core on all pages
   - Test keyboard navigation on all interactive elements
   - Test with screen reader (VoiceOver or NVDA)
