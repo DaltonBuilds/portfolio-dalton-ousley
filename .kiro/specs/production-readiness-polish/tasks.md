@@ -402,15 +402,15 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
   - Test error boundaries
   - Ask the user if questions arise
 
-- [-] 16. Set up performance monitoring and optimization
-  - [-] 16.1 Add Web Vitals tracking
+- [x] 16. Set up performance monitoring and optimization
+  - [x] 16.1 Add Web Vitals tracking
     - Install web-vitals library
     - Add tracking to root layout
     - Log metrics to console in development
     - Send metrics to analytics in production
     - _Requirements: 7.1, 7.2, 7.3, 7.5_
   
-  - [ ] 16.2 Configure Lighthouse CI
+  - [x] 16.2 Configure Lighthouse CI
     - Add lighthouse CI configuration
     - Set performance thresholds (LCP < 2.5s, FID < 100ms, CLS < 0.1)
     - Set minimum scores (performance: 90, accessibility: 90)
