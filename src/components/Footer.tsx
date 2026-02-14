@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
                 href={siteConfig.social.github} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#30363d] text-gray-400 hover:text-white hover:bg-[#3d444d] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-[#0d1117]" 
+                className="flex items-center justify-center w-11 h-11 rounded-lg bg-[#30363d] text-gray-400 hover:text-white hover:bg-[#3d444d] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-[#0d1117]" 
                 aria-label="Visit Dalton's GitHub profile (opens in new tab)"
               >
                 <Github className="w-5 h-5" />
@@ -61,7 +61,7 @@ const Footer: React.FC = () => {
                 href={siteConfig.social.linkedin} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#30363d] text-gray-400 hover:text-white hover:bg-[#0e76a8] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-[#0d1117]" 
+                className="flex items-center justify-center w-11 h-11 rounded-lg bg-[#30363d] text-gray-400 hover:text-white hover:bg-[#0e76a8] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-[#0d1117]" 
                 aria-label="Visit Dalton's LinkedIn profile (opens in new tab)"
               >
                 <Linkedin className="w-5 h-5" />

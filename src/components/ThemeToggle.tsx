@@ -22,7 +22,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <button className="inline-flex items-center justify-center h-10 w-10 rounded-md" aria-hidden="true">
+      <button className="inline-flex items-center justify-center h-11 w-11 rounded-md" aria-hidden="true">
         <div className="h-[1.2rem] w-[1.2rem]" />
       </button>
     )
@@ -31,7 +31,7 @@ export function ThemeToggle() {
   return (
     <button 
       onClick={toggleTheme}
-      className="relative inline-flex items-center justify-center h-10 w-10 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      className="relative inline-flex items-center justify-center h-11 w-11 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
       suppressHydrationWarning
     >

@@ -107,7 +107,7 @@ export function CookieBanner({ onAccept, onReject }: CookieBannerProps) {
 
               <button
                 onClick={handleClose}
-                className="flex-shrink-0 text-foreground/60 hover:text-foreground transition-colors"
+                className="flex-shrink-0 flex items-center justify-center w-11 h-11 text-foreground/60 hover:text-foreground transition-colors rounded-md hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 aria-label="Close cookie banner"
               >
                 <X className="h-5 w-5" />
