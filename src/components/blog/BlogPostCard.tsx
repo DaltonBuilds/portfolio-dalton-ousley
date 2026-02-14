@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { Calendar, Clock, User } from 'lucide-react'
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
@@ -22,14 +22,13 @@ export function BlogPostCard({ post, featured = false }: BlogPostCardProps) {
       {post.image && (
         <Link href={post.permalink} aria-label={`Read full article: ${post.title}`}>
           <div className="relative overflow-hidden rounded-t-lg cursor-pointer">
-            <Image
+            <OptimizedImage
               src={post.image.src}
               alt={post.image.alt}
               width={400}
               height={192}
               className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, 400px"
-              loading="lazy"
             />
             {featured && (
               <Badge 

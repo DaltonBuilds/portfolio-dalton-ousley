@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { Calendar, ExternalLink, Github } from 'lucide-react'
 import { Card, CardContent, CardHeader } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
@@ -30,14 +30,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
           aria-label={`Read full article: ${project.title}`}
         >
           <div className="relative overflow-hidden rounded-t-lg cursor-pointer">
-            <Image
+            <OptimizedImage
               src={project.image.src}
               alt={project.image.alt}
               width={400}
               height={192}
               className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, 400px"
-              loading="lazy"
             />
           </div>
         </Link>

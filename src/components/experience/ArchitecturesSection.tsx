@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/OptimizedImage';
 import { motion } from 'framer-motion';
 import { 
   Rocket, 
@@ -32,15 +32,15 @@ export default function ArchitecturesSection() {
                 <p>Blue/green rollouts, HPA, error-budget alerts. Cost down 22%.</p>
                 <div className="flex gap-2 sm:gap-3 items-center text-xs flex-wrap">
                   <div className="flex items-center gap-1 bg-blue-500/10 px-1.5 sm:px-2 py-1 rounded border border-blue-500/20">
-                    <Image src="/Kubernetes_logo_without_workmark.svg" alt="Kubernetes logo" width={14} height={14} className="sm:w-4 sm:h-4" />
+                    <OptimizedImage src="/Kubernetes_logo_without_workmark.svg" alt="Kubernetes logo" width={14} height={14} className="sm:w-4 sm:h-4" sizes="14px" />
                     <span className="text-blue-600 dark:text-blue-400 text-[10px] sm:text-xs">K8s</span>
                   </div>
                   <div className="flex items-center gap-1 bg-orange-500/10 px-1.5 sm:px-2 py-1 rounded border border-orange-500/20">
-                    <Image src="/google_cloud-icon.svg" alt="Google Cloud logo" width={14} height={14} className="sm:w-4 sm:h-4" />
+                    <OptimizedImage src="/google_cloud-icon.svg" alt="Google Cloud logo" width={14} height={14} className="sm:w-4 sm:h-4" sizes="14px" />
                     <span className="text-orange-600 dark:text-orange-400 text-[10px] sm:text-xs">GCP</span>
                   </div>
                   <div className="flex items-center gap-1 bg-gray-500/10 px-1.5 sm:px-2 py-1 rounded border border-gray-500/20">
-                    <Image src="/Linux.svg" alt="Linux logo" width={14} height={14} className="sm:w-4 sm:h-4" />
+                    <OptimizedImage src="/Linux.svg" alt="Linux logo" width={14} height={14} className="sm:w-4 sm:h-4" sizes="14px" />
                     <span className="text-gray-600 dark:text-gray-400 text-[10px] sm:text-xs">Linux</span>
                   </div>
                 </div>
@@ -63,7 +63,7 @@ export default function ArchitecturesSection() {
                   </div>
                 </div>
                 <div className="absolute top-2 right-2 opacity-80">
-                  <Image src="/Kubernetes_logo_without_workmark.svg" alt="Kubernetes logo" width={24} height={24} />
+                  <OptimizedImage src="/Kubernetes_logo_without_workmark.svg" alt="Kubernetes logo" width={24} height={24} sizes="24px" />
                 </div>
                 <div className="absolute bottom-2 left-2 text-xs text-blue-600 dark:text-blue-400 font-medium">
                   Multi-region K8s
@@ -86,7 +86,7 @@ export default function ArchitecturesSection() {
                     <span className="text-cyan-600 dark:text-cyan-400 text-[10px] sm:text-xs">React</span>
                   </div>
                   <div className="flex items-center gap-1 bg-gray-500/10 px-1.5 sm:px-2 py-1 rounded border border-gray-500/20">
-                    <Image src="/Linux.svg" alt="Linux logo" width={14} height={14} className="sm:w-4 sm:h-4" />
+                    <OptimizedImage src="/Linux.svg" alt="Linux logo" width={14} height={14} className="sm:w-4 sm:h-4" sizes="14px" />
                     <span className="text-gray-600 dark:text-gray-400 text-[10px] sm:text-xs">Linux</span>
                   </div>
                 </div>

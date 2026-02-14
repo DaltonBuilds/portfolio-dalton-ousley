@@ -141,14 +141,14 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
   - Fix any issues found
   - Ask the user if questions arise
 
-- [ ] 7. Optimize images with Next.js Image component
-  - [ ] 7.1 Create OptimizedImage wrapper component
+- [x] 7. Optimize images with Next.js Image component
+  - [x] 7.1 Create OptimizedImage wrapper component
     - Wrap Next.js Image with sensible defaults
     - Provide WebP/AVIF with fallbacks
     - Add blur placeholder support
     - _Requirements: 8.1, 8.3, 8.5_
   
-  - [ ] 7.2 Audit and update all image usage
+  - [x] 7.2 Audit and update all image usage
     - Replace img tags with OptimizedImage component
     - Add width, height, and sizes attributes
     - Set priority for above-the-fold images
@@ -162,8 +162,8 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - **Property 22: Image placeholders** - verify placeholder prop
     - _Requirements: 8.2, 8.4, 8.5_
 
-- [ ] 8. Implement code splitting and bundle optimization
-  - [ ] 8.1 Identify and dynamically import large components
+- [-] 8. Implement code splitting and bundle optimization
+  - [-] 8.1 Identify and dynamically import large components
     - Audit bundle size with next build
     - Identify components > 50KB
     - Wrap with dynamic import and loading states
@@ -179,7 +179,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - **Property 23: Initial bundle size limit** - verify < 200KB gzipped
     - _Requirements: 9.2_
 
-- [ ] 9. Implement API route error handling
+- [~] 9. Implement API route error handling
   - [ ] 9.1 Create API error handling utilities
     - Implement handleApiError function
     - Implement createApiResponse function
@@ -220,7 +220,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - Test server errors (500)
     - _Requirements: 10.1, 10.2_
 
-- [ ] 10. Enhance GitHub widget with error handling and caching
+- [~] 10. Enhance GitHub widget with error handling and caching
   - [ ] 10.1 Add timeout handling to GitHub widget
     - Set 5 second timeout for GitHub API calls
     - Display fallback message on timeout
@@ -255,7 +255,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - Test timeout scenario
     - _Requirements: 11.1, 11.2, 11.3_
 
-- [ ] 11. Implement MDX content error handling
+- [~] 11. Implement MDX content error handling
   - [ ] 11.1 Create MDX frontmatter validation schema
     - Define Zod schema for post frontmatter
     - Include required fields (title, date)
@@ -290,7 +290,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - Test invalid frontmatter values
     - _Requirements: 12.1, 12.4, 12.5_
 
-- [ ] 12. Implement form validation and error handling
+- [~] 12. Implement form validation and error handling
   - [ ] 12.1 Create AccessibleFormField component
     - Implement form field with associated label
     - Add error message display with aria-describedby

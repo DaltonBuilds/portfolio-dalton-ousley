@@ -3,7 +3,7 @@ import SectionHeader from './SectionHeader';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/Card';
 import { Github, ExternalLink, Code } from 'lucide-react';
 import { Button } from './ui/Button';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/OptimizedImage';
 
 interface ProjectProps {
   title: string;
@@ -62,12 +62,14 @@ const ProjectsSection: React.FC = () => {
             className="flex flex-col md:flex-row overflow-hidden border-2 border-blue-500 transform transition-all duration-300 hover:scale-[1.03] hover:border-orange-500 shadow-lg shadow-blue-500/20 hover:shadow-orange-500/30 animate-fade-in-up"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <div className="relative w-full md:w-2/5 h-48 md:h-auto">
-              <Image 
+            <div className="relative w-full md:w-2/5 h-48 md:h-auto overflow-hidden">
+              <OptimizedImage 
                 src={project.image}
-                alt=""
-                layout="fill"
-                objectFit="cover"
+                alt={`${project.title} project screenshot`}
+                width={400}
+                height={300}
+                className="w-full h-full object-cover"
+                sizes="(max-width: 768px) 100vw, 40vw"
               />
             </div>
             <div className="flex flex-col justify-between w-full md:w-3/5">

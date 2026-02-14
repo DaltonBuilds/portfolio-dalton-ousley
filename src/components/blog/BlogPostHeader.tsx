@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { Calendar, Clock, User, Tag } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { formatDateForDisplay } from '@/lib/date-utils'
@@ -76,7 +76,7 @@ export function BlogPostHeader({ post, author }: BlogPostHeaderProps) {
           {/* Featured Image */}
           {post.image && (
             <div className="relative overflow-hidden rounded-lg mb-8">
-              <Image
+              <OptimizedImage
                 src={post.image.src}
                 alt={post.image.alt}
                 width={800}

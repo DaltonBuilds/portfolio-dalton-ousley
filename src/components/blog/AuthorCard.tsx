@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { ExternalLink, Github, Linkedin, Twitter } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
@@ -16,12 +16,13 @@ export function AuthorCard({ author }: AuthorCardProps) {
         <div className="flex flex-col sm:flex-row gap-4">
           {/* Avatar */}
           <div className="flex-shrink-0">
-            <Image
+            <OptimizedImage
               src={author.avatar}
               alt={`${author.name} profile picture`}
               width={64}
               height={64}
               className="w-16 h-16 rounded-full object-cover"
+              sizes="64px"
             />
           </div>
 

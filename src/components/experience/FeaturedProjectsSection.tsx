@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/OptimizedImage';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 
@@ -41,11 +41,13 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
                 {/* Project Image */}
                 {project.image && (
                   <Link href={`/blog/${project.slug}`} className="block relative h-48 w-full overflow-hidden rounded-t-lg">
-                    <Image
+                    <OptimizedImage
                       src={project.image.src}
                       alt={project.image.alt}
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-300"
+                      width={800}
+                      height={384}
+                      className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
                     />
                   </Link>
                 )}

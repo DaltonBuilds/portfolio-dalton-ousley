@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { ArrowRight, Calendar, Clock } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
@@ -73,14 +73,13 @@ export function LatestPostsWidget({
                 <Link href={post.permalink} className="flex flex-col h-full">
                   {post.image && (
                     <div className="relative overflow-hidden rounded-t-lg">
-                      <Image
+                      <OptimizedImage
                         src={post.image.src}
                         alt={post.image.alt}
                         width={400}
                         height={200}
                         className="w-full h-40 object-cover transition-transform duration-300 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        loading="lazy"
                       />
                       {isFeatured && (
                         <Badge 

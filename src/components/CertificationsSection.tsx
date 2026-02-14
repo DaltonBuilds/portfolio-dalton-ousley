@@ -5,7 +5,7 @@ import SectionHeader from './SectionHeader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { BadgeCheck, CircleDashed, Clock, CheckCircle2, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/OptimizedImage';
 import GoogleCloudIcon from './icons/GoogleCloudIcon';
 import KubernetesIcon from './icons/KubernetesIcon';
 import LinuxIcon from './icons/LinuxIcon';
@@ -63,7 +63,7 @@ const CertificationNode = forwardRef<HTMLDivElement, CertificationNodeProps>(({ 
                 <div className="flex justify-between items-center mb-2">
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${isInProgress ? (imageSrc ? '' : 'bg-amber-500/10 text-amber-500') : 'bg-primary/10 text-primary'}`}>
                         {imageSrc ? (
-                            <Image src={imageSrc} alt={`${cert.title} certification logo`} width={24} height={24} className="w-6 h-6" />
+                            <OptimizedImage src={imageSrc} alt={`${cert.title} certification logo`} width={24} height={24} className="w-6 h-6" sizes="24px" />
                         ) : (
                             <Icon className="w-6 h-6" />
                         )}
@@ -206,7 +206,7 @@ export function CertificationsSection() {
                                         <CardContent className="pt-6 pb-4">
                                             <div className="flex items-center gap-3">
                                                 <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-                                                    <Image src="/Kubernetes_logo_without_workmark.svg" alt="Kubernetes certification logo" width={20} height={20} className="w-5 h-5" />
+                                                    <OptimizedImage src="/Kubernetes_logo_without_workmark.svg" alt="Kubernetes certification logo" width={20} height={20} className="w-5 h-5" sizes="20px" />
                                                 </div>
                                                 <p className="font-semibold text-sm">CKAD</p>
                                             </div>
@@ -225,7 +225,7 @@ export function CertificationsSection() {
                                         <CardContent className="pt-6 pb-4">
                                             <div className="flex items-center gap-3">
                                                 <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-                                                    <Image src="/Kubernetes_logo_without_workmark.svg" alt="Kubernetes certification logo" width={20} height={20} className="w-5 h-5" />
+                                                    <OptimizedImage src="/Kubernetes_logo_without_workmark.svg" alt="Kubernetes certification logo" width={20} height={20} className="w-5 h-5" sizes="20px" />
                                                 </div>
                                                 <p className="font-semibold text-sm">CKS</p>
                                             </div>
@@ -244,7 +244,7 @@ export function CertificationsSection() {
                                         <CardContent className="pt-6 pb-4">
                                             <div className="flex items-center gap-3">
                                                 <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-                                                    <Image src="/Kubernetes_logo_without_workmark.svg" alt="Kubernetes certification logo" width={20} height={20} className="w-5 h-5" />
+                                                    <OptimizedImage src="/Kubernetes_logo_without_workmark.svg" alt="Kubernetes certification logo" width={20} height={20} className="w-5 h-5" sizes="20px" />
                                                 </div>
                                                 <p className="font-semibold text-sm">KCNA</p>
                                             </div>
@@ -263,7 +263,7 @@ export function CertificationsSection() {
                                         <CardContent className="pt-6 pb-4">
                                             <div className="flex items-center gap-3">
                                                 <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-                                                    <Image src="/Kubernetes_logo_without_workmark.svg" alt="Kubernetes certification logo" width={20} height={20} className="w-5 h-5" />
+                                                    <OptimizedImage src="/Kubernetes_logo_without_workmark.svg" alt="Kubernetes certification logo" width={20} height={20} className="w-5 h-5" sizes="20px" />
                                                 </div>
                                                 <p className="font-semibold text-sm">KCSA</p>
                                             </div>

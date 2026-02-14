@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
+import { OptimizedImage } from '@/components/OptimizedImage'
 import { posts, authors } from '../../../../../.velite'
 import { BlogPostCard } from '@/components/blog/BlogPostCard'
 import { Badge } from '@/components/ui/Badge'
@@ -77,12 +77,14 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
               {/* Author Avatar */}
               <div className="flex-shrink-0">
                 <div className="relative w-32 h-32 md:w-40 md:h-40">
-                  <Image
+                  <OptimizedImage
                     src={author.avatar}
                     alt={`${author.name} profile picture`}
-                    fill
-                    className="rounded-full object-cover border-4 border-primary/20"
+                    width={160}
+                    height={160}
+                    className="rounded-full object-cover border-4 border-primary/20 w-full h-full"
                     priority
+                    sizes="(max-width: 768px) 128px, 160px"
                   />
                 </div>
               </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/OptimizedImage';
 
 interface CredlyBadgeProps {
   width?: number;
@@ -11,7 +11,7 @@ interface CredlyBadgeProps {
 
 /**
  * CredlyBadge component for displaying Google PCA certification badge
- * Uses a custom image with proper Next.js optimization
+ * Uses OptimizedImage for proper Next.js optimization
  */
 const CredlyBadge: React.FC<CredlyBadgeProps> = ({ 
   width = 200, 
@@ -21,13 +21,14 @@ const CredlyBadge: React.FC<CredlyBadgeProps> = ({
   disableLink = false
 }) => {
   const imageElement = (
-    <Image
+    <OptimizedImage
       src="/professional-cloud-architect-certification.webp"
       alt="Google Professional Cloud Architect Certification Badge"
       width={width}
       height={height}
       className="rounded-lg"
       priority={priority}
+      sizes={`${width}px`}
     />
   );
 

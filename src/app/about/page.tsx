@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/OptimizedImage';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Code2, Lightbulb, MessageSquare, Target, Award, Rocket, Users, Zap } from 'lucide-react';
@@ -180,13 +180,14 @@ export default function AboutPage() {
               className="relative flex justify-center md:justify-end"
             >
               <div className="relative w-full max-w-md md:max-w-lg">
-                <Image
+                <OptimizedImage
                   src="/Dalton-Ousley-portrait-black-shirt.avif"
                   alt="Dalton Ousley portrait"
                   width={600}
                   height={800}
                   className="w-full h-auto object-cover"
                   priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   style={{ 
                     maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)',
                     WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)'

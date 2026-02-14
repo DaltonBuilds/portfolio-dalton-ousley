@@ -10,7 +10,7 @@ import {
   X,
   Mail
 } from 'lucide-react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/OptimizedImage';
 import {
   Sheet,
   SheetContent,
@@ -114,12 +114,13 @@ const Header: React.FC = () => {
                   <div className="pt-20 pb-8 px-6">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 rounded-full overflow-hidden backdrop-blur-sm border border-white/30">
-                        <Image
+                        <OptimizedImage
                           src="/dalton-ousley-profile-pic.webp"
                           alt="Dalton Ousley profile picture"
                           width={32}
                           height={32}
                           className="w-full h-full object-cover"
+                          sizes="32px"
                         />
                       </div>
                       <span className="font-bold text-xl text-white">Menu</span>

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 import React from 'react';
 import { ArrowDownToLine, Rocket } from 'lucide-react';
 import { ChevronDown } from 'lucide-react';
-import Image from 'next/image';
+import { OptimizedImage } from '@/components/OptimizedImage';
 
 import { siteConfig } from '@/config/site.config'
 import { PATHS } from '@/config/constants'
@@ -25,13 +25,14 @@ const Hero: React.FC = () => {
 
       <div className="relative z-10 px-4 max-w-6xl mx-auto">
           <div className="mb-8">
-          <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-50 md:h-50 rounded-full mx-auto overflow-hidden border-4 border-primary shadow-xl shadow-primary/20">
-            <Image
+          <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-50 md:h-50 rounded-full mx-auto overflow-hidden border-4 border-primary shadow-xl shadow-primary/20">
+            <OptimizedImage
               src={PATHS.PROFILE_IMAGE}
               alt="Dalton Ousley profile picture"
-              width={150}
-              height={150}
-              className="object-cover h-full w-full"
+              width={600}
+              height={800}
+              className="w-full h-full object-cover"
+              style={{ objectPosition: '50% 20%' }}
               sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 200px"
               priority
             />
