@@ -326,19 +326,19 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - Test message length validation
     - _Requirements: 13.1_
 
-- [ ] 13. Implement configuration validation
-  - [ ] 13.1 Create configuration validation schemas
+- [x] 13. Implement configuration validation
+  - [x] 13.1 Create configuration validation schemas
     - Define Zod schema for site config
     - Define Zod schema for environment variables
     - _Requirements: 14.1, 14.4_
   
-  - [ ] 13.2 Add build-time validation for site config
+  - [x] 13.2 Add build-time validation for site config
     - Validate site config in config file
     - Provide clear error messages for invalid values
     - Prevent build if validation fails
     - _Requirements: 14.1, 14.2, 14.3_
   
-  - [ ] 13.3 Add runtime validation for environment variables
+  - [x] 13.3 Add runtime validation for environment variables
     - Validate env vars at application startup
     - Fail fast with descriptive errors if missing
     - Provide guidance on setting missing vars
@@ -357,7 +357,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - Test missing environment variables
     - _Requirements: 14.1, 14.4_
 
-- [ ] 14. Implement React Error Boundaries
+- [~] 14. Implement React Error Boundaries
   - [ ] 14.1 Create ErrorBoundary component
     - Implement React error boundary with fallback UI
     - Add error logging with component stack
@@ -402,7 +402,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
   - Test error boundaries
   - Ask the user if questions arise
 
-- [ ] 16. Set up performance monitoring and optimization
+- [~] 16. Set up performance monitoring and optimization
   - [ ] 16.1 Add Web Vitals tracking
     - Install web-vitals library
     - Add tracking to root layout

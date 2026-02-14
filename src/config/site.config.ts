@@ -1,4 +1,5 @@
 import { SiteConfig } from './config.types';
+import { siteConfigSchema, formatValidationError } from './validation';
 
 /**
  * Helper function to get environment variable with fallback
@@ -151,7 +152,7 @@ function getEnvVar(key: string, fallback: string): string {
  * }
  * ```
  */
-export const siteConfig: SiteConfig = {
+const rawSiteConfig: SiteConfig = {
   name: 'Dalton Ousley',
   title: 'Dalton Ousley - DevOps Engineer & Cloud Architect',
   description: 'DevOps Engineer and Cloud Architect specializing in Kubernetes, cloud infrastructure, and automation.',
@@ -224,6 +225,42 @@ export const siteConfig: SiteConfig = {
     experience: '/experience',
   },
 };
+
+/**
+ * Validate site configuration at build time
+ * 
+ * This validation ensures that all configuration values are valid before
+ * the application is built. If validation fails, the build will fail with
+ * clear error messages indicating which values are invalid.
+ */
+function validateSiteConfig(config: SiteConfig): SiteConfig {
+  try {
+    return siteConfigSchema.parse(config);
+  } catch (error) {
+    if (error instanceof Error && 'errors' in error) {
+      const formattedError = formatValidationError(error as any);
+      console.error('\n❌ Site Configuration Validation Failed\n');
+      console.error(formattedError);
+      console.error('\nPlease fix the configuration errors in src/config/site.config.ts\n');
+      
+      // Fail the build in production or CI environments
+      if (process.env.NODE_ENV === 'production' || process.env.CI) {
+        throw new Error('Site configuration validation failed. Build aborted.');
+      }
+      
+      // In development, log the error but allow the build to continue
+      console.warn('⚠️  Continuing in development mode with invalid configuration\n');
+    }
+    throw error;
+  }
+}
+
+/**
+ * Validated and exported site configuration
+ * 
+ * This configuration is validated at build time to ensure all values are correct.
+ */
+export const siteConfig: SiteConfig = validateSiteConfig(rawSiteConfig);
 
 // Export individual sections for convenience
 /**

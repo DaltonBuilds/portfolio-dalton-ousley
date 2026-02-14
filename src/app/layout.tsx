@@ -8,6 +8,10 @@ import { ContactModalProvider } from '@/contexts/ContactModalContext';
 import { CookieConsentManager } from '@/components/CookieConsentManager';
 import { SkipLink } from '@/components/accessibility/SkipLink';
 
+// Validate environment variables at application startup
+// This import triggers validation and will fail fast if required variables are missing
+import '@/config/env';
+
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
