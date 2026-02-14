@@ -7,15 +7,7 @@ import { configureAxe } from 'vitest-axe'
 expect.extend(matchers)
 
 // Configure axe for vitest with global options
-const axe = configureAxe({
-  globalOptions: {
-    // Run all accessibility rules
-    runOnly: {
-      type: 'tag',
-      values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice']
-    }
-  },
-})
+// Note: axe configuration is applied per-test rather than globally
 
 // Mock IntersectionObserver for framer-motion
 global.IntersectionObserver = class IntersectionObserver {
