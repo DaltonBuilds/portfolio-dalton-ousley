@@ -5,16 +5,19 @@ import rehypePrettyCode from 'rehype-pretty-code'
 import readingTime from 'reading-time'
 import { remarkMermaid } from './lib/remark-mermaid'
 
-// Define the blog post collection
+// Define the blog post collection with enhanced validation
 const posts = defineCollection({
   name: 'Post',
   pattern: 'blog/**/*.mdx',
   schema: s
     .object({
-      title: s.string().max(99),
+      // Required fields with validation
+      title: s.string().min(1).max(99),
       slug: s.slug('posts'),
-      description: s.string().max(999).optional(),
       date: s.isodate(),
+      
+      // Optional fields with validation
+      description: s.string().max(999).optional(),
       lastModified: s.isodate().optional(),
       published: s.boolean().default(true),
       featured: s.boolean().default(false),
@@ -25,8 +28,8 @@ const posts = defineCollection({
       seriesOrder: s.number().optional(),
       image: s
         .object({
-          src: s.string(),
-          alt: s.string(),
+          src: s.string().min(1),
+          alt: s.string().min(1),
         })
         .optional(),
       seo: s

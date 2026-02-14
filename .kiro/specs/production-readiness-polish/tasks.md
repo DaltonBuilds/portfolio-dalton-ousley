@@ -179,28 +179,28 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - **Property 23: Initial bundle size limit** - verify < 200KB gzipped
     - _Requirements: 9.2_
 
-- [~] 9. Implement API route error handling
-  - [ ] 9.1 Create API error handling utilities
+- [x] 9. Implement API route error handling
+  - [x] 9.1 Create API error handling utilities
     - Implement handleApiError function
     - Implement createApiResponse function
     - Implement createApiError function
     - Define ApiError interface
     - _Requirements: 10.1, 10.2_
   
-  - [ ] 9.2 Update all API routes with error handling
+  - [x] 9.2 Update all API routes with error handling
     - Wrap route handlers in try-catch
     - Return appropriate status codes (400, 404, 500)
     - Return structured error responses
     - Add error logging
     - _Requirements: 10.1, 10.2, 10.5_
   
-  - [ ] 9.3 Implement retry logic for external API calls
+  - [x] 9.3 Implement retry logic for external API calls
     - Create fetchWithRetry utility
     - Implement exponential backoff
     - Handle retryable vs non-retryable errors
     - _Requirements: 10.3_
   
-  - [ ] 9.4 Add timeout handling for external API calls
+  - [x] 9.4 Add timeout handling for external API calls
     - Implement timeout wrapper with AbortController
     - Set 10 second timeout for external calls
     - Return timeout error on expiration
@@ -220,24 +220,24 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - Test server errors (500)
     - _Requirements: 10.1, 10.2_
 
-- [~] 10. Enhance GitHub widget with error handling and caching
-  - [ ] 10.1 Add timeout handling to GitHub widget
+- [x] 10. Enhance GitHub widget with error handling and caching
+  - [x] 10.1 Add timeout handling to GitHub widget
     - Set 5 second timeout for GitHub API calls
     - Display fallback message on timeout
     - _Requirements: 11.3_
   
-  - [ ] 10.2 Implement caching for GitHub API responses
+  - [x] 10.2 Implement caching for GitHub API responses
     - Add in-memory cache with TTL
     - Check cache before making API calls
     - Store successful responses in cache
     - _Requirements: 11.4_
   
-  - [ ] 10.3 Add stale data indicator to GitHub widget
+  - [x] 10.3 Add stale data indicator to GitHub widget
     - Check if cached data is older than TTL
     - Display visual indicator for stale data
     - _Requirements: 11.5_
   
-  - [ ] 10.4 Add error handling for GitHub API failures
+  - [x] 10.4 Add error handling for GitHub API failures
     - Handle unavailable API (network errors)
     - Handle rate limit exceeded (429 status)
     - Display appropriate fallback messages
@@ -255,25 +255,25 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - Test timeout scenario
     - _Requirements: 11.1, 11.2, 11.3_
 
-- [~] 11. Implement MDX content error handling
-  - [ ] 11.1 Create MDX frontmatter validation schema
+- [x] 11. Implement MDX content error handling
+  - [x] 11.1 Create MDX frontmatter validation schema
     - Define Zod schema for post frontmatter
     - Include required fields (title, date)
     - Include optional fields (description, tags)
     - _Requirements: 12.4_
   
-  - [ ] 11.2 Add frontmatter validation to Velite config
+  - [x] 11.2 Add frontmatter validation to Velite config
     - Integrate schema validation in velite.config.ts
     - Provide clear error messages for missing fields
     - _Requirements: 12.4, 12.5_
   
-  - [ ] 11.3 Create MDX error page for production
+  - [x] 11.3 Create MDX error page for production
     - Create user-friendly error page
     - Hide internal error details
     - Provide navigation back to home
     - _Requirements: 12.1, 12.3_
   
-  - [ ] 11.4 Enhance MDX error display for development
+  - [x] 11.4 Enhance MDX error display for development
     - Show detailed error information in dev mode
     - Display file, line, and column information
     - Provide suggestions for common issues
@@ -290,7 +290,7 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - Test invalid frontmatter values
     - _Requirements: 12.1, 12.4, 12.5_
 
-- [~] 12. Implement form validation and error handling
+- [ ] 12. Implement form validation and error handling
   - [ ] 12.1 Create AccessibleFormField component
     - Implement form field with associated label
     - Add error message display with aria-describedby

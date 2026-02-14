@@ -18,39 +18,76 @@ interface GitHubStats {
     time: string;
     isDevOpsRepo: boolean;
   }>;
+  cached?: boolean;
+  stale?: boolean;
+  cachedAt?: number;
+}
+
+interface GitHubError {
+  type: 'timeout' | 'rate_limit' | 'network' | 'server' | 'unknown';
+  message: string;
 }
 
 const GitHubActivityWidget: React.FC = () => {
   const [stats, setStats] = useState<GitHubStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<GitHubError | null>(null);
 
   useEffect(() => {
     const fetchGitHubActivity = async () => {
       try {
+        setError(null);
+        
         // Fetch from our API route instead of GitHub directly
         const response = await fetch('/api/github-activity', {
           next: { revalidate: 300 }, // Cache for 5 minutes
         });
 
         if (!response.ok) {
+          const data = await response.json();
+          
           if (response.status === 429) {
-            const data = await response.json();
             console.warn('GitHub API rate limit exceeded:', data);
-            throw new Error('RATE_LIMIT');
+            setError({
+              type: 'rate_limit',
+              message: 'GitHub API rate limit exceeded. Activity will refresh soon.',
+            });
+            setStats(null);
+            return;
           }
+          
+          if (response.status === 504) {
+            console.warn('GitHub API timeout:', data);
+            setError({
+              type: 'timeout',
+              message: 'GitHub is taking too long to respond. Please try again later.',
+            });
+            setStats(null);
+            return;
+          }
+          
+          if (response.status >= 500) {
+            setError({
+              type: 'server',
+              message: 'GitHub services are temporarily unavailable.',
+            });
+            setStats(null);
+            return;
+          }
+          
           throw new Error(`API error: ${response.status}`);
         }
 
         const data: GitHubStats = await response.json();
         setStats(data);
+        setError(null);
       } catch (error) {
         console.error('Failed to fetch GitHub activity:', error);
-
-        // If rate limited, log and hide widget
-        if (error instanceof Error && error.message === 'RATE_LIMIT') {
-          console.warn('GitHub API rate limit reached. Widget will retry later.');
-        }
-
+        
+        setError({
+          type: 'network',
+          message: 'Unable to load GitHub activity. Please check your connection.',
+        });
         setStats(null);
       } finally {
         setLoading(false);
@@ -75,6 +112,34 @@ const GitHubActivityWidget: React.FC = () => {
           <Card className="glass p-8 text-center">
             <Activity className="w-8 h-8 animate-spin mx-auto mb-2 text-muted-foreground" />
             <p className="text-muted-foreground">Loading activity...</p>
+          </Card>
+        </div>
+      </section>
+    );
+  }
+
+  // Display error fallback
+  if (error) {
+    return (
+      <section className="section-padding">
+        <div className="container mx-auto max-w-6xl px-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-8 text-center">
+            GitHub <span className="gradient-text">Activity</span>
+          </h2>
+          <Card className="glass p-8 text-center">
+            <Activity className="w-8 h-8 mx-auto mb-4 text-muted-foreground" />
+            <p className="text-muted-foreground mb-2">{error.message}</p>
+            <a 
+              href={siteConfig.social.github} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-sm text-primary hover:underline inline-flex items-center gap-1"
+            >
+              View on GitHub
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
           </Card>
         </div>
       </section>
@@ -195,7 +260,16 @@ const GitHubActivityWidget: React.FC = () => {
             <div className="flex items-center gap-4 text-xs text-muted-foreground font-mono">
               <span>Showing {stats.recentActivity.length} recent events</span>
               <span className="hidden sm:inline">•</span>
-              <span className="hidden sm:inline">Updated just now</span>
+              {stats.stale ? (
+                <span className="hidden sm:inline flex items-center gap-1 text-amber-500">
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                  Data may be outdated
+                </span>
+              ) : (
+                <span className="hidden sm:inline">Updated just now</span>
+              )}
             </div>
             <a 
               href={siteConfig.social.github} 

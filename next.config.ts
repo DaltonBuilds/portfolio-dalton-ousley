@@ -12,9 +12,20 @@ const runVelite = async () => {
 
 const nextConfig = async (): Promise<NextConfig> => {
   await runVelite();
-  return {
+  
+  let config: NextConfig = {
     turbopack: {},
   };
+
+  // Enable bundle analyzer when ANALYZE=true
+  if (process.env.ANALYZE === 'true') {
+    const withBundleAnalyzer = (await import('@next/bundle-analyzer')).default({
+      enabled: true,
+    });
+    config = withBundleAnalyzer(config);
+  }
+
+  return config;
 };
 
 export default nextConfig;
