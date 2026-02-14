@@ -116,7 +116,7 @@ const Header: React.FC = () => {
                       <div className="w-8 h-8 rounded-full overflow-hidden backdrop-blur-sm border border-white/30">
                         <Image
                           src="/dalton-ousley-profile-pic.webp"
-                          alt="Dalton Ousley"
+                          alt="Dalton Ousley profile picture"
                           width={32}
                           height={32}
                           className="w-full h-full object-cover"

@@ -79,7 +79,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
                 <div className="relative w-32 h-32 md:w-40 md:h-40">
                   <Image
                     src={author.avatar}
-                    alt={author.name}
+                    alt={`${author.name} profile picture`}
                     fill
                     className="rounded-full object-cover border-4 border-primary/20"
                     priority

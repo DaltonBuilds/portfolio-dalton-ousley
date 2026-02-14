@@ -18,7 +18,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
           <div className="flex-shrink-0">
             <Image
               src={author.avatar}
-              alt={author.name}
+              alt={`${author.name} profile picture`}
               width={64}
               height={64}
               className="w-16 h-16 rounded-full object-cover"

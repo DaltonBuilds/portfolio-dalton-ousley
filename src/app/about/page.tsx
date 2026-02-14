@@ -182,7 +182,7 @@ export default function AboutPage() {
               <div className="relative w-full max-w-md md:max-w-lg">
                 <Image
                   src="/Dalton-Ousley-portrait-black-shirt.avif"
-                  alt="Dalton Ousley"
+                  alt="Dalton Ousley portrait"
                   width={600}
                   height={800}
                   className="w-full h-auto object-cover"

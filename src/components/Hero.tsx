@@ -24,11 +24,11 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="relative z-10 px-4 max-w-6xl mx-auto">
-        <div className="mb-8">
+          <div className="mb-8">
           <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-50 md:h-50 rounded-full mx-auto overflow-hidden border-4 border-primary shadow-xl shadow-primary/20">
             <Image
               src={PATHS.PROFILE_IMAGE}
-              alt={siteConfig.name}
+              alt="Dalton Ousley profile picture"
               width={150}
               height={150}
               className="object-cover h-full w-full"

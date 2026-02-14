@@ -65,7 +65,7 @@ const ProjectsSection: React.FC = () => {
             <div className="relative w-full md:w-2/5 h-48 md:h-auto">
               <Image 
                 src={project.image}
-                alt={project.title}
+                alt=""
                 layout="fill"
                 objectFit="cover"
               />
