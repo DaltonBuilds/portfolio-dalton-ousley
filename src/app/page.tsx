@@ -6,6 +6,8 @@ import { InteractiveSkillsSection } from "@/components/InteractiveSkillsSection"
 import GitHubActivityWidget from "@/components/GitHubActivityWidget";
 import { LatestPostsWidget } from "@/components/blog/LatestPostsWidget";
 import CTASection from "@/components/CTASection";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import { GitHubWidgetErrorFallback } from "@/components/GitHubWidgetErrorFallback";
 
 // Dynamically import CertificationsSection to reduce initial bundle size
 // This component uses framer-motion and is below the fold
@@ -23,14 +25,30 @@ const CertificationsSection = dynamic(
 const Home = () => {
   return (
     <>
-      <Hero />
-      <WhyDevOpsSection />
-      <WhatIBuildSection />
-      <InteractiveSkillsSection />
-      <CertificationsSection />
-      <GitHubActivityWidget />
-      <LatestPostsWidget maxPosts={6} showFeatured={true} />
-      <CTASection />
+      <ErrorBoundary isolate>
+        <Hero />
+      </ErrorBoundary>
+      <ErrorBoundary isolate>
+        <WhyDevOpsSection />
+      </ErrorBoundary>
+      <ErrorBoundary isolate>
+        <WhatIBuildSection />
+      </ErrorBoundary>
+      <ErrorBoundary isolate>
+        <InteractiveSkillsSection />
+      </ErrorBoundary>
+      <ErrorBoundary isolate>
+        <CertificationsSection />
+      </ErrorBoundary>
+      <ErrorBoundary isolate fallback={GitHubWidgetErrorFallback}>
+        <GitHubActivityWidget />
+      </ErrorBoundary>
+      <ErrorBoundary isolate>
+        <LatestPostsWidget maxPosts={6} showFeatured={true} />
+      </ErrorBoundary>
+      <ErrorBoundary isolate>
+        <CTASection />
+      </ErrorBoundary>
     </>
   );
 };

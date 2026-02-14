@@ -43,6 +43,7 @@
     "unist-util-visit": "^5.0.0",
     "uuid": "^13.0.0",
     "velite": "^0.3.0",
+    "web-vitals": "^5.1.0",
     "zod": "^4.1.11"
   },
   "devDependencies": {

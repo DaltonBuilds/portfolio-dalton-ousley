@@ -357,25 +357,25 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
     - Test missing environment variables
     - _Requirements: 14.1, 14.4_
 
-- [~] 14. Implement React Error Boundaries
-  - [ ] 14.1 Create ErrorBoundary component
+- [x] 14. Implement React Error Boundaries
+  - [x] 14.1 Create ErrorBoundary component
     - Implement React error boundary with fallback UI
     - Add error logging with component stack
     - Add retry functionality
     - Support custom fallback components
     - _Requirements: 15.1, 15.2, 15.3, 15.4_
   
-  - [ ] 14.2 Add error boundaries to root layout
+  - [x] 14.2 Add error boundaries to root layout
     - Wrap global components (header, footer)
     - Ensure errors don't crash entire app
     - _Requirements: 15.1_
   
-  - [ ] 14.3 Add error boundaries to page sections
+  - [x] 14.3 Add error boundaries to page sections
     - Wrap major page sections (blog list, projects, etc.)
     - Isolate errors to specific sections
     - _Requirements: 15.1, 15.5_
   
-  - [ ] 14.4 Add error boundary to GitHub widget
+  - [x] 14.4 Add error boundary to GitHub widget
     - Wrap GitHub widget component
     - Provide widget-specific fallback UI
     - _Requirements: 15.1_
@@ -402,8 +402,8 @@ Each task builds on previous work and includes testing sub-tasks to validate fun
   - Test error boundaries
   - Ask the user if questions arise
 
-- [~] 16. Set up performance monitoring and optimization
-  - [ ] 16.1 Add Web Vitals tracking
+- [-] 16. Set up performance monitoring and optimization
+  - [-] 16.1 Add Web Vitals tracking
     - Install web-vitals library
     - Add tracking to root layout
     - Log metrics to console in development

@@ -7,6 +7,7 @@ import { Toaster } from 'sonner';
 import { ContactModalProvider } from '@/contexts/ContactModalContext';
 import { CookieConsentManager } from '@/components/CookieConsentManager';
 import { SkipLink } from '@/components/accessibility/SkipLink';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 // Validate environment variables at application startup
 // This import triggers validation and will fail fast if required variables are missing
@@ -48,12 +49,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ContactModalProvider>
             <SkipLink href="#main-content">Skip to main content</SkipLink>
             <div className="relative flex flex-col min-h-screen">
-              <Header />
+              <ErrorBoundary isolate>
+                <Header />
+              </ErrorBoundary>
               <main id="main-content" className="flex-grow">{children}</main>
-              <Footer />
+              <ErrorBoundary isolate>
+                <Footer />
+              </ErrorBoundary>
             </div>
             <Toaster richColors position="top-right" />
-            <CookieConsentManager />
+            <ErrorBoundary isolate>
+              <CookieConsentManager />
+            </ErrorBoundary>
           </ContactModalProvider>
         </ThemeProvider>
       </body>

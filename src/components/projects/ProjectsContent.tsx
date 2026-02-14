@@ -5,6 +5,7 @@ import { filterProjects } from '@/lib/projects'
 import { ProjectFilters } from './ProjectFilters'
 import { ProjectGrid } from './ProjectGrid'
 import { ProjectFilters as ProjectFiltersType, ProjectPost } from '../../../types/project'
+import ErrorBoundary from '@/components/ErrorBoundary'
 
 interface ProjectsContentProps {
   projects: ProjectPost[]
@@ -46,13 +47,15 @@ export function ProjectsContent({ projects }: ProjectsContentProps) {
       <section className="section-padding">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           {/* Project Filters */}
-          <div className="mb-8">
-            <ProjectFilters
-              projects={projects}
-              filters={filters}
-              onFilterChange={setFilters}
-            />
-          </div>
+          <ErrorBoundary isolate>
+            <div className="mb-8">
+              <ProjectFilters
+                projects={projects}
+                filters={filters}
+                onFilterChange={setFilters}
+              />
+            </div>
+          </ErrorBoundary>
 
           {/* Project Count */}
           <div className="mb-6">
@@ -62,7 +65,9 @@ export function ProjectsContent({ projects }: ProjectsContentProps) {
           </div>
 
           {/* Project Grid */}
-          <ProjectGrid projects={filteredProjects} />
+          <ErrorBoundary isolate>
+            <ProjectGrid projects={filteredProjects} />
+          </ErrorBoundary>
         </div>
       </section>
     </div>
