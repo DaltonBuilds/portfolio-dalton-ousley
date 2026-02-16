@@ -193,7 +193,7 @@ const GitHubActivityWidget: React.FC = () => {
           <Card className="glass p-6 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
               <GitFork className="w-5 h-5 text-purple-500" />
-              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Active Repos</h3>
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Tracked Repos</h3>
             </div>
             <p className="text-4xl font-bold text-foreground">{stats.totalRepos}</p>
             <p className="text-xs text-muted-foreground mt-1">Contributing to</p>
