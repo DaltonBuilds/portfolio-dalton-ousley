@@ -129,6 +129,14 @@ const skillsData: Skill[] = [
     projects: ['AWS Backend', 'Lambda Infrastructure']
   },
   {
+    name: 'Ansible',
+    category: 'IaC & Cloud',
+    proficiency: 4,
+    icon: <Code2 className="w-5 h-5" />,
+    description: 'Configuration management and node provisioning',
+    projects: ['Homelab Provisioning', 'Node Config']
+  },
+  {
     name: 'AWS',
     category: 'IaC & Cloud',
     proficiency: 4,

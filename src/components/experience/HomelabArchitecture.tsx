@@ -177,6 +177,7 @@ export const HomelabArchitecture: React.FC = () => {
           { label: "Prometheus", color: "bg-red-500/10 border-red-500/30 text-red-300" },
           { label: "Traefik", color: "bg-green-500/10 border-green-500/30 text-green-300" },
           { label: "Cloudflare", color: "bg-yellow-500/10 border-yellow-500/30 text-yellow-300" },
+          { label: "Ansible", color: "bg-red-500/10 border-red-500/30 text-red-300" },
           { label: "ZFS", color: "bg-purple-500/10 border-purple-500/30 text-purple-300" },
           { label: "NFS", color: "bg-cyan-500/10 border-cyan-500/30 text-cyan-300" },
           { label: "Proxmox", color: "bg-pink-500/10 border-pink-500/30 text-pink-300" },

@@ -18,7 +18,7 @@ const skillsData = {
     },
     'iac': {
         title: 'Infrastructure as Code',
-        description: 'Terraform for AWS infrastructure. Learning to manage infrastructure through code with proper state management.',
+        description: 'Terraform for AWS infrastructure, Ansible for configuration management and node provisioning. Managing infrastructure through code with proper state management.',
         category: 'IaC',
         Icon: Settings,
         iconColor: 'text-purple-500 dark:text-purple-400',
@@ -199,6 +199,7 @@ export function InteractiveSkillsSection() {
                             { label: "GitHub Actions", color: "bg-blue-500/10 border-blue-500/30 text-blue-300" },
                             { label: "Helm", color: "bg-blue-500/10 border-blue-500/30 text-blue-300" },
                             { label: "NFS", color: "bg-purple-500/10 border-purple-500/30 text-purple-300" },
+                            { label: "Ansible", color: "bg-red-500/10 border-red-500/30 text-red-300" },
                             { label: "Cloudflare", color: "bg-yellow-500/10 border-yellow-500/30 text-yellow-300" },
                         ].map((tech) => (
                             <span

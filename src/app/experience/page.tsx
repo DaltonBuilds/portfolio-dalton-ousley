@@ -101,6 +101,7 @@ export default function ExperiencePage() {
               <Badge className="bg-purple-500/10 border-purple-500/30 text-purple-300">k3s</Badge>
               <Badge className="bg-purple-500/10 border-purple-500/30 text-purple-300">GitOps</Badge>
               <Badge className="bg-purple-500/10 border-purple-500/30 text-purple-300">ArgoCD</Badge>
+              <Badge className="bg-purple-500/10 border-purple-500/30 text-purple-300">Ansible</Badge>
               <Badge className="bg-purple-500/10 border-purple-500/30 text-purple-300">Proxmox</Badge>
             </div>
           </CardContent>
