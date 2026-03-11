@@ -58,7 +58,7 @@ HMAC_SECRET=$(openssl rand -hex 32)
 
 # Create/update .env.local
 cat > .env.local << EOF
-# API Gateway URL (from Terraform output)
+# API Gateway URL (base URL from Terraform output; app appends /leads automatically)
 NEXT_PUBLIC_API_GATEWAY_URL=https://v2f981iw9h.execute-api.us-east-1.amazonaws.com/
 
 # Turnstile site key (you already have this)

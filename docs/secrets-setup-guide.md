@@ -118,8 +118,8 @@ These are **exposed to the browser** and safe to be public:
 # Site Key (PUBLIC - from Cloudflare Turnstile)
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
 
-# API Gateway URL (from Terraform outputs)
-NEXT_PUBLIC_API_GATEWAY_URL=https://your-api-id.execute-api.us-east-1.amazonaws.com/leads
+# API Gateway URL (base URL from Terraform outputs; app appends /leads automatically)
+NEXT_PUBLIC_API_GATEWAY_URL=https://your-api-id.execute-api.us-east-1.amazonaws.com/
 
 # HMAC Client Secret (generate separately - different from server secret)
 NEXT_PUBLIC_HMAC_CLIENT_SECRET=$(openssl rand -hex 32)
