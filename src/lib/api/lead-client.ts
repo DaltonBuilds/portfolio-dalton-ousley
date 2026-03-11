@@ -29,6 +29,27 @@ interface APIConfig {
   retryDelay?: number
 }
 
+function normalizeLeadApiUrl(rawUrl: string): string {
+  const trimmed = rawUrl.trim()
+
+  let parsedUrl: URL
+  try {
+    parsedUrl = new URL(trimmed)
+  } catch {
+    throw new LeadSubmissionError(
+      "API Gateway URL is invalid. Please set a valid NEXT_PUBLIC_API_GATEWAY_URL.",
+      "CONFIG_ERROR"
+    )
+  }
+
+  const pathname = parsedUrl.pathname.replace(/\/+$/, "")
+  parsedUrl.pathname = pathname.endsWith("/leads")
+    ? pathname
+    : `${pathname}/leads`.replace(/\/{2,}/g, "/")
+
+  return parsedUrl.toString()
+}
+
 /**
  * Successful API response
  */
@@ -92,7 +113,7 @@ function getAPIConfig(): APIConfig {
   validateAPIConfig()
 
   return {
-    apiUrl: process.env.NEXT_PUBLIC_API_GATEWAY_URL!,
+    apiUrl: normalizeLeadApiUrl(process.env.NEXT_PUBLIC_API_GATEWAY_URL!),
     timeout: 30000, // 30 seconds
     maxRetries: 3,
     retryDelay: 1000, // 1 second base delay

@@ -1,10 +1,8 @@
 import { z } from "zod"
 
-/**
- * Zod schema for lead form validation
- * Used for both client-side and server-side validation
- */
-export const leadFormSchema = z.object({
+const MAX_MESSAGE_LENGTH = 1000
+
+const leadFormBaseSchema = z.object({
   name: z
     .string()
     .min(1, { message: "Name is required" })
@@ -29,9 +27,26 @@ export const leadFormSchema = z.object({
   message: z
     .string()
     .min(10, { message: "Message must be at least 10 characters" })
-    .max(5000, { message: "Message must not exceed 5000 characters" })
+    .max(MAX_MESSAGE_LENGTH, { message: `Message must not exceed ${MAX_MESSAGE_LENGTH} characters` })
     .trim(),
-  
+})
+
+/**
+ * Zod schema for UI form validation
+ * Validates only user-entered fields in the contact modal.
+ */
+export const leadFormSchema = leadFormBaseSchema
+
+/**
+ * TypeScript type derived from the Zod schema
+ * Ensures type safety across the application
+ */
+export type LeadFormData = z.infer<typeof leadFormSchema>
+
+/**
+ * Schema for the API request payload (includes turnstile token)
+ */
+export const leadSubmissionSchema = leadFormBaseSchema.extend({
   turnstileToken: z
     .string()
     .min(1, { message: "Please complete the security challenge" }),
@@ -47,17 +62,6 @@ export const leadFormSchema = z.object({
     .int()
     .positive(),
 })
-
-/**
- * TypeScript type derived from the Zod schema
- * Ensures type safety across the application
- */
-export type LeadFormData = z.infer<typeof leadFormSchema>
-
-/**
- * Schema for the API request payload (includes turnstile token)
- */
-export const leadSubmissionSchema = leadFormSchema
 
 /**
  * Type for the API request payload

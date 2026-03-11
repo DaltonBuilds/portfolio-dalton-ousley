@@ -146,6 +146,7 @@ export const envSchema = z.object({
   TURNSTILE_SECRET_KEY: z.string().optional(),
   
   // API configuration (optional)
+  NEXT_PUBLIC_API_GATEWAY_URL: z.string().url().optional(),
   API_BASE_URL: z.string().url().optional(),
   
   // AWS configuration (optional - for backend)
@@ -173,7 +174,7 @@ export type ValidatedEnv = z.infer<typeof envSchema>;
  * @param error - Zod validation error
  * @returns Formatted error message with field-specific details
  */
-export function formatValidationError(error: z.ZodError<any>): string {
+export function formatValidationError(error: z.ZodError<unknown>): string {
   const issues = error.issues || [];
   const errors = issues.map((err) => {
     const path = err.path.join('.');
