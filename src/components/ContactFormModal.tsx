@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { FormErrorAnnouncer } from "@/components/ui/FormErrorAnnouncer"
-import { leadFormSchema, type LeadFormData } from "@/lib/validations/lead-form"
+import { leadFormSchema, type LeadFormData, type LeadSubmission } from "@/lib/validations/lead-form"
 import { submitLead, getErrorMessage, isLeadSubmissionError } from "@/lib/api/lead-client"
 
 interface ContactFormModalProps {
@@ -39,8 +39,6 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
     handleSubmit,
     formState: { errors },
     reset,
-    setValue,
-    trigger,
   } = useForm<LeadFormData>({
     resolver: zodResolver(leadFormSchema),
     mode: 'onBlur', // Enable validation on blur
@@ -49,7 +47,6 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
       email: "",
       company: "",
       message: "",
-      turnstileToken: "",
     },
   })
 
@@ -76,13 +73,15 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
     setIsSubmitting(true)
 
     try {
-      // Submit lead to AWS Lambda via API Gateway with consent data
-      await submitLead({
+      const submissionPayload: LeadSubmission = {
         ...data,
         turnstileToken,
         consentGiven: true,
         consentTimestamp: Date.now(),
-      })
+      }
+
+      // Submit lead to AWS Lambda via API Gateway with consent data
+      await submitLead(submissionPayload)
 
       // Success! Show confirmation message
       toast.success("Message sent successfully!", {
@@ -144,22 +143,19 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
       setTurnstileToken("")
       setConsentChecked(false)
       setConsentError(false)
-      setValue("turnstileToken", "")
       turnstileRef.current?.reset()
     }
-  }, [open, reset, setValue])
+  }, [open, reset])
 
   // Handle Turnstile success
   const handleTurnstileSuccess = (token: string) => {
     setTurnstileToken(token)
-    setValue("turnstileToken", token, { shouldValidate: true })
   }
 
   // Handle Turnstile error
   const handleTurnstileError = () => {
     console.error("Turnstile challenge failed")
     setTurnstileToken("")
-    setValue("turnstileToken", "", { shouldValidate: true })
     toast.error("Security challenge failed", {
       description: "Please try again or refresh the page.",
     })
@@ -168,7 +164,6 @@ export function ContactFormModal({ open, onOpenChange }: ContactFormModalProps) 
   // Handle Turnstile expiration
   const handleTurnstileExpire = () => {
     setTurnstileToken("")
-    setValue("turnstileToken", "", { shouldValidate: true })
   }
 
   // Get Turnstile site key from environment
