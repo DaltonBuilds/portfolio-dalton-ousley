@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom'
 import * as matchers from 'vitest-axe/matchers'
 import { expect } from 'vitest'
-import { configureAxe } from 'vitest-axe'
 
 // Extend Vitest's expect with axe matchers
 expect.extend(matchers)
@@ -10,52 +9,58 @@ expect.extend(matchers)
 // Note: axe configuration is applied per-test rather than globally
 
 // Mock IntersectionObserver for framer-motion
-global.IntersectionObserver = class IntersectionObserver {
-  constructor() {}
-  disconnect() {}
-  observe() {}
-  takeRecords() {
-    return []
+globalThis.IntersectionObserver = class MockIntersectionObserver implements IntersectionObserver {
+  readonly root = null
+  readonly rootMargin = ''
+  readonly thresholds = []
+
+  constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {
+    void callback
+    void options
   }
-  unobserve() {}
-} as any
+  disconnect() {}
+  observe(target: Element) {
+    void target
+  }
+  takeRecords() {
+    return [] as IntersectionObserverEntry[]
+  }
+  unobserve(target: Element) {
+    void target
+  }
+}
 
 // Mock HTMLCanvasElement for mermaid diagrams
 if (typeof HTMLCanvasElement !== 'undefined') {
-  HTMLCanvasElement.prototype.getContext = function () {
-    return {
-      fillRect: function () {},
-      clearRect: function () {},
-      getImageData: function () {
-        return {
-          data: new Array(4),
-        }
-      },
-      putImageData: function () {},
-      createImageData: function () {
-        return []
-      },
-      setTransform: function () {},
-      drawImage: function () {},
-      save: function () {},
-      fillText: function () {},
-      restore: function () {},
-      beginPath: function () {},
-      moveTo: function () {},
-      lineTo: function () {},
-      closePath: function () {},
-      stroke: function () {},
-      translate: function () {},
-      scale: function () {},
-      rotate: function () {},
-      arc: function () {},
-      fill: function () {},
-      measureText: function () {
-        return { width: 0 }
-      },
-      transform: function () {},
-      rect: function () {},
-      clip: function () {},
-    } as any
-  } as any
+  Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+    value: (contextId: string) => {
+      void contextId
+      return ({
+        fillRect: () => {},
+        clearRect: () => {},
+        getImageData: () => ({ data: new Uint8ClampedArray(4) }),
+        putImageData: () => {},
+        createImageData: () => ({ data: new Uint8ClampedArray(4) }),
+        setTransform: () => {},
+        drawImage: () => {},
+        save: () => {},
+        fillText: () => {},
+        restore: () => {},
+        beginPath: () => {},
+        moveTo: () => {},
+        lineTo: () => {},
+        closePath: () => {},
+        stroke: () => {},
+        translate: () => {},
+        scale: () => {},
+        rotate: () => {},
+        arc: () => {},
+        fill: () => {},
+        measureText: () => ({ width: 0 }),
+        transform: () => {},
+        rect: () => {},
+        clip: () => {},
+      }) as unknown as CanvasRenderingContext2D
+    },
+  })
 }
