@@ -1,62 +1,42 @@
-# Terraform Variables Example
-# Copy this file to terraform.tfvars and fill in your values
+# Copy this file to terraform.tfvars and fill in your values.
 
-# ==============================================================================
-# Required Variables
-# ==============================================================================
+# ============================================================================
+# Required
+# ============================================================================
 
-# Your email address for infrastructure ownership tagging
-owner_email = "example-email@gmail.com"
+owner_email             = "your-email@example.com"
+notification_email      = "your-email@example.com"
+notification_from_email = "your-email@example.com"
 
-# Email address to receive lead notifications
-notification_email = "example-email@gmail.com"
+# ============================================================================
+# AWS
+# ============================================================================
 
-# Verified sender email in Resend (must be verified domain)
-notification_from_email = "example-email@gmail.com"
+aws_profile = "your-sso-profile"
+aws_region  = "us-east-1"
 
-# ==============================================================================
-# Optional Variables (defaults are production-ready)
-# ==============================================================================
+# ============================================================================
+# Optional (defaults are production-ready)
+# ============================================================================
 
-# AWS region
-# aws_region = "us-east-1"
-
-# Environment name
-# environment = "prod"
-
-# Project name
+# environment  = "prod"
 # project_name = "portfolio-leads"
 
-# Allowed CORS origins
 # allowed_origins = [
 #   "https://example.com",
 #   "https://www.example.com",
-#   "http://localhost:3000"
+#   "http://localhost:3000",
 # ]
 
-# DynamoDB TTL (days to retain leads for PII hygiene)
-# dynamodb_ttl_days = 548  # 18 months
-
-# Lambda configuration
-# lambda_memory_size = 256
-# lambda_timeout = 10
+# dynamodb_ttl_days         = 548
+# lambda_memory_size        = 256
+# lambda_timeout            = 10
 # lambda_log_retention_days = 30
+# api_throttle_burst_limit  = 10
+# api_throttle_rate_limit   = 5
 
-# API Gateway throttling
-# api_throttle_burst_limit = 10
-# api_throttle_rate_limit = 5
-
-# WAF rate limiting
-# waf_rate_limit = 100
-# enable_waf = true
-
-# ==============================================================================
+# ============================================================================
 # Secrets
-# ==============================================================================
-
-# HMAC server secret (leave empty to auto-generate)
-# hmac_server_secret = ""
-
-# Note: Turnstile and Resend secrets are managed in AWS Secrets Manager
-# You'll need to populate them manually after `terraform apply`
-
+# Secret values are managed outside Terraform to keep them out of state.
+# Run ./scripts/populate-secrets.sh after apply to populate values.
+# ============================================================================

@@ -1,93 +1,72 @@
-/**
- * DynamoDB Table Configuration
- * 
- * Creates the leads table with GSI for querying by date
- * and TTL for automatic PII cleanup
- */
-
 resource "aws_dynamodb_table" "leads" {
-  name             = "${local.name_prefix}-table"
-  billing_mode     = var.dynamodb_billing_mode
-  hash_key         = "leadId"
-  stream_enabled   = true
-  stream_view_type = "NEW_AND_OLD_IMAGES"
+  name         = "${local.name_prefix}-table"
+  billing_mode = var.dynamodb_billing_mode
+  hash_key     = "leadId"
 
-  # Partition Key
   attribute {
     name = "leadId"
-    type = "S" # String (UUID)
+    type = "S"
   }
 
-  # GSI Attributes
   attribute {
     name = "type"
-    type = "S" # String (always "LEAD")
+    type = "S"
   }
 
   attribute {
     name = "createdAt"
-    type = "N" # Number (Unix timestamp)
+    type = "N"
   }
 
   attribute {
     name = "email"
-    type = "S" # String (email address)
+    type = "S"
   }
 
-  # Global Secondary Index for querying leads by date
+  # Query all leads sorted by submission time
   global_secondary_index {
     name            = "createdAt-index"
     hash_key        = "type"
     range_key       = "createdAt"
     projection_type = "ALL"
-
-    # For PAY_PER_REQUEST, read/write capacity is not specified
-    # For PROVISIONED billing, uncomment these:
-    # read_capacity  = 5
-    # write_capacity = 5
   }
 
-  # Global Secondary Index for querying by email (for privacy requests)
+  # Lookup by email for privacy/deletion requests
   global_secondary_index {
     name            = "email-index"
     hash_key        = "email"
     projection_type = "ALL"
   }
 
-  # TTL configuration for automatic PII cleanup
   ttl {
     attribute_name = "ttl"
     enabled        = true
   }
 
-  # Point-in-time recovery for data protection
   point_in_time_recovery {
     enabled = var.enable_point_in_time_recovery
   }
 
-  # Server-side encryption
   server_side_encryption {
     enabled = true
   }
 
-  # Tags
   tags = merge(
     local.common_tags,
     {
-      Name        = "${local.name_prefix}-table"
-      Description = "Lead capture storage with TTL for PII hygiene"
+      Name = "${local.name_prefix}-table"
     }
   )
 }
 
-# CloudWatch alarm for table throttling
 resource "aws_cloudwatch_metric_alarm" "dynamodb_throttle" {
   alarm_name          = "${local.name_prefix}-dynamodb-throttle"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 1
   threshold           = 0
   treat_missing_data  = "notBreaching"
-  alarm_description   = "Alert when DynamoDB throttles reads/writes"
+  alarm_description   = "Alert when DynamoDB throttles reads or writes"
+
   metric_query {
     id          = "read"
     return_data = false
@@ -99,6 +78,7 @@ resource "aws_cloudwatch_metric_alarm" "dynamodb_throttle" {
       dimensions  = { TableName = aws_dynamodb_table.leads.name }
     }
   }
+
   metric_query {
     id          = "write"
     return_data = false
@@ -110,44 +90,38 @@ resource "aws_cloudwatch_metric_alarm" "dynamodb_throttle" {
       dimensions  = { TableName = aws_dynamodb_table.leads.name }
     }
   }
+
   metric_query {
     id          = "total"
     expression  = "read + write"
     label       = "TotalThrottleEvents"
     return_data = true
   }
+
   tags = local.common_tags
 }
 
-/**
- * Privacy Requests Table
- * 
- * Stores privacy request logs (access, deletion, portability)
- * with email verification and 2-year TTL
- */
 resource "aws_dynamodb_table" "privacy_requests" {
   name         = "${local.name_prefix}-privacy-requests"
   billing_mode = var.dynamodb_billing_mode
   hash_key     = "id"
 
-  # Partition Key
   attribute {
     name = "id"
-    type = "S" # String (UUID)
+    type = "S"
   }
 
-  # GSI Attributes
   attribute {
     name = "requesterEmail"
-    type = "S" # String (email address)
+    type = "S"
   }
 
   attribute {
     name = "status"
-    type = "S" # String (pending, verified, completed, rejected)
+    type = "S"
   }
 
-  # Global Secondary Index for querying by email and status
+  # Query by email + status for request lookups
   global_secondary_index {
     name            = "email-status-index"
     hash_key        = "requesterEmail"
@@ -155,30 +129,23 @@ resource "aws_dynamodb_table" "privacy_requests" {
     projection_type = "ALL"
   }
 
-  # TTL configuration for automatic cleanup after 2 years
   ttl {
     attribute_name = "ttl"
     enabled        = true
   }
 
-  # Point-in-time recovery for data protection
   point_in_time_recovery {
     enabled = var.enable_point_in_time_recovery
   }
 
-  # Server-side encryption
   server_side_encryption {
     enabled = true
   }
 
-  # Tags
   tags = merge(
     local.common_tags,
     {
-      Name        = "${local.name_prefix}-privacy-requests"
-      Description = "Privacy request logs with 2-year TTL"
+      Name = "${local.name_prefix}-privacy-requests"
     }
   )
 }
-
-

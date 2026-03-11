@@ -1,17 +1,22 @@
-/**
- * Terraform Providers Configuration
- * 
- * Configures the AWS provider and Terraform backend
- */
-
 terraform {
-  required_version = ">= 1.5.0"
+  required_version = ">= 1.10.0"
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
+  }
+
+  backend "s3" {
+    bucket     = "dalton-portfolio-terraform-state"
+    key        = "portfolio-leads/terraform.tfstate"
+    region     = "us-east-1"
+    profile    = "prod-admin"
+    encrypt    = true
+    kms_key_id = "alias/terraform-state-key"
+
+    use_lockfile = true
   }
 }
 
@@ -28,4 +33,3 @@ provider "aws" {
     }
   }
 }
-

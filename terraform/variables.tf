@@ -1,14 +1,3 @@
-/**
- * Terraform Input Variables - SECURE VERSION
- * 
- * SECURITY CHANGE: Removed all secret-related variables.
- * Secrets should NEVER be passed as Terraform variables.
- */
-
-# ============================================================================
-# General Configuration
-# ============================================================================
-
 variable "aws_region" {
   description = "AWS region for all resources"
   type        = string
@@ -16,8 +5,9 @@ variable "aws_region" {
 }
 
 variable "aws_profile" {
-  type    = string
-  default = "dalton-portfolio"
+  description = "AWS CLI profile name"
+  type        = string
+  default     = "dalton-portfolio"
 }
 
 variable "environment" {
@@ -43,21 +33,11 @@ variable "owner_email" {
 }
 
 # ============================================================================
-# Backend Infrastructure (Bootstrap Only)
-# ============================================================================
-
-variable "create_backend_infrastructure" {
-  description = "Set to true ONLY when bootstrapping the S3 backend infrastructure"
-  type        = bool
-  default     = false
-}
-
-# ============================================================================
 # Secret Rotation
 # ============================================================================
 
 variable "enable_secret_rotation" {
-  description = "Enable automatic secret rotation (requires rotation Lambda)"
+  description = "Enable automatic secret rotation (requires a rotation Lambda ARN)"
   type        = bool
   default     = false
 }
@@ -69,7 +49,7 @@ variable "secret_rotation_lambda_arn" {
 }
 
 # ============================================================================
-# Domain Configuration
+# Domain / CORS
 # ============================================================================
 
 variable "allowed_origins" {
@@ -84,7 +64,7 @@ variable "allowed_origins" {
 }
 
 # ============================================================================
-# DynamoDB Configuration
+# DynamoDB
 # ============================================================================
 
 variable "dynamodb_billing_mode" {
@@ -105,18 +85,18 @@ variable "dynamodb_ttl_days" {
 
   validation {
     condition     = var.dynamodb_ttl_days > 0 && var.dynamodb_ttl_days <= 730
-    error_message = "TTL must be between 1 and 730 days (2 years)."
+    error_message = "TTL must be between 1 and 730 days."
   }
 }
 
 variable "enable_point_in_time_recovery" {
-  description = "Enable point-in-time recovery for DynamoDB"
+  description = "Enable point-in-time recovery for DynamoDB tables"
   type        = bool
   default     = true
 }
 
 # ============================================================================
-# Lambda Configuration
+# Lambda
 # ============================================================================
 
 variable "lambda_runtime" {
@@ -158,12 +138,12 @@ variable "lambda_log_retention_days" {
       365, 400, 545, 731, 1096, 1827, 2192, 2557,
       2922, 3288, 3653
     ], var.lambda_log_retention_days)
-    error_message = "Invalid log retention period. Must be a valid CloudWatch Logs retention value."
+    error_message = "Must be a valid CloudWatch Logs retention value."
   }
 }
 
 # ============================================================================
-# API Gateway Configuration
+# API Gateway
 # ============================================================================
 
 variable "api_throttle_burst_limit" {
@@ -179,28 +159,7 @@ variable "api_throttle_rate_limit" {
 }
 
 # ============================================================================
-# WAF Configuration
-# ============================================================================
-
-variable "waf_rate_limit" {
-  description = "WAF rate limit (requests per 5 minutes per IP)"
-  type        = number
-  default     = 100
-
-  validation {
-    condition     = var.waf_rate_limit >= 100 && var.waf_rate_limit <= 20000000
-    error_message = "WAF rate limit must be between 100 and 20,000,000."
-  }
-}
-
-variable "enable_waf" {
-  description = "Enable AWS WAF protection"
-  type        = bool
-  default     = true
-}
-
-# ============================================================================
-# Email Configuration
+# Email
 # ============================================================================
 
 variable "notification_email" {
@@ -209,7 +168,6 @@ variable "notification_email" {
 }
 
 variable "notification_from_email" {
-  description = "Email address to send notifications from (must be verified in Resend)"
+  description = "Sender email address (must be a verified domain in Resend)"
   type        = string
 }
-

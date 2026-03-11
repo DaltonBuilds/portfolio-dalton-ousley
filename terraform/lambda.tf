@@ -1,14 +1,7 @@
-/**
- * Lambda Functions Configuration
- * 
- * Defines Lambda functions for lead processing and email notifications
- */
-
 # ============================================================================
-# Lead Processor Lambda
+# Lead Processor
 # ============================================================================
 
-# CloudWatch Log Group
 resource "aws_cloudwatch_log_group" "lead_processor" {
   name              = "/aws/lambda/${local.name_prefix}-lead-processor"
   retention_in_days = var.lambda_log_retention_days
@@ -16,7 +9,6 @@ resource "aws_cloudwatch_log_group" "lead_processor" {
   tags = local.common_tags
 }
 
-# Lambda Function
 resource "aws_lambda_function" "lead_processor" {
   filename      = "${path.module}/../lambda/lead-processor/dist/lambda.zip"
   function_name = "${local.name_prefix}-lead-processor"
@@ -48,15 +40,9 @@ resource "aws_lambda_function" "lead_processor" {
     aws_iam_role_policy.lead_processor_secrets,
   ]
 
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.name_prefix}-lead-processor"
-    }
-  )
+  tags = merge(local.common_tags, { Name = "${local.name_prefix}-lead-processor" })
 }
 
-# CloudWatch Alarm for Lead Processor Errors
 resource "aws_cloudwatch_metric_alarm" "lead_processor_errors" {
   alarm_name          = "${local.name_prefix}-lead-processor-errors"
   comparison_operator = "GreaterThanThreshold"
@@ -66,7 +52,7 @@ resource "aws_cloudwatch_metric_alarm" "lead_processor_errors" {
   period              = 300
   statistic           = "Sum"
   threshold           = 5
-  alarm_description   = "Alert when lead processor has more than 5 errors in 5 minutes"
+  alarm_description   = "More than 5 errors in 5 minutes"
   treat_missing_data  = "notBreaching"
 
   dimensions = {
@@ -76,7 +62,6 @@ resource "aws_cloudwatch_metric_alarm" "lead_processor_errors" {
   tags = local.common_tags
 }
 
-# CloudWatch Alarm for Lead Processor Duration
 resource "aws_cloudwatch_metric_alarm" "lead_processor_duration" {
   alarm_name          = "${local.name_prefix}-lead-processor-duration"
   comparison_operator = "GreaterThanThreshold"
@@ -85,8 +70,8 @@ resource "aws_cloudwatch_metric_alarm" "lead_processor_duration" {
   namespace           = "AWS/Lambda"
   period              = 300
   extended_statistic  = "p95"
-  threshold           = 8000 # 8 seconds (80% of timeout)
-  alarm_description   = "p95 duration > 80% of timeout"
+  threshold           = 8000 # 80% of timeout
+  alarm_description   = "p95 duration exceeds 80% of configured timeout"
   treat_missing_data  = "notBreaching"
 
   dimensions = {
@@ -97,10 +82,9 @@ resource "aws_cloudwatch_metric_alarm" "lead_processor_duration" {
 }
 
 # ============================================================================
-# Email Notifier Lambda
+# Email Notifier
 # ============================================================================
 
-# CloudWatch Log Group
 resource "aws_cloudwatch_log_group" "email_notifier" {
   name              = "/aws/lambda/${local.name_prefix}-email-notifier"
   retention_in_days = var.lambda_log_retention_days
@@ -108,7 +92,6 @@ resource "aws_cloudwatch_log_group" "email_notifier" {
   tags = local.common_tags
 }
 
-# Lambda Function
 resource "aws_lambda_function" "email_notifier" {
   filename      = "${path.module}/../lambda/email-notifier/dist/lambda.zip"
   function_name = "${local.name_prefix}-email-notifier"
@@ -136,15 +119,9 @@ resource "aws_lambda_function" "email_notifier" {
     aws_iam_role_policy.email_notifier_secrets,
   ]
 
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.name_prefix}-email-notifier"
-    }
-  )
+  tags = merge(local.common_tags, { Name = "${local.name_prefix}-email-notifier" })
 }
 
-# CloudWatch Alarm for Email Notifier Errors
 resource "aws_cloudwatch_metric_alarm" "email_notifier_errors" {
   alarm_name          = "${local.name_prefix}-email-notifier-errors"
   comparison_operator = "GreaterThanThreshold"
@@ -154,7 +131,7 @@ resource "aws_cloudwatch_metric_alarm" "email_notifier_errors" {
   period              = 300
   statistic           = "Sum"
   threshold           = 3
-  alarm_description   = "Alert when email notifier has more than 3 errors in 5 minutes"
+  alarm_description   = "More than 3 errors in 5 minutes"
   treat_missing_data  = "notBreaching"
 
   dimensions = {
@@ -163,4 +140,3 @@ resource "aws_cloudwatch_metric_alarm" "email_notifier_errors" {
 
   tags = local.common_tags
 }
-

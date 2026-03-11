@@ -1,10 +1,3 @@
-/**
- * API Gateway HTTP API Configuration
- * 
- * Creates API Gateway with Lambda integration and CORS
- */
-
-# API Gateway HTTP API
 resource "aws_apigatewayv2_api" "leads" {
   name          = "${local.name_prefix}-api"
   protocol_type = "HTTP"
@@ -21,15 +14,9 @@ resource "aws_apigatewayv2_api" "leads" {
     max_age = 300
   }
 
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.name_prefix}-api"
-    }
-  )
+  tags = merge(local.common_tags, { Name = "${local.name_prefix}-api" })
 }
 
-# API Gateway Integration with Lambda
 resource "aws_apigatewayv2_integration" "lead_processor" {
   api_id           = aws_apigatewayv2_api.leads.id
   integration_type = "AWS_PROXY"
@@ -38,18 +25,15 @@ resource "aws_apigatewayv2_integration" "lead_processor" {
   integration_uri        = aws_lambda_function.lead_processor.invoke_arn
   payload_format_version = "2.0"
 
-  timeout_milliseconds = var.lambda_timeout * 1000 + 1000 # Lambda timeout + 1 second buffer
+  timeout_milliseconds = var.lambda_timeout * 1000 + 1000
 }
 
-# API Gateway Route
 resource "aws_apigatewayv2_route" "post_leads" {
   api_id    = aws_apigatewayv2_api.leads.id
   route_key = "POST /leads"
-
-  target = "integrations/${aws_apigatewayv2_integration.lead_processor.id}"
+  target    = "integrations/${aws_apigatewayv2_integration.lead_processor.id}"
 }
 
-# API Gateway Stage
 resource "aws_apigatewayv2_stage" "prod" {
   api_id      = aws_apigatewayv2_api.leads.id
   name        = "$default"
@@ -75,15 +59,9 @@ resource "aws_apigatewayv2_stage" "prod" {
     })
   }
 
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.name_prefix}-api-stage"
-    }
-  )
+  tags = merge(local.common_tags, { Name = "${local.name_prefix}-api-stage" })
 }
 
-# CloudWatch Log Group for API Gateway
 resource "aws_cloudwatch_log_group" "api_gateway" {
   name              = "/aws/apigateway/${local.name_prefix}"
   retention_in_days = var.lambda_log_retention_days
@@ -91,7 +69,6 @@ resource "aws_cloudwatch_log_group" "api_gateway" {
   tags = local.common_tags
 }
 
-# Lambda Permission for API Gateway
 resource "aws_lambda_permission" "api_gateway" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
@@ -100,7 +77,6 @@ resource "aws_lambda_permission" "api_gateway" {
   source_arn    = "${aws_apigatewayv2_api.leads.execution_arn}/*/*"
 }
 
-# CloudWatch Alarm for API Gateway 4XX Errors
 resource "aws_cloudwatch_metric_alarm" "api_4xx" {
   alarm_name          = "${local.name_prefix}-api-4xx-errors"
   comparison_operator = "GreaterThanThreshold"
@@ -110,7 +86,7 @@ resource "aws_cloudwatch_metric_alarm" "api_4xx" {
   period              = 300
   statistic           = "Sum"
   threshold           = 20
-  alarm_description   = "Alert when API has more than 20 4xx errors in 5 minutes"
+  alarm_description   = "More than 20 4xx errors in 5 minutes"
   treat_missing_data  = "notBreaching"
 
   dimensions = {
@@ -120,7 +96,6 @@ resource "aws_cloudwatch_metric_alarm" "api_4xx" {
   tags = local.common_tags
 }
 
-# CloudWatch Alarm for API Gateway 5XX Errors
 resource "aws_cloudwatch_metric_alarm" "api_5xx" {
   alarm_name          = "${local.name_prefix}-api-5xx-errors"
   comparison_operator = "GreaterThanThreshold"
@@ -130,7 +105,7 @@ resource "aws_cloudwatch_metric_alarm" "api_5xx" {
   period              = 300
   statistic           = "Sum"
   threshold           = 5
-  alarm_description   = "Alert when API has more than 5 5xx errors in 5 minutes"
+  alarm_description   = "More than 5 5xx errors in 5 minutes"
   treat_missing_data  = "notBreaching"
 
   dimensions = {
@@ -139,4 +114,3 @@ resource "aws_cloudwatch_metric_alarm" "api_5xx" {
 
   tags = local.common_tags
 }
-

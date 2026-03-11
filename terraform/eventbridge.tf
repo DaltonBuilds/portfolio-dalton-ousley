@@ -1,25 +1,12 @@
-/**
- * EventBridge Configuration
- * 
- * Creates custom event bus and rules for lead events
- */
-
-# Custom Event Bus
 resource "aws_cloudwatch_event_bus" "leads" {
   name = "${local.name_prefix}-bus"
 
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.name_prefix}-event-bus"
-    }
-  )
+  tags = merge(local.common_tags, { Name = "${local.name_prefix}-event-bus" })
 }
 
-# Event Rule for LeadSubmitted events
 resource "aws_cloudwatch_event_rule" "lead_submitted" {
   name           = "${local.name_prefix}-lead-submitted"
-  description    = "Triggers when a new lead is submitted"
+  description    = "Routes LeadSubmitted events to the email notifier"
   event_bus_name = aws_cloudwatch_event_bus.leads.name
 
   event_pattern = jsonencode({
@@ -30,7 +17,6 @@ resource "aws_cloudwatch_event_rule" "lead_submitted" {
   tags = local.common_tags
 }
 
-# Target: Email Notifier Lambda
 resource "aws_cloudwatch_event_target" "email_notifier" {
   rule           = aws_cloudwatch_event_rule.lead_submitted.name
   event_bus_name = aws_cloudwatch_event_bus.leads.name
@@ -39,7 +25,7 @@ resource "aws_cloudwatch_event_target" "email_notifier" {
 
   retry_policy {
     maximum_retry_attempts       = 2
-    maximum_event_age_in_seconds = 3600 # 1 hour
+    maximum_event_age_in_seconds = 3600
   }
 
   dead_letter_config {
@@ -47,7 +33,6 @@ resource "aws_cloudwatch_event_target" "email_notifier" {
   }
 }
 
-# Permission for EventBridge to invoke email notifier Lambda
 resource "aws_lambda_permission" "eventbridge_email_notifier" {
   statement_id  = "AllowEventBridgeInvoke"
   action        = "lambda:InvokeFunction"
@@ -56,20 +41,13 @@ resource "aws_lambda_permission" "eventbridge_email_notifier" {
   source_arn    = aws_cloudwatch_event_rule.lead_submitted.arn
 }
 
-# Dead Letter Queue for failed email notifications
 resource "aws_sqs_queue" "email_notifier_dlq" {
   name                      = "${local.name_prefix}-email-notifier-dlq"
   message_retention_seconds = 1209600 # 14 days
 
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.name_prefix}-email-notifier-dlq"
-    }
-  )
+  tags = merge(local.common_tags, { Name = "${local.name_prefix}-email-notifier-dlq" })
 }
 
-# CloudWatch alarm for DLQ messages
 resource "aws_cloudwatch_metric_alarm" "dlq_messages" {
   alarm_name          = "${local.name_prefix}-dlq-messages"
   comparison_operator = "GreaterThanThreshold"
@@ -79,7 +57,7 @@ resource "aws_cloudwatch_metric_alarm" "dlq_messages" {
   period              = 300
   statistic           = "Average"
   threshold           = 0
-  alarm_description   = "Alert when messages appear in DLQ"
+  alarm_description   = "Messages have appeared in the email notifier DLQ"
   treat_missing_data  = "notBreaching"
 
   dimensions = {
@@ -88,4 +66,3 @@ resource "aws_cloudwatch_metric_alarm" "dlq_messages" {
 
   tags = local.common_tags
 }
-
