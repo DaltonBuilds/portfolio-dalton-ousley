@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "aws_profile" {
   description = "AWS CLI profile name"
   type        = string
-  default     = "dalton-portfolio"
+  default     = "portfolio-prod"
 }
 
 variable "environment" {

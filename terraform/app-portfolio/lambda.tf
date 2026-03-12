@@ -10,7 +10,7 @@ resource "aws_cloudwatch_log_group" "lead_processor" {
 }
 
 resource "aws_lambda_function" "lead_processor" {
-  filename      = "${path.module}/../lambda/lead-processor/dist/lambda.zip"
+  filename      = "${path.module}/../../lambda/lead-processor/dist/lambda.zip"
   function_name = "${local.name_prefix}-lead-processor"
   role          = aws_iam_role.lead_processor.arn
   handler       = "index.handler"
@@ -19,7 +19,7 @@ resource "aws_lambda_function" "lead_processor" {
   memory_size   = var.lambda_memory_size
   architectures = ["arm64"]
 
-  source_code_hash = filebase64sha256("${path.module}/../lambda/lead-processor/dist/lambda.zip")
+  source_code_hash = filebase64sha256("${path.module}/../../lambda/lead-processor/dist/lambda.zip")
 
   environment {
     variables = {
@@ -93,7 +93,7 @@ resource "aws_cloudwatch_log_group" "email_notifier" {
 }
 
 resource "aws_lambda_function" "email_notifier" {
-  filename      = "${path.module}/../lambda/email-notifier/dist/lambda.zip"
+  filename      = "${path.module}/../../lambda/email-notifier/dist/lambda.zip"
   function_name = "${local.name_prefix}-email-notifier"
   role          = aws_iam_role.email_notifier.arn
   handler       = "index.handler"
@@ -102,7 +102,7 @@ resource "aws_lambda_function" "email_notifier" {
   memory_size   = var.lambda_memory_size
   architectures = ["arm64"]
 
-  source_code_hash = filebase64sha256("${path.module}/../lambda/email-notifier/dist/lambda.zip")
+  source_code_hash = filebase64sha256("${path.module}/../../lambda/email-notifier/dist/lambda.zip")
 
   environment {
     variables = {

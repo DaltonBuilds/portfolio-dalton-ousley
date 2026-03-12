@@ -9,11 +9,11 @@ terraform {
   }
 
   backend "s3" {
-    bucket     = "dalton-portfolio-prod-terraform-state"
-    key        = "portfolio-leads/terraform.tfstate"
-    region     = "us-east-1"
-    profile    = "portfolio-prod"
-    encrypt    = true
+    bucket       = "dalton-portfolio-prod-terraform-state"
+    key          = "portfolio-leads/terraform.tfstate"
+    region       = "us-east-1"
+    profile      = "portfolio-prod"
+    encrypt      = true
     use_lockfile = true
   }
 }
