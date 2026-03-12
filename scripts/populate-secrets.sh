@@ -4,6 +4,7 @@
 
 set -e
 
+PROFILE="portfolio-prod"
 REGION="us-east-1"
 
 echo "🔐 AWS Secrets Manager - Secret Population Script"
@@ -11,7 +12,7 @@ echo "=================================================="
 echo ""
 
 # Check if AWS CLI is configured
-if ! aws sts get-caller-identity --region $REGION &> /dev/null; then
+if ! aws sts get-caller-identity --profile $PROFILE --region $REGION &> /dev/null; then
     echo "❌ Error: AWS CLI is not configured or credentials are invalid"
     echo "Run: aws configure"
     exit 1
@@ -30,6 +31,7 @@ if [ -z "$TURNSTILE_SECRET" ]; then
 else
     echo "⏳ Uploading Turnstile secret..."
     aws secretsmanager put-secret-value \
+        --profile $PROFILE \
         --region $REGION \
         --secret-id portfolio/turnstile-secret \
         --secret-string "$TURNSTILE_SECRET"
@@ -48,6 +50,7 @@ if [ -z "$RESEND_API_KEY" ]; then
 else
     echo "⏳ Uploading Resend API key..."
     aws secretsmanager put-secret-value \
+        --profile $PROFILE \
         --region $REGION \
         --secret-id portfolio/resend-api-key \
         --secret-string "$RESEND_API_KEY"
