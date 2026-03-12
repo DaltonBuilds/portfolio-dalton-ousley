@@ -1,0 +1,15 @@
+{
+  "name": "portfolio-dalton-ousley",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+
+  "postCreateCommand": "bash -c 'curl https://mise.jdx.dev/install.sh | sh && $HOME/.local/bin/mise trust --yes && $HOME/.local/bin/mise install'",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hashicorp.terraform",
+        "amazonwebservices.aws-toolkit-vscode"
+      ]
+    }
+  }
+}
