@@ -14,8 +14,6 @@ terraform {
     region     = "us-east-1"
     profile    = "prod-admin"
     encrypt    = true
-    kms_key_id = "alias/terraform-state-key"
-
     use_lockfile = true
   }
 }
