@@ -17,6 +17,10 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules"
+    ],
     "types": [
       "vitest/globals",
       "vitest/jsdom"
