@@ -30,5 +30,4 @@ export {
 } from './fetch-with-timeout';
 
 // Existing utilities
-export { generateHMACSignature, signRequest, validateHMACConfig, getHMACSecret } from './hmac';
 export { submitLead } from './lead-client';
