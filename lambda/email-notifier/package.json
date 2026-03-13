@@ -1,6 +1,7 @@
 {
   "name": "email-notifier",
   "version": "1.0.0",
+  "type": "module",
   "description": "AWS Lambda function for sending email notifications via Resend",
   "main": "dist/index.js",
   "scripts": {
