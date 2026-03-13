@@ -30,13 +30,3 @@ await esbuild.build({
   process.exit(1);
 });
 
-// Build verification handler
-await esbuild.build({
-  ...sharedConfig,
-  entryPoints: ['src/verify-handler.ts'],
-  outfile: 'dist/verify-handler.js',
-}).catch((error) => {
-  console.error('Build failed for verify-handler.ts:', error);
-  process.exit(1);
-});
-

@@ -31,7 +31,7 @@ resource "aws_dynamodb_table" "leads" {
     projection_type = "ALL"
   }
 
-  # Lookup by email for privacy/deletion requests
+  # Lookup leads by email
   global_secondary_index {
     name            = "email-index"
     hash_key        = "email"
@@ -99,53 +99,4 @@ resource "aws_cloudwatch_metric_alarm" "dynamodb_throttle" {
   }
 
   tags = local.common_tags
-}
-
-resource "aws_dynamodb_table" "privacy_requests" {
-  name         = "${local.name_prefix}-privacy-requests"
-  billing_mode = var.dynamodb_billing_mode
-  hash_key     = "id"
-
-  attribute {
-    name = "id"
-    type = "S"
-  }
-
-  attribute {
-    name = "requesterEmail"
-    type = "S"
-  }
-
-  attribute {
-    name = "status"
-    type = "S"
-  }
-
-  # Query by email + status for request lookups
-  global_secondary_index {
-    name            = "email-status-index"
-    hash_key        = "requesterEmail"
-    range_key       = "status"
-    projection_type = "ALL"
-  }
-
-  ttl {
-    attribute_name = "ttl"
-    enabled        = true
-  }
-
-  point_in_time_recovery {
-    enabled = var.enable_point_in_time_recovery
-  }
-
-  server_side_encryption {
-    enabled = true
-  }
-
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.name_prefix}-privacy-requests"
-    }
-  )
 }

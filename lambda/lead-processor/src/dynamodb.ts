@@ -56,7 +56,7 @@ export async function storeLead(
   tableName: string,
   leadId: string,
   leadData: LeadSubmission,
-  ttlDays: number = 548 // Deprecated parameter, kept for backward compatibility
+  _ttlDays: number = 548 // Deprecated parameter, kept for backward compatibility
 ): Promise<StoredLead> {
   const createdAt = Date.now()
   
