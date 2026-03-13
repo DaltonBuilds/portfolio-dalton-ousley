@@ -1,0 +1,13 @@
+name: Deploy Lambda's
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'lambda/**'
+      - 'terraform/app-portfolio/**'
+  push:
+    branches: [main]
+    paths:
+      - 'lambda/**'
+      - 'terraform/app-portfolio/**'
