@@ -34,6 +34,28 @@ data "aws_iam_policy_document" "github_actions_permissions" {
       "arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:portfolio-leads-prod-email-notifier",
     ]
   }
+
+  statement {
+    effect  = "Allow"
+    actions = ["ecr:GetAuthorizationToken"]
+    resources = ["*"]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:InitiateLayerUpload",
+      "ecr:UploadLayerPart",
+      "ecr:CompleteLayerUpload",
+      "ecr:PutImage"
+    ]
+
+    resources = [
+      "arn:aws:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/portfolio-leads-prod-lead-processor",
+      "arn:aws:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/portfolio-leads-prod-email-notifier",
+    ]
+  }
 }
 
 resource "aws_iam_role" "github_actions_deploy" {

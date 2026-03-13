@@ -70,6 +70,31 @@ resource "aws_iam_role_policy" "lead_processor_secrets" {
   })
 }
 
+resource "aws_iam_role_policy" "lead_processor_ecr" {
+  name = "ecr-pull-access"
+  role = aws_iam_role.lead_processor.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "ecr:BatchCheckLayerAvailability"
+        ]
+        Resource = aws_ecr_repository.lead_processor.arn
+      },
+      {
+        Effect   = "Allow"
+        Action   = "ecr:GetAuthorizationToken"
+        Resource = "*"
+      }
+    ]
+  })
+}
+
 # ============================================================================
 # Email Notifier Role
 # ============================================================================
@@ -105,6 +130,31 @@ resource "aws_iam_role_policy" "email_notifier_secrets" {
       Action   = ["secretsmanager:GetSecretValue"]
       Resource = aws_secretsmanager_secret.resend.arn
     }]
+  })
+}
+
+resource "aws_iam_role_policy" "email_notifier_ecr" {
+  name = "ecr-pull-access"
+  role = aws_iam_role.email_notifier.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "ecr:BatchCheckLayerAvailability"
+        ]
+        Resource = aws_ecr_repository.email_notifier.arn
+      },
+      {
+        Effect   = "Allow"
+        Action   = "ecr:GetAuthorizationToken"
+        Resource = "*"
+      }
+    ]
   })
 }
 
