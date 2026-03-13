@@ -1,4 +1,4 @@
-name: Deploy Lambda's
+name: Build & Deploy Lambda's
 
 on:
   pull_request:
@@ -11,3 +11,61 @@ on:
     paths:
       - 'lambda/**'
       - 'terraform/app-portfolio/**'
+
+env:
+  ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4 # TODO: come back later and pin a SHA
+
+      # Always runs - validates Dockerfiles on PRs and push
+      - name: Build email-notifier image
+        run: docker build -t email-notifier ./lambda/email-notifier
+
+      - name: Build lead-processor image
+        run: docker build -t lead-processor ./lambda/lead-processor
+
+      # Only runs on push to main
+      - name: Configure AWS credentials
+        if: github.event_name == 'push'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to ECR
+        if: github.event_name == 'push'
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Push email-notifier to ECR
+        if: github.event_name == 'push'
+        run: |
+          docker tag email-notifier $ECR_REGISTRY/portfolio-leads-prod-email-notifier:${{ github.sha }}
+          docker push $ECR_REGISTRY/portfolio-leads-prod-email-notifier:${{ github.sha }}
+
+      - name: Push lead-processor to ECR
+        if: github.event_name == 'push'
+        run: |
+          docker tag lead-processor $ECR_REGISTRY/portfolio-leads-prod-lead-processor:${{ github.sha }}
+          docker push $ECR_REGISTRY/portfolio-leads-prod-lead-processor:${{ github.sha }}
+
+      - name: Update email-notifier Lambda
+        if: github.event_name == 'push'
+        run: |
+          aws lambda update-function-code \
+            --function-name portfolio-leads-prod-email-notifier \
+            --image-uri $ECR_REGISTRY/portfolio-leads-prod-email-notifier:${{ github.sha }}
+
+      - name: Update lead-processor Lambda
+        if: github.event_name == 'push'
+        run: |
+          aws lambda update-function-code \
+            --function-name portfolio-leads-prod-lead-processor \
+            --image-uri $ECR_REGISTRY/portfolio-leads-prod-lead-processor:${{ github.sha }}
