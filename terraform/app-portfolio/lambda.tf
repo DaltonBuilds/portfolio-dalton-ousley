@@ -10,16 +10,16 @@ resource "aws_cloudwatch_log_group" "lead_processor" {
 }
 
 resource "aws_lambda_function" "lead_processor" {
-  filename      = "${path.module}/../../lambda/lead-processor/dist/lambda.zip"
   function_name = "${local.name_prefix}-lead-processor"
   role          = aws_iam_role.lead_processor.arn
-  handler       = "index.handler"
-  runtime       = var.lambda_runtime
   timeout       = var.lambda_timeout
   memory_size   = var.lambda_memory_size
-  architectures = ["arm64"]
-
-  source_code_hash = filebase64sha256("${path.module}/../../lambda/lead-processor/dist/lambda.zip")
+  architectures = ["x86_64"]
+  package_type  = "Image"
+  image_uri     = "${aws_ecr_repository.lead_processor.repository_url}:${var.image_tag}"
+  image_config { 
+    command = ["index.handler"] 
+    }
 
   environment {
     variables = {
@@ -93,16 +93,16 @@ resource "aws_cloudwatch_log_group" "email_notifier" {
 }
 
 resource "aws_lambda_function" "email_notifier" {
-  filename      = "${path.module}/../../lambda/email-notifier/dist/lambda.zip"
   function_name = "${local.name_prefix}-email-notifier"
   role          = aws_iam_role.email_notifier.arn
-  handler       = "index.handler"
-  runtime       = var.lambda_runtime
   timeout       = var.lambda_timeout
   memory_size   = var.lambda_memory_size
-  architectures = ["arm64"]
-
-  source_code_hash = filebase64sha256("${path.module}/../../lambda/email-notifier/dist/lambda.zip")
+  architectures = ["x86_64"]
+  package_type  = "Image"
+  image_uri     = "${aws_ecr_repository.email_notifier.repository_url}:${var.image_tag}"
+  image_config { 
+    command = ["index.handler"] 
+    }
 
   environment {
     variables = {
