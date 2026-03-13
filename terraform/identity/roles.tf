@@ -36,8 +36,8 @@ data "aws_iam_policy_document" "github_actions_permissions" {
   }
 
   statement {
-    effect  = "Allow"
-    actions = ["ecr:GetAuthorizationToken"]
+    effect    = "Allow"
+    actions   = ["ecr:GetAuthorizationToken"]
     resources = ["*"]
   }
 
