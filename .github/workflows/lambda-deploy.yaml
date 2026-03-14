@@ -30,7 +30,7 @@ jobs:
         run: docker build -t email-notifier ./lambda/email-notifier
 
       - name: Scan email-notifier image with Trivy
-        uses: aquasecurity/trivy-action@6fb20c8edd70745d6b34bff0387b53b03c8a760a # v0.69.3
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
         with:
           image-ref: email-notifier
           format: table
@@ -42,7 +42,7 @@ jobs:
         run: docker build -t lead-processor ./lambda/lead-processor
 
       - name: Scan lead-processor image with Trivy
-        uses: aquasecurity/trivy-action@6fb20c8edd70745d6b34bff0387b53b03c8a760a # v0.69.3
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
         with:
           image-ref: lead-processor
           format: table
