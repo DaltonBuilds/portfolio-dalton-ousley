@@ -6,6 +6,10 @@ on:
       - "Build & Deploy Lambda's"
     types: [completed]
 
+permissions:
+  actions: read
+  contents: read
+
 jobs:
   export-otel-trace:
     name: OpenTelemetry Export Trace
