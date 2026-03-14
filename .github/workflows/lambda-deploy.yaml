@@ -23,26 +23,44 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/checkout@v4 # TODO: come back later and pin a SHA
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      # Always runs - validates Dockerfiles on PRs and push
+      # Always runs - validates Dockerfiles on PRs and push, Trivy scans
       - name: Build email-notifier image
         run: docker build -t email-notifier ./lambda/email-notifier
+
+      - name: Scan email-notifier image with Trivy
+        uses: aquasecurity/trivy-action@6fb20c8edd70745d6b34bff0387b53b03c8a760a # v0.69.3
+        with:
+          image-ref: email-notifier
+          format: table
+          exit-code: '1'
+          severity: 'CRITICAL,HIGH'
+          ignore-unfixed: true
 
       - name: Build lead-processor image
         run: docker build -t lead-processor ./lambda/lead-processor
 
+      - name: Scan lead-processor image with Trivy
+        uses: aquasecurity/trivy-action@6fb20c8edd70745d6b34bff0387b53b03c8a760a # v0.69.3
+        with:
+          image-ref: lead-processor
+          format: table
+          exit-code: '1'
+          severity: 'CRITICAL,HIGH'
+          ignore-unfixed: true
+
       # Only runs on push to main
       - name: Configure AWS credentials
         if: github.event_name == 'push'
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@8df5847569e6427dd6c4fb1cf565c83acfa8afa7 # v6.0.0
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Login to ECR
         if: github.event_name == 'push'
-        uses: aws-actions/amazon-ecr-login@v2
+        uses: aws-actions/amazon-ecr-login@c962da2960ed15f492addc26fffa274485265950 # v2.0.2
 
       - name: Push email-notifier to ECR
         if: github.event_name == 'push'
