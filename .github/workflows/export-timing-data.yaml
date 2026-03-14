@@ -14,7 +14,7 @@ jobs:
       - name: Export Workflow Trace
         uses: corentinmusard/otel-cicd-action@0f9f16fceb53fd8c996042e28c642ec61f844876 # v4.0.0
         with:
-          otlpEndpoints: grpc://api.honeycomb.io:443/
+          otlpEndpoint: grpc://api.honeycomb.io:443/
           otlpHeaders: ${{ secrets.HONEYCOMB_OTLP_HEADERS }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           runId: ${{ github.event.workflow_run.id }}
