@@ -9,6 +9,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import CredlyBadge from '@/components/CredlyBadge';
 import { useContactModal } from '@/contexts/ContactModalContext';
+import { PATHS } from '@/config/constants';
 
 function TerminalWidget() {
   return (
@@ -163,7 +164,7 @@ export default function AboutPage() {
                     LinkedIn
                   </Button>
                 </Link>
-                <Link href="/dalton-ousley-resume.pdf" target="_blank" rel="noreferrer">
+                <Link href={PATHS.RESUME} target="_blank" rel="noreferrer">
                   <Button variant="secondary" size="lg">
                     <Award className="mr-2 h-5 w-5" />
                     Resume

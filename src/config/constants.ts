@@ -25,6 +25,8 @@ export const PATHS = {
   BLOG_IMAGES: '/blog/images',
   PROFILE_IMAGE: '/Dalton-Ousley-portrait-white-buttondown.avif',
   FAVICON: '/dalton-ousley-favicon.svg',
+  /** Resume PDF served when users download resume from the site */
+  RESUME: '/Dalton_Ousley_Resume_v1.0.0.pdf',
 } as const
 
 // Date formats

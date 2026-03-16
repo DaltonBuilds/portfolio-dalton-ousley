@@ -4,6 +4,7 @@ import React from 'react';
 import { Button } from "@/components/ui/Button";
 import { Mail, FileText } from 'lucide-react';
 import { useContactModal } from '@/contexts/ContactModalContext';
+import { PATHS } from '@/config/constants';
 
 const CTASection: React.FC = () => {
   const { openContactModal } = useContactModal();
@@ -33,7 +34,7 @@ const CTASection: React.FC = () => {
               className="text-lg px-8 py-6"
               asChild
             >
-              <a href="/dalton-ousley-resume.pdf" download>
+              <a href={PATHS.RESUME} download>
                 <FileText className="mr-2 h-5 w-5" aria-hidden="true" /> Download Resume
               </a>
             </Button>
