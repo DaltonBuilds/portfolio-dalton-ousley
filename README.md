@@ -1,4 +1,4 @@
-# portfolio-dalton-ousley
+# Portfolio: Dalton Ousley
 
 My personal portfolio site built with Next.js and backed by a serverless AWS infrastructure managed entirely with Terraform. The frontend is a Next.js 16 application — the real focus of this repo is the backend: a production-grade, event-driven lead capture system deployed via containerized Lambdas and GitHub Actions with OIDC federation.
 
