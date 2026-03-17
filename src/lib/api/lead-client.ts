@@ -259,7 +259,7 @@ export async function submitLead(
   // Attempt submission with retry logic
   for (let attempt = 0; attempt <= config.maxRetries!; attempt++) {
     try {
-      // Prepare request headers (no HMAC - security via Turnstile + server-side validation)
+      // Prepare request headers
       const headers: HeadersInit = {
         "Content-Type": "application/json",
         "X-Idempotency-Key": idempotencyKey,

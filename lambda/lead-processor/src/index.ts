@@ -2,13 +2,12 @@
  * Lead Processor Lambda Handler
  * 
  * Processes lead submissions from API Gateway:
- * 1. Verify HMAC signature
- * 2. Verify Cloudflare Turnstile token
- * 3. Validate payload with Zod
- * 4. Check idempotency
- * 5. Store lead in DynamoDB
- * 6. Publish event to EventBridge
- * 7. Return success response
+ * 1. Verify Cloudflare Turnstile token
+ * 2. Validate payload with Zod
+ * 3. Check idempotency
+ * 4. Store lead in DynamoDB
+ * 5. Publish event to EventBridge
+ * 6. Return success response
  */
 
 import type { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda"

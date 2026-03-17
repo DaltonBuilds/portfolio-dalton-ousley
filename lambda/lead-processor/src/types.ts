@@ -56,7 +56,6 @@ export interface ErrorResponse {
 }
 
 export interface SecretsCache {
-  hmacServerSecret?: string
   turnstileSecret?: string
   resendApiKey?: string
   lastFetch?: number

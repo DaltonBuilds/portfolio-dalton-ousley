@@ -43,35 +43,6 @@ async function getSecret(secretName: string): Promise<string> {
 }
 
 /**
- * Gets HMAC server secret with caching
- * 
- * @returns HMAC server secret
- */
-export async function getHMACServerSecret(): Promise<string> {
-  const cacheKey = "hmacServerSecret"
-  const now = Date.now()
-
-  // Check cache
-  if (
-    secretsCache[cacheKey] &&
-    secretsCache.lastFetch &&
-    now - secretsCache.lastFetch < SECRETS_CACHE_TTL
-  ) {
-    return secretsCache[cacheKey]
-  }
-
-  // Fetch from Secrets Manager
-  const secretName = process.env.HMAC_SERVER_SECRET_NAME || "portfolio/hmac-server-secret"
-  const secret = await getSecret(secretName)
-
-  // Update cache
-  secretsCache[cacheKey] = secret
-  secretsCache.lastFetch = now
-
-  return secret
-}
-
-/**
  * Gets Turnstile secret key with caching
  * 
  * @returns Turnstile secret key
@@ -133,7 +104,6 @@ export async function getResendApiKey(): Promise<string> {
  * Clears the secrets cache (useful for testing)
  */
 export function clearSecretsCache(): void {
-  secretsCache.hmacServerSecret = undefined
   secretsCache.turnstileSecret = undefined
   secretsCache.resendApiKey = undefined
   secretsCache.lastFetch = undefined
