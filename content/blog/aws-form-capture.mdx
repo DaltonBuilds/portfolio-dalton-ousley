@@ -3,7 +3,7 @@ title: "React Form with AWS Backend"
 slug: "react-form-aws-backend"
 description: "As part of my ongoing Cloud Engineering journey, I recently decided to replace a simple embedded contact form on my website with a custom React form backed by AWS services."
 date: "2025-10-09"
-lastModified: "2025-10-09"
+lastModified: "2026-03-17"
 published: true
 featured: true
 author: "dalton-ousley"
@@ -60,7 +60,7 @@ flowchart TB
         APIGW["🚪 API Gateway<br/>(HTTP API + Throttling)"]
 
         subgraph Lambda1["λ Contact Processor"]
-            HMAC["🔐 HMAC Verification"]
+            HeaderValidation["🧾 Header Validation"]
             TurnstileVerify["✓ Turnstile Verification"]
             Validation["✓ Zod Validation"]
             Idempotency["🔄 Idempotency Check"]
@@ -112,10 +112,10 @@ When a user submits the form, the following steps take place:
 
 1. [**React Hook Form**](https://react-hook-form.com/) validates inputs on the client side using Zod.
 2. **Cloudflare Turnstile** challenges the user to confirm they're human, issuing a token on success.
-3. The browser **signs the request with an HMAC** using a timestamp and payload hash to prevent tampering.
+3. The browser includes an idempotency key and Turnstile token in request headers.
 4. **API Gateway** receives the request, applies throttling, and invokes the Contact Processor Lambda.
 5. **Contact Processor Lambda**:
-    - Verifies HMAC signature
+    - Validates required request headers
     - Validates the Turnstile token with Cloudflare's API
     - Validates the payload schema with [Zod](https://zod.dev/)
     - Checks for duplicates using an idempotency key in DynamoDB
@@ -140,9 +140,9 @@ sequenceDiagram
 
     U->>T: 1. Complete challenge
     T->>U: 2. Return token
-    U->>A: 3. POST /contacts (HMAC signed)
+    U->>A: 3. POST /contacts with headers
     A->>L1: 4. Invoke Lambda
-    L1->>L1: 5. Verify HMAC
+    L1->>L1: 5. Validate headers
     L1->>T: 6. Verify Turnstile token
     T->>L1: 7. Token valid
     L1->>D: 8. Check idempotency key
@@ -175,21 +175,21 @@ Before any form data can be submitted, users must pass a [**Cloudflare Turnstile
 
 This lightweight but effective bot protection adds a critical layer of security without compromising user experience.
 
-### HMAC Request Signing
+### Request Integrity and Validation
 
-To protect against tampering, every submission request is **HMAC-signed** in the browser. When the user submits the form:
+Each submission request includes metadata headers that support robust server-side validation and deduplication. When the user submits the form:
 
 1. A timestamp is generated.
 2. The payload is serialized and hashed with SHA-256.
-3. The hash and timestamp are signed with a client-side key to create the HMAC signature.
-4. These headers are sent along with the form body to the API Gateway endpoint.
+3. A unique idempotency key is generated client-side.
+4. Headers are sent along with the form body to the API Gateway endpoint.
 
-The backend **verifies this signature** before doing anything else, ensuring that:
+The backend validates the request up front, ensuring that:
 
-- The request wasn’t modified in transit, and
-- It originated from the intended frontend (not a malicious script hitting the API directly).
+- Required metadata is present for processing, and
+- Duplicate submissions can be safely ignored.
 
-By combining Zod validation, Turnstile bot checks, and [HMAC signing](https://www.okta.com/identity-101/hmac/), the React form becomes a **trusted entry point** into the backend pipeline. Once the request passes these checks, it’s routed through AWS WAF and into API Gateway for processing by the Contact Processor Lambda.
+By combining Zod validation, Turnstile bot checks, and idempotency controls, the React form becomes a **trusted entry point** into the backend pipeline.
 
 ## Backend Implementation
 
@@ -199,12 +199,11 @@ The backend is where this project really shines. Rather than sending form data t
 
 At the heart of the backend is the Contact **Processor Lambda**, which is invoked via **API Gateway** after requests pass through AWS WAF. This Lambda function is responsible for several critical security and data-handling steps:
 
-1. **HMAC Verification** – Ensures the payload hasn’t been tampered with in transit.
-2. **Turnstile Verification** – Validates the Cloudflare token using the secret stored in **AWS Secrets Manager**.
-3. **Payload Validation** – Uses Zod to apply the same schema rules as the frontend, providing an additional line of defense.
-4. **Idempotency Check** – Looks up a generated key in DynamoDB to prevent duplicate submissions (e.g., from double-clicking the submit button).
-5. **Data Persistence** – Writes the data into **DynamoDB** with an 18-month TTL (time-to-live), ensuring data retention without manual cleanup.
-6. **Event Publication** – Emits a `ContactSubmitted` event to **EventBridge**, decoupling the form processing from downstream tasks.
+1. **Turnstile Verification** – Validates the Cloudflare token using the secret stored in **AWS Secrets Manager**.
+2. **Payload Validation** – Uses Zod to apply the same schema rules as the frontend, providing an additional line of defense.
+3. **Idempotency Check** – Looks up a generated key in DynamoDB to prevent duplicate submissions (e.g., from double-clicking the submit button).
+4. **Data Persistence** – Writes the data into **DynamoDB** with an 18-month TTL (time-to-live), ensuring data retention without manual cleanup.
+5. **Event Publication** – Emits a `ContactSubmitted` event to **EventBridge**, decoupling the form processing from downstream tasks.
 
 This layered approach means that any invalid, tampered, or bot-originated request is rejected early, and only clean, verified submissions make it to storage.
 
@@ -333,11 +332,11 @@ This project started as a simple contact form replacement, but it’s already ev
 
 From the outside, creating a contact form might seem like one of the simplest things you can do on a website. In tools like GoHighLevel or other CRMs, it’s literally a matter of pasting in some embed code. But when you peel back the curtain and **build your own React form with an AWS backend**, you quickly realize just how many moving parts there actually are.
 
-Between Cloudflare Turnstile, HMAC signing, API Gateway, WAF rules, Lambda functions, DynamoDB storage, EventBridge events, Secrets Manager integration, and CloudWatch observability — there’s a *lot* happening in the background to make a “simple” form submission secure, scalable, and maintainable. And that’s exactly what I love about cloud engineering: the magic is in the invisible infrastructure.
+Between Cloudflare Turnstile, API Gateway, Lambda functions, DynamoDB storage, EventBridge events, Secrets Manager integration, and CloudWatch observability — there’s a *lot* happening in the background to make a “simple” form submission secure, scalable, and maintainable. And that’s exactly what I love about cloud engineering: the magic is in the invisible infrastructure.
 
 This project wasn’t without its hiccups either:
 
-- I initially had **mismatched HMAC keys**, which made every request fail signature verification until I tracked it down through console debug logs paired with CloudWatch logging.
+- I had early request-validation mismatches that caused failed submissions until I tracked them down through console debug logs paired with CloudWatch logging.
 - I ran into **SSO/IAM Identity Center quirks** when setting up permissions for my Terraform deployments.
 - And yes… I accidentally deployed parts of my stack to **two different AWS regions** (`us-east-1` and `us-east-2`) before realizing why things weren’t talking to each other 😅
 
