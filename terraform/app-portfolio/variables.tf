@@ -33,22 +33,6 @@ variable "owner_email" {
 }
 
 # ============================================================================
-# Secret Rotation
-# ============================================================================
-
-variable "enable_secret_rotation" {
-  description = "Enable automatic secret rotation (requires a rotation Lambda ARN)"
-  type        = bool
-  default     = false
-}
-
-variable "secret_rotation_lambda_arn" {
-  description = "ARN of Lambda function for secret rotation (required if enable_secret_rotation = true)"
-  type        = string
-  default     = ""
-}
-
-# ============================================================================
 # Domain / CORS
 # ============================================================================
 

@@ -41,9 +41,8 @@ output "email_notifier_function_name" {
 output "secrets_manager_arns" {
   description = "Secrets Manager secret ARNs"
   value = {
-    hmac_server_secret = aws_secretsmanager_secret.hmac_server.arn
-    turnstile_secret   = aws_secretsmanager_secret.turnstile.arn
-    resend_api_key     = aws_secretsmanager_secret.resend.arn
+    turnstile_secret = aws_secretsmanager_secret.turnstile.arn
+    resend_api_key   = aws_secretsmanager_secret.resend.arn
   }
 }
 

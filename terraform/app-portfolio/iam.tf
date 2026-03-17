@@ -63,7 +63,6 @@ resource "aws_iam_role_policy" "lead_processor_secrets" {
       Effect = "Allow"
       Action = ["secretsmanager:GetSecretValue"]
       Resource = [
-        aws_secretsmanager_secret.hmac_server.arn,
         aws_secretsmanager_secret.turnstile.arn
       ]
     }]
