@@ -1,5 +1,25 @@
+locals {
+  account_id = data.aws_caller_identity.current.account_id
+  region     = data.aws_region.current.name
+  repo       = "repo:DaltonBuilds/portfolio-dalton-ousley"
+
+  lambda_arns = [
+    "arn:aws:lambda:${local.region}:${local.account_id}:function:portfolio-leads-prod-lead-processor",
+    "arn:aws:lambda:${local.region}:${local.account_id}:function:portfolio-leads-prod-email-notifier",
+  ]
+
+  ecr_repo_arns = [
+    "arn:aws:ecr:${local.region}:${local.account_id}:repository/portfolio-leads-prod-lead-processor",
+    "arn:aws:ecr:${local.region}:${local.account_id}:repository/portfolio-leads-prod-email-notifier",
+  ]
+}
+
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
+
+# ===========================================================================
+# Trust policy — allow OIDC from main branch pushes AND pull requests
+# ===========================================================================
 
 data "aws_iam_policy_document" "github_actions_trust" {
   statement {
@@ -20,41 +40,313 @@ data "aws_iam_policy_document" "github_actions_trust" {
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:DaltonBuilds/portfolio-dalton-ousley:ref:refs/heads/main"]
+      values = [
+        "${local.repo}:ref:refs/heads/main",
+        "${local.repo}:pull_request",
+      ]
     }
   }
 }
 
+# ===========================================================================
+# Permissions — Terraform state backend (S3)
+# ===========================================================================
+
 data "aws_iam_policy_document" "github_actions_permissions" {
   statement {
-    effect  = "Allow"
-    actions = ["lambda:UpdateFunctionCode"]
-    resources = [
-      "arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:portfolio-leads-prod-lead-processor",
-      "arn:aws:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:portfolio-leads-prod-email-notifier",
+    sid    = "TerraformStateList"
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket",
     ]
+    resources = ["arn:aws:s3:::dalton-portfolio-prod-terraform-state"]
   }
 
   statement {
+    sid    = "TerraformStateReadWrite"
+    effect = "Allow"
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:DeleteObject",
+    ]
+    resources = ["arn:aws:s3:::dalton-portfolio-prod-terraform-state/portfolio-leads/*"]
+  }
+
+  # ===========================================================================
+  # ECR — push images (deploy job) + Terraform manages repos & lifecycle policies
+  # ===========================================================================
+
+  statement {
+    sid       = "EcrAuth"
     effect    = "Allow"
     actions   = ["ecr:GetAuthorizationToken"]
     resources = ["*"]
   }
 
   statement {
+    sid    = "EcrPush"
     effect = "Allow"
     actions = [
       "ecr:BatchCheckLayerAvailability",
       "ecr:InitiateLayerUpload",
       "ecr:UploadLayerPart",
       "ecr:CompleteLayerUpload",
-      "ecr:PutImage"
+      "ecr:PutImage",
     ]
+    resources = local.ecr_repo_arns
+  }
 
-    resources = [
-      "arn:aws:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/portfolio-leads-prod-lead-processor",
-      "arn:aws:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/portfolio-leads-prod-email-notifier",
+  statement {
+    sid    = "EcrManage"
+    effect = "Allow"
+    actions = [
+      "ecr:CreateRepository",
+      "ecr:DeleteRepository",
+      "ecr:DescribeRepositories",
+      "ecr:ListTagsForResource",
+      "ecr:TagResource",
+      "ecr:UntagResource",
+      "ecr:GetRepositoryPolicy",
+      "ecr:SetRepositoryPolicy",
+      "ecr:DeleteRepositoryPolicy",
+      "ecr:PutImageScanningConfiguration",
+      "ecr:PutImageTagMutability",
+      "ecr:GetLifecyclePolicy",
+      "ecr:PutLifecyclePolicy",
+      "ecr:DeleteLifecyclePolicy",
+      "ecr:BatchGetImage",
+      "ecr:DescribeImages",
     ]
+    resources = local.ecr_repo_arns
+  }
+
+  # ===========================================================================
+  # Lambda — Terraform manages functions, permissions, event source mappings
+  # ===========================================================================
+
+  statement {
+    sid    = "LambdaManage"
+    effect = "Allow"
+    actions = [
+      "lambda:GetFunction",
+      "lambda:GetFunctionConfiguration",
+      "lambda:GetFunctionCodeSigningConfig",
+      "lambda:CreateFunction",
+      "lambda:UpdateFunctionCode",
+      "lambda:UpdateFunctionConfiguration",
+      "lambda:DeleteFunction",
+      "lambda:ListVersionsByFunction",
+      "lambda:GetPolicy",
+      "lambda:AddPermission",
+      "lambda:RemovePermission",
+      "lambda:ListTags",
+      "lambda:TagResource",
+      "lambda:UntagResource",
+    ]
+    resources = local.lambda_arns
+  }
+
+  # ===========================================================================
+  # IAM — Terraform manages Lambda execution roles & inline policies
+  # ===========================================================================
+
+  statement {
+    sid    = "IamRoles"
+    effect = "Allow"
+    actions = [
+      "iam:GetRole",
+      "iam:CreateRole",
+      "iam:DeleteRole",
+      "iam:UpdateRole",
+      "iam:UpdateAssumeRolePolicy",
+      "iam:PassRole",
+      "iam:ListRolePolicies",
+      "iam:ListAttachedRolePolicies",
+      "iam:ListInstanceProfilesForRole",
+      "iam:TagRole",
+      "iam:UntagRole",
+      "iam:GetRolePolicy",
+      "iam:PutRolePolicy",
+      "iam:DeleteRolePolicy",
+      "iam:AttachRolePolicy",
+      "iam:DetachRolePolicy",
+    ]
+    resources = [
+      "arn:aws:iam::${local.account_id}:role/portfolio-leads-prod-*",
+    ]
+  }
+
+  # ===========================================================================
+  # API Gateway v2 — Terraform manages HTTP API, stages, routes, integrations
+  # ===========================================================================
+
+  statement {
+    sid    = "ApiGatewayManage"
+    effect = "Allow"
+    actions = [
+      "apigateway:GET",
+      "apigateway:POST",
+      "apigateway:PUT",
+      "apigateway:PATCH",
+      "apigateway:DELETE",
+      "apigateway:TagResource",
+      "apigateway:UntagResource",
+    ]
+    resources = [
+      "arn:aws:apigateway:${local.region}::/apis",
+      "arn:aws:apigateway:${local.region}::/apis/*",
+    ]
+  }
+
+  # ===========================================================================
+  # DynamoDB — Terraform manages the leads table
+  # ===========================================================================
+
+  statement {
+    sid    = "DynamoDbManage"
+    effect = "Allow"
+    actions = [
+      "dynamodb:CreateTable",
+      "dynamodb:DeleteTable",
+      "dynamodb:DescribeTable",
+      "dynamodb:DescribeContinuousBackups",
+      "dynamodb:DescribeTimeToLive",
+      "dynamodb:UpdateTable",
+      "dynamodb:UpdateContinuousBackups",
+      "dynamodb:UpdateTimeToLive",
+      "dynamodb:ListTagsOfResource",
+      "dynamodb:TagResource",
+      "dynamodb:UntagResource",
+    ]
+    resources = [
+      "arn:aws:dynamodb:${local.region}:${local.account_id}:table/portfolio-leads-prod-*",
+    ]
+  }
+
+  # ===========================================================================
+  # EventBridge — custom bus, rules, targets
+  # ===========================================================================
+
+  statement {
+    sid    = "EventBridgeManage"
+    effect = "Allow"
+    actions = [
+      "events:CreateEventBus",
+      "events:DeleteEventBus",
+      "events:DescribeEventBus",
+      "events:PutRule",
+      "events:DeleteRule",
+      "events:DescribeRule",
+      "events:PutTargets",
+      "events:RemoveTargets",
+      "events:ListTargetsByRule",
+      "events:ListTagsForResource",
+      "events:TagResource",
+      "events:UntagResource",
+    ]
+    resources = [
+      "arn:aws:events:${local.region}:${local.account_id}:event-bus/portfolio-leads-prod-*",
+      "arn:aws:events:${local.region}:${local.account_id}:rule/portfolio-leads-prod-*/*",
+    ]
+  }
+
+  # ===========================================================================
+  # SQS — DLQ for EventBridge target
+  # ===========================================================================
+
+  statement {
+    sid    = "SqsManage"
+    effect = "Allow"
+    actions = [
+      "sqs:CreateQueue",
+      "sqs:DeleteQueue",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+      "sqs:SetQueueAttributes",
+      "sqs:ListQueueTags",
+      "sqs:TagQueue",
+      "sqs:UntagQueue",
+    ]
+    resources = [
+      "arn:aws:sqs:${local.region}:${local.account_id}:portfolio-leads-prod-*",
+    ]
+  }
+
+  # ===========================================================================
+  # CloudWatch Logs — log groups for Lambda & API Gateway
+  # ===========================================================================
+
+  statement {
+    sid    = "CloudWatchLogsManage"
+    effect = "Allow"
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:DeleteLogGroup",
+      "logs:DescribeLogGroups",
+      "logs:ListTagsForResource",
+      "logs:TagResource",
+      "logs:UntagResource",
+      "logs:PutRetentionPolicy",
+      "logs:DeleteRetentionPolicy",
+    ]
+    resources = [
+      "arn:aws:logs:${local.region}:${local.account_id}:log-group:/aws/lambda/portfolio-leads-prod-*",
+      "arn:aws:logs:${local.region}:${local.account_id}:log-group:/aws/apigateway/portfolio-leads-prod*",
+    ]
+  }
+
+  # ===========================================================================
+  # CloudWatch Alarms — metric alarms for Lambda, API GW, DynamoDB, SQS
+  # ===========================================================================
+
+  statement {
+    sid    = "CloudWatchAlarmsManage"
+    effect = "Allow"
+    actions = [
+      "cloudwatch:PutMetricAlarm",
+      "cloudwatch:DeleteAlarms",
+      "cloudwatch:DescribeAlarms",
+      "cloudwatch:ListTagsForResource",
+      "cloudwatch:TagResource",
+      "cloudwatch:UntagResource",
+    ]
+    resources = [
+      "arn:aws:cloudwatch:${local.region}:${local.account_id}:alarm:portfolio-leads-prod-*",
+    ]
+  }
+
+  # ===========================================================================
+  # Secrets Manager — Terraform manages secret metadata (not values)
+  # ===========================================================================
+
+  statement {
+    sid    = "SecretsManagerManage"
+    effect = "Allow"
+    actions = [
+      "secretsmanager:CreateSecret",
+      "secretsmanager:DeleteSecret",
+      "secretsmanager:DescribeSecret",
+      "secretsmanager:GetResourcePolicy",
+      "secretsmanager:PutResourcePolicy",
+      "secretsmanager:DeleteResourcePolicy",
+      "secretsmanager:TagResource",
+      "secretsmanager:UntagResource",
+    ]
+    resources = [
+      "arn:aws:secretsmanager:${local.region}:${local.account_id}:secret:portfolio/*",
+    ]
+  }
+
+  # ===========================================================================
+  # STS — Terraform data sources (aws_caller_identity)
+  # ===========================================================================
+
+  statement {
+    sid       = "StsGetCaller"
+    effect    = "Allow"
+    actions   = ["sts:GetCallerIdentity"]
+    resources = ["*"]
   }
 }
 
