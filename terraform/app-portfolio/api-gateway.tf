@@ -1,4 +1,3 @@
-# Testing CI/CD pipeline
 resource "aws_apigatewayv2_api" "leads" {
   name          = "${local.name_prefix}-api"
   protocol_type = "HTTP"
