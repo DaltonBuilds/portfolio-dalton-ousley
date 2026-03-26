@@ -1,7 +1,6 @@
 name: Build & Deploy Lambda's
 
 on:
-  workflow_dispatch:
   pull_request:
     branches: [main]
     paths:
@@ -13,79 +12,130 @@ on:
       - 'lambda/**'
       - 'terraform/app-portfolio/**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 env:
   ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  build-and-deploy:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        lambda: [email-notifier, lead-processor]
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Build ${{ matrix.lambda }} image
+        run: docker build -t ${{ matrix.lambda }} ./lambda/${{ matrix.lambda }}
+
+      - name: Scan ${{ matrix.lambda }} with Trivy
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
+        with:
+          image-ref: ${{ matrix.lambda }}
+          format: table
+          severity: 'CRITICAL'
+          ignore-unfixed: true
+          exit-code: '0' # TODO: change to blocking '1' after security measures finalized (https://www.notion.so/CI-CD-Portfolio-Site-3230f73ec0d9801f9c60fe79fe318fd9)
+
+  terraform-plan:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
-
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      # Always runs - validates Dockerfiles on PRs and push, Trivy scans
-      - name: Build email-notifier image
-        run: docker build -t email-notifier ./lambda/email-notifier
-
-      - name: Scan email-notifier image with Trivy
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
-        with:
-          image-ref: email-notifier
-          format: table
-          severity: 'CRITICAL'
-          ignore-unfixed: true
-          exit-code: '0' # TODO: change back to blocking '1' after security measures are finalized (https://www.notion.so/CI-CD-Portfolio-Site-3230f73ec0d9801f9c60fe79fe318fd9)
-
-      - name: Build lead-processor image
-        run: docker build -t lead-processor ./lambda/lead-processor
-
-      - name: Scan lead-processor image with Trivy
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
-        with:
-          image-ref: lead-processor
-          format: table
-          exit-code: '0'
-          severity: 'CRITICAL'
-          ignore-unfixed: true
-
-      # Only runs on push to main
       - name: Configure AWS credentials
-        if: github.event_name == 'push'
+        uses: aws-actions/configure-aws-credentials@8df5847569e6427dd6c4fb1cf565c83acfa8afa7 # v6.0.0
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@5e8dbf3c6d9deaf4193ca7a8fb23f2ac83bb6c85 # v4.0.0
+        with:
+          terraform_version: "~> 1.10.0"
+
+      - name: Terraform Init
+        working-directory: terraform/app-portfolio
+        run: terraform init -input=false -backend-config="profile="
+
+      - name: Terraform Validate
+        working-directory: terraform/app-portfolio
+        run: terraform validate
+
+      - name: Terraform Plan
+        working-directory: terraform/app-portfolio
+        run: terraform plan -input=false -var 'image_tag=${{ github.sha }}' -var 'aws_profile=' -no-color
+
+  deploy:
+    needs: validate
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        lambda: [email-notifier, lead-processor]
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@8df5847569e6427dd6c4fb1cf565c83acfa8afa7 # v6.0.0
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Login to ECR
-        if: github.event_name == 'push'
         uses: aws-actions/amazon-ecr-login@c962da2960ed15f492addc26fffa274485265950 # v2.0.2
 
-      - name: Push email-notifier to ECR
-        if: github.event_name == 'push'
-        run: |
-          docker tag email-notifier $ECR_REGISTRY/portfolio-leads-prod-email-notifier:${{ github.sha }}
-          docker push $ECR_REGISTRY/portfolio-leads-prod-email-notifier:${{ github.sha }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
 
-      - name: Push lead-processor to ECR
-        if: github.event_name == 'push'
-        run: |
-          docker tag lead-processor $ECR_REGISTRY/portfolio-leads-prod-lead-processor:${{ github.sha }}
-          docker push $ECR_REGISTRY/portfolio-leads-prod-lead-processor:${{ github.sha }}
+      - name: Build and push ${{ matrix.lambda }}
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
+        with:
+          context: ./lambda/${{ matrix.lambda }}
+          push: true
+          tags: ${{ env.ECR_REGISTRY }}/portfolio-leads-prod-${{ matrix.lambda }}:${{ github.sha }}
+          cache-from: type=gha,scope=${{ matrix.lambda }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.lambda }}
 
-      - name: Update email-notifier Lambda
-        if: github.event_name == 'push'
-        run: |
-          aws lambda update-function-code \
-            --function-name portfolio-leads-prod-email-notifier \
-            --image-uri $ECR_REGISTRY/portfolio-leads-prod-email-notifier:${{ github.sha }}
+  terraform-apply:
+    needs: deploy
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Update lead-processor Lambda
-        if: github.event_name == 'push'
-        run: |
-          aws lambda update-function-code \
-            --function-name portfolio-leads-prod-lead-processor \
-            --image-uri $ECR_REGISTRY/portfolio-leads-prod-lead-processor:${{ github.sha }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@8df5847569e6427dd6c4fb1cf565c83acfa8afa7 # v6.0.0
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@5e8dbf3c6d9deaf4193ca7a8fb23f2ac83bb6c85 # v4.0.0
+        with:
+          terraform_version: "~> 1.10.0"
+
+      - name: Terraform Init
+        working-directory: terraform/app-portfolio
+        run: terraform init -input=false -backend-config="profile="
+
+      - name: Terraform Apply
+        working-directory: terraform/app-portfolio
+        run: terraform apply -auto-approve -input=false -var 'image_tag=${{ github.sha }}' -var 'aws_profile='
