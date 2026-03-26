@@ -19,6 +19,11 @@ concurrency:
 env:
   ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  TF_VAR_image_tag: ${{ github.sha }}
+  TF_VAR_aws_profile: ""
+  TF_VAR_owner_email: ${{ secrets.OWNER_EMAIL }}
+  TF_VAR_notification_email: ${{ secrets.NOTIFICATION_EMAIL }}
+  TF_VAR_notification_from_email: ${{ secrets.NOTIFICATION_FROM_EMAIL }}
 
 jobs:
   validate:
@@ -45,6 +50,7 @@ jobs:
           exit-code: '0' # TODO: change to blocking '1' after security measures finalized (https://www.notion.so/CI-CD-Portfolio-Site-3230f73ec0d9801f9c60fe79fe318fd9)
 
   terraform-plan:
+    needs: validate
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
@@ -74,7 +80,7 @@ jobs:
 
       - name: Terraform Plan
         working-directory: terraform/app-portfolio
-        run: terraform plan -input=false -var 'image_tag=${{ github.sha }}' -var 'aws_profile=' -no-color
+        run: terraform plan -input=false -no-color
 
   deploy:
     needs: validate
@@ -138,4 +144,4 @@ jobs:
 
       - name: Terraform Apply
         working-directory: terraform/app-portfolio
-        run: terraform apply -auto-approve -input=false -var 'image_tag=${{ github.sha }}' -var 'aws_profile='
+        run: terraform apply -auto-approve -input=false
