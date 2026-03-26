@@ -18,4 +18,4 @@ WORKDIR /var/task
 
 COPY --from=builder /var/task/dist ./dist
 
-CMD ["index.handler"]
+CMD ["dist/index.handler"]

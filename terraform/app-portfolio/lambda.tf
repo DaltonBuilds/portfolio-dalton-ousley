@@ -18,7 +18,7 @@ resource "aws_lambda_function" "lead_processor" {
   package_type  = "Image"
   image_uri     = "${aws_ecr_repository.lead_processor.repository_url}:${var.image_tag}"
   image_config { 
-    command = ["index.handler"] 
+    command = ["dist/index.handler"] 
     }
 
   environment {
@@ -100,7 +100,7 @@ resource "aws_lambda_function" "email_notifier" {
   package_type  = "Image"
   image_uri     = "${aws_ecr_repository.email_notifier.repository_url}:${var.image_tag}"
   image_config { 
-    command = ["index.handler"] 
+    command = ["dist/index.handler"] 
     }
 
   environment {
