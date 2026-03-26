@@ -114,6 +114,8 @@ jobs:
           context: ./lambda/${{ matrix.lambda }}
           push: true
           tags: ${{ env.ECR_REGISTRY }}/portfolio-leads-prod-${{ matrix.lambda }}:${{ github.sha }}
+          platforms: linux/amd64
+          provenance: false
           cache-from: type=gha,scope=${{ matrix.lambda }}
           cache-to: type=gha,mode=max,scope=${{ matrix.lambda }}
 
