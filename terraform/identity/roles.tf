@@ -278,12 +278,18 @@ data "aws_iam_policy_document" "github_actions_permissions" {
   # ===========================================================================
 
   statement {
+    sid       = "CloudWatchLogsDescribe"
+    effect    = "Allow"
+    actions   = ["logs:DescribeLogGroups"]
+    resources = ["arn:aws:logs:${local.region}:${local.account_id}:log-group:*"]
+  }
+
+  statement {
     sid    = "CloudWatchLogsManage"
     effect = "Allow"
     actions = [
       "logs:CreateLogGroup",
       "logs:DeleteLogGroup",
-      "logs:DescribeLogGroups",
       "logs:ListTagsForResource",
       "logs:TagResource",
       "logs:UntagResource",
