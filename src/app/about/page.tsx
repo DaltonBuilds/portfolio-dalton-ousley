@@ -442,14 +442,14 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* What I'm Looking For - CTA */}
-      <section className="section-padding bg-gradient-to-b from-background via-primary/5 to-background" aria-labelledby="looking-for-heading">
+      {/* What I'm Working On */}
+      <section className="section-padding bg-gradient-to-b from-background via-primary/5 to-background" aria-labelledby="working-on-heading">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-          <h2 id="looking-for-heading" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-2 relative pb-2 text-center break-words max-w-full overflow-hidden">
-            What I'm Looking For
+          <h2 id="working-on-heading" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-2 relative pb-2 text-center break-words max-w-full overflow-hidden">
+            What I&apos;m Working On
             <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-secondary rounded-full"></span>
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground text-center">{`> The right team and the right challenge`}</p>
+          <p className="mt-4 text-lg text-muted-foreground text-center">{`> Homelab v4 — the long-term build`}</p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -470,21 +470,23 @@ export default function AboutPage() {
                   
                   <div className="space-y-4 text-foreground/90">
                     <p className="text-lg">
-                      I'm actively seeking a full-time role as a <strong className="text-primary">DevOps Engineer</strong> or <strong className="text-primary">Cloud Engineer</strong> where I can contribute to building reliable, scalable infrastructure. I want to work with a team that values automation, observability, and continuous improvement.
+                      I&apos;m currently on my <strong className="text-primary">fourth homelab iteration</strong> — and this one is built to last. The architecture adds a new physical node, expands the VM fleet, and migrates the Kubernetes layer from k3s to a hardened <strong className="text-primary">RKE2</strong> cluster. A dedicated <strong className="text-primary">HashiCorp Vault</strong> cluster handles secrets management across the entire stack.
                     </p>
                     <p>
-                      I'm looking for an environment where I can learn from experienced engineers while bringing my own perspective from operating real infrastructure. I want to be part of on-call rotations, incident response, and the day-to-day work of keeping systems running.
+                      Once the architecture is healthy and properly load tested, the focus shifts to the areas I care most about: <strong className="text-primary">GitOps deployments</strong>, <strong className="text-primary">observability</strong>, <strong className="text-primary">CI/CD pipelines</strong>, and <strong className="text-primary">security hardening</strong>. The homelab is the proving ground — everything I build here reflects how I approach production infrastructure.
                     </p>
                     <p className="text-lg font-medium text-primary">
-                      If you're building infrastructure that matters and need someone who's genuinely passionate about this work, let's talk.
+                      Follow along on the blog as the build progresses.
                     </p>
                   </div>
                   
                   <div className="flex flex-wrap justify-center gap-4 pt-6">
-                    <Button onClick={openContactModal} size="lg" className="shadow-lg shadow-primary/30">
-                      <Rocket className="mr-2 h-4 w-4" />
-                      Get in Touch
-                    </Button>
+                    <Link href="/blog">
+                      <Button size="lg" className="shadow-lg shadow-primary/30">
+                        <Rocket className="mr-2 h-4 w-4" />
+                        Read the Blog
+                      </Button>
+                    </Link>
                     <Link href="/experience">
                       <Button variant="outline" size="lg">
                         <Code2 className="mr-2 h-4 w-4" />
