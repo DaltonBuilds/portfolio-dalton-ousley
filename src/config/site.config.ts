@@ -199,7 +199,7 @@ const rawSiteConfig: SiteConfig = {
   professional: {
     role: 'DevOps Engineer',
     location: 'Fort Collins, Colorado',
-    company: 'Freelance DevOps Consultant',
+    company: 'DevOps Engineer',
   },
 
   // Meta information

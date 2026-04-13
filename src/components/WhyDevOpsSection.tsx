@@ -21,9 +21,10 @@ const WhyDevOpsSection: React.FC = () => {
               are built, not just in theory, but by running them, breaking them, and fixing them.
             </p>
             <p className="text-foreground/80 leading-relaxed">
-              DevOps isn't just about tools—it's about building systems that teams can trust. I'm seeking full-time 
-              DevOps and Cloud Engineering roles where I can bring this hands-on operational experience to production 
-              environments, collaborate with talented teams, and continue learning from real-world challenges at scale.
+              DevOps isn't just about tools—it's about building systems that teams can trust. That means on-call 
+              rotations, incident response, and the unglamorous day-to-day work that keeps production healthy. 
+              This site documents that journey: the homelab experiments, the production deployments, and 
+              everything learned along the way.
             </p>
           </div>
         </Card>

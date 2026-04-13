@@ -58,7 +58,7 @@ const Hero: React.FC = () => {
             variant="outline" 
             size="lg" 
             className="text-lg px-8 py-6" 
-            aria-label="Contact Dalton about opportunities"
+            aria-label="Get in touch with Dalton"
             onClick={openContactModal}
           >
             <Rocket className="mr-2 h-5 w-5" aria-hidden="true" /> Get in Touch

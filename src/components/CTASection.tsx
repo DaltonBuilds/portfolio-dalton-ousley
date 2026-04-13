@@ -17,8 +17,8 @@ const CTASection: React.FC = () => {
             Let's Build Reliable Systems Together
           </h2>
           <p className="text-lg text-foreground/70 mb-8 max-w-2xl mx-auto">
-            I'm actively seeking full-time DevOps and Cloud Engineering roles where I can bring hands-on 
-            infrastructure experience, a passion for automation, and a commitment to operational excellence.
+            I'm always happy to connect with engineers, teams, and builders working on interesting infrastructure 
+            problems. If you're doing interesting work in the DevOps or cloud-native space, let's talk.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
