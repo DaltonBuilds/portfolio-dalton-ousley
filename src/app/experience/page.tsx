@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { Cloud, GitBranch } from 'lucide-react';
+import { Code2, Eye, Zap, RefreshCw, ShieldCheck, Server } from 'lucide-react';
 
 import SectionHeader from '@/components/SectionHeader';
 import { Card, CardContent } from '@/components/ui/Card';
@@ -194,31 +194,79 @@ export default function ExperiencePage() {
         </div>
       </section>
 
-      {/* Career Goals */}
+      {/* Operating Principles */}
       <section className="section-padding">
         <div className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            title="What I'm Looking For"
-            subtitle="Ready to contribute to a team building reliable, scalable infrastructure"
+            title="Operating Principles"
+            subtitle="The convictions that shape how I build and operate infrastructure"
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            <Card>
-                <CardContent className="pt-6">
-                    <GitBranch className="h-8 w-8 mx-auto mb-3 text-primary" />
-                    <h3 className="text-lg font-semibold mb-2">DevOps Engineer</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Building CI/CD pipelines, managing Kubernetes clusters, and implementing infrastructure as code to accelerate delivery.
-                    </p>
-                </CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <Card className="bg-card/60">
+              <CardContent className="pt-6 text-center">
+                <div className="inline-flex items-center justify-center p-3 rounded-lg bg-background/50 text-blue-500 dark:text-blue-400 mb-3">
+                  <Code2 className="h-8 w-8" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Everything as Code</h3>
+                <p className="text-sm text-muted-foreground">
+                  If it can&apos;t be reviewed in a PR, it doesn&apos;t exist. Infrastructure, configuration, and pipelines are versioned, auditable, and repeatable.
+                </p>
+              </CardContent>
             </Card>
-            <Card>
-                <CardContent className="pt-6">
-                    <Cloud className="h-8 w-8 mx-auto mb-3 text-primary" />
-                    <h3 className="text-lg font-semibold mb-2">Cloud Engineer</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Designing and operating cloud infrastructure with focus on reliability, security, and cost optimization.
-                    </p>
-                </CardContent>
+            <Card className="bg-card/60">
+              <CardContent className="pt-6 text-center">
+                <div className="inline-flex items-center justify-center p-3 rounded-lg bg-background/50 text-emerald-500 dark:text-emerald-400 mb-3">
+                  <Eye className="h-8 w-8" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Observability First</h3>
+                <p className="text-sm text-muted-foreground">
+                  A system you can&apos;t see inside isn&apos;t reliable — it&apos;s just lucky. Metrics, logs, and traces are requirements, not enhancements.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card/60">
+              <CardContent className="pt-6 text-center">
+                <div className="inline-flex items-center justify-center p-3 rounded-lg bg-background/50 text-yellow-500 dark:text-yellow-400 mb-3">
+                  <Zap className="h-8 w-8" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Automate the Toil, Own the Complexity</h3>
+                <p className="text-sm text-muted-foreground">
+                  Automation isn&apos;t an escape from understanding. Know what your pipelines are doing and why.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card/60">
+              <CardContent className="pt-6 text-center">
+                <div className="inline-flex items-center justify-center p-3 rounded-lg bg-background/50 text-orange-500 dark:text-orange-400 mb-3">
+                  <RefreshCw className="h-8 w-8" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Recover Faster Than You Fail</h3>
+                <p className="text-sm text-muted-foreground">
+                  MTTR matters more than MTBF. Design for recovery, not just prevention. Runbooks, rollbacks, and chaos testing aren&apos;t optional.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card/60">
+              <CardContent className="pt-6 text-center">
+                <div className="inline-flex items-center justify-center p-3 rounded-lg bg-background/50 text-violet-500 dark:text-violet-400 mb-3">
+                  <ShieldCheck className="h-8 w-8" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Security Is Day One</h3>
+                <p className="text-sm text-muted-foreground">
+                  Retrofitting security is expensive and painful. RBAC, secrets management, and network policies belong in the initial design, not the last sprint.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card/60">
+              <CardContent className="pt-6 text-center">
+                <div className="inline-flex items-center justify-center p-3 rounded-lg bg-background/50 text-cyan-500 dark:text-cyan-400 mb-3">
+                  <Server className="h-8 w-8" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Treat the Homelab Like Production</h3>
+                <p className="text-sm text-muted-foreground">
+                  The habits built in low-stakes environments follow you into high-stakes ones. Real runbooks, real monitoring, real discipline.
+                </p>
+              </CardContent>
             </Card>
           </div>
         </div>
