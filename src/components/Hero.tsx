@@ -29,10 +29,10 @@ const Hero: React.FC = () => {
             <OptimizedImage
               src={PATHS.PROFILE_IMAGE}
               alt="Dalton Ousley profile picture"
-              width={600}
-              height={800}
+              width={1152}
+              height={864}
               className="w-full h-full object-cover"
-              style={{ objectPosition: '50% 20%' }}
+              style={{ objectPosition: '50% 50%' }}
               sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 200px"
               priority
             />
